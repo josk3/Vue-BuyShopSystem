@@ -5,6 +5,7 @@ import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/service/auth/token' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
+import configs from '@/configs'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -21,7 +22,7 @@ router.beforeEach(async(to, from, next) => {
   const hasToken = getToken()
 
   if (hasToken) {
-    if (to.path === '/login') {
+    if (to.path === configs.loginPath) {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done() // hack: https://github.com/PanJiaChen/vue-element-admin/pull/2939

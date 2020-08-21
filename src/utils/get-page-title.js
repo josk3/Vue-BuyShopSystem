@@ -1,6 +1,6 @@
-import defaultSettings from '@/settings'
+import configs from '@/configs'
 
-const title = defaultSettings.title || 'Merchant Portal'
+const title = configs.title || 'Merchant Portal'
 
 export default function getPageTitle(pageTitle) {
   if (pageTitle) {

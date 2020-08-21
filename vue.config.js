@@ -1,12 +1,12 @@
 'use strict'
 const path = require('path')
-const defaultSettings = require('./src/settings.js')
+const configs = require('@/configs.js')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || '商户后台' // page title
+const name = configs.title || '商户后台' // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
