@@ -21,6 +21,12 @@ router.beforeEach(async(to, from, next) => {
   // determine whether the user has logged in
   const hasToken = getToken()
 
+  //logout
+  if (to.path === configs.logoutPath) {
+    await store.dispatch('user/logout')
+    next(configs.loginPath)
+    NProgress.done()
+  }
   if (hasToken) {
     if (to.path === configs.loginPath) {
       //next({ path: configs.homePath })
@@ -33,7 +39,7 @@ router.beforeEach(async(to, from, next) => {
       } else {
         try {
           // get user info
-          const { menus } = await store.dispatch('user/getInfo')
+          const { menus } = await store.dispatch('user/loadUserInfo')
           if (menus === undefined || menus === '' || menus === null) {
             new Error('401')
           }

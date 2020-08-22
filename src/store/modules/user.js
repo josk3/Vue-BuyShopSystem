@@ -22,10 +22,9 @@ const mutations = {
 
 const actions = {
     // user login
-    login({commit}, userInfo) {
-        const {username, password} = userInfo
+    login({commit}, params) {
         return new Promise((resolve, reject) => {
-            login({username: username.trim(), password: password}).then(response => {
+            login(params).then(response => {
                 const {data} = response
                 commit('SET_TOKEN', data.token)
                 setToken(data.token)
@@ -37,7 +36,7 @@ const actions = {
     },
 
     // get user info
-    getInfo({commit, state}) {
+    loadUserInfo({commit, state}) {
         return new Promise((resolve, reject) => {
             getInfo(state.token).then(response => {
                 const {data} = response
@@ -54,7 +53,7 @@ const actions = {
 
                 // menus must be a non-empty array
                 if (!menus || menus.length <= 0) {
-                    reject('getInfo: menus must be a non-null array!')
+                    reject('menus must be a non-null array!')
                 }
 
                 commit('SET_MENUS', menus)

@@ -1,19 +1,22 @@
 <template>
     <div :class="classObj" class="wrap">
-        <Header></Header>
-        <div class="wrap-main">
-            <sidebar class="sidebar-container"></sidebar>
+        <Header :configs="configs"></Header>
+        <div class="container wrap-main">
+            <sidebar></sidebar>
             <div class="content-main">
                 <router-view></router-view>
             </div>
+
+            <!--   F    -->
+            <Footer></Footer>
         </div>
-        <Footer></Footer>
     </div>
 </template>
 
 <script>
     import {Sidebar, Header, Footer} from './components'
     import {mapState} from 'vuex'
+    import configs from '@/configs'
 
     export default {
         name: "Layout",
@@ -25,6 +28,9 @@
                 sidebar: state => state.app.sidebar,
                 device: state => state.app.device,
             }),
+            configs() {
+                return configs;
+            },
             classObj() {
                 return {
                     hideSidebar: !this.sidebar.opened,

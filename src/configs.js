@@ -9,6 +9,7 @@ module.exports = {
      */
     errorLog: 'production',
 
+    logoutPath: '/logout',
     loginPath: '/login',
     homePath: '/',
     apiCode: {
