@@ -1,6 +1,7 @@
-import {login, logout, getInfo} from '@/service/user/user'
+import {login, logout, getInfo} from '@/service/userSer'
 import {getToken, setToken, removeToken} from '@/service/auth/token'
 import router, {resetRouter} from '@/router'
+import merchant from "@/store/entity/merchant";
 
 const state = {
     token: getToken(),
@@ -57,23 +58,20 @@ const actions = {
                 if (!data) {
                     reject('Verification failed, please Login again.')
                 }
+                const {menus, user} = data
+                console.log(user)
+                console.log(menus)
+                const merchant = data.merchant
+                console.log(merchant)
+                console.log(data.merchant)
 
-                const {menus, roles, name, avatar, introduction} = data
-
-                // roles must be a non-empty array
-                if (!roles || roles.length <= 0) {
-                    reject('getInfo: roles must be a non-null array!')
-                }
                 // menus must be a non-empty array
                 if (!menus || menus.length <= 0) {
                     reject('getInfo: menus must be a non-null array!')
                 }
 
                 commit('SET_MENUS', menus)
-                commit('SET_ROLES', roles)
-                commit('SET_NAME', name)
-                commit('SET_AVATAR', avatar)
-                commit('SET_INTRODUCTION', introduction)
+                commit('SET_NAME', user.name)
                 resolve(data)
             }).catch(error => {
                 reject(error)

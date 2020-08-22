@@ -1,13 +1,18 @@
 module.exports = {
-  title: 'Merchant Portal',
+    title: 'Merchant Portal',
 
-  /**
-   * @type {string | array} 'production' | ['production', 'development']
-   * @description Need show err logs component.
-   * The default is only used in the production env
-   * If you want to also use it in dev, you can pass ['production', 'development']
-   */
-  errorLog: 'production',
+    /**
+     * @type {string | array} 'production' | ['production', 'development']
+     * @description Need show err logs component.
+     * The default is only used in the production env
+     * If you want to also use it in dev, you can pass ['production', 'development']
+     */
+    errorLog: 'production',
 
-  loginPath: '/login'
+    loginPath: '/login',
+    homePath: '/',
+    apiCode: {
+        needLogin: 7011,
+    }
+
 }

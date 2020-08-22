@@ -1,3 +1,75 @@
+function demoUserInfo() {
+    return {
+        status: 1,
+        data: {
+            merchant: {
+                mer_no: '4008'
+            },
+            user: {
+                uid: 1,
+                username: 'kenny',
+                name: '张三',
+                email: 'xxx@test.com',
+                second_login: '2020-01-01 00:00:00',
+                status: 1,
+                identifier_status: 0,
+                mer_no: '4008',
+                notice: 0
+            },
+            token: "00e3c2a5d87a9e34ef2e879309cb1a31bf3dc56eb0f77fe4ba",
+            menus: [
+                {
+                    "name": "home",
+                    "path": "/",
+                    "meta": null,
+                    "children": null
+                },
+                {
+                    "name": "profile",
+                    "path": "/profile",
+                    "meta": null,
+                    "children": null
+                },
+                {
+                    "name": "active_account",
+                    "path": "/merchant/active_account",
+                    "meta": null,
+                    "children": null
+                },
+                {
+                    "name": "trade_manage",
+                    "path": "/trade/manage",
+                    "meta": null,
+                    "children": null
+                },
+                {
+                    "name": "payout_select",
+                    "path": "/payout/select",
+                    "meta": null,
+                    "children": [
+                        {
+                            "name": "payout_apply",
+                            "path": "/payout/apply",
+                            "meta": null
+                        },
+                        {
+                            "name": "payout_history",
+                            "path": "/payout/history",
+                            "meta": null
+                        }
+                    ]
+                },
+                {
+                    "name": "account_manage",
+                    "path": "/account/manage",
+                    "meta": null,
+                    "children": null
+                }
+            ]
+        }
+    };
+}
+
 const proxy = {
     // Priority processing.
     // apiMocker(app, path, option)
@@ -11,7 +83,11 @@ const proxy = {
             //'/api/v1/(.*)': 'http://localhost:8013',
             //'/api/v1/(.*)': 'http://192.168.3.182:8013',
         },
-        changeHost: true
+        changeHost: true,
+        header: {
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+        }
     },
     // =====================
     // The default GET request.
@@ -41,66 +117,7 @@ const proxy = {
     'POST /api/v1/login': (req, res) => {
         const {password, username} = req.body;
         if (password === 'Test123456' && username === 'admin') {
-            return res.json({
-                status: 1,
-                data: {
-                    user: {
-                        uid: 1,
-                        username: 'kenny',
-                        name: '张三',
-                        email: 'xxx@test.com',
-                        second_login: '2020-01-01 00:00:00',
-                        status: 1,
-                        identifier_status: 0,
-                        mer_no: '4008',
-                        notice: 0
-                    },
-                    token: "00e3c2a5d87a9e34ef2e879309cb1a31bf3dc56eb0f77fe4ba",
-                    menus: [
-                        {
-                            "name": "home",
-                            "path": "/",
-                            "meta": null,
-                            "children": null
-                        },
-                        {
-                            "name": "active_account",
-                            "path": "/merchant/active_account",
-                            "meta": null,
-                            "children": null
-                        },
-                        {
-                            "name": "trade_manage",
-                            "path": "/trade/manage",
-                            "meta": null,
-                            "children": null
-                        },
-                        {
-                            "name": "payout_select",
-                            "path": "/payout/select",
-                            "meta": null,
-                            "children": [
-                                {
-                                    "name": "payout_apply",
-                                    "path": "/payout/apply",
-                                    "meta": null
-                                },
-                                {
-                                    "name": "payout_history",
-                                    "path": "/payout/history",
-                                    "meta": null
-                                }
-                            ]
-                        },
-                        {
-                            "name": "account_manage",
-                            "path": "/account/manage",
-                            "meta": null,
-                            "children": null
-                        }
-                    ]
-                }
-            });
+            return res.json(demoUserInfo());
         } else {
             return res.status(200).json({
                 status: 0,
@@ -116,6 +133,12 @@ const proxy = {
             message: '注册成功',
             i18n: 'success',
         });
+    },
+    'POST /api/v1/user/info': (req, res) => {
+        return res.json(demoUserInfo());
+    },
+    '/api/v1/user/info': (req, res) => {
+        return res.json(demoUserInfo());
     },
     'DELETE /api/user/:id': (req, res) => {
         console.log('---->', req.body)
