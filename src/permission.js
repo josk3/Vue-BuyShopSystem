@@ -34,6 +34,9 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           const { menus } = await store.dispatch('user/getInfo')
+          if (menus === undefined || menus === '' || menus === null) {
+            new Error('401')
+          }
           //user menus
           router.addRoutes(menus)
           // hack method to ensure that addRoutes is complete
