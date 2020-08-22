@@ -50,8 +50,10 @@
                         .then(() => {
                             let redirect = this.redirect && this.redirect !== configs.loginPath ? this.redirect : configs.homePath
                             this.$router.push({path: redirect})
+                            //this.$message.success('登录成功')
                         })
-                        .catch(() => {
+                        .catch((e) => {
+                            console.error(e)
                         }).finally(() => {
                         this.loading = false
                     })

@@ -26,6 +26,9 @@ router.beforeEach(async(to, from, next) => {
     await store.dispatch('user/logout')
     next(configs.loginPath)
     NProgress.done()
+    if (from.path !== configs.loginPath) {
+      Message.success('退出登录')
+    }
   }
   if (hasToken) {
     if (to.path === configs.loginPath) {
