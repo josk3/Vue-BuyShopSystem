@@ -1,12 +1,19 @@
 <template>
     <div>
-        profile
+        profile111
     </div>
 </template>
 
 <script>
+    import request from '@/utils/request'
     export default {
-        name: "index"
+        name: "profile",
+        mounted() {
+            request({
+                url: '/profile',
+                method: 'get'
+            })
+        },
     }
 </script>
 

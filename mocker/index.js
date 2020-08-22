@@ -137,8 +137,11 @@ const proxy = {
     'POST /api/v1/user/info': (req, res) => {
         return res.json(demoUserInfo());
     },
-    '/api/v1/user/info': (req, res) => {
-        return res.json(demoUserInfo());
+    'GET /api/v1/profile': (req, res) => {
+        let u = demoUserInfo();
+        u.code = 7010;
+        u.data.user.email = '77777'
+        return res.json(u);
     },
     'DELETE /api/user/:id': (req, res) => {
         console.log('---->', req.body)

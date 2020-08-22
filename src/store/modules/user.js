@@ -73,6 +73,12 @@ const actions = {
         })
     },
 
+    updateUser({commit}, newData) {
+        if (newData !== undefined && newData !== '') {
+            commit('SET_USER', newData);
+        }
+    },
+
     // user logout
     logout({commit, state}) {
         return new Promise((resolve, reject) => {
