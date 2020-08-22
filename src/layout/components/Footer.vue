@@ -1,12 +1,12 @@
 <template>
     <div>
-        home
+        footer
     </div>
 </template>
 
 <script>
     export default {
-        name: "home"
+        name: "Footer"
     }
 </script>
 

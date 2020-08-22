@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path')
-const configs = require('@/configs.js')
+const configs = require('./src/configs.js')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -36,7 +36,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mocker/mock-server.js')
+    // before: require('./mocker/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
