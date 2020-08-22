@@ -4,8 +4,8 @@
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="#">Features</a>
             <a class="p-2 text-dark" href="#">Enterprise</a>
-            <a class="p-2 text-dark" href="#">Support</a>
-            <a class="p-2 text-dark" href="#">Pricing</a>
+            <a class="p-2 text-dark" href="#">{{ user.name }}</a>
+            <a class="p-2 text-dark" href="#">{{ user.email }}</a>
         </nav>
         <router-link :to="configs.logoutPath" class="btn btn-outline-primary">
             <span>退出</span>
@@ -20,11 +20,17 @@
 
 <script>
     import configs from "@/configs";
+    import user from "@/store/modules/user";
 
     export default {
         name: "Header",
         props: {
             configs
+        },
+        data() {
+            return {
+                user: user.state.user,
+            }
         }
     }
 </script>

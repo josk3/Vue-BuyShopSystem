@@ -4,6 +4,17 @@ import {resetRouter} from '@/router'
 
 const state = {
     token: getToken(),
+    user: {
+        uid: null,
+        username: null,
+        name: null,
+        email: null,
+        second_login: null,
+        status: null,
+        identifier_status: null,
+        mer_no: null,
+        notice: 0
+    },
     name: '',
     avatar: '',
     introduction: '',
@@ -17,7 +28,10 @@ const mutations = {
     },
     SET_MENUS: (state, menus) => {
         state.menus = menus
-    }
+    },
+    SET_USER: (state, user) => {
+        state.user = user
+    },
 }
 
 const actions = {
@@ -27,6 +41,7 @@ const actions = {
             login(params).then(response => {
                 const {data} = response
                 commit('SET_TOKEN', data.token)
+                commit('SET_USER', data.user)
                 setToken(data.token)
                 resolve()
             }).catch(error => {
@@ -45,18 +60,12 @@ const actions = {
                     reject('Verification failed, please Login again.')
                 }
                 const {menus, user} = data
-                console.log(user)
-                console.log(menus)
-                const merchant = data.merchant
-                console.log(merchant)
-                console.log(data.merchant)
-
                 // menus must be a non-empty array
                 if (!menus || menus.length <= 0) {
                     reject('menus must be a non-null array!')
                 }
-
                 commit('SET_MENUS', menus)
+                commit('SET_USER', user)
                 resolve(data)
             }).catch(error => {
                 reject(error)

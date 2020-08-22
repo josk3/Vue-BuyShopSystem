@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie'
-import user from "@/store/modules/user";
 
 const TokenKey = 'Wp-Token'
 
@@ -8,8 +7,7 @@ export function getTokenKey() {
 }
 
 export function getToken() {
-  let token = Cookies.get(TokenKey);
-  return token || user.state.token;
+  return Cookies.get(TokenKey);
 }
 
 export function setToken(token) {
