@@ -28,6 +28,17 @@ module.exports = {
         mer_no: '商户号',
 
     },
+    valid: {
+        bad: {
+            username_or_password: '用户名或密码错误'
+        },
+        fail: {
+            password_more_miss: '密码错误次数过多,请找回密码或联系管理员'
+        }
+    },
+    error: {
+
+    },
     home: {},
     profile: {},
 }
