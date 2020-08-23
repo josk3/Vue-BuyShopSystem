@@ -7,6 +7,7 @@ import {getToken} from '@/service/auth/token' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
 import configs from '@/configs'
 import {convertRouters, renderRedirectTo} from "@/router/routerUtils";
+import i18n from "@/service/i18n";
 
 NProgress.configure({showSpinner: false}) // NProgress Configuration
 
@@ -31,7 +32,7 @@ router.beforeEach(async (to, from, next) => {
         next(configs.loginPath)
         NProgress.done()
         if (from.path !== configs.loginPath) {
-            Message.success('退出登录')
+            Message.success(i18n.t('comm.logout_ok'))
         }
     }
     if (hasToken) {

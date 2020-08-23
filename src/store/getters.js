@@ -8,5 +8,6 @@ const getters = {
   introduction: state => state.user.introduction,
   roles: state => state.user.roles,
   menus: state => state.user.menus,//侧边目录
+  lang: state => state.app.lang,//多语言
 }
 export default getters

@@ -2,6 +2,7 @@
     <div>
         home
         <h3>{{ user.name }}</h3>
+
     </div>
 </template>
 

@@ -2,25 +2,31 @@
     <div>
         <div class="text-center" v-loading="loading">
             <form class="form-signin" method="post" onsubmit="return false">
-                <h1 class="h3 mb-3 font-weight-normal">用户登录</h1>
+                <h1 class="h3 mb-3 font-weight-normal">{{ $t('comm.merchant_login') }}</h1>
                 <label for="inputMerNo" class="sr-only">商户号</label>
                 <input type="text" id="inputMerNo" name="merNo" class="form-control"
                        v-model="userLogin.mer_no"
-                       placeholder="商户号" required
+                       :placeholder="$t('user.mer_no')" required
                        autofocus>
                 <label for="inputUsername" class="sr-only">Password</label>
                 <input type="text" id="inputUsername" name="username" class="form-control"
                        v-model="userLogin.username"
-                       placeholder="用户名" required>
+                       :placeholder="$t('user.username')" required>
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" name="password" class="form-control"
                        v-model="userLogin.password"
-                       placeholder="密码"
+                       :placeholder="$t('user.password')"
                        required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit"
-                        @click="submitLogin">Sign in
+                        @click="submitLogin">{{ $t('comm.login') }}
                 </button>
-                <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+
+                <div class="d-block mt-5">
+                    <a href="javascript:void(0)" class="btn btn-link btn-sm mr-2" @click="goLangZh">中文</a>
+                    <a href="javascript:void(0)" class="btn btn-link btn-sm" @click="goLangEn">En</a>
+                </div>
+
+                <p class="mt-5 mb-3 text-muted">&copy; 2020 WINTOPAY</p>
             </form>
         </div>
     </div>
@@ -62,6 +68,16 @@
             }
         },
         methods: {
+
+            goLangEn: function () {
+                this.$i18n.locale = 'en'
+                this.$store.dispatch('app/setLang', 'en')
+            },
+            goLangZh: function () {
+                this.$i18n.locale = 'zh'
+                this.$store.dispatch('app/setLang', 'zh')
+            },
+
             submitLogin() {
                 try {
                     this.loading = true

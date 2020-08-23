@@ -21,6 +21,7 @@ import * as filters from './filters' // global filters
 //-
 import 'bootstrap'
 import './configs'
+import i18n from "@/service/i18n";
 //-
 Vue.use(Element, {
     size: Cookies.get('size') || 'medium', // set element-ui default size
@@ -36,6 +37,7 @@ Vue.config.productionTip = false
 
 new Vue({
     el: '#portal',
+    i18n,
     router,
     store,
     render: h => h(App)

@@ -30,7 +30,10 @@
                     <li><a class="text-muted" href="#">Team</a></li>
                     <li><a class="text-muted" href="#">Locations</a></li>
                     <li><a class="text-muted" href="#">Privacy</a></li>
-                    <li><a class="text-muted" href="#">Terms</a></li>
+                    <li>
+                        <a href="javascript:void(0)" class="btn btn-link btn-sm mr-2" @click="goLangZh">中文</a>
+                        <a href="javascript:void(0)" class="btn btn-link btn-sm" @click="goLangEn">En</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -38,8 +41,34 @@
 </template>
 
 <script>
+    import {mapState} from "vuex";
+    import configs from "@/configs";
+    import user from "@/store/modules/user";
+
     export default {
-        name: "Footer"
+        name: "Footer",
+        computed: { //watch跟踪数据变化, 重点user, configs
+            ...mapState({
+                sidebar: state => state.app.sidebar,
+                device: state => state.app.device,
+            }),
+            configs() {
+                return configs;
+            },
+            user() {
+                return user.state.user;
+            },
+        },
+        methods: {
+            goLangEn: function () {
+                this.$i18n.locale = 'en'
+                this.$store.dispatch('app/setLang', 'en')
+            },
+            goLangZh: function () {
+                this.$i18n.locale = 'zh'
+                this.$store.dispatch('app/setLang', 'zh')
+            },
+        }
     }
 </script>
 

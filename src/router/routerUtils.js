@@ -87,7 +87,6 @@ export function convertRouters(userMenu) {
     return [
         {
             path: '',
-            name: 'root',
             component: Layout,
             children: sideMenu
         }

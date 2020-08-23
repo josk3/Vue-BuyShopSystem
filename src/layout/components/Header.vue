@@ -7,7 +7,7 @@
             <a class="p-2 text-dark" href="#">{{ user.email }}</a>
         </nav>
         <router-link :to="configs.logoutPath" class="btn btn-outline-primary">
-            <span>退出</span>
+            <span>{{ $t('comm.logout') }}</span>
         </router-link>
         <router-link :to="configs.homePath">
             <el-button type="primary">
