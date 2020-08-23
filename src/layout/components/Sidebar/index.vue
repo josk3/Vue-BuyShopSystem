@@ -7,18 +7,20 @@
                     @open="handleOpen"
                     @close="handleClose" router>
                 <div v-for="(route, i)  in menus" :key="i">
-                    <el-menu-item v-if="!route.children" :index="route.path">
-                        <span slot="title">{{ $t('nav.'+route.name) }}</span>
-                    </el-menu-item>
-                    <el-submenu v-if="route.children" :index="route.path">
-                        <template slot="title">
-                            <span>{{ route.name }}</span>
-                        </template>
-                        <el-menu-item v-for="(children, c)  in route.children" :key="c"
-                                      :index="children.path">
-                            <span slot="title">{{ children.name }}</span>
+                    <div v-if="!route.hidden">
+                        <el-menu-item v-if="!route.have_show_child" :index="route.path">
+                            <span slot="title">{{ $t('nav.'+route.name) }}</span>
                         </el-menu-item>
-                    </el-submenu>
+                        <el-submenu v-if="route.have_show_child" :index="route.path">
+                            <template slot="title">
+                                <span>{{ $t('nav.'+route.name) }}</span>
+                            </template>
+                            <el-menu-item v-for="(children, c)  in route.children" :key="c"
+                                          :index="children.path" v-if="!children.hidden">
+                                <span slot="title">{{ $t('nav.'+children.name) }}</span>
+                            </el-menu-item>
+                        </el-submenu>
+                    </div>
                 </div>
             </el-menu>
         </el-col>

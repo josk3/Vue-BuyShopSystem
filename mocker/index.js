@@ -46,15 +46,18 @@ function demoUserInfo() {
                     "name": "payout_select",
                     "path": "/payout/select",
                     "meta": null,
+                    "have_show_child" : false,//要有可显示的子目录
                     "children": [
                         {
                             "name": "payout_apply",
                             "path": "/payout/apply",
+                            "hidden" : true,
                             "meta": null
                         },
                         {
                             "name": "payout_history",
                             "path": "/payout/history",
+                            "hidden" : true,
                             "meta": null
                         }
                     ]
