@@ -1,4 +1,4 @@
-import {isArray, isObject, isEmpty} from "@/utils/validate";
+import {isArray, isObject, isEmpty, isString} from "@/utils/validate";
 import Layout from "@/layout/index";
 
 /**
@@ -105,4 +105,8 @@ export function findPath(path, routerList) {
     return null
 }
 
+export function renderRedirectTo(redirectTo) {
+    if (isEmpty(redirectTo) || !isString(redirectTo) || redirectTo === '/') return ''
+    return '?redirect=' + (redirectTo.startsWith('/') ? redirectTo.replace('/', '') : redirectTo);
+}
 

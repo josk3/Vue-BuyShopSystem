@@ -69,13 +69,13 @@
                         .then(() => {
                             let redirect;
                             if (!isEmpty(this.redirect) && this.redirect !== configs.loginPath) {
-                                let findRouterPath = findPath(this.redirect, this.menus);
+                                let findRouterPath = findPath('/' + this.redirect, this.menus);
                                 if (isEmpty(findRouterPath)) {//在路由有存在
                                     redirect = configs.homePath
-                                }else {
+                                } else {
                                     redirect = this.redirect
                                 }
-                            }else {
+                            } else {
                                 redirect = configs.homePath
                             }
                             this.$router.push({path: redirect})
@@ -106,4 +106,4 @@
     }
 </script>
 
-<style scoped src="../../../public/static/css/login.css" />
+<style scoped src="../../../public/static/css/login.css"/>
