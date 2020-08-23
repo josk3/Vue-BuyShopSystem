@@ -12,15 +12,19 @@ export const routerUtils = {
     },
     'payout_select': {
         component: () => import('@/views/portal/profile/index'),
-        meta: {title: 'Profile', icon: 'user', noCache: true}
+        meta: {noCache: true}
     },
     'payout_apply': {
         component: () => import('@/views/portal/profile/index'),
-        meta: {title: 'Profile', icon: 'user', noCache: true}
+        meta: {noCache: true}
     },
     'payout_history': {
         component: () => import('@/views/portal/profile/index'),
-        meta: {title: 'Profile', icon: 'user', noCache: true}
+        meta: {icon: 'user', noCache: true}
+    },
+    'chargeback_select': {
+        component: () => import('@/views/portal/profile/index'),
+        meta: {icon: 'user', noCache: true}
     },
 }
 

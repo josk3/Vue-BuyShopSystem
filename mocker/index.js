@@ -43,6 +43,24 @@ function demoUserInfo() {
                     "children": null
                 },
                 {
+                    "name": "chargeback_select",
+                    "path": "/chargeback/search",
+                    "meta": null,
+                    "have_show_child" : false,//要有可显示的子目录
+                    "children": [
+                        {
+                            "name": "chargeback_download",
+                            "path": "/chargeback/download",
+                            "hidden" : true,
+                        },
+                        {
+                            "name": "chargeback_apply",
+                            "path": "/chargeback/apply",
+                            "hidden" : true,
+                        }
+                    ]
+                },
+                {
                     "name": "payout_select",
                     "path": "/payout/select",
                     "meta": null,

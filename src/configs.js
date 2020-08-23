@@ -2,7 +2,7 @@
  * 配置值
  */
 module.exports = {
-    title: 'Merchant Portal',
+    title: 'portal.title', //i18n
 
     /**
      * @type {string | array} 'production' | ['production', 'development']
