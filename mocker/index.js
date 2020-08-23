@@ -64,7 +64,7 @@ function demoUserInfo() {
                     "path": "/account/manage",
                     "meta": null,
                     "children": null
-                }
+                },
             ]
         }
     };

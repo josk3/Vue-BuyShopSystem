@@ -1,3 +1,6 @@
+/**
+ * 配置值
+ */
 module.exports = {
     title: 'Merchant Portal',
 

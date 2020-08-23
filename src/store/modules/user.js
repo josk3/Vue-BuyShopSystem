@@ -1,6 +1,7 @@
-import {login, logout, getInfo} from '@/service/userSer'
-import {getToken, setToken, removeToken} from '@/service/auth/token'
-import {resetRouter} from '@/router'
+import {getInfo, login, logout} from '@/service/userSer'
+import {getToken, removeToken, setToken} from '@/service/auth/token'
+import router, {resetRouter} from '@/router'
+import {convertRouters} from "@/router/routerUtils";
 
 const state = {
     token: getToken(),
@@ -43,7 +44,10 @@ const actions = {
                 const {data} = response
                 commit('SET_TOKEN', data.token)
                 commit('SET_USER', data.user)
+                commit('SET_MENUS', data.menus)
                 setToken(data.token)
+                //后端数据 add router
+                router.addRoutes(convertRouters(data.menus))
                 resolve()
             }).catch(error => {
                 reject(error)

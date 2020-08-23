@@ -28,9 +28,28 @@
 
 <script>
     import configs from "@/configs";
+    import {findPath} from "@/router/routerUtils";
+    import {mapState} from "vuex";
+    import user from "@/store/modules/user";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "login",
+        computed: { //watch跟踪数据变化, 重点user, configs
+            ...mapState({
+                sidebar: state => state.app.sidebar,
+                device: state => state.app.device,
+            }),
+            configs() {
+                return configs;
+            },
+            user() {
+                return user.state.user;
+            },
+            menus() {
+                return user.state.menus;
+            },
+        },
         data() {
             return {
                 userLogin: {
@@ -48,7 +67,17 @@
                     this.loading = true
                     this.$store.dispatch('user/login', this.userLogin)
                         .then(() => {
-                            let redirect = this.redirect && this.redirect !== configs.loginPath ? this.redirect : configs.homePath
+                            let redirect;
+                            if (!isEmpty(this.redirect) && this.redirect !== configs.loginPath) {
+                                let findRouterPath = findPath(this.redirect, this.menus);
+                                if (isEmpty(findRouterPath)) {//在路由有存在
+                                    redirect = configs.homePath
+                                }else {
+                                    redirect = this.redirect
+                                }
+                            }else {
+                                redirect = configs.homePath
+                            }
                             this.$router.push({path: redirect})
                             //this.$message.success('登录成功')
                         })

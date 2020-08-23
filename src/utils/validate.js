@@ -1,7 +1,14 @@
-
 export function isGeneral(str) {
-  const reg = /^[A-Za-z0-9_]+$/
-  return reg.test(str)
+    const reg = /^[A-Za-z0-9_]+$/
+    return reg.test(str)
+}
+
+export function isObject(obj) {
+    return typeof obj === 'object' || obj instanceof Object;
+}
+
+export function isEmpty(obj) {
+    return obj === undefined || obj === '' || obj === null;
 }
 
 //---
@@ -11,7 +18,7 @@ export function isGeneral(str) {
  * @returns {Boolean}
  */
 export function isExternal(path) {
-  return /^(https?:|mailto:|tel:)/.test(path)
+    return /^(https?:|mailto:|tel:)/.test(path)
 }
 
 /**
@@ -19,8 +26,8 @@ export function isExternal(path) {
  * @returns {Boolean}
  */
 export function validUsername(str) {
-  const valid_map = ['admin', 'editor']
-  return valid_map.indexOf(str.trim()) >= 0
+    const valid_map = ['admin', 'editor']
+    return valid_map.indexOf(str.trim()) >= 0
 }
 
 /**
@@ -28,8 +35,8 @@ export function validUsername(str) {
  * @returns {Boolean}
  */
 export function validURL(url) {
-  const reg = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/
-  return reg.test(url)
+    const reg = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/
+    return reg.test(url)
 }
 
 /**
@@ -37,8 +44,8 @@ export function validURL(url) {
  * @returns {Boolean}
  */
 export function validLowerCase(str) {
-  const reg = /^[a-z]+$/
-  return reg.test(str)
+    const reg = /^[a-z]+$/
+    return reg.test(str)
 }
 
 /**
@@ -46,8 +53,8 @@ export function validLowerCase(str) {
  * @returns {Boolean}
  */
 export function validUpperCase(str) {
-  const reg = /^[A-Z]+$/
-  return reg.test(str)
+    const reg = /^[A-Z]+$/
+    return reg.test(str)
 }
 
 /**
@@ -55,8 +62,8 @@ export function validUpperCase(str) {
  * @returns {Boolean}
  */
 export function validAlphabets(str) {
-  const reg = /^[A-Za-z]+$/
-  return reg.test(str)
+    const reg = /^[A-Za-z]+$/
+    return reg.test(str)
 }
 
 /**
@@ -64,10 +71,8 @@ export function validAlphabets(str) {
  * @returns {Boolean}
  */
 export function isString(str) {
-  if (typeof str === 'string' || str instanceof String) {
-    return true
-  }
-  return false
+    return typeof str === 'string' || str instanceof String;
+
 }
 
 /**
@@ -75,8 +80,8 @@ export function isString(str) {
  * @returns {Boolean}
  */
 export function isArray(arg) {
-  if (typeof Array.isArray === 'undefined') {
-    return Object.prototype.toString.call(arg) === '[object Array]'
-  }
-  return Array.isArray(arg)
+    if (typeof Array.isArray === 'undefined') {
+        return Object.prototype.toString.call(arg) === '[object Array]'
+    }
+    return Array.isArray(arg)
 }

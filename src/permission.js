@@ -6,6 +6,7 @@ import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/service/auth/token' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
 import configs from '@/configs'
+import {convertRouters} from "@/router/routerUtils";
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -49,8 +50,8 @@ router.beforeEach(async(to, from, next) => {
           if (menus === undefined || menus === '' || menus === null) {
             new Error('401')
           }
-          //user menus
-          router.addRoutes(menus)
+          //后端数据
+          router.addRoutes(convertRouters(menus))
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
         } catch (error) {
