@@ -55,7 +55,7 @@ export const constantRoutes = [
       {
         path: '',
         component: () => import('@/views/portal/home/index'),
-        name: 'home',
+        name: 'homePage',
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       },
       {
@@ -69,11 +69,10 @@ export const constantRoutes = [
   {
     path: '/profile',
     component: Layout,
-    redirect: '/profile/index',
     hidden: true,
     children: [
       {
-        path: 'index',
+        path: '',
         component: () => import('@/views/portal/profile/index'),
         name: 'Profile',
         meta: { title: 'Profile', icon: 'user', noCache: true }

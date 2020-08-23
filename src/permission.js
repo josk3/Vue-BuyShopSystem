@@ -9,8 +9,11 @@ import configs from '@/configs'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login', '/logout'] // whitelist
+const anonAuthPages = configs.anonAuthPages // whitelist
 
+/**
+ * 处理用户登录, 侧边menus(router)
+ */
 router.beforeEach(async(to, from, next) => {
   // start progress bar
   NProgress.start()
@@ -48,7 +51,6 @@ router.beforeEach(async(to, from, next) => {
           }
           //user menus
           router.addRoutes(menus)
-          // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
         } catch (error) {
@@ -62,7 +64,7 @@ router.beforeEach(async(to, from, next) => {
     }
   } else {
     /* has no token*/
-    if (whiteList.indexOf(to.path) !== -1) {
+    if (anonAuthPages.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
       next()
     } else {
