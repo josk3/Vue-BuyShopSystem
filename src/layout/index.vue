@@ -2,11 +2,16 @@
     <div :class="classObj" class="wrap">
         <Header :configs="configs"></Header>
         <div class="container wrap-main">
-            <sidebar></sidebar>
-            <div class="content-main">
-                <router-view></router-view>
+            <div class="row">
+                <div class="col-3">
+                    <sidebar></sidebar>
+                </div>
+                <div class="col-9">
+                    <div class="content-main">
+                        <router-view></router-view>
+                    </div>
+                </div>
             </div>
-
             <!--   F    -->
             <Footer></Footer>
         </div>

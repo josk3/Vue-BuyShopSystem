@@ -6,6 +6,11 @@ module.exports = {
         merchant_login: '商户登录',
 
     },
+    nav: {
+        home: '主页',
+        profile: '人个中心',
+
+    },
     user: { //跟用户相关
         username: '用户名',
         password: '密码',

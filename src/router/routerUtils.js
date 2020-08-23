@@ -93,15 +93,28 @@ export function convertRouters(userMenu) {
     ];
 }
 
-export function findPath(path, routerList) {
-    if (isEmpty(path) || isEmpty(routerList) || !isArray(routerList)) return null
+function findItem(type, val, routerList) {
+    if (isEmpty(val) || isEmpty(routerList) || !isArray(routerList)) return null
+    if (isEmpty(type)) return null
     if (routerList.length < 0) return null
     for (let r = 0; r < routerList.length; r++) {
         let item = routerList[r];
-        if (isEmpty(item) || isEmpty(item.path)) continue;
-        if (item.path === path) return item;
+        if (isEmpty(item)) continue;
+        if (type === 'path') {
+            if (item.path === val) return item;
+        } else if (type === 'name') {
+            if (item.name === val) return item;
+        }
     }
     return null
+}
+
+export function findPath(path, routerList) {
+    return findItem('path', path, routerList);
+}
+
+export function findName(name, routerList) {
+    return findItem('name', name, routerList);
 }
 
 export function renderRedirectTo(redirectTo) {
