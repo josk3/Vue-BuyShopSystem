@@ -3,6 +3,7 @@ import {MessageBox, Message} from 'element-ui'
 import store from '@/store'
 import {getToken, getTokenKey} from '@/service/auth/token'
 import configs from '@/configs'
+import user from "@/store/modules/user";
 
 // create an axios instance
 const service = axios.create({
@@ -67,6 +68,7 @@ service.interceptors.response.use(
             if (res.code === configs.apiCode.reloadUserData) {
                 if (res.data.user !== undefined) {
                     store.dispatch('user/updateUser', res.data.user).then()
+                    store.dispatch('app/toggleDevice', 'mobile').then()
                 }
             }
             return res

@@ -140,6 +140,7 @@ const proxy = {
     'GET /api/v1/profile': (req, res) => {
         let u = demoUserInfo();
         u.code = 7010;
+        u.data.user.name = '77777'
         u.data.user.email = '77777'
         return res.json(u);
     },

@@ -15,6 +15,6 @@ module.exports = {
     apiCode: {
         needLogin: 7011,
         reloadUserData: 7010,
-    }
+    },
 
 }

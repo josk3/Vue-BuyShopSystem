@@ -31,6 +31,7 @@ const mutations = {
     },
     SET_USER: (state, user) => {
         state.user = user
+        state.name = user.name
     },
 }
 
