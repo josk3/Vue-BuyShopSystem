@@ -200,8 +200,8 @@ const proxy = {
                 list: [
                     {
                         trade_no: 'tr_M112d20820s11e14C16D',
-                        merchant_order_no: '8983423',
-                        email: 'hello@test.com',
+                        merchant_order_no: new Date().getMilliseconds(),
+                        email: req.body.trade_no + '@test.com',
                         payment_time: '2020-01-01 12:12:00',
                         order_amount: 135.89,
                         currency: 'USD',

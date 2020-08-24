@@ -6,7 +6,7 @@
                 <div class="wrap-side col-2">
                     <sidebar></sidebar>
                 </div>
-                <div class="wrap-content col-10">
+                <div class="wrap-content col-10 p-0">
                     <div class="content-main">
                         <router-view></router-view>
                     </div>

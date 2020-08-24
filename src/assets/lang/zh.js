@@ -7,6 +7,11 @@ module.exports = {
         logout: '退出',
         logout_ok: '退出成功',
         merchant_login: '商户登录',
+        //
+        search: '搜索',
+        reset: '重置',
+
+        //
         trade_no: '流水号',
         merchant_order_no: '订单号',
         email: '邮箱',

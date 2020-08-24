@@ -204,7 +204,16 @@ body, .wrap, .wrap-side .el-menu{
   border: none;
 }
 .wrap-content{
-  background-color: #fff;
+  //background-color: #fff;
+}
+.search-box .el-card__header{
+  padding: 10px 20px;
+}
+.search-box .el-form-item {
+  margin-bottom: 5px;
+}
+.wrap-tab .box-card{
+  min-height: 400px;
 }
 
 .btn-tool {
