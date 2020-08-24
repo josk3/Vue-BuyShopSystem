@@ -79,6 +79,8 @@
                         </template>
                     </el-table-column>
                 </el-table>
+
+                <Pagination :page="tabData.page" @change="pageChange"></Pagination>
             </el-card>
         </div>
     </div>
@@ -88,10 +90,11 @@
     import configs from '@/configs'
     import {refundSearch} from "@/service/refundSer";
     import SearchBox from "@/components/SearchBox";
+    import Pagination from "@/components/Pagination";
 
     export default {
         name: "refund",
-        components: {SearchBox},
+        components: {SearchBox, Pagination},
         computed: { //watch跟踪数据变化, 重点user, configs
             configs() {
                 return configs;
@@ -100,9 +103,12 @@
         data() {
             return {
                 loading: false,
-                searchParams: {title: 'nav.refund_select', trade_no: '', merchant_order_no: '', email: ''},
-                tabData: {list: [], page: {count: 0, number: 0}},
-                paneName: 'success',
+                searchParams: {
+                    title: 'nav.refund_select', page: 1,
+                    trade_no: '', merchant_order_no: '', email: ''
+                },
+                tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
+                paneName: 'all', //默认
             }
         },
         mounted() {
@@ -111,8 +117,13 @@
         },
         methods: {
             paneClick(tab) {
+                this.searchParams.page = 1;//重置页码
                 this.paneName = tab.name
-                this.searchParams.status = tab.name
+                this.searchParams.status = tab.name //搜索对应status
+                this.search()
+            },
+            pageChange(page) {
+                this.searchParams.page = page.page_num
                 this.search()
             },
             search() {

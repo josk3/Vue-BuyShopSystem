@@ -1,3 +1,5 @@
+const delay = require('mocker-api/lib/delay');
+
 function demoUserInfo() {
     return {
         status: 1,
@@ -193,10 +195,11 @@ const proxy = {
             status: 1,
             data: {
                 page: {
-                    count: 1,
-                    number: 1,
+                    count: 5,
+                    page_num: req.body.page || 1,
+                    page_size: 20,
+                    total: 50,
                 },
-                total: 5,
                 list: [
                     {
                         trade_no: 'tr_M112d20820s11e14C16D',
@@ -225,7 +228,7 @@ const proxy = {
                     {
                         trade_no: 'tr_893ufj4fjo33333',
                         merchant_order_no: '8983423',
-                        email: 'hello@test.com',
+                        email: req.body.page + '@test.com',
                         payment_time: '2020-01-01 12:12:00',
                         order_amount: 135.89,
                         currency: 'USD',
@@ -239,5 +242,6 @@ const proxy = {
         });
     },
 }
-module.exports = proxy;
+let sleep = false;// true 测试延迟响应
+module.exports = sleep ? delay(proxy, 5000) : proxy;
 //https://github.com/jaywcjlove/mocker-api
