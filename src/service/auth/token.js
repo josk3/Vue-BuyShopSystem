@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 
 const TokenKey = 'Wp-Token'
+//lang Wp-Lang
 
 export function getTokenKey() {
   return TokenKey;

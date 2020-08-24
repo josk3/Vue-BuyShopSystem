@@ -59,7 +59,7 @@
         data() {
             return {
                 userLogin: {
-                    mer_no: '4008',
+                    mer_no: 'M70016',
                     username: 'admin',
                     password: 'Test123456'
                 },

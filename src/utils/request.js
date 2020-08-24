@@ -19,6 +19,7 @@ service.interceptors.request.use(
         if (store.getters.token) {
             // 头部加token请求
             config.headers[getTokenKey()] = getToken()
+            config.headers['Wp-Lang'] = store.getters.lang
         }
         return config
     },
@@ -67,7 +68,6 @@ service.interceptors.response.use(
             if (res.code === configs.apiCode.reloadUserData) {
                 if (res.data.user !== undefined) {
                     store.dispatch('user/updateUser', res.data.user).then()
-                    store.dispatch('app/toggleDevice', 'mobile').then()
                 }
             }
             return res

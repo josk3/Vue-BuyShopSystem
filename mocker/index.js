@@ -120,15 +120,26 @@ const proxy = {
             // Turn a path string such as `/user/:name` into a regular expression.
             // https://www.npmjs.com/package/path-to-regexp
             //'/api/v1/(.*)': 'https://portal.wintopay.com/'
-            //'/api/v1/(.*)': 'https://165.wtpdev.com:38013',
-            //'/api/v1/(.*)': 'http://localhost:8013',
-            //'/api/v1/(.*)': 'http://192.168.3.182:8013',
+            // '/api/v1/(.*)': 'https://165.wtpdev.com:38013',
+            // '/api/v1/(.*)': 'http://192.168.3.182:8013',
+            // '/api/v1/(.*)': 'http://localhost:8013/',
+            '/api/v1/(.*)': 'http://localhost:38019',
         },
         changeHost: true,
         header: {
             'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-        }
+            // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+        },
+        // httpProxy: {
+        //     options: {
+        //         ignorePath: true,
+        //     },
+        //     listeners: {
+        //         proxyReq: function (proxyReq, req, res, options) {
+        //             console.log('proxyReq');
+        //         },
+        //     },
+        // },
     },
     // =====================
     // The default GET request.
@@ -156,8 +167,9 @@ const proxy = {
         });
     },
     'POST /api/v1/login': (req, res) => {
-        const {password, username} = req.body;
+        const {password, username, mer_no} = req.body;
         if (password === 'Test123456' && username === 'admin') {
+            console.log(mer_no)
             return res.json(demoUserInfo());
         } else {
             return res.status(200).json({
