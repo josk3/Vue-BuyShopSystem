@@ -10,6 +10,10 @@ module.exports = {
         //
         search: '搜索',
         reset: '重置',
+        all:'所有',
+        success: '成功',
+        fail:'失败',
+        refund_ing: '退款中',
 
         //
         trade_no: '流水号',

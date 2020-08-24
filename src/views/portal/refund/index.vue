@@ -2,7 +2,14 @@
     <div>
         <SearchBox :params="searchParams" @search="search"></SearchBox>
         <div class="wrap-tab p-0">
-            <el-card class="box-card" shadow="never" :body-style="{ padding: '0px' }">
+            <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
+                <el-tabs v-model="paneName" type="border-card"
+                         @tab-click="paneClick">
+                    <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
+                    <el-tab-pane :label="$t('comm.success')" name="success"></el-tab-pane>
+                    <el-tab-pane :label="$t('comm.fail')" name="fail"></el-tab-pane>
+                    <el-tab-pane :label="$t('comm.refund_ing')" name="refund_ing"></el-tab-pane>
+                </el-tabs>
                 <el-table
                         :data="tabData.list"
                         v-loading="loading"
@@ -94,13 +101,20 @@
             return {
                 loading: false,
                 searchParams: {title: 'nav.refund_select', trade_no: '', merchant_order_no: '', email: ''},
-                tabData: {list: [], page: {count: 0, number: 0}}
+                tabData: {list: [], page: {count: 0, number: 0}},
+                paneName: 'success',
             }
         },
         mounted() {
+            this.searchParams.status = this.paneName
             this.search();
         },
         methods: {
+            paneClick(tab) {
+                this.paneName = tab.name
+                this.searchParams.status = tab.name
+                this.search()
+            },
             search() {
                 this.loading = true
                 refundSearch(this.searchParams).then(res => {
