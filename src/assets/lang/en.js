@@ -11,6 +11,11 @@ module.exports = {
         merchant_order_no: '订单号',
         email: '邮箱',
         order_amount: '金额',
+        payment_time: 'Payment Date',
+        currency: 'Currency',
+        apply_time: 'Apply Date',
+        status: 'Status',
+        refund_amount: '退款金额',
     },
     nav: {
         home: 'Home',

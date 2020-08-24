@@ -1,5 +1,37 @@
 // import parseTime, formatTime and set to filter
+import {isEmpty} from "@/utils/validate";
+import i18n from "@/service/i18n";
+import {parseTime} from "@/utils";
+
 export { parseTime, formatTime } from '@/utils'
+
+/**
+ * 状态数值-》解析成文字
+ */
+export function refundStatus(isRefund) {
+  if (isEmpty(isRefund)) return ''
+  switch (isRefund) {
+    case 16:
+      return i18n.t('refund.wait_bank_receive')
+      //...
+  }
+}
+
+/** 转时间 */
+export function toDayTime(date) {
+  if (isEmpty(date)) return ''
+  return parseTime(new Date(date), '{m}-{d} {h}:{i}:{s}')
+}
+
+export function toDay(date) {
+  if (isEmpty(date)) return ''
+  return parseTime(new Date(date), '{y}-{m}-{d}')
+}
+
+export function toSimpleDay(date) {
+  if (isEmpty(date)) return ''
+  return parseTime(new Date(date), '{m}-{d}')
+}
 
 /**
  * Show plural label if time is plural number

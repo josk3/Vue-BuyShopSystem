@@ -188,7 +188,26 @@ aside {
 }
 
 //--
-.btn-tool{
+@media (min-width: 1200px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1200px;
+    padding: 0;
+  }
+}
+body, .wrap, .wrap-side .el-menu{
+  background-color: #f5f7fa;
+}
+.wrap-side{
+  padding: 0;
+}
+.wrap-side .el-menu{
+  border: none;
+}
+.wrap-content{
+  background-color: #fff;
+}
+
+.btn-tool {
   background: 0 0;
   color: #adb5bd;
   font-size: .875rem;

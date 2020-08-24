@@ -3,10 +3,10 @@
         <Header :configs="configs"></Header>
         <div class="container wrap-main">
             <div class="row">
-                <div class="col-3">
+                <div class="wrap-side col-2">
                     <sidebar></sidebar>
                 </div>
-                <div class="col-9">
+                <div class="wrap-content col-10">
                     <div class="content-main">
                         <router-view></router-view>
                     </div>

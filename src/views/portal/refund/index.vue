@@ -8,18 +8,23 @@
                     style="width: 100%">
                 <el-table-column
                         prop="trade_no"
-                        :show-overflow-tooltip="true"
-                        :label="$t('comm.trade_no')" width="180">
+                        :label="$t('comm.trade_no')" width="210px">
                 </el-table-column>
                 <el-table-column
                         prop="merchant_order_no"
-                        :show-overflow-tooltip="true"
-                        :label="$t('comm.merchant_order_no')" width="180">
+                        :label="$t('comm.merchant_order_no')" >
                 </el-table-column>
                 <el-table-column
                         prop="email"
                         :show-overflow-tooltip="true"
                         :label="$t('comm.email')">
+                </el-table-column>
+                <el-table-column
+                        prop="payment_time"
+                        :label="$t('comm.payment_time')">
+                    <template v-slot="scope">
+                        {{scope.row.payment_time | toDay }}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="order_amount,currency"
@@ -28,7 +33,30 @@
                         {{scope.row.order_amount}} {{scope.row.currency}}
                     </template>
                 </el-table-column>
-                <el-table-column id='' prop="" label="" width="80" fixed="right">
+                <el-table-column
+                        prop="refund_amount,currency"
+                        :label="$t('comm.refund_amount')">
+                    <template v-slot="scope">
+                        {{scope.row.refund_amount}} {{scope.row.currency}}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="is_refund"
+                        :show-overflow-tooltip="true"
+                        :label="$t('comm.status')">
+                    <template v-slot="scope">
+                        {{scope.row.is_refund | refundStatus }}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="apply_time"
+                        :show-overflow-tooltip="true"
+                        :label="$t('comm.apply_time')">
+                    <template v-slot="scope">
+                        {{scope.row.apply_time | toDay }}
+                    </template>
+                </el-table-column>
+                <el-table-column id='' prop="" label="" width="50" fixed="right">
                     <template v-slot="scope">
                         <el-dropdown trigger="click">
                             <span class="el-dropdown-link btn-tool"

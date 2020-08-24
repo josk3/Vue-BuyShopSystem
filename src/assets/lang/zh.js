@@ -10,7 +10,12 @@ module.exports = {
         trade_no: '流水号',
         merchant_order_no: '订单号',
         email: '邮箱',
-        order_amount: '金额',
+        order_amount: '订单金额',
+        payment_time: '交易时间',
+        currency: '币种',
+        apply_time: '申请时间',
+        status: '状态',
+        refund_amount: '退款金额',
     },
     nav: {
         home: '主页',

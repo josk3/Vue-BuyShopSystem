@@ -13,7 +13,7 @@ export function refundSearch(params) {
     })
 }
 
-export function statusStr(isRefund) {
+export function refundStr(isRefund) {
     if (isEmpty(isRefund)) return ''
     switch (isRefund) {
         case 16:
