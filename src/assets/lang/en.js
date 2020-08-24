@@ -7,7 +7,10 @@ module.exports = {
         logout: 'Logout',
         logout_ok: 'Logout success',
         merchant_login: 'Merchant Login',
-
+        trade_no: '流水号',
+        merchant_order_no: '订单号',
+        email: '邮箱',
+        order_amount: '金额',
     },
     nav: {
         home: 'Home',
@@ -18,6 +21,7 @@ module.exports = {
         payout_select: 'Settlement',
         payout_apply: 'Settlement apply',
         payout_history: 'Settlement history',
+        refund_select: 'Refund',
         chargeback_select: 'Chargeback',
         account_manage: 'Account',
 
@@ -27,6 +31,9 @@ module.exports = {
         password: 'Password',
         mer_no: 'Merchant ID',
 
+    },
+    refund: {
+        wait_bank_receive: 'Wait bank receive',
     },
     home: {},
     profile: {},

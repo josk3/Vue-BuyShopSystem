@@ -43,6 +43,24 @@ function demoUserInfo() {
                     "children": null
                 },
                 {
+                    "name": "refund_select",
+                    "path": "/refund/search",
+                    "meta": null,
+                    "have_show_child" : false,//要有可显示的子目录
+                    "children": [
+                        {
+                            "name": "refund_download",
+                            "path": "/refund/download",
+                            "hidden" : true,
+                        },
+                        {
+                            "name": "refund_apply",
+                            "path": "/refund/apply",
+                            "hidden" : true,
+                        }
+                    ]
+                },
+                {
                     "name": "chargeback_select",
                     "path": "/chargeback/search",
                     "meta": null,
@@ -169,7 +187,57 @@ const proxy = {
         console.log('---->', req.body)
         console.log('---->', req.params.id)
         res.send({status: 'ok', message: '删除成功！'});
-    }
+    },
+    'POST /api/v1/refund/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: {
+                    count: 1,
+                    number: 1,
+                },
+                total: 5,
+                list: [
+                    {
+                        trade_no: 'tr_893ufj4fjo1111',
+                        merchant_order_no: '8983423',
+                        email: 'hello@test.com',
+                        payment_time: '2020-01-01 12:12:00',
+                        order_amount: 135.89,
+                        currency: 'USD',
+                        refund_amount: 50.89,
+                        apply_time: '2020-01-10 12:12:00',
+                        is_refund: 16,//退款状态数值
+                        refund_str: '待银行接收退款申请',//退款状态中文
+                    },
+                    {
+                        trade_no: 'tr_893ufj4fjo2222',
+                        merchant_order_no: '8983423',
+                        email: 'hello@test.com',
+                        payment_time: '2020-01-01 12:12:00',
+                        order_amount: 135.89,
+                        currency: 'USD',
+                        refund_amount: 50.89,
+                        apply_time: '2020-01-10 12:12:00',
+                        is_refund: 16,//退款状态数值
+                        refund_str: '待银行接收退款申请',//退款状态中文
+                    },
+                    {
+                        trade_no: 'tr_893ufj4fjo33333',
+                        merchant_order_no: '8983423',
+                        email: 'hello@test.com',
+                        payment_time: '2020-01-01 12:12:00',
+                        order_amount: 135.89,
+                        currency: 'USD',
+                        refund_amount: 50.89,
+                        apply_time: '2020-01-10 12:12:00',
+                        is_refund: 16,//退款状态数值
+                        refund_str: '待银行接收退款申请',//退款状态中文
+                    },
+                ],
+            }
+        });
+    },
 }
 module.exports = proxy;
 //https://github.com/jaywcjlove/mocker-api

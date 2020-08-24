@@ -22,8 +22,12 @@ export const routerUtils = {
         component: () => import('@/views/portal/profile/index'),
         meta: {icon: 'user', noCache: true}
     },
+    'refund_select': {
+        component: () => import('@/views/portal/refund'),
+        meta: { noCache: true}
+    },
     'chargeback_select': {
-        component: () => import('@/views/portal/profile/index'),
+        component: () => import('@/views/portal/chargeback'),
         meta: {icon: 'user', noCache: true}
     },
 }

@@ -7,7 +7,10 @@ module.exports = {
         logout: '退出',
         logout_ok: '退出成功',
         merchant_login: '商户登录',
-
+        trade_no: '流水号',
+        merchant_order_no: '订单号',
+        email: '邮箱',
+        order_amount: '金额',
     },
     nav: {
         home: '主页',
@@ -18,6 +21,7 @@ module.exports = {
         payout_select: '结算查询',
         payout_apply: '结算申请',
         payout_history: '结算历史',
+        refund_select: '退款查询',
         chargeback_select: '拒付查询',
         account_manage: '账户管理',
 
@@ -38,6 +42,11 @@ module.exports = {
     },
     error: {
 
+    },
+    tab: {
+    },
+    refund: {
+        wait_bank_receive: '待银行接收退款申请',
     },
     home: {},
     profile: {},
