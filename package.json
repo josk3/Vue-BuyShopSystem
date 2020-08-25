@@ -17,12 +17,10 @@
     "clipboard": "2.0.4",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
-    "http-proxy": "^1.18.1",
     "jquery": "^3.5.1",
     "js-cookie": "^2.2.1",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
-    "path-to-regexp": "^6.1.0",
     "popper.js": "^1.16.1",
     "sass": "^1.26.2",
     "sass-loader": "^8.0.2",
@@ -40,8 +38,11 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11",
-    "mocker-api": "^2.3.0"
+    "http-proxy": "^1.18.1",
+    "mocker-api": "^2.3.0",
+    "path-to-regexp": "^6.1.0",
+    "qs": "^6.9.4",
+    "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
     "root": true,

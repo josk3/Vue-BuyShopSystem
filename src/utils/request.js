@@ -3,12 +3,13 @@ import {Message, MessageBox} from 'element-ui'
 import store from '@/store'
 import {getToken, getTokenKey} from '@/service/auth/token'
 import configs from '@/configs'
+import qs from "qs";
 
 // create an axios instance
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
     // withCredentials: true, // send cookies when cross-domain requests
-    timeout: 15000 // request timeout 15s
+    timeout: 8000 // request timeout 8s
 })
 
 // request interceptor
@@ -19,8 +20,8 @@ service.interceptors.request.use(
         if (store.getters.token) {
             // 头部加token请求
             config.headers[getTokenKey()] = getToken()
-            config.headers['Wp-Lang'] = store.getters.lang
         }
+        config.headers['Wp-Lang'] = store.getters.lang
         return config
     },
     error => {
@@ -83,5 +84,14 @@ service.interceptors.response.use(
         return Promise.reject(error)
     }
 )
+
+export function post(url, params) {
+    return service({
+        method: 'post',
+        url: url,
+        data: qs.stringify(params)
+    });
+}
+
 
 export default service

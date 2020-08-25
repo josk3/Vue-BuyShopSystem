@@ -123,23 +123,22 @@ const proxy = {
             // '/api/v1/(.*)': 'https://165.wtpdev.com:38013',
             // '/api/v1/(.*)': 'http://192.168.3.182:8013',
             // '/api/v1/(.*)': 'http://localhost:8013/',
-            '/api/v1/(.*)': 'http://localhost:38019',
         },
         changeHost: true,
         header: {
             'Access-Control-Allow-Headers': '*',
             // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
         },
-        // httpProxy: {
-        //     options: {
-        //         ignorePath: true,
-        //     },
-        //     listeners: {
-        //         proxyReq: function (proxyReq, req, res, options) {
-        //             console.log('proxyReq');
-        //         },
-        //     },
-        // },
+        httpProxy: {
+            options: {
+                ignorePath: true,
+            },
+            listeners: {
+                proxyReq: function (proxyReq) { //, req, res, options
+                    proxyReq.setHeader('X-M-Proxy', 'mocker');
+                },
+            },
+        },
     },
     // =====================
     // The default GET request.
