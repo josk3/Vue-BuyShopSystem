@@ -240,4 +240,37 @@ body, .wrap, .wrap-side .el-menu{
   background-repeat: no-repeat;
   height: 45px;
 }
+#sidebar-nav{
+  margin-top: 10px;
+}
+#sidebar-nav .menu-m{
+
+}
+#sidebar-nav .menu-item{
+  height: auto;
+  line-height: normal;
+}
+#sidebar-nav .menu-item>div{
+  display: block;
+  width: 100%;
+  float: left;
+}
+#sidebar-nav .menu-item span{
+  border-radius: 35px;
+  height: 32px;
+  line-height: 32px;
+  float: left;
+  padding: 0 20px;
+}
+#sidebar-nav .is-active span{
+  color:#fff;
+  background-color: #267dd5;
+}
+#sidebar-nav .is-active .side-icon{
+  color: #fff;
+}
+#sidebar-nav .menu-item span:hover, #sidebar-nav .menu-item span:focus {
+  background-color: #409eff;
+}
+//side-bar icon
 

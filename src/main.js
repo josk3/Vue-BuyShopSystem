@@ -10,12 +10,13 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 
-import './permission' // permission control
-import './utils/error-log' // error log
+import '@/icons'
+import '@/permission' // permission control
+import '@/utils/error-log' // error log
 import * as filters from './filters' // global filters
 //-
 import 'bootstrap'
-import './configs'
+import '@/configs'
 import i18n from "@/service/i18n";
 //-
 import {library} from '@fortawesome/fontawesome-svg-core'

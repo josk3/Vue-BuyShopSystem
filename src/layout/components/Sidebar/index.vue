@@ -1,23 +1,40 @@
 <template>
-    <div>
+    <div id="sidebar-nav">
         <el-col>
             <el-menu
                     :default-active="activeMenu"
                     :collapse="isCollapse"
                     @open="handleOpen"
                     @close="handleClose" router>
-                <div v-for="(route, i)  in menus" :key="i">
+                <div v-for="(route, i)  in menus" :key="i" class="menu-m">
                     <div v-if="!route.hidden">
-                        <el-menu-item v-if="!route.have_show_child" :index="route.path">
-                            <span slot="title">{{ $t('nav.'+route.name) }}</span>
+                        <el-menu-item v-if="!route.have_show_child" :index="route.path" class="menu-item">
+                            <div>
+                                <span slot="title">
+                                    <svg-icon icon-class="home"/>
+                                    {{ $t('nav.'+route.name) }}
+                                </span>
+                            </div>
                         </el-menu-item>
                         <el-submenu v-if="route.have_show_child" :index="route.path">
                             <template slot="title">
-                                <span>{{ $t('nav.'+route.name) }}</span>
+                                <div>
+                                    <span>
+                                        <svg-icon icon-class="home"/>
+                                        {{ $t('nav.'+route.name) }}
+                                    </span>
+                                </div>
                             </template>
                             <el-menu-item v-for="(children, c)  in route.children" :key="c"
-                                          :index="children.path" v-if="!children.hidden">
-                                <span slot="title">{{ $t('nav.'+children.name) }}</span>
+                                          :index="children.path"
+                                          class="menu-item"
+                                          v-if="!children.hidden">
+                                <div>
+                                    <span slot="title">
+                                        <svg-icon icon-class="home"/>
+                                        {{ $t('nav.'+children.name) }}
+                                    </span>
+                                </div>
                             </el-menu-item>
                         </el-submenu>
                     </div>
@@ -29,7 +46,6 @@
 
 <script>
     import {mapState} from 'vuex'
-    import variables from '@/styles/variables.scss'
     import configs from "@/configs";
     import user from "@/store/modules/user";
 
@@ -55,9 +71,6 @@
                     return meta.activeMenu
                 }
                 return path
-            },
-            variables() {
-                return variables
             },
             isCollapse() {
                 return !this.sidebar.opened
