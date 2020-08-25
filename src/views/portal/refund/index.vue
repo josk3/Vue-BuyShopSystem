@@ -112,14 +112,14 @@
             }
         },
         mounted() {
-            this.searchParams.status = this.paneName
+            this.searchParams.refund_status = this.paneName
             this.search();
         },
         methods: {
             paneClick(tab) {
                 this.searchParams.page = 1;//重置页码
                 this.paneName = tab.name
-                this.searchParams.status = tab.name //搜索对应status
+                this.searchParams.refund_status = tab.name //搜索对应status
                 this.search()
             },
             pageChange(page) {

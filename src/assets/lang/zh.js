@@ -4,15 +4,18 @@ module.exports = {
     },
     comm: { //通用
         login: '登录',
+        re_login: '重新登录',
         logout: '退出',
+        login_timeout: '登录超时',
         logout_ok: '退出成功',
         merchant_login: '商户登录',
+        cancel: '取消',
         //
         search: '搜索',
         reset: '重置',
-        all:'所有',
+        all: '所有',
         success: '成功',
-        fail:'失败',
+        fail: '失败',
         refund_ing: '退款中',
 
         //
@@ -38,6 +41,12 @@ module.exports = {
         refund_select: '退款查询',
         chargeback_select: '拒付查询',
         account_manage: '账户管理',
+        finance_select: '财务中心',
+        fast_pay:'快捷收款',
+        delivery_manage: '物流管理',
+        risk_manage: '风控管理',
+        support_ticker: '技术支持',
+        message_center: '消息中心',
 
     },
     user: { //跟用户相关
@@ -54,11 +63,8 @@ module.exports = {
             password_more_miss: '密码错误次数过多,请找回密码或联系管理员'
         }
     },
-    error: {
-
-    },
-    tab: {
-    },
+    error: {},
+    tab: {},
     refund: {
         wait_bank_receive: '待银行接收退款申请',
     },

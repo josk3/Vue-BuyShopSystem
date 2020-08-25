@@ -4,6 +4,8 @@ import store from '@/store'
 import {getToken, getTokenKey} from '@/service/auth/token'
 import configs from '@/configs'
 import qs from "qs";
+import {isEmpty} from "@/utils/validate";
+import i18n from "@/service/i18n";
 
 // create an axios instance
 const service = axios.create({
@@ -43,7 +45,7 @@ service.interceptors.response.use(
      * Here is just an example
      * You can also judge the status by HTTP Status Code
      */
-    response => {
+    response => { //200
         //response : data, status:200(http code), statusText:OK, headers:xx, config:xxx, request: xxx
         const res = response.data
         if (res.status !== 1) {
@@ -54,15 +56,7 @@ service.interceptors.response.use(
             })
 
             if (res.code === configs.apiCode.needLogin) {
-                MessageBox.confirm('登录超时', 'Confirm logout', {
-                    confirmButtonText: 'Re-Login',
-                    cancelButtonText: 'Cancel',
-                    type: 'warning'
-                }).then(() => {
-                    store.dispatch('user/resetToken').then(() => {
-                        location.reload()
-                    })
-                })
+                tryReLogin()
             }
             return Promise.reject(new Error(res.message || 'Error'))
         } else {
@@ -75,7 +69,17 @@ service.interceptors.response.use(
         }
     },
     error => {
-        console.log('err' + error) // for debug
+        if (process.env.NODE_ENV === 'development') {
+            console.log('err' + error) // for debug
+        }
+        if (!isEmpty(error.response) && !isEmpty(error.response.data)) {
+            let res = error.response.data;
+            if (!isEmpty(res)) {
+                if (res.code === configs.apiCode.needLogin) {
+                    tryReLogin()
+                }
+            }
+        }
         Message({
             message: error.message,
             type: 'error',
@@ -84,6 +88,19 @@ service.interceptors.response.use(
         return Promise.reject(error)
     }
 )
+
+function tryReLogin() {
+    MessageBox.confirm(i18n.t('comm.login_timeout'),
+        i18n.t('comm.logout'), {
+            confirmButtonText: i18n.t('comm.re_login'),
+            cancelButtonText: i18n.t('comm.cancel'),
+            type: 'warning'
+        }).then(() => {
+        store.dispatch('user/resetToken').then(() => {
+            location.reload()
+        })
+    })
+}
 
 export function post(url, params) {
     return service({

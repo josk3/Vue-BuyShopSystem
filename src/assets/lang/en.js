@@ -4,15 +4,18 @@ module.exports = {
     },
     comm: { //通用
         login: 'Login',
+        re_login: 'Please Login',
         logout: 'Logout',
+        login_timeout: 'Login timeout',
         logout_ok: 'Logout success',
         merchant_login: 'Merchant Login',
+        cancel: 'Cancel',
         //
         search: 'Search',
         reset: 'Clear',
-        all:'All',
+        all: 'All',
         success: 'Success',
-        fail:'Fail',
+        fail: 'Fail',
         refund_ing: 'Refund ing',
 
         //
@@ -38,6 +41,12 @@ module.exports = {
         refund_select: 'Refund',
         chargeback_select: 'Chargeback',
         account_manage: 'Account',
+        finance_select: 'Finance',
+        fast_pay: 'Fast Payment',
+        delivery_manage: 'Order Tracking',
+        risk_manage: 'Risk Area',
+        support_ticker: 'Support Ticker',
+        message_center: 'Notices',
 
     },
     user: { //跟用户相关
