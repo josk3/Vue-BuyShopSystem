@@ -5,11 +5,7 @@ export function login(data) {
 }
 
 export function getInfo(token) {
-    return request({
-        url: '/user/info',
-        method: 'post',
-        data: {token: token}
-    })
+    return post('/user/info', {token: token});
 }
 
 export function logout() {
