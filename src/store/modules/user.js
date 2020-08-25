@@ -2,6 +2,7 @@ import {getInfo, login, logout} from '@/service/userSer'
 import {getToken, removeToken, setToken} from '@/service/auth/token'
 import router, {resetRouter} from '@/router'
 import {convertRouters} from "@/router/routerUtils";
+import {isEmpty} from "@/utils/validate";
 
 const state = {
     token: getToken(),
@@ -42,12 +43,17 @@ const actions = {
         return new Promise((resolve, reject) => {
             login(params).then(response => {
                 const {data} = response
+                if (isEmpty(data.token)) {
+                    new Error('Login Error')
+                }
                 commit('SET_TOKEN', data.token)
                 commit('SET_USER', data.user)
                 commit('SET_MENUS', data.menus)
                 setToken(data.token)
                 //后端数据 add router
-                router.addRoutes(convertRouters(data.menus))
+                if (!isEmpty((data.menus))) {
+                    router.addRoutes(convertRouters(data.menus))
+                }
                 resolve()
             }).catch(error => {
                 reject(error)
