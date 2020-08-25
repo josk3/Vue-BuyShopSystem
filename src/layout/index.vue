@@ -1,13 +1,13 @@
 <template>
     <div :class="classObj" class="wrap">
-        <Header :configs="configs"></Header>
+        <Header></Header>
         <div class="container wrap-main">
             <div class="row">
                 <div class="wrap-side col-2">
                     <sidebar></sidebar>
                 </div>
                 <div class="wrap-content col-10 p-0">
-                    <div class="content-main">
+                    <div class="content-main pt-2">
                         <router-view></router-view>
                     </div>
                 </div>

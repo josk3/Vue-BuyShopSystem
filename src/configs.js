@@ -12,7 +12,7 @@ module.exports = {
      */
     errorLog: 'production',
 
-    anonAuthPages: ['/login', '/logout'], //不用登录状态也能访问
+    anonAuthPages: ['/login', '/logout', '/404', '/401', '/500'], //不用登录状态也能访问
     logoutPath: '/logout',
     loginPath: '/login',
     homePath: '/',

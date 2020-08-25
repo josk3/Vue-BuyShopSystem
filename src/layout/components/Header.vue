@@ -1,19 +1,43 @@
 <template>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="#">Features</a>
-            <a class="p-2 text-dark" href="#">{{ user.name }}</a>
-            <a class="p-2 text-dark" href="#">{{ user.email }}</a>
-        </nav>
-        <router-link :to="configs.logoutPath" class="btn btn-outline-primary">
-            <span>{{ $t('comm.logout') }}</span>
-        </router-link>
-        <router-link :to="configs.homePath">
-            <el-button type="primary">
-                home
-            </el-button>
-        </router-link>
+    <div id="head-nav" class="d-flex flex-column flex-md-row align-items-center shadow-sm">
+        <div class="container-lg d-flex p-1 head-main">
+            <h5 class="my-0 mr-md-auto font-weight-normal">
+                <router-link :to="configs.homePath">
+                    <img src="../../assets/images/wintopay_logo_white.png" height="27" alt="Home">
+                </router-link>
+            </h5>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <el-popover
+                        placement="bottom"
+                        width="360"
+                        trigger="click" @show="loadNotice">
+                    <el-table :data="noticeData">
+                        <el-table-column width="150" property="date" label="日期"></el-table-column>
+                        <el-table-column width="100" property="name" label="姓名"></el-table-column>
+                    </el-table>
+                    <el-button slot="reference">
+                        <el-badge :value="200" :max="99" class="item">
+                            <font-awesome-icon :icon="['far', 'bell']"/>
+                        </el-badge>
+                    </el-button>
+                </el-popover>
+                <el-dropdown trigger="click">
+                 <span class="el-dropdown-link text-white">
+                  {{ user.email }}<i class="el-icon-arrow-down el-icon--right"></i>
+                 </span>
+                 <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item icon="el-icon-user-solid" class="p-1 pl-3 pr-3">{{ $t('comm.profile') }}</el-dropdown-item>
+                        <el-dropdown-item icon="el-icon-help" class="p-1 pl-3 pr-3">{{ $t('comm.faq') }}</el-dropdown-item>
+                        <el-dropdown-item divided>
+                            <router-link :to="configs.logoutPath">
+                                <font-awesome-icon icon="sign-out-alt"/>
+                                {{ $t('comm.logout') }}
+                            </router-link>
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                 </el-dropdown>
+            </nav>
+        </div>
     </div>
 </template>
 
@@ -37,8 +61,15 @@
             },
         },
         data() {
-            return {}
-        }
+            return {
+                noticeData: []
+            }
+        },
+        methods: {
+            loadNotice() {
+                console.log('loadNotice')
+            }
+        },
     }
 </script>
 

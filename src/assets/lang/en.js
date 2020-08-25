@@ -10,6 +10,8 @@ module.exports = {
         logout_ok: 'Logout success',
         merchant_login: 'Merchant Login',
         cancel: 'Cancel',
+        profile: 'Profile',
+        faq: 'FAQ',
         //
         search: 'Search',
         reset: 'Clear',

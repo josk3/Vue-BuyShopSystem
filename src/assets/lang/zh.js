@@ -5,11 +5,13 @@ module.exports = {
     comm: { //通用
         login: '登录',
         re_login: '重新登录',
-        logout: '退出',
+        logout: '退出登录',
         login_timeout: '登录超时',
         logout_ok: '退出成功',
         merchant_login: '商户登录',
         cancel: '取消',
+        profile: '个人中心',
+        faq: '问题中心',
         //
         search: '搜索',
         reset: '重置',
