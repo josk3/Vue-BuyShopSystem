@@ -228,7 +228,7 @@ const proxy = {
                     {
                         trade_no: 'tr_893ufj4fjo2222',
                         merchant_order_no: '8983423',
-                        email: req.body.status + '@test.com',
+                        email: req.body.refund_status + '@test.com',
                         payment_time: '2020-01-01 12:12:00',
                         order_amount: 135.89,
                         currency: 'USD',
