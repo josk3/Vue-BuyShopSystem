@@ -45,8 +45,9 @@ module.exports = {
         fast_pay:'快捷收款',
         delivery_manage: '物流管理',
         risk_manage: '风控管理',
-        support_ticker: '技术支持',
+        support_ticket: '技术支持',
         message_center: '消息中心',
+        dispute_manage: '投诉订单',
 
     },
     user: { //跟用户相关
