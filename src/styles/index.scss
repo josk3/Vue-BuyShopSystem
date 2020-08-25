@@ -194,35 +194,45 @@ aside {
     padding: 0;
   }
 }
-body, .wrap, .wrap-side .el-menu{
+
+body, .wrap, .wrap-side .el-menu {
   background-color: #f5f7fa;
 }
-.wrap-side{
+
+.wrap-side {
   padding: 0;
 }
-.wrap-side .el-menu{
+
+.wrap-side .el-menu {
   border: none;
 }
-.wrap-content{
+
+.wrap-content {
   //background-color: #fff;
 }
-.search-box .el-card__header{
+
+.search-box .el-card__header {
   padding: 10px 20px;
 }
+
 .search-box .el-form-item {
   margin-bottom: 5px;
 }
-.wrap-tab .box-card{
+
+.wrap-tab .box-card {
   min-height: 400px;
 }
-.box-pane .el-tabs__content{
+
+.box-pane .el-tabs__content {
   display: none;
 }
-.box-pane .el-tabs--border-card{
+
+.box-pane .el-tabs--border-card {
   border: 0;
   box-shadow: none;
 }
-.box-pane .el-tabs--border-card > .el-tabs__header{
+
+.box-pane .el-tabs--border-card > .el-tabs__header {
   border-bottom: 0;
 }
 
@@ -234,43 +244,58 @@ body, .wrap, .wrap-side .el-menu{
   padding: .25rem .5rem;
 }
 
-#head-nav{
+#head-nav {
   background-image: url("img/nav_bg.png");
   background-position: center;
   background-repeat: no-repeat;
   height: 45px;
 }
-#sidebar-nav{
+
+#sidebar-nav {
   margin-top: 10px;
 }
-#sidebar-nav .menu-m{
 
+#sidebar-nav .menu-m {
 }
-#sidebar-nav .menu-item{
+
+#sidebar-nav .menu-item {
   height: auto;
   line-height: normal;
 }
-#sidebar-nav .menu-item>div{
+
+#sidebar-nav .menu-item > div {
   display: block;
   width: 100%;
   float: left;
+  margin-bottom: 10px;
 }
-#sidebar-nav .menu-item span{
+
+#sidebar-nav .menu-item span {
   border-radius: 35px;
   height: 32px;
   line-height: 32px;
   float: left;
-  padding: 0 20px;
+  padding: 0 22px 0 20px;
 }
-#sidebar-nav .is-active span{
-  color:#fff;
+
+#sidebar-nav .menu-item .svg-icon {
+  color: #267dd5;
+}
+
+#sidebar-nav .is-active .svg-icon {
+  color: #ffffff;
+}
+
+#sidebar-nav .is-active span {
+  color: #fff;
   background-color: #267dd5;
 }
-#sidebar-nav .is-active .side-icon{
+
+#sidebar-nav .is-active .side-icon {
   color: #fff;
 }
+
 #sidebar-nav .menu-item span:hover, #sidebar-nav .menu-item span:focus {
   background-color: #409eff;
 }
-//side-bar icon
 

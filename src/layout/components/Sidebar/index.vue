@@ -11,7 +11,7 @@
                         <el-menu-item v-if="!route.have_show_child" :index="route.path" class="menu-item">
                             <div>
                                 <span slot="title">
-                                    <svg-icon icon-class="home"/>
+                                    <svg-icon :icon-class="route.name"/>
                                     {{ $t('nav.'+route.name) }}
                                 </span>
                             </div>
@@ -20,18 +20,17 @@
                             <template slot="title">
                                 <div>
                                     <span>
-                                        <svg-icon icon-class="home"/>
+                                        <svg-icon :icon-class="route.name"/>
                                         {{ $t('nav.'+route.name) }}
                                     </span>
                                 </div>
                             </template>
                             <el-menu-item v-for="(children, c)  in route.children" :key="c"
                                           :index="children.path"
-                                          class="menu-item"
-                                          v-if="!children.hidden">
-                                <div>
+                                          class="menu-item">
+                                <div v-if="!children.hidden">
                                     <span slot="title">
-                                        <svg-icon icon-class="home"/>
+                                        <svg-icon :icon-class="children.name"/>
                                         {{ $t('nav.'+children.name) }}
                                     </span>
                                 </div>
