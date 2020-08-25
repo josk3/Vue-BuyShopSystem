@@ -12,6 +12,10 @@ module.exports = {
         cancel: '取消',
         profile: '个人中心',
         faq: '问题中心',
+        about_company: '公司介绍',
+        help_center: '帮助中心',
+        contact_us: '联系我们',
+
         //
         search: '搜索',
         reset: '重置',

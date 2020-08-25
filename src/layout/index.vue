@@ -1,20 +1,22 @@
 <template>
-    <div :class="classObj" class="wrap">
+    <div :class="classObj" class="wrap d-flex flex-column h-100">
         <Header></Header>
-        <div class="container wrap-main">
-            <div class="row">
-                <div class="wrap-side col-2">
-                    <sidebar></sidebar>
-                </div>
-                <div class="wrap-content col-10 p-0">
-                    <div class="content-main pt-2">
-                        <router-view></router-view>
+        <main role="main" class="flex-shrink-0">
+            <div class="container wrap-main">
+                <div class="row">
+                    <div class="wrap-side col-2">
+                        <sidebar></sidebar>
+                    </div>
+                    <div class="wrap-content col-10 p-0">
+                        <div class="content-main pt-2">
+                            <router-view></router-view>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--   F    -->
-            <Footer></Footer>
-        </div>
+        </main>
+        <!--   F    -->
+        <Footer></Footer>
     </div>
 </template>
 

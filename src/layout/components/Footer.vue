@@ -1,38 +1,32 @@
 <template>
-    <footer class="pt-4 my-md-5 pt-md-5 border-top">
-        <div class="row">
-            <div class="col-12 col-md">
-                <small class="d-block mb-3 text-muted">&copy; 2020</small>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Features</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Cool stuff</a></li>
-                    <li><a class="text-muted" href="#">Random feature</a></li>
-                    <li><a class="text-muted" href="#">Team feature</a></li>
-                    <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                    <li><a class="text-muted" href="#">Another one</a></li>
-                    <li><a class="text-muted" href="#">Last time</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Resources</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Resource</a></li>
-                    <li><a class="text-muted" href="#">Resource name</a></li>
-                    <li><a class="text-muted" href="#">Another resource</a></li>
-                    <li><a class="text-muted" href="#">Final resource</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5>About</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Team</a></li>
-                    <li><a class="text-muted" href="#">Locations</a></li>
-                    <li><a class="text-muted" href="#">Privacy</a></li>
-                    <li>
-                        <a href="javascript:void(0)" class="btn btn-link btn-sm mr-2" @click="goLangZh">中文</a>
-                        <a href="javascript:void(0)" class="btn btn-link btn-sm" @click="goLangEn">En</a>
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <div class="text-center">
+                <ul class="list-unstyled list-inline">
+                    <li class="list-inline-item mr-1 small">
+                        <a href="javascript:void(0)" class="btn btn-light btn-sm mr-2">{{ $t('comm.about_company') }}</a>
+                    </li>
+                    <li class="list-inline-item mr-1 small">
+                        <a href="javascript:void(0)" class="btn btn-light btn-sm mr-2">{{ $t('comm.help_center') }}</a>
+                    </li>
+                    <li class="list-inline-item mr-1 small">
+                        <a href="javascript:void(0)" class="btn btn-light btn-sm mr-2">{{ $t('comm.contact_us') }}</a>
+                    </li>
+                    <li class="text-muted">
+                        <small>Content protected Copyright © 2020 All Rights Reserved Wintopay.com</small>
+                        <el-dropdown trigger="hover" class="float-right">
+                            <span class="el-dropdown-link text-blue">
+                                <font-awesome-icon icon="language" size="2x"/>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item>
+                                    <a href="javascript:void(0)" class="btn btn-link btn-sm mr-2" @click="goLangEn">English</a>
+                                </el-dropdown-item>
+                                <el-dropdown-item>
+                                    <a href="javascript:void(0)" class="btn btn-link btn-sm " @click="goLangZh">中文</a>
+                                </el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
                     </li>
                 </ul>
             </div>

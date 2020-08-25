@@ -12,6 +12,10 @@ module.exports = {
         cancel: 'Cancel',
         profile: 'Profile',
         faq: 'FAQ',
+        about_company: 'About Wintopay',
+        help_center: 'Help Center',
+        contact_us: 'Contact Us',
+
         //
         search: 'Search',
         reset: 'Clear',
@@ -21,15 +25,15 @@ module.exports = {
         refund_ing: 'Refund ing',
 
         //
-        trade_no: '流水号',
-        merchant_order_no: '订单号',
-        email: '邮箱',
-        order_amount: '金额',
-        payment_time: 'Payment Date',
+        trade_no: 'Trade No',
+        merchant_order_no: 'Order Id',
+        email: 'Email',
+        order_amount: 'Amount',
+        payment_time: 'Pay Date',
         currency: 'Currency',
         apply_time: 'Apply Date',
         status: 'Status',
-        refund_amount: '退款金额',
+        refund_amount: 'Refund',
     },
     nav: {
         home: 'Home',

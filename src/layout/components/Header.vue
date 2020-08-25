@@ -20,17 +20,18 @@
                                 <el-table-column width="100" property="name" label="姓名"></el-table-column>
                             </el-table>
 
-                            <el-badge :value="noticeCount" :max="99"
-                                      :hidden="(noticeCount <= 0)"
-                                      class="item mr-4 text-white btn p-0 pl-2 pr-2"
-                                      slot="reference">
-                                <font-awesome-icon :icon="['far', 'bell']"/>
-                            </el-badge>
+                            <el-button type="text" class="p-0 pl-2 pr-2" slot="reference">
+                                <el-badge :value="noticeCount" :max="99"
+                                          :hidden="(noticeCount <= 0)"
+                                          class="item mr-4 text-white ">
+                                    <font-awesome-icon :icon="['far', 'bell']"/>
+                                </el-badge>
+                            </el-button>
                         </el-popover>
                         <el-dropdown trigger="click">
-                 <span class="el-dropdown-link text-white">
-                  {{ user.email }}<i class="el-icon-arrow-down el-icon--right"></i>
-                 </span>
+                            <span class="el-dropdown-link text-white">
+                                {{ user.email }}<i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item icon="el-icon-user-solid" class="p-1 pl-3 pr-3">{{ $t('comm.profile')
                                     }}
