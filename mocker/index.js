@@ -107,7 +107,7 @@ function demoUserInfo() {
                     "children": null
                 },
                 {
-                    "name": "support_ticket",
+                    "name": "support_ticket", //工单
                     "path": "/ticket/search",
                     "meta": null,
                     "have_show_child" : false,//要有可显示的子目录

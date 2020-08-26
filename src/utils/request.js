@@ -11,7 +11,7 @@ import i18n from "@/service/i18n";
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
     // withCredentials: true, // send cookies when cross-domain requests
-    timeout: 8000 // request timeout 8s
+    timeout: 5000 // request timeout 5s
 })
 
 // request interceptor
