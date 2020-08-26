@@ -64,7 +64,16 @@ module.exports = {
 
     },
     refund: {
+        un_refund: 'Normal',
+        all_amount_refund: 'All Refund',
+        part_refund: 'Part Refund',
+        apply_refund: 'Apply',
+        cancel_refund: 'Cancel',
+        reject_refund: 'Reject',
         wait_bank_receive: 'Wait bank receive',
+        bank_accept_refund: 'Bank received',
+        bank_reject_refund: 'Bank reject',
+        bank_complete_refund: 'Completed',
     },
     home: {},
     profile: {},

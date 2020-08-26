@@ -11,9 +11,26 @@ export { parseTime, formatTime } from '@/utils'
 export function refundStatus(isRefund) {
   if (isEmpty(isRefund)) return ''
   switch (isRefund) {
+    case 0:
+      return i18n.t('refund.un_refund')
+    case 1:
+      return i18n.t('refund.all_amount_refund')
+    case 2:
+      return i18n.t('refund.part_refund')
+    case 13:
+      return i18n.t('refund.apply_refund')
+    case 14:
+      return i18n.t('refund.cancel_refund')
+    case 15:
+      return i18n.t('refund.reject_refund')
     case 16:
       return i18n.t('refund.wait_bank_receive')
-      //...
+    case 17:
+      return i18n.t('refund.bank_accept_refund')
+    case 18:
+      return i18n.t('refund.bank_reject_refund')
+    case 19:
+      return i18n.t('refund.bank_complete_refund')
   }
 }
 
