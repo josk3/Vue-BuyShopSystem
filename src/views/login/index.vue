@@ -22,7 +22,7 @@
                 </button>
 
                 <div class="d-block mt-5">
-                    <el-dropdown trigger="hover" class="clearfix">
+                    <el-dropdown trigger="click" class="clearfix">
                             <span class="el-dropdown-link text-blue">
                                 <font-awesome-icon icon="language" size="2x"/>
                             </span>
