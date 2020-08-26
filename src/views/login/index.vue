@@ -3,17 +3,17 @@
         <div class="text-center" v-loading="loading">
             <form class="form-signin" method="post" onsubmit="return false">
                 <h1 class="h3 mb-3 font-weight-normal">{{ $t('comm.merchant_login') }}</h1>
-                <label for="inputMerNo" class="sr-only">商户号</label>
-                <input type="text" id="inputMerNo" name="merNo" class="form-control"
+                <label for="inputMerNo" class="sr-only">{{ $t('user.mer_no') }}</label>
+                <input type="text" id="inputMerNo" name="merNo" class="form-control firs-input"
                        v-model="userLogin.mer_no"
                        :placeholder="$t('user.mer_no')" required
                        autofocus>
                 <label for="inputUsername" class="sr-only">Password</label>
-                <input type="text" id="inputUsername" name="username" class="form-control"
+                <input type="text" id="inputUsername" name="username" class="form-control mid-clear"
                        v-model="userLogin.username"
                        :placeholder="$t('user.username')" required>
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" name="password" class="form-control"
+                <input type="password" id="inputPassword" name="password" class="form-control last-input"
                        v-model="userLogin.password"
                        :placeholder="$t('user.password')"
                        required>
@@ -22,8 +22,21 @@
                 </button>
 
                 <div class="d-block mt-5">
-                    <a href="javascript:void(0)" class="btn btn-link btn-sm mr-2" @click="goLangZh">中文</a>
-                    <a href="javascript:void(0)" class="btn btn-link btn-sm" @click="goLangEn">En</a>
+                    <el-dropdown trigger="hover" class="clearfix">
+                            <span class="el-dropdown-link text-blue">
+                                <font-awesome-icon icon="language" size="2x"/>
+                            </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>
+                                <a href="javascript:void(0)" class="btn btn-link btn-sm mr-2"
+                                   @click="goLangEn">English</a>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                                <a href="javascript:void(0)" class="btn btn-link btn-sm "
+                                   @click="goLangZh">中文</a>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
                 </div>
 
                 <p class="mt-5 mb-3 text-muted">&copy; 2020 WINTOPAY</p>
@@ -38,6 +51,7 @@
     import {mapState} from "vuex";
     import user from "@/store/modules/user";
     import {isEmpty} from "@/utils/validate";
+    import {reloadPageTitle} from "@/utils/get-page-title";
 
     export default {
         name: "login",
@@ -72,12 +86,16 @@
             goLangEn: function () {
                 this.$i18n.locale = 'en'
                 this.$store.dispatch('app/setLang', 'en')
+                this.updatePageTitle()
             },
             goLangZh: function () {
                 this.$i18n.locale = 'zh'
                 this.$store.dispatch('app/setLang', 'zh')
+                this.updatePageTitle()
             },
-
+            updatePageTitle: function() {
+                reloadPageTitle(this.$route)
+            },
             submitLogin() {
                 try {
                     this.loading = true

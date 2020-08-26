@@ -53,7 +53,11 @@ const actions = {
   },
   setLang({ commit }, lang) {
     commit('SET_LANG', lang)
+  },
+  getLang() {
+    return state.lang
   }
+
 }
 
 export default {

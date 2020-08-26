@@ -15,6 +15,7 @@ module.exports = {
         about_company: '公司介绍',
         help_center: '帮助中心',
         contact_us: '联系我们',
+        record_total: '总记录数',
 
         //
         search: '搜索',

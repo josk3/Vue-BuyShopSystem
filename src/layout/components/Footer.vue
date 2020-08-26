@@ -38,6 +38,7 @@
     import {mapState} from "vuex";
     import configs from "@/configs";
     import user from "@/store/modules/user";
+    import {reloadPageTitle} from "@/utils/get-page-title";
 
     export default {
         name: "Footer",
@@ -57,10 +58,15 @@
             goLangEn: function () {
                 this.$i18n.locale = 'en'
                 this.$store.dispatch('app/setLang', 'en')
+                this.updatePageTitle()
             },
             goLangZh: function () {
                 this.$i18n.locale = 'zh'
                 this.$store.dispatch('app/setLang', 'zh')
+                this.updatePageTitle()
+            },
+            updatePageTitle: function() {
+                reloadPageTitle(this.$route)
             },
         }
     }

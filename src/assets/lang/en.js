@@ -15,6 +15,7 @@ module.exports = {
         about_company: 'About Wintopay',
         help_center: 'Help Center',
         contact_us: 'Contact Us',
+        record_total: 'Record Total',
 
         //
         search: 'Search',

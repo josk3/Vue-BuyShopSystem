@@ -17,6 +17,7 @@ import * as filters from './filters' // global filters
 //-
 import 'bootstrap'
 import '@/configs'
+
 import i18n from "@/service/i18n";
 //-
 import {library} from '@fortawesome/fontawesome-svg-core'
@@ -47,9 +48,9 @@ Vue.config.productionTip = false
 
 new Vue({
     el: '#portal',
-    i18n,
     router,
     store,
+    i18n,
     render: h => h(App)
 })
 

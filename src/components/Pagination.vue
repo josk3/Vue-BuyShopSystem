@@ -2,7 +2,7 @@
     <div class="pagination-links mt-3 row">
         <div class="col-6 text-left">
             <div class="pl-3">
-                总记录数: {{ page.total }}
+                {{ $t('comm.record_total') }}: {{ page.total }}
             </div>
         </div>
         <div class="col-6 text-right">
