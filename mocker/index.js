@@ -16,7 +16,7 @@ function demoUserInfo() {
                 status: 1,
                 identifier_status: 0,
                 mer_no: '4008',
-                notice: 0
+                notice_count: 11
             },
             token: "00e3c2a5d87a9e34ef2e879309cb1a31bf3dc56eb0f77fe4ba",
             menus: [

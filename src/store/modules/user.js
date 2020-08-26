@@ -15,7 +15,7 @@ const state = {
         status: null,
         identifier_status: null,
         mer_no: null,
-        notice: 0
+        notice_count: 0
     },
     name: '',
     avatar: '',

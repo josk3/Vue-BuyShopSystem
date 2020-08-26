@@ -57,6 +57,7 @@
     import configs from "@/configs";
     import user from "@/store/modules/user";
     import {mapState} from "vuex";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "Header",
@@ -74,13 +75,36 @@
         },
         data() {
             return {
-                noticeCount: 35,
+                noticeCount: 0,
                 noticeList: [],
             }
         },
+        mounted() {
+            if(!isEmpty(this.user)) {
+                this.noticeCount = this.user.notice_count
+                if (this.user.notice_count > 0) {
+                    this.changeNoticeIco();
+                }else {
+                    this.resetIco()
+                }
+            }
+        },
         methods: {
-            loadNotice() {
+            changeNoticeIco: function () {
+                let ico = document.getElementById('favicon');
+                if (!isEmpty(ico) && !isEmpty(ico.href)) {
+                    ico.href = ico.href.replace("favicon.ico", "favicon_n.ico")
+                }
+            },
+            resetIco: function () {
+                let ico = document.getElementById('favicon');
+                if (!isEmpty(ico) && !isEmpty(ico.href)) {
+                    ico.href = ico.href.replace("favicon_n.ico", "favicon.ico")
+                }
+            },
+            loadNotice: function() {
                 console.log('loadNotice')
+                //list and ico
             }
         },
     }
