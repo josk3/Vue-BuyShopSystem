@@ -55,7 +55,7 @@
                             :show-overflow-tooltip="true"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
-                            {{scope.row.is_refund | refundStatus }}
+                            {{scope.row.refund_status | refundStatus }}
                         </template>
                     </el-table-column>
                     <el-table-column

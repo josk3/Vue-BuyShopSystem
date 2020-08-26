@@ -251,7 +251,7 @@ const proxy = {
                         currency: 'USD',
                         refund_amount: 50.89,
                         apply_time: '2020-01-10 12:12:00',
-                        is_refund: 16,//退款状态数值
+                        refund_status: 16,//退款状态数值
                         refund_str: '待银行接收退款申请',//退款状态中文
                     },
                     {
@@ -263,7 +263,7 @@ const proxy = {
                         currency: 'USD',
                         refund_amount: 50.89,
                         apply_time: '2020-01-10 12:12:00',
-                        is_refund: 16,//退款状态数值
+                        refund_status: 16,//退款状态数值
                         refund_str: '待银行接收退款申请',//退款状态中文
                     },
                     {
@@ -275,7 +275,7 @@ const proxy = {
                         currency: 'USD',
                         refund_amount: 50.89,
                         apply_time: '2020-01-10 12:12:00',
-                        is_refund: 16,//退款状态数值
+                        refund_status: 15,//退款状态数值
                         refund_str: '待银行接收退款申请',//退款状态中文
                     },
                 ],
