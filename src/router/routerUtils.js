@@ -30,6 +30,10 @@ export const routerUtils = {
         component: () => import('@/views/portal/chargeback'),
         meta: {icon: 'user', noCache: true}
     },
+    'support_ticket': {
+        component: () => import('@/views/portal/ticket/index'),
+        meta: {noCache: true}
+    },
 }
 
 function resolveMenu(menu) {

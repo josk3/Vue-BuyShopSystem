@@ -106,6 +106,35 @@ function demoUserInfo() {
                     "meta": null,
                     "children": null
                 },
+                {
+                    "name": "support_ticket",
+                    "path": "/ticket/search",
+                    "meta": null,
+                    "have_show_child" : false,//要有可显示的子目录
+                    "children": [
+                        {
+                            "name": "ticket_get",
+                            "path": "/ticket/get",
+                            "hidden" : true,
+                        },
+                        {
+                            "name": "ticket_create",
+                            "path": "/ticket/create",
+                            "hidden" : true,
+                        },
+                        {
+                            "name": "ticket_reply",
+                            "path": "/ticket/reply",
+                            "hidden" : true,
+                        },
+                        {
+                            "name": "ticket_close",
+                            "path": "/ticket/close",
+                            "hidden" : true,
+                        },
+                        //...
+                    ]
+                },
             ]
         }
     };
@@ -206,7 +235,7 @@ const proxy = {
         return res.json({
             status: 1,
             data: {
-                page: {
+                page: { //后端方法 _pageSetRes(..)
                     count: 5,
                     page_num: req.body.page * 1 || 1,
                     page_size: 20,
