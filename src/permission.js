@@ -8,6 +8,7 @@ import getPageTitle from '@/utils/get-page-title'
 import configs from '@/configs'
 import {convertRouters, renderRedirectTo} from "@/router/routerUtils";
 import i18n from "@/service/i18n";
+import {isEmpty} from "@/utils/validate";
 
 NProgress.configure({showSpinner: false}) // NProgress Configuration
 
@@ -31,49 +32,50 @@ router.beforeEach(async (to, from, next) => {
         await store.dispatch('user/logout')
         next(configs.loginPath)
         NProgress.done()
-        if (from.path !== configs.loginPath) {
-            Message.success(i18n.t('comm.logout_ok'))
+        if (!isEmpty(hasToken) && from.path !== configs.loginPath) {
+            Message.success(i18n.t('comm.logout_ok').toString())
         }
-    }
-    if (hasToken) {
-        if (to.path === configs.loginPath) {
-            //next({ path: configs.homePath })
-            next()
-            NProgress.done()
-        } else {
-            const hasMenus = store.getters.menus && store.getters.menus.length > 0
-            if (hasMenus) {
+    }else {
+        if (hasToken) {
+            if (to.path === configs.loginPath || to.path === configs.logoutPath) {
+                //next({ path: configs.homePath })
                 next()
+                NProgress.done()
             } else {
-                try {
-                    // get user info
-                    const {menus} = await store.dispatch('user/loadUserInfo')
-                    if (menus === undefined || menus === '' || menus === null) {
-                        new Error('401')
+                const hasMenus = store.getters.menus && store.getters.menus.length > 0
+                if (hasMenus) {
+                    next()
+                } else {
+                    try {
+                        // get user info
+                        const {menus} = await store.dispatch('user/loadUserInfo')
+                        if (menus === undefined || menus === '' || menus === null) {
+                            new Error('401')
+                        }
+                        //后端数据
+                        router.addRoutes(convertRouters(menus))
+                        // set the replace: true, so the navigation will not leave a history record
+                        next({...to, replace: true})
+                    } catch (error) {
+                        Message.error(error || 'Has Error')
+                        //await store.dispatch('user/resetToken')
+                        //let redirectTo = renderRedirectTo(to.path)
+                        //next(`/login${redirectTo}`)
+                        NProgress.done()
                     }
-                    //后端数据
-                    router.addRoutes(convertRouters(menus))
-                    // set the replace: true, so the navigation will not leave a history record
-                    next({...to, replace: true})
-                } catch (error) {
-                    Message.error(error || 'Has Error')
-                    //await store.dispatch('user/resetToken')
-                    //let redirectTo = renderRedirectTo(to.path)
-                    //next(`/login${redirectTo}`)
-                    NProgress.done()
                 }
             }
-        }
-    } else {
-        /* has no token*/
-        if (anonAuthPages.indexOf(to.path) !== -1) {
-            // in the free login whitelist, go directly
-            next()
         } else {
-            // other pages that do not have permission to access are redirected to the login page.
-            let redirectTo = renderRedirectTo(to.path)
-            next(`/login${redirectTo}`)
-            NProgress.done()
+            /* has no token*/
+            if (anonAuthPages.indexOf(to.path) !== -1) {
+                // in the free login whitelist, go directly
+                next()
+            } else {
+                // other pages that do not have permission to access are redirected to the login page.
+                let redirectTo = renderRedirectTo(to.path)
+                next(`/login${redirectTo}`)
+                NProgress.done()
+            }
         }
     }
 })

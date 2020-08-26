@@ -64,6 +64,7 @@ const actions = {
     // get user info
     loadUserInfo({commit, state}) {
         return new Promise((resolve, reject) => {
+            if (isEmpty(getToken())) reject('401')
             getInfo(state.token).then(response => {
                 const {data} = response
 
