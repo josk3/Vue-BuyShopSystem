@@ -243,9 +243,9 @@ const proxy = {
                 },
                 list: [
                     {
-                        trade_no: 'tr_M112d20820s11e14C16D',
+                        trade_id: 'tr_M112d20820s11e14C16D',
                         merchant_order_no: new Date().getMilliseconds(),
-                        email: req.body.trade_no + '@test.com',
+                        email: req.body.trade_id + '@test.com',
                         payment_time: '2020-01-01 12:12:00',
                         order_amount: 135.89,
                         currency: 'USD',
@@ -255,7 +255,7 @@ const proxy = {
                         refund_str: '待银行接收退款申请',//退款状态中文
                     },
                     {
-                        trade_no: 'tr_893ufj4fjo2222',
+                        trade_id: 'tr_893ufj4fjo2222',
                         merchant_order_no: '8983423',
                         email: req.body.refund_status + '@test.com',
                         payment_time: '2020-01-01 12:12:00',
@@ -267,7 +267,7 @@ const proxy = {
                         refund_str: '待银行接收退款申请',//退款状态中文
                     },
                     {
-                        trade_no: 'tr_893ufj4fjo33333',
+                        trade_id: 'tr_893ufj4fjo33333',
                         merchant_order_no: '8983423',
                         email: req.body.page + '@test.com',
                         payment_time: '2020-01-01 12:12:00',

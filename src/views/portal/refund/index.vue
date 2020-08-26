@@ -16,8 +16,8 @@
                         :header-row-style="{background:'#2C2E2F'}"
                         style="width: 100%">
                     <el-table-column
-                            prop="trade_no"
-                            :label="$t('comm.trade_no')" width="210px">
+                            prop="trade_id"
+                            :label="$t('comm.trade_id')" width="210px">
                     </el-table-column>
                     <el-table-column
                             prop="merchant_order_no"
@@ -73,7 +73,7 @@
                                 <i class="el-icon-more"></i>
                             </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>{{ scope.row.trade_no }}</el-dropdown-item>
+                                    <el-dropdown-item>{{ scope.row.trade_id }}</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </template>
@@ -105,7 +105,7 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.refund_select', page: 1,
-                    trade_no: '', merchant_order_no: '', email: ''
+                    trade_id: '', merchant_order_no: '', email: ''
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认

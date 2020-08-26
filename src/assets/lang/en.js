@@ -26,7 +26,7 @@ module.exports = {
         refund_ing: 'Refund ing',
 
         //
-        trade_no: 'Trade No',
+        trade_id: 'Trade No',
         merchant_order_no: 'Order Id',
         email: 'Email',
         order_amount: 'Amount',

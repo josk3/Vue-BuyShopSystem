@@ -26,7 +26,7 @@ module.exports = {
         refund_ing: '退款中',
 
         //
-        trade_no: '流水号',
+        trade_id: '流水号',
         merchant_order_no: '订单号',
         email: '邮箱',
         order_amount: '订单金额',
