@@ -8,9 +8,9 @@ export function reloadPageTitle(currentRoute) {
     if (!isEmpty(currentRoute) || !isObject(currentRoute)) {
         title = getPageTitle(currentRoute.meta.title || currentRoute.name);
     }else {
-        title = configs.title;
+        title = i18n.t(configs.title);
     }
-    document.title = i18n.t(title).toString();
+    document.title = title;
 }
 
 export default function getPageTitle(pageTitle) {
