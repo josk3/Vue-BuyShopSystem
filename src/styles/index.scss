@@ -220,7 +220,8 @@ body, .wrap, .wrap-side .el-menu {
 }
 
 .wrap-tab .box-card {
-  min-height: 400px;
+  //min-height: 400px;
+  padding-bottom: 20px;
 }
 
 .box-pane .el-tabs__content {

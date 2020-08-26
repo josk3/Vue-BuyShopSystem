@@ -208,7 +208,7 @@ const proxy = {
             data: {
                 page: {
                     count: 5,
-                    page_num: req.body.page || 1,
+                    page_num: req.body.page * 1 || 1,
                     page_size: 20,
                     total: 50,
                 },
