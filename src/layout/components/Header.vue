@@ -33,10 +33,15 @@
                                 {{ user.email }}<i class="el-icon-arrow-down el-icon--right"></i>
                             </span>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item icon="el-icon-user-solid" class="p-1 pl-3 pr-3">{{ $t('comm.profile')
-                                    }}
+                                <el-dropdown-item class="p-1 pl-3 pr-3">
+                                    <router-link :to="configs.profilePath">
+                                        <i class="el-icon-user-solid"></i>{{ $t('comm.profile') }}
+                                    </router-link>
                                 </el-dropdown-item>
-                                <el-dropdown-item icon="el-icon-help" class="p-1 pl-3 pr-3">{{ $t('comm.faq') }}
+                                <el-dropdown-item class="p-1 pl-3 pr-3">
+                                    <router-link :to="configs.faqPath">
+                                        <i class="el-icon-help"></i>{{ $t('comm.faq') }}
+                                    </router-link>
                                 </el-dropdown-item>
                                 <el-dropdown-item divided>
                                     <router-link :to="configs.logoutPath">

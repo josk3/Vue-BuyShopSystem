@@ -12,9 +12,15 @@ module.exports = {
      */
     errorLog: 'production',
 
+    //
+    aboutUsUrl: 'https://www.wintopay.com/',
+    contactUsUrl: 'https://www.wintopay.com/',
+
     anonAuthPages: ['/login', '/logout', '/404', '/401', '/500'], //不用登录状态也能访问
     logoutPath: '/logout',
     loginPath: '/login',
+    profilePath: '/profile',
+    faqPath: '/faq',
     homePath: '/',
     apiCode: {
         needLogin: 7011,

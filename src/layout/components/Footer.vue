@@ -4,13 +4,17 @@
             <div class="text-center">
                 <ul class="list-unstyled list-inline">
                     <li class="list-inline-item mr-1 small">
-                        <a href="javascript:void(0)" class="btn btn-light btn-sm mr-2">{{ $t('comm.about_company') }}</a>
+                        <a :href="configs.aboutUsUrl" target="_blank"
+                           class="btn btn-light btn-sm mr-2">{{ $t('comm.about_company') }}</a>
                     </li>
                     <li class="list-inline-item mr-1 small">
-                        <a href="javascript:void(0)" class="btn btn-light btn-sm mr-2">{{ $t('comm.help_center') }}</a>
+                        <router-link :to="configs.faqPath" class="btn btn-light btn-sm mr-2">
+                            {{ $t('comm.faq') }}
+                        </router-link>
                     </li>
                     <li class="list-inline-item mr-1 small">
-                        <a href="javascript:void(0)" class="btn btn-light btn-sm mr-2">{{ $t('comm.contact_us') }}</a>
+                        <a :href="configs.contactUsUrl" target="_blank"
+                           class="btn btn-light btn-sm mr-2">{{ $t('comm.contact_us') }}</a>
                     </li>
                     <li class="text-muted">
                         <small>Content protected Copyright © 2020 All Rights Reserved Wintopay.com</small>

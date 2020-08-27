@@ -27,12 +27,6 @@ function demoUserInfo() {
                     "children": null
                 },
                 {
-                    "name": "profile",
-                    "path": "/profile",
-                    "meta": null,
-                    "children": null
-                },
-                {
                     "name": "active_account",
                     "path": "/merchant/active_account",
                     "meta": null,

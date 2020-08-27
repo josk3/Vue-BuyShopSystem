@@ -11,7 +11,7 @@ module.exports = {
         merchant_login: '商户登录',
         cancel: '取消',
         profile: '个人中心',
-        faq: '问题中心',
+        faq: '帮助中心',
         about_company: '公司介绍',
         help_center: '帮助中心',
         contact_us: '联系我们',
@@ -55,6 +55,7 @@ module.exports = {
         support_ticket: '技术支持',
         message_center: '消息中心',
         dispute_manage: '投诉订单',
+        faq: '帮助中心',
 
     },
     user: { //跟用户相关

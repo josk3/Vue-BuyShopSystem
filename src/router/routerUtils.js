@@ -10,6 +10,10 @@ export const routerUtils = {
         component: () => import('@/views/portal/profile/index'),
         meta: {title: 'Profile', icon: 'user', noCache: true}
     },
+    'faq': {
+        component: () => import('@/views/portal/faq/index'),
+        meta: {noCache: true}
+    },
     'payout_select': {
         component: () => import('@/views/portal/profile/index'),
         meta: {noCache: true}
@@ -89,6 +93,18 @@ export function convertRouters(userMenu) {
             component: () => import('@/views/portal/home'),
             name: 'Dashboard',
             meta: {title: 'Dashboard', icon: 'dashboard', affix: true}
+        },
+        {
+            path: 'profile',
+            component: () => import('@/views/portal/profile'),
+            name: 'profile',
+            hidden: true,
+        },
+        {
+            path: 'faq',
+            component: () => import('@/views/portal/faq'),
+            name: 'faq',
+            hidden: true,
         },
         {
             path: '*',

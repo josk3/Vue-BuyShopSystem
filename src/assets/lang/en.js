@@ -55,6 +55,7 @@ module.exports = {
         support_ticket: 'Support Ticket',
         message_center: 'Notices',
         dispute_manage: 'Dispute',
+        faq: 'Faq',
 
     },
     user: { //跟用户相关
