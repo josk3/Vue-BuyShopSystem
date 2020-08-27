@@ -11,7 +11,8 @@
                 <div v-if="!regSuccess">
                     <div v-if="!submitOk">
                         <p class="text-center">{{$t('login.register_right_now')}}</p>
-                        <el-form label-position="top" :rules="rules" ref="register" label-width="90px" :model="register">
+                        <el-form label-position="top" :rules="rules" ref="register" label-width="90px"
+                                 :model="register">
                             <el-form-item label="用户名" prop="username">
                                 <el-input v-model="register.username"></el-input>
                             </el-form-item>
@@ -24,7 +25,8 @@
                             <el-form-item prop="terms">
                                 <el-checkbox label="" :checked="register.terms" v-model="register.terms"
                                              name="term"></el-checkbox>
-                                <span class="small"> 我已阅读同意《服务条款》和《法律声明》</span>
+                                <span class="small"> 我已阅读同意《<router-link :to="configs.termsPath">服务条款</router-link>》和
+                                    《<router-link :to="configs.termsPath">法律声明</router-link>》</span>
                             </el-form-item>
 
                             <el-form-item>
@@ -68,7 +70,7 @@
                         <div v-if="!useEmail">
                             <div class="mb-4 mt-2">
                                 <div class="mb-4 font-weight-bold">{{$t('user.mer_no')}} {{ res.mer_no }}</div>
-                                <el-form :inline="true" >
+                                <el-form :inline="true">
                                     <el-form-item label="短信验证码">
                                         <el-input type="phone" v-model="phoneCode" placeholder="短信验证码"></el-input>
                                     </el-form-item>

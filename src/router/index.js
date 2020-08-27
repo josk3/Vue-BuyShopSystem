@@ -73,6 +73,12 @@ export const constantRoutes = [
                 hidden: true
             },
             {
+                path: '/terms',
+                name: 'terms',
+                component: () => import('@/views/public/terms'),
+                hidden: true
+            },
+            {
                 path: '/404',
                 name: '404',
                 component: () => import('@/views/error-page/404'),
