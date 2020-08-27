@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-column h-100" v-loading="loading">
 
-        <div class="text-center">
+        <div class="text-center login-box">
             <form class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" method="post" onsubmit="return false">
                 <h1 class="h3 mb-3 font-weight-normal">
                     <svg-icon icon-class="wintopay_icon_color" style="width: 45px;height: 29px;"/>
@@ -127,5 +127,13 @@
 
     }
 </script>
-
+<style>
+    .login-box .form-signin .firs-input{
+        border-top: 0;
+    }
+    .login-box .form-signin .firs-input, .login-box .form-signin .mid-clear, .login-box .form-signin .last-input{
+        border-left: 0;
+        border-right: 0;
+    }
+</style>
 <style scoped src="../../../public/static/css/login.css"/>
