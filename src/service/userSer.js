@@ -15,12 +15,24 @@ export function logout() {
     })
 }
 
+export function registerMer(data) {
+    return post('/register', data);
+}
+
+export function resendRegisterEmail(data) {
+    return post('/register/resend_email', data);
+}
+
+export function activeEmail(data) {
+    return post('/active/email', data);
+}
+
 export function forgetPwd(data) {
     return post('/password/forget', data);
 }
 
 export function resendForgetPwdEmail(data) {
-    return post('/password/forget/resend', data);
+    return post('/password/forget/resend_email', data);
 }
 
 export function resetPwd(data) {

@@ -1,8 +1,8 @@
 <template>
-    <div class="d-flex flex-column h-100">
+    <div class="d-flex flex-column h-100" v-loading="loading">
 
-        <div class="text-center" v-loading="loading">
-            <form class="form-signin" method="post" onsubmit="return false">
+        <div class="text-center">
+            <form class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" method="post" onsubmit="return false">
                 <h1 class="h3 mb-3 font-weight-normal">
                     <svg-icon icon-class="wintopay_icon_color" style="width: 45px;height: 29px;"/>
                     {{ $t('comm.merchant_login') }}

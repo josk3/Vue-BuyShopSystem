@@ -8,6 +8,7 @@ module.exports = {
         forget_pwd: '忘记密码?',
         not_a_account: '还没有账号?',
         register_now: '立即注册',
+        register: '注册',
         logout: '退出登录',
         login_timeout: '登录超时',
         logout_ok: '退出成功',
@@ -66,6 +67,7 @@ module.exports = {
         logout: '退出',
         forget_pwd: '找回密码',
         reset_pwd: '重置密码',
+        active_email: '激活邮件',
         '404': '404',
         '401': '401',
 
@@ -106,6 +108,7 @@ module.exports = {
         reset_new_pwd: '设置新密码',
         new_password: '新密码',
         confirm_new_password: '确认新密码',
+        register_right_now: '立即创建您的账号',
     },
     home: {},
     profile: {},

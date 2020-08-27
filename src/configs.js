@@ -17,7 +17,7 @@ module.exports = {
     contactUsUrl: 'https://www.wintopay.com/',
 
     anonAuthPages: ['/login', '/logout', '/404', '/401', '/500',
-        '/register', '/forget_pwd', '/reset_pwd'], //不用登录状态也能访问
+        '/register', '/forget_pwd', '/reset_pwd', '/active_email'], //不用登录状态也能访问
     logoutPath: '/logout',
     loginPath: '/login',
     profilePath: '/profile',

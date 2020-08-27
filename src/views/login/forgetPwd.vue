@@ -16,7 +16,7 @@
                     </div>
                     <div class="mb-5">
                         <span class="small">{{ $t('login.resolver_email_fail[0]') }}</span>
-                        <el-link type="info" @click="confirmResendDialog = true">
+                        <el-link type="primary" @click="confirmResendDialog = true">
                             {{ $t('login.resolver_email_fail[1]') }}
                         </el-link>
                         <el-dialog
@@ -58,6 +58,12 @@
                     </el-button>
 
                 </form>
+            </div>
+            <div v-if="!submitOk" class="mt-4 text-center">
+                <router-link :to="configs.loginPath"
+                             class="btn btn-sm p-2 pl-1 pr-4 btn-link btn-mp">
+                    {{ $t('comm.login') }}
+                </router-link>
             </div>
         </div>
     </div>

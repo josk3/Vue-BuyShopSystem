@@ -211,6 +211,13 @@ const proxy = {
             i18n: 'success',
         });
     },
+    'POST /api/v1/register/resend_email': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '发送成功',
+            i18n: 'success',
+        });
+    },
     'POST /api/v1/user/info': (req, res) => {
         return res.json(demoUserInfo());
     },
@@ -225,7 +232,7 @@ const proxy = {
         console.log('---->', req.params.id)
         res.send({status: 'ok', message: '删除成功！'});
     },
-    'POST /api/v1/password/forget/resend': (req, res) => {
+    'POST /api/v1/password/forget/resend_email': (req, res) => {
         const {mer_no} = req.body;
         return res.json({
             status: mer_no === '4008' ? 1 : 0,
@@ -246,6 +253,14 @@ const proxy = {
         return res.json({
             status: code === '8888' ? 1 : 0,
             message: code === '8888' ? "ok" : "邮件链接已失效,请重新操作找加密",
+            data: {}
+        });
+    },
+    'POST /api/v1/active/email': (req, res) => {
+        const {code, uid} = req.body;
+        return res.json({
+            status: code === '8888' ? 1 : 0,
+            message: code === '8888' ? "ok" : "邮件链接已失效" + uid,
             data: {}
         });
     },
@@ -301,6 +316,7 @@ const proxy = {
         });
     },
 }
-let sleep = false;// true 测试延迟响应
+let sleep = false;
+// let sleep = true;// true 测试延迟响应
 module.exports = sleep ? delay(proxy, 3000) : proxy;
 //https://github.com/jaywcjlove/mocker-api

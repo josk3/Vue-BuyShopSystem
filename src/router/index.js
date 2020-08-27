@@ -63,7 +63,13 @@ export const constantRoutes = [
             {
                 path: '/register',
                 name: 'register',
-                component: () => import('@/views/login/forgetPwd'),
+                component: () => import('@/views/login/register'),
+                hidden: true
+            },
+            {
+                path: '/active_email',
+                name: 'active_email',
+                component: () => import('@/views/login/activeEmail'),
                 hidden: true
             },
             {
