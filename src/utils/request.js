@@ -6,7 +6,7 @@ import configs from '@/configs'
 import qs from "qs";
 import {isEmpty} from "@/utils/validate";
 import i18n from "@/service/i18n";
-import {toLower} from "@/utils/strUtils";
+import {toLower, getSplitLast} from "@/utils/strUtils";
 
 // create an axios instance
 const service = axios.create({
@@ -50,8 +50,9 @@ service.interceptors.response.use(
         //response : data, status:200(http code), statusText:OK, headers:xx, config:xxx, request: xxx
         if (!isEmpty(response.headers)) {
             let headerToken = response.headers[toLower(getTokenKey())];
-            if (!isEmpty(headerToken) && headerToken !== getToken()) {
-                setToken(headerToken); //new token
+            if (!isEmpty(headerToken)) {
+                let newToken = getSplitLast(headerToken)
+                if (newToken !== getToken()) setToken(newToken); //new token
             }
         }
         const res = response.data
