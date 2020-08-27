@@ -1,11 +1,12 @@
 import axios from 'axios'
 import {Message, MessageBox} from 'element-ui'
 import store from '@/store'
-import {getToken, getTokenKey} from '@/service/auth/token'
+import {getToken, getTokenKey, setToken} from '@/service/auth/token'
 import configs from '@/configs'
 import qs from "qs";
 import {isEmpty} from "@/utils/validate";
 import i18n from "@/service/i18n";
+import {toLower} from "@/utils/strUtils";
 
 // create an axios instance
 const service = axios.create({
@@ -47,6 +48,12 @@ service.interceptors.response.use(
      */
     response => { //200
         //response : data, status:200(http code), statusText:OK, headers:xx, config:xxx, request: xxx
+        if (!isEmpty(response.headers)) {
+            let headerToken = response.headers[toLower(getTokenKey())];
+            if (!isEmpty(headerToken) && headerToken !== getToken()) {
+                setToken(headerToken); //new token
+            }
+        }
         const res = response.data
         if (res.status !== 1) {
             Message({
@@ -90,8 +97,8 @@ service.interceptors.response.use(
 )
 
 function tryReLogin() {
-    MessageBox.confirm(i18n.t('comm.login_timeout'),
-        i18n.t('comm.logout'), {
+    MessageBox.confirm(i18n.t('comm.login_timeout').toString(),
+        i18n.t('comm.logout').toString(), {
             confirmButtonText: i18n.t('comm.re_login'),
             cancelButtonText: i18n.t('comm.cancel'),
             type: 'warning'

@@ -157,6 +157,7 @@ const proxy = {
         changeHost: true,
         header: {
             'Access-Control-Allow-Headers': '*',
+            'Access-Control-Expose-Headers': 'Wp-Token',
             // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
         },
         // httpProxy: {
