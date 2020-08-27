@@ -42,17 +42,17 @@ function demoUserInfo() {
                     "name": "refund_select",
                     "path": "/refund/search",
                     "meta": null,
-                    "have_show_child" : false,//要有可显示的子目录
+                    "have_show_child": false,//要有可显示的子目录
                     "children": [
                         {
                             "name": "refund_download",
                             "path": "/refund/download",
-                            "hidden" : true,
+                            "hidden": true,
                         },
                         {
                             "name": "refund_apply",
                             "path": "/refund/apply",
-                            "hidden" : true,
+                            "hidden": true,
                         }
                     ]
                 },
@@ -60,17 +60,17 @@ function demoUserInfo() {
                     "name": "chargeback_select",
                     "path": "/chargeback/search",
                     "meta": null,
-                    "have_show_child" : false,//要有可显示的子目录
+                    "have_show_child": false,//要有可显示的子目录
                     "children": [
                         {
                             "name": "chargeback_download",
                             "path": "/chargeback/download",
-                            "hidden" : true,
+                            "hidden": true,
                         },
                         {
                             "name": "chargeback_apply",
                             "path": "/chargeback/apply",
-                            "hidden" : true,
+                            "hidden": true,
                         }
                     ]
                 },
@@ -78,18 +78,18 @@ function demoUserInfo() {
                     "name": "payout_select",
                     "path": "/payout/select",
                     "meta": null,
-                    "have_show_child" : false,//要有可显示的子目录
+                    "have_show_child": false,//要有可显示的子目录
                     "children": [
                         {
                             "name": "payout_apply",
                             "path": "/payout/apply",
-                            "hidden" : true,
+                            "hidden": true,
                             "meta": null
                         },
                         {
                             "name": "payout_history",
                             "path": "/payout/history",
-                            "hidden" : true,
+                            "hidden": true,
                             "meta": null
                         }
                     ]
@@ -104,27 +104,27 @@ function demoUserInfo() {
                     "name": "support_ticket", //工单
                     "path": "/ticket/search",
                     "meta": null,
-                    "have_show_child" : false,//要有可显示的子目录
+                    "have_show_child": false,//要有可显示的子目录
                     "children": [
                         {
                             "name": "ticket_get",
                             "path": "/ticket/get",
-                            "hidden" : true,
+                            "hidden": true,
                         },
                         {
                             "name": "ticket_create",
                             "path": "/ticket/create",
-                            "hidden" : true,
+                            "hidden": true,
                         },
                         {
                             "name": "ticket_reply",
                             "path": "/ticket/reply",
-                            "hidden" : true,
+                            "hidden": true,
                         },
                         {
                             "name": "ticket_close",
                             "path": "/ticket/close",
-                            "hidden" : true,
+                            "hidden": true,
                         },
                         //...
                     ]
@@ -199,7 +199,7 @@ const proxy = {
             return res.status(200).json({
                 status: 0,
                 code: 4011,
-                message: '登录失败',
+                message: '登录失败 ' + new Date().getMilliseconds(),
                 i18n: 'login.username.fail'
             });
         }
@@ -224,6 +224,30 @@ const proxy = {
         console.log('---->', req.body)
         console.log('---->', req.params.id)
         res.send({status: 'ok', message: '删除成功！'});
+    },
+    'POST /api/v1/password/forget/resend': (req, res) => {
+        const {mer_no} = req.body;
+        return res.json({
+            status: mer_no === '4008' ? 1 : 0,
+            message: mer_no === '4008' ? "ok" : "操作过于频繁",
+            data: {}
+        });
+    },
+    'POST /api/v1/password/forget': (req, res) => {
+        const {mer_no} = req.body;
+        return res.json({
+            status: mer_no === '4008' ? 1 : 0,
+            message: mer_no === '4008' ? "ok" : "商户号找不到",
+            data: {}
+        });
+    },
+    'POST /api/v1/password/reset': (req, res) => {
+        const {code} = req.body;
+        return res.json({
+            status: code === '8888' ? 1 : 0,
+            message: code === '8888' ? "ok" : "邮件链接已失效,请重新操作找加密",
+            data: {}
+        });
     },
     'POST /api/v1/refund/search': (req, res) => {
         return res.json({
@@ -278,5 +302,5 @@ const proxy = {
     },
 }
 let sleep = false;// true 测试延迟响应
-module.exports = sleep ? delay(proxy, 5000) : proxy;
+module.exports = sleep ? delay(proxy, 3000) : proxy;
 //https://github.com/jaywcjlove/mocker-api

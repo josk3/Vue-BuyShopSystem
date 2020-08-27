@@ -38,21 +38,43 @@ export const constantRoutes = [
         children: [
             {
                 path: '/login',
+                name: 'login',
                 component: () => import('@/views/login/index'),
                 hidden: true
             },
             {
                 path: '/logout',
+                name: 'logout',
                 component: () => import('@/views/login/index'),
                 hidden: true
             },
             {
+                path: '/forget_pwd',
+                name: 'forget_pwd',
+                component: () => import('@/views/login/forgetPwd'),
+                hidden: true
+            },
+            {
+                path: '/reset_pwd',
+                name: 'reset_pwd',
+                component: () => import('@/views/login/resetPwd'),
+                hidden: true
+            },
+            {
+                path: '/register',
+                name: 'register',
+                component: () => import('@/views/login/forgetPwd'),
+                hidden: true
+            },
+            {
                 path: '/404',
+                name: '404',
                 component: () => import('@/views/error-page/404'),
                 hidden: true
             },
             {
                 path: '/401',
+                name: '401',
                 component: () => import('@/views/error-page/401'),
                 hidden: true
             },

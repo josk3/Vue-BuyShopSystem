@@ -14,3 +14,15 @@ export function logout() {
         method: 'get'
     })
 }
+
+export function forgetPwd(data) {
+    return post('/password/forget', data);
+}
+
+export function resendForgetPwdEmail(data) {
+    return post('/password/forget/resend', data);
+}
+
+export function resetPwd(data) {
+    return post('/password/reset', data);
+}

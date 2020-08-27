@@ -23,6 +23,7 @@
 <script>
     import {mapState} from "vuex";
     import configs from "@/configs";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "BlankFooter",
@@ -36,8 +37,16 @@
             },
         },
         methods: {
-
-        }
+        },
+        mounted() {
+            //
+            if (!isEmpty(this.$route.query)) {
+                let rf = this.$route.query.rf;
+                if (!isEmpty(rf)) {
+                    this.$store.dispatch('app/setRf', rf)
+                }
+            }
+        },
     }
 </script>
 

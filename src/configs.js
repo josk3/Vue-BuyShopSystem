@@ -16,12 +16,15 @@ module.exports = {
     aboutUsUrl: 'https://www.wintopay.com/',
     contactUsUrl: 'https://www.wintopay.com/',
 
-    anonAuthPages: ['/login', '/logout', '/404', '/401', '/500'], //不用登录状态也能访问
+    anonAuthPages: ['/login', '/logout', '/404', '/401', '/500',
+        '/register', '/forget_pwd', '/reset_pwd'], //不用登录状态也能访问
     logoutPath: '/logout',
     loginPath: '/login',
     profilePath: '/profile',
     faqPath: '/faq',
     homePath: '/home',
+    forgetPwdPath: '/forget_pwd',
+    registerPath: '/register',
     apiCode: {
         needLogin: 7011,
         reloadUserData: 7010,

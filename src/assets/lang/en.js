@@ -5,6 +5,9 @@ module.exports = {
     comm: { //通用
         login: 'Login',
         re_login: 'Please Login',
+        forget_pwd: 'Forget password?',
+        not_a_account: 'No account yet?',
+        register_now: 'Register',
         logout: 'Logout',
         login_timeout: 'Login timeout',
         logout_ok: 'Logout success',
@@ -16,8 +19,11 @@ module.exports = {
         help_center: 'Help Center',
         contact_us: 'Contact Us',
         record_total: 'Record Total',
+        confirm: 'Confirm',
+
 
         //
+        setup_next:'Next',
         search: 'Search',
         reset: 'Clear',
         all: 'All',
@@ -75,6 +81,10 @@ module.exports = {
         bank_accept_refund: 'Bank received',
         bank_reject_refund: 'Bank reject',
         bank_complete_refund: 'Completed',
+    },
+    login: {
+        resolver_password: 'Find Password',
+        info_will_send_email: 'Information will send email',
     },
     home: {},
     profile: {},

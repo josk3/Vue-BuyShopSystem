@@ -17,7 +17,7 @@
                        v-model="userLogin.mer_no"
                        :placeholder="$t('user.mer_no')" required
                        autofocus>
-                <label for="inputUsername" class="sr-only">Username</label>
+                <label for="inputUsername" class="sr-only">Password</label>
                 <input type="text" id="inputUsername" name="username" class="form-control mid-clear"
                        v-model="userLogin.username"
                        :placeholder="$t('user.username')" required>
@@ -26,27 +26,12 @@
                        v-model="userLogin.password"
                        :placeholder="$t('user.password')"
                        required>
-                <div class="d-block clearfix mb-2">
-                    <el-link type="primary" class="small float-right">
-                        <router-link :to="configs.forgetPwdPath">
-                            {{ $t('comm.forget_pwd') }}
-                        </router-link>
-                    </el-link>
-                </div>
-                <el-button type="primary"
-                           class="btn-block btn-mp"
-                           @click="submitLogin"
-                           :loading="loading">{{ $t('comm.login') }}
-                </el-button>
-                <div class="d-block row">
-                    <div class="col-12 mt-5 mb-3">
-                        <span class="text-dark small">{{ $t('comm.not_a_account') }}</span>
-                        <el-link type="primary" style="font-size: 17px;">
-                            <router-link :to="configs.registerPath">
-                                {{ $t('comm.register_now') }}
-                            </router-link>
-                        </el-link>
-                    </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit"
+                        @click="submitLogin">{{ $t('comm.login') }}
+                </button>
+
+                <div>
+
                 </div>
 
             </form>
@@ -58,10 +43,11 @@
     import configs from "@/configs";
     import {findPath} from "@/router/routerUtils";
     import {mapState} from "vuex";
+    import user from "@/store/modules/user";
     import {isEmpty} from "@/utils/validate";
 
     export default {
-        name: "login",
+        name: "register",
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 sidebar: state => state.app.sidebar,
@@ -69,6 +55,12 @@
             }),
             configs() {
                 return configs;
+            },
+            user() {
+                return user.state.user;
+            },
+            menus() {
+                return user.state.menus;
             },
         },
         data() {

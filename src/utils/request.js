@@ -57,12 +57,6 @@ service.interceptors.response.use(
         }
         const res = response.data
         if (res.status !== 1) {
-            Message({
-                message: res.message || 'Error',
-                type: 'error',
-                duration: 5 * 1000
-            })
-
             if (res.code === configs.apiCode.needLogin) {
                 tryReLogin()
             }
@@ -80,16 +74,20 @@ service.interceptors.response.use(
         if (process.env.NODE_ENV === 'development') {
             console.log('err' + error) // for debug
         }
-        if (!isEmpty(error.response) && !isEmpty(error.response.data)) {
-            let res = error.response.data;
-            if (!isEmpty(res)) {
-                if (res.code === configs.apiCode.needLogin) {
-                    tryReLogin()
+        let errMsg;
+        if (!isEmpty(error.response)) {
+            errMsg = error.response.message
+            if (!isEmpty(error.response.data)) {
+                let res = error.response.data;
+                if (!isEmpty(res)) {
+                    if (res.code === configs.apiCode.needLogin) {
+                        tryReLogin()
+                    }
                 }
             }
         }
         Message({
-            message: error.message,
+            message: errMsg ? errMsg : (error.message || 'Error'),
             type: 'error',
             duration: 5 * 1000
         })

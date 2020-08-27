@@ -22,15 +22,13 @@ import i18n from "@/service/i18n";
 //-
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {faSignOutAlt, faLanguage, faBars} from '@fortawesome/free-solid-svg-icons'
+import {faSignOutAlt, faLanguage, faBars, faUnlockAlt} from '@fortawesome/free-solid-svg-icons'
 import {faBell} from '@fortawesome/free-regular-svg-icons'
 import '@/styles/index.scss' // global css
 //-
 
-library.add(faSignOutAlt)
-library.add(faLanguage)
+library.add(faSignOutAlt, faLanguage, faBars, faUnlockAlt)
 library.add(faBell)
-library.add(faBars)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

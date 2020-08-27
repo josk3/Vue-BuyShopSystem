@@ -8,6 +8,7 @@ const state = {
   device: 'desktop',
   size: Cookies.get('size') || 'medium',
   lang: Cookies.get('lang') ? Cookies.get('lang') : 'zh',
+  rf: '',
 }
 
 const mutations = {
@@ -35,6 +36,10 @@ const mutations = {
   SET_LANG: (state, lang) => {
     state.lang = lang
     Cookies.set('lang', lang)
+  },
+  SET_RF: (state, rf) => {
+    state.rf = rf
+    Cookies.set('rf', rf)
   }
 }
 
@@ -56,6 +61,12 @@ const actions = {
   },
   getLang() {
     return state.lang
+  },
+  setRf({ commit }, rf) {
+    commit('SET_RF', rf)
+  },
+  getRf() {
+    return state.rf
   }
 
 }
