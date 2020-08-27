@@ -1,5 +1,6 @@
 import {isArray, isObject, isEmpty, isString} from "@/utils/validate";
 import Layout from "@/layout/index";
+import blank from "@/layout/blank";
 
 /**
  * 名称必须唯一不重复，且与后端一致!!
@@ -89,34 +90,35 @@ export function convertRouters(userMenu) {
             meta: {title: 'Dashboard', icon: 'dashboard', affix: true}
         },
         {
-            path: 'home',
+            path: '/home',
             component: () => import('@/views/portal/home'),
-            name: 'Dashboard',
+            name: 'homePage1',
             meta: {title: 'Dashboard', icon: 'dashboard', affix: true}
         },
         {
-            path: 'profile',
+            path: '/profile',
             component: () => import('@/views/portal/profile'),
-            name: 'profile',
+            name: '/profile',
             hidden: true,
         },
         {
-            path: 'faq',
+            path: '/faq',
             component: () => import('@/views/portal/faq'),
             name: 'faq',
             hidden: true,
         },
-        {
-            path: '*',
-            redirect: '/404',
-            hidden: true
-        }
     )
     return [
         {
             path: '',
             component: Layout,
             children: sideMenu
+        },
+        {
+            path: '*',
+            component: blank,
+            redirect: '/404',
+            hidden: true
         }
     ];
 }

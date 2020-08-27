@@ -21,7 +21,7 @@ module.exports = {
     loginPath: '/login',
     profilePath: '/profile',
     faqPath: '/faq',
-    homePath: '/',
+    homePath: '/home',
     apiCode: {
         needLogin: 7011,
         reloadUserData: 7010,
