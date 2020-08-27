@@ -1,35 +1,34 @@
 <template>
     <header>
-        <nav class="navbar navbar-expand-md bg-white fixed-top">
+        <nav class="navbar navbar-expand-md bg-white shadow-sm fixed-top">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <font-awesome-icon icon="bars"/>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto pl-5">
+                <ul class="navbar-nav mr-auto pl-lg-5 ml-md-5 ml-sm-3">
                     <li class="nav-item active">
                         <router-link :to="configs.homePath">
                             <svg-icon icon-class="wintopay_logo_black" class-name="home-logo mt-1"/>
                         </router-link>
                     </li>
                 </ul>
-                <ul class="navbar-nav mr-5">
-                    <li class="text-center">
-                        <el-dropdown trigger="click" class="float-right">
+                <div class="form-inline mr-lg-5 text-center ml-md-5 ml-sm-5">
+                    <el-dropdown trigger="click" class="float-right">
                             <span class="el-dropdown-link text-blue">
                                 <font-awesome-icon icon="language" size="2x"/>
                             </span>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item>
-                                    <a href="javascript:void(0)" class="btn btn-link btn-sm mr-2" @click="goLangEn">English</a>
-                                </el-dropdown-item>
-                                <el-dropdown-item>
-                                    <a href="javascript:void(0)" class="btn btn-link btn-sm " @click="goLangZh">中文</a>
-                                </el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-                    </li>
-                </ul>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>
+                                <a href="javascript:void(0)" class="btn btn-link btn-sm mr-2"
+                                   @click="goLangEn">English</a>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                                <a href="javascript:void(0)" class="btn btn-link btn-sm " @click="goLangZh">中文</a>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </div>
             </div>
         </nav>
     </header>
