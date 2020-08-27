@@ -208,6 +208,7 @@ const proxy = {
         return res.json({
             status: 1,
             message: '注册成功',
+            data: {uid: 'wef823fo2', mer_no: 'M892834'},
             i18n: 'success',
         });
     },
@@ -256,11 +257,27 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/register/resend_phone': (req, res) => {
+        const {uid} = req.body;
+        return res.json({
+            status: uid ? 1 : 0,
+            message: "测试错误",
+            data: {}
+        });
+    },
     'POST /api/v1/active/email': (req, res) => {
         const {code, uid} = req.body;
         return res.json({
             status: code === '8888' ? 1 : 0,
             message: code === '8888' ? "ok" : "邮件链接已失效" + uid,
+            data: {}
+        });
+    },
+    'POST /api/v1/active/phone': (req, res) => {
+        const {code, uid} = req.body;
+        return res.json({
+            status: uid && code ? 1 : 0,
+            message: "测试错误",
             data: {}
         });
     },

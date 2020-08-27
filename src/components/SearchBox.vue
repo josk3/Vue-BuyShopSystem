@@ -8,14 +8,14 @@
                 <!-- 日期表组建 -->
                 <div class="p-3 pb-0">
                     <el-form-item v-if="searchForm.trade_id !== undefined" prop="trade_id">
-                        <el-input size="mini" v-model="searchForm.trade_id" :placeholder="$t('comm.trade_id')"></el-input>
+                        <el-input size="mini" v-model="searchForm.trade_id" :placeholder="$t('comm.trade_id')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.merchant_order_no !== undefined" prop="merchant_order_no">
                         <el-input size="mini" v-model="searchForm.merchant_order_no"
-                                  :placeholder="$t('comm.merchant_order_no')"></el-input>
+                                  :placeholder="$t('comm.merchant_order_no')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.email !== undefined" prop="email">
-                        <el-input type="email" size="mini" v-model="searchForm.email" :placeholder="$t('comm.email')"></el-input>
+                        <el-input type="email" size="mini" v-model="searchForm.email" :placeholder="$t('comm.email')" clearable=""></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button size="mini" type="primary"

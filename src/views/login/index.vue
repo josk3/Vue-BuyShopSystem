@@ -76,7 +76,7 @@
                 errorMsg: '',
                 userLogin: {
                     mer_no: 'M70447',
-                    username: 'admin1',
+                    username: 'admin',
                     password: 'Test123456'
                 },
                 redirect: '',

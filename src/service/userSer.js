@@ -23,6 +23,14 @@ export function resendRegisterEmail(data) {
     return post('/register/resend_email', data);
 }
 
+export function resendRegisterPhone(data) {
+    return post('/register/resend_phone', data);
+}
+
+export function activePhone(data) {
+    return post('/active/phone', data);
+}
+
 export function activeEmail(data) {
     return post('/active/email', data);
 }

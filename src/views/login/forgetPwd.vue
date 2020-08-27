@@ -22,7 +22,7 @@
                         <el-dialog
                                 :title="$t('comm.confirm')"
                                 :visible.sync="confirmResendDialog"
-                                width="30%"
+                                width="350px"
                                 center>
                             <p class="text-center">{{$t('login.resolver_email_fail[2]')}}</p>
                             <span slot="footer" class="dialog-footer">
