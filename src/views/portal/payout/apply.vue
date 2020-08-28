@@ -6,7 +6,7 @@
                          :body-style="{ padding: '0px' }">
                     <h5>结算申请</h5>
                     <div class="text-muted p-0">
-                        申请结算必须先上传物流单号
+                        <i class="el-icon-info text-blue"></i> 申请结算必须先上传物流单号
                     </div>
                 </el-card>
             </div>
