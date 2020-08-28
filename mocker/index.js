@@ -56,13 +56,15 @@ function demoUserInfo() {
                         {
                             "name": "payout_apply",
                             "path": "/payout/apply",
-                            "meta": null
+                            "meta": null,
+                            "have_show_child": false
                         },
                         {
                             "name": "payout_history",
                             "path": "/payout/history",
-                            "meta": null
-                        }
+                            "meta": null,
+                            "have_show_child": false
+                        },
                     ],
                     "have_show_child": true
                 },
@@ -125,6 +127,74 @@ function demoUserInfo() {
             ]
         }
     };
+}
+
+function demoOrderList(req) {
+    return [
+        {
+            trade_id: 'tr_M112d20820s11e14C16D',
+            merchant_order_no: new Date().getMilliseconds(),
+            email: req.body.trade_id + '@test.com',
+            payment_time: '2020-01-01 12:12:00',
+            order_amount: 135.89,
+            currency: 'USD',
+            refund_amount: 50.89,
+            apply_time: '2020-01-10 12:12:00',
+            refund_status: 16,//退款状态数值
+            refund_str: '待银行接收退款申请',//退款状态中文
+            pay_status: 'paid',
+            settlement_amount: 782.23,
+            settlement_currency: 'CNY',
+            is_declined: 0,
+            is_settled: 0,
+            delivery_status: 0,
+            track_number: '97298348203824',
+            track_brand: '',
+            shipment_reason: '运输途中',
+        },
+        {
+            trade_id: 'tr_893ufj4fjo2222',
+            merchant_order_no: '8983423',
+            email: req.body.refund_status + '@test.com',
+            payment_time: '2020-01-01 12:12:00',
+            order_amount: 135.89,
+            currency: 'USD',
+            refund_amount: 50.89,
+            apply_time: '2020-01-10 12:12:00',
+            refund_status: 16,//退款状态数值
+            refund_str: '待银行接收退款申请',//退款状态中文
+            pay_status: 'paid',
+            settlement_amount: 309.23,
+            settlement_currency: 'CNY',
+            is_declined: 0,
+            is_settled: 0,
+            delivery_status: 0,
+            track_number: 'LH719441879CN',
+            track_brand: '',
+            shipment_reason: '',
+        },
+        {
+            trade_id: 'tr_893ufj4fjo33333',
+            merchant_order_no: '8983423',
+            email: req.body.page + '@test.com',
+            payment_time: '2020-01-01 12:12:00',
+            order_amount: 135.89,
+            currency: 'USD',
+            refund_amount: 50.89,
+            apply_time: '2020-01-10 12:12:00',
+            refund_status: 15,//退款状态数值
+            refund_str: '待银行接收退款申请',//退款状态中文
+            pay_status: 'paid',
+            settlement_amount: 673.23,
+            settlement_currency: 'CNY',
+            is_declined: 0,
+            is_settled: 0,
+            delivery_status: 0,
+            track_number: '',
+            track_brand: '',
+            shipment_reason: '',
+        },
+    ];
 }
 
 const proxy = {
@@ -284,49 +354,49 @@ const proxy = {
                     page_size: 20,
                     total: 50,
                 },
-                list: [
-                    {
-                        trade_id: 'tr_M112d20820s11e14C16D',
-                        merchant_order_no: new Date().getMilliseconds(),
-                        email: req.body.trade_id + '@test.com',
-                        payment_time: '2020-01-01 12:12:00',
-                        order_amount: 135.89,
-                        currency: 'USD',
-                        refund_amount: 50.89,
-                        apply_time: '2020-01-10 12:12:00',
-                        refund_status: 16,//退款状态数值
-                        refund_str: '待银行接收退款申请',//退款状态中文
-                    },
-                    {
-                        trade_id: 'tr_893ufj4fjo2222',
-                        merchant_order_no: '8983423',
-                        email: req.body.refund_status + '@test.com',
-                        payment_time: '2020-01-01 12:12:00',
-                        order_amount: 135.89,
-                        currency: 'USD',
-                        refund_amount: 50.89,
-                        apply_time: '2020-01-10 12:12:00',
-                        refund_status: 16,//退款状态数值
-                        refund_str: '待银行接收退款申请',//退款状态中文
-                    },
-                    {
-                        trade_id: 'tr_893ufj4fjo33333',
-                        merchant_order_no: '8983423',
-                        email: req.body.page + '@test.com',
-                        payment_time: '2020-01-01 12:12:00',
-                        order_amount: 135.89,
-                        currency: 'USD',
-                        refund_amount: 50.89,
-                        apply_time: '2020-01-10 12:12:00',
-                        refund_status: 15,//退款状态数值
-                        refund_str: '待银行接收退款申请',//退款状态中文
-                    },
-                ],
+                list: demoOrderList(req),
             }
         });
     },
+    'POST /api/v1/payout/wait/apply': (req, res) => { //可申请结算的订单列表
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: demoOrderList(req),
+            }
+        });
+    },
+    'POST /api/v1/payout/apply': (req, res) => { //提交申请
+        return res.json({
+            status: 1,
+            message: '提交申请成功',
+            data: {}
+        });
+    },
+    //结算列表查询 根据 payout_status( submitted 已提交, reject 问题单 )
+    'POST /api/v1/payout/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: demoOrderList(req),
+            }
+        });
+    },
+
 }
 let sleep = false;
 // let sleep = true;// true 测试延迟响应
-module.exports = sleep ? delay(proxy, 3000) : proxy;
+module.exports = sleep ? delay(proxy, 2000) : proxy;
 //https://github.com/jaywcjlove/mocker-api

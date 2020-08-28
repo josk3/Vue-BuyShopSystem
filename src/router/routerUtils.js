@@ -16,15 +16,16 @@ export const routerUtils = {
         meta: {noCache: true}
     },
     'payout_select': {
-        component: () => import('@/views/portal/profile/index'),
+        name: 'payout_select',
+        path: '/payout',
         meta: {noCache: true}
     },
     'payout_apply': {
-        component: () => import('@/views/portal/profile/index'),
+        component: () => import('@/views/portal/payout/apply'),
         meta: {noCache: true}
     },
     'payout_history': {
-        component: () => import('@/views/portal/profile/index'),
+        component: () => import('@/views/portal/payout/history'),
         meta: {icon: 'user', noCache: true}
     },
     'refund_select': {
@@ -48,8 +49,8 @@ function resolveMenu(menu) {
     let name = menu.name
     let routeVal = routerUtils[name];
     if (isEmpty(routeVal)) return null;
-    routeVal.name = name
-    routeVal.path = menu.path
+    if (isEmpty(routeVal.name)) routeVal.name = name
+    if (routeVal.path === undefined) routeVal.path = menu.path //优先使用配置的值
     return routeVal;
 }
 
@@ -72,13 +73,18 @@ export function convertRouters(userMenu) {
         //暂时只支持两级
         if (!isEmpty(menu.children) && isArray(menu.children)) {
             let child = menu.children;
-            let childList = [];
+            //let childList = [];
             for (let r = 0; r < child.length; r++) {
                 let childItem = resolveMenu(child[r]);
                 if (isEmpty(childItem)) continue;
-                childList.push(childItem);
+                //childList.push(childItem);
+                //路由跟menu区别 , 路由不放在child
+                sideMenu.push(childItem);
             }
-            if (childList.length > 0) getMenu.children = childList;
+            //if (childList.length > 0) {
+                //路由跟menu区别 getMenu.children = childList;
+                //路由不放在child
+            //}
         }
         sideMenu.push(getMenu);
     }

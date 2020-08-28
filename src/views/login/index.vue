@@ -66,6 +66,7 @@
             ...mapState({
                 sidebar: state => state.app.sidebar,
                 device: state => state.app.device,
+                menus: state => state.user.menus,
             }),
             configs() {
                 return configs;

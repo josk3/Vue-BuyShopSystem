@@ -23,6 +23,7 @@ module.exports = {
         confirm: '确认',
 
         //
+        submitted: '已提交',
         setup_next: '下一步',
         search: '搜索',
         reset: '重置',
@@ -41,6 +42,7 @@ module.exports = {
         apply_time: '申请时间',
         status: '状态',
         refund_amount: '退款金额',
+        settlement_amount: '结算金额',
     },
     nav: {
         home: '主页',
@@ -48,9 +50,9 @@ module.exports = {
         profile: '人个中心',
         active_account: '激活您的账户',
         trade_manage: '交易管理',
-        payout_select: '结算查询',
+        payout_select: '结算管理',
         payout_apply: '结算申请',
-        payout_history: '结算历史',
+        payout_history: '申请历史',
         refund_select: '退款查询',
         chargeback_select: '拒付查询',
         account_manage: '账户管理',
@@ -109,6 +111,13 @@ module.exports = {
         new_password: '新密码',
         confirm_new_password: '确认新密码',
         register_right_now: '立即创建您的账号',
+    },
+    status: {
+        un_declined: '未拒付',
+        has_declined: '已拒付',
+    },
+    payout: {
+        delivery_reject: '问题单',
     },
     home: {},
     profile: {},

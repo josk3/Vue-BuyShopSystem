@@ -6,7 +6,7 @@ import configs from '@/configs'
 import qs from "qs";
 import {isEmpty} from "@/utils/validate";
 import i18n from "@/service/i18n";
-import {toLower, getSplitLast} from "@/utils/strUtils";
+import {getSplitLast, toLower} from "@/utils/strUtils";
 
 // create an axios instance
 const service = axios.create({
@@ -59,6 +59,15 @@ service.interceptors.response.use(
         if (res.status !== 1) {
             if (res.code === configs.apiCode.needLogin) {
                 tryReLogin()
+            } else {
+                if (!isEmpty(response.config.show_error_msg_dialog) &&
+                    response.config.show_error_msg_dialog === true) {
+                    Message({
+                        message: res.message || 'Error',
+                        type: 'error',
+                        duration: 5 * 1000
+                    })
+                }
             }
             return Promise.reject(new Error(res.message || 'Error'))
         } else {
@@ -82,6 +91,7 @@ service.interceptors.response.use(
                 if (!isEmpty(res)) {
                     if (res.code === configs.apiCode.needLogin) {
                         tryReLogin()
+                        return Promise.reject(error)
                     }
                 }
             }
@@ -108,11 +118,39 @@ function tryReLogin() {
     })
 }
 
+export function postHandleError(url, params) {
+    return service({
+        method: 'post',
+        url: url,
+        data: qs.stringify(params),
+        show_error_msg_dialog: false, //如果请求返回status=0 是否显示错误信息弹框
+    });
+}
+
 export function post(url, params) {
     return service({
         method: 'post',
         url: url,
-        data: qs.stringify(params)
+        data: qs.stringify(params),
+        show_error_msg_dialog: true,
+    });
+}
+
+export function get(url, params) {
+    return service({
+        method: 'get',
+        url: url,
+        params: params,
+        show_error_msg_dialog: true,
+    });
+}
+
+export function getHandleError(url, params) {
+    return service({
+        method: 'get',
+        url: url,
+        params: params,
+        show_error_msg_dialog: true,
     });
 }
 
