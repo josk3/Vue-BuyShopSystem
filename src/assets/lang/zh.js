@@ -115,6 +115,10 @@ module.exports = {
     status: {
         un_declined: '未拒付',
         has_declined: '已拒付',
+        paid: '成功',
+        pending: '待处理',
+        failed: '失败',
+        canceled: '取消',
     },
     payout: {
         delivery_reject: '问题单',

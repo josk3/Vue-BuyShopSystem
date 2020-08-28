@@ -47,6 +47,23 @@ export function declinedStatus(isDeclined) {
     }
 }
 
+/**
+ * 支付 状态数值-》解析成文字
+ */
+export function payStatus(payStatus) {
+    if (isEmpty(payStatus)) return ''
+    switch (payStatus) {
+        case 'paid':
+            return i18n.t('status.paid')
+        case 'pending':
+            return i18n.t('status.pending')
+        case 'failed':
+            return i18n.t('status.failed')
+        case 'canceled':
+            return i18n.t('status.canceled')
+    }
+}
+
 /** 转时间 */
 export function toDayTime(date) {
     if (isEmpty(date)) return ''

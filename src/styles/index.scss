@@ -345,7 +345,28 @@ body, .wrap, .wrap-side .el-menu {
 .btn-mp{
 
 }
-
+span.pay-status{
+  border-radius: 11px;
+  padding: 3px 8px;
+  background-color: #ecf5ff;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #fff;
+  font-weight: bold;
+  font-size: 12px;
+}
+span.ps-paid{
+  background-color: #60c515;
+}
+span.ps-pending{
+  color: #d2d2d2;
+}
+span.ps-failed{
+  background-color: #ee6586;
+}
+span.ps-canceled{
+  background-color: #969796;
+}
 //-
 #blank-w main > .container{
   padding-top: 60px

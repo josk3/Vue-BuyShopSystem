@@ -163,7 +163,7 @@ function demoOrderList(req) {
             apply_time: '2020-01-10 12:12:00',
             refund_status: 16,//退款状态数值
             refund_str: '待银行接收退款申请',//退款状态中文
-            pay_status: 'paid',
+            pay_status: 'pending',
             settlement_amount: 309.23,
             settlement_currency: 'CNY',
             is_declined: 0,
@@ -184,7 +184,28 @@ function demoOrderList(req) {
             apply_time: '2020-01-10 12:12:00',
             refund_status: 15,//退款状态数值
             refund_str: '待银行接收退款申请',//退款状态中文
-            pay_status: 'paid',
+            pay_status: 'failed',
+            settlement_amount: 673.23,
+            settlement_currency: 'CNY',
+            is_declined: 0,
+            is_settled: 0,
+            delivery_status: 0,
+            track_number: '',
+            track_brand: '',
+            shipment_reason: '',
+        },
+        {
+            trade_id: 'tr_893ufj4fjo33333',
+            merchant_order_no: '8983423',
+            email: req.body.page + '@test.com',
+            payment_time: '2020-01-01 12:12:00',
+            order_amount: 135.89,
+            currency: 'USD',
+            refund_amount: 50.89,
+            apply_time: '2020-01-10 12:12:00',
+            refund_status: 15,//退款状态数值
+            refund_str: '待银行接收退款申请',//退款状态中文
+            pay_status: 'canceled',
             settlement_amount: 673.23,
             settlement_currency: 'CNY',
             is_declined: 0,

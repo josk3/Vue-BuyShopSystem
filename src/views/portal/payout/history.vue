@@ -40,7 +40,9 @@
                             prop="pay_status"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
-                            {{scope.row.pay_status }}
+                            <span class="pay-status" :class="['ps-' + scope.row.pay_status]">
+                                {{scope.row.pay_status | payStatus }}
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column
