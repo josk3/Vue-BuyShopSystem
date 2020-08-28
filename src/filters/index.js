@@ -48,6 +48,19 @@ export function declinedStatus(isDeclined) {
 }
 
 /**
+ * 结算 状态数值-》解析成文字
+ */
+export function settleStatus(isSettled) {
+    if (isEmpty(isSettled)) return ''
+    switch (isSettled) {
+        case 0:
+            return i18n.t('status.un_settled')
+        case 1:
+            return i18n.t('status.has_settled')
+    }
+}
+
+/**
  * 支付 状态数值-》解析成文字
  */
 export function payStatus(payStatus) {

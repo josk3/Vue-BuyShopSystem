@@ -49,6 +49,13 @@ function demoUserInfo() {
                     "have_show_child": false
                 },
                 {
+                    "name": "decline_manage",
+                    "path": "/decline/manage",
+                    "meta": null,
+                    "children": null,
+                    "have_show_child": false
+                },
+                {
                     "name": "payout_select",
                     "path": "/payout/search",
                     "meta": null,
@@ -56,15 +63,13 @@ function demoUserInfo() {
                         {
                             "name": "payout_apply",
                             "path": "/payout/apply",
-                            "meta": null,
-                            "have_show_child": false
+                            "meta": null
                         },
                         {
                             "name": "payout_history",
                             "path": "/payout/history",
-                            "meta": null,
-                            "have_show_child": false
-                        },
+                            "meta": null
+                        }
                     ],
                     "have_show_child": true
                 },
@@ -145,12 +150,14 @@ function demoOrderList(req) {
             pay_status: 'paid',
             settlement_amount: 782.23,
             settlement_currency: 'CNY',
-            is_declined: 0,
-            is_settled: 0,
+            is_declined: 1,
+            is_settled: 1,
             delivery_status: 0,
             track_number: '97298348203824',
             track_brand: '',
             shipment_reason: '运输途中',
+            decline_time: '2020-01-10 12:12:00',
+            decline_reason: '货物不对',
         },
         {
             trade_id: 'tr_893ufj4fjo2222',
@@ -172,6 +179,8 @@ function demoOrderList(req) {
             track_number: 'LH719441879CN',
             track_brand: '',
             shipment_reason: '',
+            decline_time: '2020-01-10 12:12:00',
+            decline_reason: '货物不对',
         },
         {
             trade_id: 'tr_893ufj4fjo33333',
@@ -193,6 +202,8 @@ function demoOrderList(req) {
             track_number: '',
             track_brand: '',
             shipment_reason: '',
+            decline_time: '2020-01-10 12:12:00',
+            decline_reason: '货物不对',
         },
         {
             trade_id: 'tr_893ufj4fjo33333',
@@ -214,6 +225,8 @@ function demoOrderList(req) {
             track_number: '',
             track_brand: '',
             shipment_reason: '',
+            decline_time: '2020-01-10 12:12:00',
+            decline_reason: '货物不对',
         },
     ];
 }
@@ -402,6 +415,20 @@ const proxy = {
     },
     //结算列表查询 根据 payout_status( submitted 已提交, reject 问题单 )
     'POST /api/v1/payout/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: demoOrderList(req),
+            }
+        });
+    },
+    'POST /api/v1/decline/search': (req, res) => {
         return res.json({
             status: 1,
             data: {

@@ -28,6 +28,10 @@ export const routerUtils = {
         component: () => import('@/views/portal/payout/history'),
         meta: {icon: 'user', noCache: true}
     },
+    'decline_manage': {
+        component: () => import('@/views/portal/decline'),
+        meta: { noCache: true}
+    },
     'refund_select': {
         component: () => import('@/views/portal/refund'),
         meta: { noCache: true}

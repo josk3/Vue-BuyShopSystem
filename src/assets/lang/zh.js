@@ -70,6 +70,7 @@ module.exports = {
         forget_pwd: '找回密码',
         reset_pwd: '重置密码',
         active_email: '激活邮件',
+        decline_manage: '拒付管理',
         '404': '404',
         '401': '401',
 
@@ -119,6 +120,8 @@ module.exports = {
         pending: '待处理',
         failed: '失败',
         canceled: '取消',
+        un_settled: '未结',
+        has_settled: '已结算',
     },
     payout: {
         delivery_reject: '问题单',
