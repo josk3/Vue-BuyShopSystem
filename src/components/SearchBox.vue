@@ -10,6 +10,9 @@
                     <el-form-item v-if="searchForm.trade_id !== undefined" prop="trade_id">
                         <el-input size="mini" v-model="searchForm.trade_id" :placeholder="$t('comm.trade_id')" clearable></el-input>
                     </el-form-item>
+                    <el-form-item v-if="searchForm.batch_id !== undefined" prop="batch_id">
+                        <el-input size="mini" v-model="searchForm.batch_id" :placeholder="$t('comm.batch_id')" clearable></el-input>
+                    </el-form-item>
                     <el-form-item v-if="searchForm.merchant_order_no !== undefined" prop="merchant_order_no">
                         <el-input size="mini" v-model="searchForm.merchant_order_no"
                                   :placeholder="$t('comm.merchant_order_no')" clearable></el-input>

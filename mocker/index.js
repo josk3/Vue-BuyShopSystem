@@ -77,8 +77,23 @@ function demoUserInfo() {
                     "name": "finance_select",
                     "path": "/finance/select",
                     "meta": null,
-                    "children": null,
-                    "have_show_child": false
+                    "children": [
+                        {
+                            "name": "finance_search",
+                            "path": "/finance/search",
+                            "meta": null,
+                            "children": null,
+                            "have_show_child": false
+                        },
+                        {
+                            "name": "settle_search",
+                            "path": "/settle/search",
+                            "meta": null,
+                            "children": null,
+                            "have_show_child": false
+                        },
+                    ],
+                    "have_show_child": true
                 },
                 {
                     "name": "fast_pay",
@@ -230,6 +245,56 @@ function demoOrderList(req) {
         },
     ];
 }
+
+function demoFinanceList(req) {
+    return [
+        {
+            trade_id: 'tr_M112d20820s11e1' + req.body.finance_status,
+            batch_id: 'b23ou82f2' + new Date().getMilliseconds(),
+            merchant_order_no: new Date().getMilliseconds(),
+            kind: 'sale',
+            currency: 'USD',
+            fees: 0.34,
+            charge: 234.32,
+            deposit_charge: 0,
+            surplus: 454645.45,
+            deposit_surplus: 8963132.45,
+            charge_time: '2020-01-01 12:12:00',
+        },
+        {
+            trade_id: 'tr_Mw8we8r1e1' + req.body.finance_status,
+            batch_id: 'b23ou82f2' + new Date().getMilliseconds(),
+            merchant_order_no: new Date().getMilliseconds(),
+            kind: 'sale',
+            currency: 'USD',
+            fees: 0,
+            charge: 344,
+            deposit_charge: 0,
+            surplus: 45425.45,
+            deposit_surplus: 8962432.45,
+            charge_time: '2020-01-01 12:12:00',
+        },
+    ];
+}
+
+function demoSettleList(req) {
+    return [
+        {
+            batch_id: 'b23ou82f2' + new Date().getMilliseconds() + req.body.finance_status,
+            kind: 'trade',
+            currency: 'USD',
+            fees: 0.34,
+            charge: 234.32,
+            deposit_charge: 0,
+            surplus: 454645.45,
+            deposit_surplus: 8963132.45,
+            created: '2020-01-01 12:12:00',
+            payout_time: '2020-01-01 12:12:00',//划款时间
+            status: 'release', //paid
+        },
+    ];
+}
+
 
 const proxy = {
     // Priority processing.
@@ -439,6 +504,34 @@ const proxy = {
                     total: 50,
                 },
                 list: demoOrderList(req),
+            }
+        });
+    },
+    'POST /api/v1/finance/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: demoFinanceList(req),
+            }
+        });
+    },
+    'POST /api/v1/settle/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: demoSettleList(req),
             }
         });
     },

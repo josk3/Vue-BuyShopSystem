@@ -6,6 +6,13 @@ import {parseTime} from "@/utils";
 export {parseTime, formatTime} from '@/utils'
 
 /**
+ * 空值显示 --
+ */
+export function nullToLine(val) {
+    return isEmpty(val) ? '--' : val
+}
+
+/**
  * 状态数值-》解析成文字
  */
 export function refundStatus(isRefund) {

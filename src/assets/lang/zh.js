@@ -34,6 +34,7 @@ module.exports = {
 
         //
         trade_id: '流水号',
+        batch_id: '批次号',
         merchant_order_no: '订单号',
         email: '邮箱',
         order_amount: '订单金额',
@@ -57,6 +58,8 @@ module.exports = {
         chargeback_select: '拒付查询',
         account_manage: '账户管理',
         finance_select: '财务中心',
+        finance_search: '所有明细',
+        settle_search: '结算明细',
         fast_pay: '快捷收款',
         delivery_manage: '物流管理',
         risk_manage: '风控管理',

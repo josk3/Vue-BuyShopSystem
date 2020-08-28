@@ -17,7 +17,6 @@ export const routerUtils = {
     },
     'payout_select': {
         name: 'payout_select',
-        path: '/payout',
         meta: {noCache: true}
     },
     'payout_apply': {
@@ -34,6 +33,18 @@ export const routerUtils = {
     },
     'refund_select': {
         component: () => import('@/views/portal/refund'),
+        meta: { noCache: true}
+    },
+    'finance_select': {
+        name: 'finance_select',
+        meta: {noCache: true}
+    },
+    'finance_search': {
+        component: () => import('@/views/portal/finance/finance'),
+        meta: { noCache: true}
+    },
+    'settle_search': {
+        component: () => import('@/views/portal/finance/settle'),
         meta: { noCache: true}
     },
     'chargeback_select': {
