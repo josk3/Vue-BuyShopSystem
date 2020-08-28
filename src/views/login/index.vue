@@ -134,6 +134,7 @@
     .login-box .form-signin .firs-input, .login-box .form-signin .mid-clear, .login-box .form-signin .last-input{
         border-left: 0;
         border-right: 0;
+        border-radius: 0;
     }
 </style>
 <style scoped src="../../../public/static/css/login.css"/>

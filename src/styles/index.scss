@@ -300,18 +300,34 @@ body, .wrap, .wrap-side .el-menu {
   color: #ffffff;
 }
 
-#sidebar-nav .is-active span {
+#sidebar-nav .is-active span.menu-title {
   color: #fff;
   background-color: #267dd5;
 }
 
-#sidebar-nav .is-active .side-icon {
+#sidebar-nav .is-active .menu-title .side-icon {
   color: #fff;
 }
 
 #sidebar-nav .menu-item span:hover, #sidebar-nav .menu-item span:focus {
   background-color: #409eff;
 }
+
+#sidebar-nav .sub-menu-title{
+  //height: 32px;
+  //line-height: 32px;
+}
+#sidebar-nav .el-submenu__title{
+  height: 32px;
+  line-height: 32px;
+}
+#sidebar-nav .el-submenu__title:hover {
+  background-color: transparent;
+}
+#sidebar-nav .is-opened .el-menu::before, #sidebar-nav .is-opened .el-menu::after{
+  display: inline;
+}
+//--
 .text-blue{
   color: #267dd5;
 }

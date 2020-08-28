@@ -24,111 +24,104 @@ function demoUserInfo() {
                     "name": "home",
                     "path": "/",
                     "meta": null,
-                    "children": null
+                    "children": null,
+                    "have_show_child": false
                 },
                 {
                     "name": "active_account",
                     "path": "/merchant/active_account",
                     "meta": null,
-                    "children": null
+                    "children": null,
+                    "have_show_child": false
                 },
                 {
                     "name": "trade_manage",
                     "path": "/trade/manage",
                     "meta": null,
-                    "children": null
+                    "children": null,
+                    "have_show_child": false
                 },
                 {
                     "name": "refund_select",
                     "path": "/refund/search",
                     "meta": null,
-                    "have_show_child": false,//要有可显示的子目录
-                    "children": [
-                        {
-                            "name": "refund_download",
-                            "path": "/refund/download",
-                            "hidden": true,
-                        },
-                        {
-                            "name": "refund_apply",
-                            "path": "/refund/apply",
-                            "hidden": true,
-                        }
-                    ]
-                },
-                {
-                    "name": "chargeback_select",
-                    "path": "/chargeback/search",
-                    "meta": null,
-                    "have_show_child": false,//要有可显示的子目录
-                    "children": [
-                        {
-                            "name": "chargeback_download",
-                            "path": "/chargeback/download",
-                            "hidden": true,
-                        },
-                        {
-                            "name": "chargeback_apply",
-                            "path": "/chargeback/apply",
-                            "hidden": true,
-                        }
-                    ]
+                    "children": null,
+                    "have_show_child": false
                 },
                 {
                     "name": "payout_select",
-                    "path": "/payout/select",
+                    "path": "/payout/search",
                     "meta": null,
-                    "have_show_child": false,//要有可显示的子目录
                     "children": [
                         {
                             "name": "payout_apply",
                             "path": "/payout/apply",
-                            "hidden": true,
                             "meta": null
                         },
                         {
                             "name": "payout_history",
                             "path": "/payout/history",
-                            "hidden": true,
                             "meta": null
                         }
-                    ]
+                    ],
+                    "have_show_child": true
+                },
+                {
+                    "name": "finance_select",
+                    "path": "/finance/select",
+                    "meta": null,
+                    "children": null,
+                    "have_show_child": false
+                },
+                {
+                    "name": "fast_pay",
+                    "path": "/fast_pay/index",
+                    "meta": null,
+                    "children": null,
+                    "have_show_child": false
+                },
+                {
+                    "name": "delivery_manage",
+                    "path": "/delivery/manage",
+                    "meta": null,
+                    "children": null,
+                    "have_show_child": false
+                },
+                {
+                    "name": "risk_manage",
+                    "path": "/risk/manage",
+                    "meta": null,
+                    "children": null,
+                    "have_show_child": false
+                },
+                {
+                    "name": "dispute_manage",
+                    "path": "/dispute/manage",
+                    "meta": null,
+                    "children": null,
+                    "have_show_child": false
                 },
                 {
                     "name": "account_manage",
                     "path": "/account/manage",
                     "meta": null,
-                    "children": null
+                    "children": null,
+                    "have_show_child": false
                 },
                 {
-                    "name": "support_ticket", //工单
-                    "path": "/ticket/search",
+                    "name": "support_ticket",
+                    "path": "/support/ticket",
                     "meta": null,
-                    "have_show_child": false,//要有可显示的子目录
-                    "children": [
-                        {
-                            "name": "ticket_get",
-                            "path": "/ticket/get",
-                            "hidden": true,
-                        },
-                        {
-                            "name": "ticket_create",
-                            "path": "/ticket/create",
-                            "hidden": true,
-                        },
-                        {
-                            "name": "ticket_reply",
-                            "path": "/ticket/reply",
-                            "hidden": true,
-                        },
-                        {
-                            "name": "ticket_close",
-                            "path": "/ticket/close",
-                            "hidden": true,
-                        },
-                        //...
-                    ]
+                    "children": null,
+                    "have_show_child": false
                 },
+                {
+                    "name": "message_center",
+                    "path": "/message/center",
+                    "meta": null,
+                    "children": null,
+                    "have_show_child": false
+                }
             ]
         }
     };

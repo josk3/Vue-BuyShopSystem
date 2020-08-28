@@ -8,33 +8,35 @@
                     @close="handleClose" router>
                 <div v-for="(route, i)  in menus" :key="i" class="menu-m">
                     <div v-if="!route.hidden">
-                        <el-menu-item v-if="!route.have_show_child" :index="route.path" class="menu-item">
+                        <el-menu-item v-if="!route.have_show_child" :collapse-transition="false"
+                                      :index="route.path" class="menu-item">
                             <div>
-                                <span slot="title">
+                                <span slot="title" class="menu-title">
                                     <svg-icon :icon-class="route.name"/>
                                     {{ $t('nav.'+route.name) }}
                                 </span>
                             </div>
                         </el-menu-item>
-                        <el-submenu v-if="route.have_show_child" :index="route.path">
+                        <el-submenu v-if="route.have_show_child"
+                                    :index="route.path" class="menu-item">
                             <template slot="title">
-                                <div>
-                                    <span>
-                                        <svg-icon :icon-class="route.name"/>
-                                        {{ $t('nav.'+route.name) }}
-                                    </span>
-                                </div>
+                                <span class="menu-title">
+                                    <svg-icon :icon-class="route.name"/>
+                                    {{ $t('nav.'+route.name) }}
+                                </span>
                             </template>
-                            <el-menu-item v-for="(children, c)  in route.children" :key="c"
-                                          :index="children.path"
-                                          class="menu-item">
-                                <div v-if="!children.hidden">
-                                    <span slot="title">
-                                        <svg-icon :icon-class="children.name"/>
-                                        {{ $t('nav.'+children.name) }}
-                                    </span>
-                                </div>
-                            </el-menu-item>
+                            <div v-for="(children, c)  in route.children" :key="c">
+                                <el-menu-item v-if="!children.hidden"
+                                              :index="children.path"
+                                              class="menu-item">
+                                    <div>
+                                        <span slot="title" class="sub-menu-title">
+                                            <svg-icon :icon-class="children.name"/>
+                                            {{ $t('nav.'+children.name) }}
+                                        </span>
+                                    </div>
+                                </el-menu-item>
+                            </div>
                         </el-submenu>
                     </div>
                 </div>
