@@ -3,10 +3,21 @@
         <SearchBox :params="searchParams" @search="search"></SearchBox>
         <div class="wrap-tab p-0">
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
-                <el-tabs v-model="paneName" type="border-card"
-                         @tab-click="paneClick">
-                    <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
-                </el-tabs>
+                <div class="row">
+                    <div class="col-8 pr-0">
+                        <el-tabs v-model="paneName" type="border-card"
+                                 @tab-click="paneClick">
+                            <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
+                        </el-tabs>
+                    </div>
+                    <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
+                        <div class="mr-5 mt-1">
+                            <el-button icon="el-icon-download" size="mini"
+                                       @click="downDecline" plain>下载
+                            </el-button>
+                        </div>
+                    </div>
+                </div>
                 <el-table
                         :data="tabData.list"
                         v-loading="loading"
@@ -45,6 +56,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="is_settled"
+                            :show-overflow-tooltip="true"
                             label="结算">
                         <template v-slot="scope">
                             {{scope.row.is_settled | settleStatus }}
@@ -59,6 +71,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="decline_time"
+                            :show-overflow-tooltip="true"
                             label="拒付时间">
                         <template v-slot="scope">
                             {{scope.row.decline_time | toDay }}
@@ -120,7 +133,10 @@
                 }).finally(() => {
                     this.loading = false
                 })
-            }
+            },
+            downDecline() {
+
+            },
         },
     }
 </script>
