@@ -221,7 +221,7 @@ function demoOrderList(req) {
             decline_reason: '货物不对',
         },
         {
-            trade_id: 'tr_893ufj4fjo33333',
+            trade_id: 'tr_893ufj4fjo4355',
             merchant_order_no: '8983423',
             email: req.body.page + '@test.com',
             payment_time: '2020-01-01 12:12:00',
@@ -370,9 +370,8 @@ const proxy = {
         });
     },
     'POST /api/v1/login': (req, res) => {
-        const {password, username, mer_no} = req.body;
+        const {password, username} = req.body;
         if (password === 'Test123456' && username === 'admin') {
-            console.log(mer_no)
             return res.json(demoUserInfo());
         } else {
             return res.status(200).json({
@@ -549,6 +548,30 @@ const proxy = {
                     total: 50,
                 },
                 list: demoSettleList(req),
+            }
+        });
+    },
+    'POST /api/v1/delivery/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: demoOrderList(req),
+            }
+        });
+    },
+    'POST /api/v1/delivery/add': (req, res) => {
+        return res.json({
+            status: 1,
+            message:'测试test',
+            data: {
+                track_brand: 'DHL',
+                track_number: '2lfj23f',
             }
         });
     },

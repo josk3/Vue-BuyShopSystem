@@ -34,7 +34,7 @@
                     </el-link>
                 </div>
                 <el-button type="primary"
-                           class="btn-block btn-mp"
+                           class="btn-block wpy-btn"
                            @click="submitLogin"
                            :loading="loading">{{ $t('comm.login') }}
                 </el-button>

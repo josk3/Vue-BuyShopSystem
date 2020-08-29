@@ -1,0 +1,233 @@
+<template>
+    <div>
+        <div class="delivery-list">
+            <SearchBox :params="searchParams" @search="search"></SearchBox>
+            <div class="wrap-tab p-0" v-loading="loading">
+                <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
+                    <div class="row">
+                        <div class="col-8 pr-0" style="background-color: #F5F7FA">
+                            <el-tabs type="border-card">
+                            </el-tabs>
+                        </div>
+                        <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
+                            <div class="mr-5 mt-1 mb-1">
+                                <el-button icon="el-icon-download" size="mini" class="mr-3"
+                                           @click="downDelivery" plain>上传
+                                </el-button>
+                                <el-button icon="el-icon-download" size="mini"
+                                           @click="downDelivery" plain>下载
+                                </el-button>
+                            </div>
+                        </div>
+                    </div>
+                    <el-table
+                            :data="tabData.list"
+                            :header-row-style="{background:'#2C2E2F'}"
+                            style="width: 100%">
+                        <el-table-column
+                                prop="trade_id"
+                                :label="$t('comm.trade_id')" width="210px">
+                        </el-table-column>
+                        <el-table-column
+                                prop="email"
+                                :show-overflow-tooltip="true"
+                                :label="$t('comm.email')">
+                        </el-table-column>
+                        <el-table-column
+                                prop="merchant_order_no"
+                                :show-overflow-tooltip="true"
+                                :label="$t('comm.merchant_order_no')">
+                        </el-table-column>
+                        <el-table-column
+                                prop="payment_time"
+                                :label="$t('comm.payment_time')">
+                            <template v-slot="scope">
+                                {{scope.row.payment_time | toDay }}
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                prop="pay_status"
+                                :label="$t('comm.status')">
+                            <template v-slot="scope">
+                            <span class="pay-status" :class="['ps-' + scope.row.pay_status]">
+                                {{scope.row.pay_status | payStatus}}
+                            </span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                prop="track_number"
+                                :show-overflow-tooltip="true"
+                                label="物流单号">
+                            <template v-slot="scope">
+                                <div v-if="scope.row.track_number">
+                                    {{scope.row.track_number }}
+                                </div>
+                                <div v-else>
+                                    <el-button type="text" @click="addTrackDialog(scope.$index, scope.row)">
+                                        添加物流
+                                    </el-button>
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column width="50" fixed="right">
+                            <template v-slot="scope">
+                                <el-dropdown trigger="click">
+                                      <span class="el-dropdown-link">
+                                          <i class="el-icon-more"></i>
+                                      </span>
+                                    <el-dropdown-menu slot="dropdown">
+                                        <el-dropdown-item v-if="scope.row.track_number">
+                                            <el-button type="text"
+                                                       @click="editTrackDialog(scope.$index, scope.row)">
+                                                修改 {{scope.row.track_number}}
+                                            </el-button>
+                                        </el-dropdown-item>
+                                        <el-dropdown-item v-if="!scope.row.track_number">
+                                            <el-button type="text"
+                                                       @click="addTrackDialog(scope.$index, scope.row)">
+                                                添加物流
+                                            </el-button>
+                                        </el-dropdown-item>
+                                    </el-dropdown-menu>
+                                </el-dropdown>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+
+                    <Pagination :page="tabData.page" @change="pageChange"></Pagination>
+                </el-card>
+            </div>
+            <el-dialog custom-class="wpy-dialog sm-dialog"
+                       :show-close="false" :close-on-click-modal="false"
+                       title="上传物流单号"
+                       :visible.sync="addTrackNumberDialog">
+                <div>
+                    <el-form ref="track_form"
+                             :model="track_form"
+                             :rules="rules" label-width="80px">
+                        <el-form-item label="流水号">
+                            <el-input :value="track_form.trade_id" :disabled="true"></el-input>
+                        </el-form-item>
+                        <el-form-item label="物流公司" prop="track_brand">
+                            <el-select v-model="track_form.track_brand" placeholder="请选择物流公司">
+                                <el-option label="区域一" value="shanghai"></el-option>
+                                <el-option label="区域二" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="物流单号" prop="track_number">
+                            <el-input v-model="track_form.track_number"></el-input>
+                        </el-form-item>
+                    </el-form>
+                </div>
+                <div slot="footer" class="dialog-footer" v-loading="loading">
+                    <el-button size="mini" @click="addTrackNumberDialog = false">取消</el-button>
+                    <el-button size="mini" type="primary" @click="submitTrackNumber">提交</el-button>
+                </div>
+            </el-dialog>
+        </div>
+    </div>
+</template>
+
+<script>
+    import configs from '@/configs'
+    import SearchBox from "@/components/SearchBox";
+    import Pagination from "@/components/Pagination";
+    import {deliveryAdd, deliverySearch} from "@/service/deliverySer";
+
+    export default {
+        name: "delivery",
+        components: {SearchBox, Pagination},
+        computed: { //watch跟踪数据变化, 重点user, configs
+            configs() {
+                return configs;
+            },
+        },
+        data() {
+            return {
+                loading: false,
+                addTrackNumberDialog: false,
+                track_form: {action: '', index: '', trade_id: '', track_number: '', track_brand: ''},
+                rules: {
+                    track_number: [
+                        {required: true, message: '请输入物流单号', trigger: 'blur'},
+                    ],
+                    track_brand: [
+                        {required: true, message: '请选择物流公司', trigger: 'blur'},
+                    ],
+                },
+                searchParams: {
+                    title: 'nav.delivery_manage', page: 1,
+                    trade_id: '', merchant_order_no: '', email: '',
+                },
+                tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
+            }
+        },
+        mounted() {
+            this.search();
+        },
+        methods: {
+            pageChange(page) {
+                this.searchParams.page = page.page_num
+                this.search()
+            },
+            search() {
+                this.loading = true
+                deliverySearch(this.searchParams).then(res => {
+                    const {data} = res
+                    this.$data.tabData = data
+                }).finally(() => {
+                    this.loading = false
+                })
+            },
+            showTrackDialog(action, index, row) {
+                if (row.trade_id !== this.track_form.trade_id) {
+                    this.initTrackFormData()
+                }
+                this.track_form.action = action
+                this.track_form.index = index
+                this.track_form.trade_id = row.trade_id
+                if (action === 'edit') {
+                    this.track_form.track_brand = row.track_brand
+                    this.track_form.track_number = row.track_number
+                }
+                this.addTrackNumberDialog = true
+            },
+            editTrackDialog(index, row) {
+              this.showTrackDialog('edit', index, row)
+            },
+            addTrackDialog(index, row) {
+                this.showTrackDialog('add', index, row)
+            },
+            initTrackFormData() {
+                this.track_form = {}
+            },
+            submitTrackNumber() {
+                this.$refs['track_form'].validate((valid) => {
+                    if (!valid) {
+                        return false;
+                    } else {
+                        //
+                        this.$data.loading = true
+                        let row = this.$data.tabData.list[this.$data.track_form.index]
+                        deliveryAdd(this.$data.track_form).then(() => {
+                            row.track_number = this.$data.track_form.track_number
+                            row.track_brand = this.$data.track_form.track_brand
+                            this.initTrackFormData()
+                            this.$data.addTrackNumberDialog = false
+                            this.$message.success(this.$i18n.t('comm.success').toString())
+                        }).finally(() => {
+                            this.$data.loading = false
+                        })
+                    }
+                });
+            },
+            downDelivery() {
+
+            },
+        },
+    }
+</script>
+
+<style scoped>
+
+</style>

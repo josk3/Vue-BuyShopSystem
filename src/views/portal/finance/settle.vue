@@ -87,10 +87,12 @@
                     <Pagination :page="tabData.page" @change="pageChange"></Pagination>
                 </el-card>
             </div>
-            <el-dialog class="pm-dialog" @open="getPayoutSummary"
+            <el-dialog custom-class="wpy-dialog" @open="getPayoutSummary"
+                       :show-close="false" :close-on-click-modal="false"
+                       title="结算摘要"
                        :visible.sync="payoutSummaryDialog">
                 <div v-loading="loading">
-                    <h4>结算摘要: {{summaryBatchId}}</h4>
+                    <h4>{{summaryBatchId}}</h4>
                     <el-table :data="summaryData">
                         <el-table-column property="batch_id" label="批次号"></el-table-column>
                     </el-table>
@@ -110,7 +112,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {settleSearch, settleSummary} from "@/service/financeStr";
+    import {settleSearch, settleSummary} from "@/service/financeSer";
 
     /** 当前vue 要实现结算列表和结算详情明细 */
     export default {

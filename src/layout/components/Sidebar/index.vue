@@ -4,8 +4,7 @@
             <el-menu
                     :default-active="activeMenu"
                     :collapse="isCollapse"
-                    @open="handleOpen"
-                    @close="handleClose" router>
+                    router>
                 <div v-for="(route, i)  in menus" :key="i" class="menu-m">
                     <div v-if="!route.hidden">
                         <el-menu-item v-if="!route.have_show_child" :collapse-transition="false"
@@ -83,12 +82,6 @@
             }
         },
         methods: {
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            }
         }
     }
 </script>

@@ -111,7 +111,7 @@
             <div class="mt-4 text-center">
                 <span v-if="!submitOk" class="small text-muted">已经有账号?</span>
                 <router-link :to="configs.loginPath"
-                             class="btn btn-sm p-2 pl-1 pr-4 btn-link btn-mp">
+                             class="btn btn-sm p-2 pl-1 pr-4 btn-link wpy-btn">
                     {{ $t('comm.login') }}
                 </router-link>
             </div>

@@ -111,7 +111,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {financeSearch} from "@/service/financeStr";
+    import {financeSearch} from "@/service/financeSer";
 
     export default {
         name: "finance",

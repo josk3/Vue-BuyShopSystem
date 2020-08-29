@@ -89,7 +89,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {declineSearch} from "@/service/declineStr";
+    import {declineSearch} from "@/service/declineSer";
 
     export default {
         name: "decline",

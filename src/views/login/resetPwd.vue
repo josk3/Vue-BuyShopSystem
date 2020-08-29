@@ -20,7 +20,7 @@
                            :placeholder="$t('login.confirm_new_password')"
                            required>
                     <el-button type="primary"
-                               class="btn-mp pl-5 pr-5 mt-2"
+                               class="wpy-btn pl-5 pr-5 mt-2"
                                @click="submitResetPwd"
                                :loading="loading">{{ $t('comm.confirm') }}
                     </el-button>
@@ -34,7 +34,7 @@
             </div>
             <div class="mt-3">
                 <router-link :to="configs.loginPath"
-                             class="btn btn-sm p-2 btn-link btn-mp">
+                             class="btn btn-sm p-2 btn-link wpy-btn">
                     {{ $t('comm.login') }}
                 </router-link>
             </div>

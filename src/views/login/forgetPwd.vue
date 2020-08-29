@@ -52,7 +52,7 @@
                            :placeholder="$t('comm.email')"
                            required>
                     <el-button type="primary"
-                               class="btn-block btn-mp"
+                               class="btn-block wpy-btn"
                                @click="submitForgetPwd"
                                :loading="loading">{{ $t('comm.setup_next') }}
                     </el-button>
@@ -61,7 +61,7 @@
             </div>
             <div v-if="!submitOk" class="mt-4 text-center">
                 <router-link :to="configs.loginPath"
-                             class="btn btn-sm p-2 pl-1 pr-4 btn-link btn-mp">
+                             class="btn btn-sm p-2 pl-1 pr-4 btn-link wpy-btn">
                     {{ $t('comm.login') }}
                 </router-link>
             </div>

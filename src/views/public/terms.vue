@@ -6,11 +6,11 @@
             </div>
             <div class="mb-3 text-center">
                 <router-link :to="configs.loginPath"
-                             class="btn btn-sm p-2 pl-1 pr-4 btn-link btn-mp">
+                             class="btn btn-sm p-2 pl-1 pr-4 btn-link wpy-btn">
                     {{ $t('comm.login') }}
                 </router-link>
                 <router-link :to="configs.registerPath"
-                             class="btn btn-sm p-2 pl-1 pr-4 btn-link btn-mp">
+                             class="btn btn-sm p-2 pl-1 pr-4 btn-link wpy-btn">
                     {{ $t('comm.register') }}
                 </router-link>
             </div>

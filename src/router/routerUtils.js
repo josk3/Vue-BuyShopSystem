@@ -55,6 +55,10 @@ export const routerUtils = {
         component: () => import('@/views/portal/ticket/index'),
         meta: {noCache: true}
     },
+    'delivery_manage' : {
+        component: () => import('@/views/portal/delivery'),
+        meta: {noCache: true}
+    },
 }
 
 function resolveMenu(menu) {
