@@ -11,8 +11,8 @@
                         </div>
                         <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                             <div class="mr-5 mt-1 mb-1">
-                                <el-button icon="el-icon-download" size="mini" class="mr-3"
-                                           @click="downDelivery" plain>上传
+                                <el-button icon="el-icon-upload2" size="mini" class="mr-3"
+                                           @click="uploadDelivery" plain>批量上传
                                 </el-button>
                                 <el-button icon="el-icon-download" size="mini"
                                            @click="downDelivery" plain>下载
@@ -110,8 +110,7 @@
                         </el-form-item>
                         <el-form-item label="物流公司" prop="track_brand">
                             <el-select v-model="track_form.track_brand" placeholder="请选择物流公司">
-                                <el-option label="区域一" value="shanghai"></el-option>
-                                <el-option label="区域二" value="beijing"></el-option>
+                                <el-option v-for="brand in track_brand_all" :label="brand.text" :value="brand.value"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="物流单号" prop="track_number">
@@ -132,7 +131,8 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {deliveryAdd, deliverySearch} from "@/service/deliverySer";
+    import {deliveryAdd, deliverySearch, getTrackBrands} from "@/service/deliverySer";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "delivery",
@@ -147,6 +147,7 @@
                 loading: false,
                 addTrackNumberDialog: false,
                 track_form: {action: '', index: '', trade_id: '', track_number: '', track_brand: ''},
+                track_brand_all: [],
                 rules: {
                     track_number: [
                         {required: true, message: '请输入物流单号', trigger: 'blur'},
@@ -180,6 +181,15 @@
                 })
             },
             showTrackDialog(action, index, row) {
+                if (isEmpty(this.track_brand_all) || this.track_brand_all.length <= 0) {
+                    this.$data.loading = true
+                    getTrackBrands().then(res => {
+                        const {data} = res
+                        this.$data.track_brand_all = data.list
+                    }).finally(() => {
+                        this.$data.loading = false
+                    })
+                }
                 if (row.trade_id !== this.track_form.trade_id) {
                     this.initTrackFormData()
                 }
@@ -220,6 +230,9 @@
                         })
                     }
                 });
+            },
+            uploadDelivery() {
+
             },
             downDelivery() {
 

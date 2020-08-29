@@ -251,7 +251,7 @@ function demoFinanceList(req) {
         {
             trade_id: 'tr_M112d20820s11e1' + req.body.finance_status,
             batch_id: 'b23ou82f2' + new Date().getMilliseconds(),
-            merchant_order_no: 'wef2fv23433d'+new Date().getMilliseconds(),
+            merchant_order_no: 'wef2fv23433d' + new Date().getMilliseconds(),
             kind: 'sale',
             currency: 'USD',
             fees: 0.34,
@@ -568,10 +568,164 @@ const proxy = {
     'POST /api/v1/delivery/add': (req, res) => {
         return res.json({
             status: 1,
-            message:'测试test',
+            message: '测试test',
             data: {
                 track_brand: 'DHL',
                 track_number: '2lfj23f',
+            }
+        });
+    },
+    'GET /api/v1/delivery/brand/all': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                list: [
+                    {
+                        "text": "4PX",
+                        "value": "FOUR_PX"
+                    },
+                    {
+                        "text": "APC Postal Logistics",
+                        "value": "APC"
+                    },
+                    {
+                        "text": "Anjun Logistics",
+                        "value": "ANJUN"
+                    },
+                    {
+                        "text": "Australia Post",
+                        "value": "AUSTRALIA_POST"
+                    },
+                    {
+                        "text": "Bluedart",
+                        "value": "BLUEDART"
+                    },
+                    {
+                        "text": "Canada Post",
+                        "value": "CANADA_POST"
+                    },
+                    {
+                        "text": "Canpar Courier",
+                        "value": "CANPAR_COURIER"
+                    },
+                    {
+                        "text": "China Post",
+                        "value": "CHINA_POST"
+                    },
+                    {
+                        "text": "China EMS",
+                        "value": "CHINA_EMS"
+                    },
+                    {
+                        "text": "Chukou1 Logistics",
+                        "value": "CHUKOU1"
+                    },
+                    {
+                        "text": "Brazil Correios",
+                        "value": "BRAZIL_CORREIOS"
+                    },
+                    {
+                        "text": "Couriers Please",
+                        "value": "COURIERS_PLEASE"
+                    },
+                    {
+                        "text": "DHL",
+                        "value": "DHL"
+                    },
+                    {
+                        "text": "DHL eCommerce",
+                        "value": "DHL_ECOMMERCE"
+                    },
+                    {
+                        "text": "DPD",
+                        "value": "DPD"
+                    },
+                    {
+                        "text": "DPD UK",
+                        "value": "DPD_UK"
+                    },
+                    {
+                        "text": "Delhivery",
+                        "value": "DELHIVERY"
+                    },
+                    {
+                        "text": "Fedex",
+                        "value": "FEDEX"
+                    },
+                    {
+                        "text": "GLS",
+                        "value": "GLS"
+                    },
+                    {
+                        "text": "Globegistics Inc",
+                        "value": "GLOBEGISTICS"
+                    },
+                    {
+                        "text": "Japan Post",
+                        "value": "JAPAN_POST"
+                    },
+                    {
+                        "text": "New Zealand Post",
+                        "value": "NEW_ZEALAND_POST"
+                    },
+                    {
+                        "text": "Netherlands Post - PostNL",
+                        "value": "POSTNL"
+                    },
+                    {
+                        "text": "Purolator",
+                        "value": "PUROLATOR"
+                    },
+                    {
+                        "text": "SF Express",
+                        "value": "SF_EXPRESS"
+                    },
+                    {
+                        "text": "SFC Service",
+                        "value": "SFC_SERVICE"
+                    },
+                    {
+                        "text": "Sagawa",
+                        "value": "SAGAWA"
+                    },
+                    {
+                        "text": "Sendle",
+                        "value": "SENDLE"
+                    },
+                    {
+                        "text": "Singapore Post",
+                        "value": "SINGAPORE_POST"
+                    },
+                    {
+                        "text": "TNT",
+                        "value": "TNT"
+                    },
+                    {
+                        "text": "Toll IPEC",
+                        "value": "TOLL_IPEC"
+                    },
+                    {
+                        "text": "UPS",
+                        "value": "UPS"
+                    },
+                    {
+                        "text": "USPS",
+                        "value": "USPS"
+                    },
+                    {
+                        "text": "Yamato Japan",
+                        "value": "YAMATO_JAPAN"
+                    },
+                    {
+                        "text": "Yun Express",
+                        "value": "YUN_EXPRESS"
+                    },
+                    {
+                        "text": "其他",
+                        "value": "OTHER"
+                    },
+                ]
             }
         });
     },

@@ -1,4 +1,4 @@
-import {post} from '@/utils/request'
+import {post, get} from '@/utils/request'
 
 /**
  * 物流
@@ -17,4 +17,8 @@ export function deliveryUpload(params) {
 
 export function deliveryAdd(params) {
     return post('/delivery/add', params);
+}
+
+export function getTrackBrands() {
+    return get('/delivery/brand/all', '');
 }
