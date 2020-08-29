@@ -14,3 +14,7 @@ export function financeDownload(params) {
 export function settleSearch(params) {
     return post('/settle/search', params);
 }
+
+export function settleSummary(params) {
+    return post('/settle/summary', params);
+}

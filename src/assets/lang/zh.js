@@ -125,6 +125,16 @@ module.exports = {
         canceled: '取消',
         un_settled: '未结',
         has_settled: '已结算',
+        payout_release: '已生成划款表',
+        payout_paid: '已划款',
+    },
+    kind: {
+        settle: '结算',
+        deposit_settle: '保证金结算',
+        sale: '收款',
+        refund: '退款',
+        trade: '交易结算',
+        deposit: '保证金结算',
     },
     payout: {
         delivery_reject: '问题单',

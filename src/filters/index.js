@@ -68,6 +68,40 @@ export function settleStatus(isSettled) {
 }
 
 /**
+ * 资金变动-类别 -》解析成文字
+ */
+export function chargeKind(kind) {
+    if (isEmpty(kind)) return ''
+    switch (kind) {
+        case 'deposit_settle':
+            return i18n.t('kind.deposit_settle')
+        default:
+            return i18n.t('kind.' + kind)
+    }
+}
+
+/**
+ * 结算提现状态 -》解析成文字
+ */
+export function payoutStatus(status) {
+    if (isEmpty(status)) return ''
+    switch (status) {
+        case 'release':
+            return i18n.t('status.payout_release')
+        case 'paid':
+            return i18n.t('status.payout_paid')
+    }
+}
+
+/**
+ * 结算-类别 -》解析成文字
+ */
+export function payoutKind(kind) {
+    if (isEmpty(kind)) return ''
+    return i18n.t('kind.' + kind);//trade, deposit
+}
+
+/**
  * 支付 状态数值-》解析成文字
  */
 export function payStatus(payStatus) {

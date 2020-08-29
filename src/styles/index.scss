@@ -351,7 +351,6 @@ span.pay-status{
   background-color: #ecf5ff;
   color: #fff;
   text-align: center;
-  border: 1px solid #fff;
   font-weight: bold;
   font-size: 12px;
 }
@@ -366,6 +365,9 @@ span.ps-failed{
 }
 span.ps-canceled{
   background-color: #969796;
+}
+.pm-dialog .el-dialog__body{
+  padding-top: 5px;
 }
 //-
 #blank-w main > .container{

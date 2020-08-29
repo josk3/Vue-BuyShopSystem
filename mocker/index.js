@@ -153,7 +153,7 @@ function demoOrderList(req) {
     return [
         {
             trade_id: 'tr_M112d20820s11e14C16D',
-            merchant_order_no: new Date().getMilliseconds(),
+            merchant_order_no: new Date().getMilliseconds() + 'wef2fv23433d',
             email: req.body.trade_id + '@test.com',
             payment_time: '2020-01-01 12:12:00',
             order_amount: 135.89,
@@ -251,7 +251,7 @@ function demoFinanceList(req) {
         {
             trade_id: 'tr_M112d20820s11e1' + req.body.finance_status,
             batch_id: 'b23ou82f2' + new Date().getMilliseconds(),
-            merchant_order_no: new Date().getMilliseconds(),
+            merchant_order_no: 'wef2fv23433d'+new Date().getMilliseconds(),
             kind: 'sale',
             currency: 'USD',
             fees: 0.34,
@@ -280,16 +280,33 @@ function demoFinanceList(req) {
 function demoSettleList(req) {
     return [
         {
-            batch_id: 'b23ou82f2' + new Date().getMilliseconds() + req.body.finance_status,
+            batch_id: 'b23ou82f2' + new Date().getMilliseconds() + req.body.batch_id,
             kind: 'trade',
             currency: 'USD',
-            fees: 0.34,
-            charge: 234.32,
-            deposit_charge: 0,
-            surplus: 454645.45,
-            deposit_surplus: 8963132.45,
+            fee_amount: 5.5,
+            net_amount: 234.32,
             created: '2020-01-01 12:12:00',
             payout_time: '2020-01-01 12:12:00',//划款时间
+            status: 'paid', //paid
+        },
+        {
+            batch_id: 'bth45y4' + new Date().getMilliseconds() + req.body.batch_id,
+            kind: 'deposit',
+            currency: 'CNY',
+            fee_amount: 0,
+            net_amount: 2342223.32,
+            created: '2020-01-01 12:12:00',
+            payout_time: '',//划款时间
+            status: 'release', //paid
+        },
+        {
+            batch_id: 'b67j6e' + new Date().getMilliseconds() + req.body.finance_status,
+            kind: 'trade',
+            currency: 'USD',
+            fee_amount: 0,
+            net_amount: 2342.32,
+            created: '2020-01-01 12:12:00',
+            payout_time: '',//划款时间
             status: 'release', //paid
         },
     ];

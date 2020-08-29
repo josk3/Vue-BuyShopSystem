@@ -53,12 +53,13 @@
                             prop="kind"
                             label="类型">
                         <template v-slot="scope">
-                            {{scope.row.kind}}
+                            {{scope.row.kind | chargeKind }}
                         </template>
                     </el-table-column>
                     <el-table-column
                             prop="charge_time"
-                            label="进账时间">
+                            :show-overflow-tooltip="true"
+                            label="支付时间">
                         <template v-slot="scope">
                             {{scope.row.charge_time | toDay }}
                         </template>
@@ -67,21 +68,21 @@
                             prop="fees"
                             label="手续费">
                         <template v-slot="scope">
-                            {{scope.row.fees}}
+                            {{scope.row.fees | nullToLine}}
                         </template>
                     </el-table-column>
                     <el-table-column
                             prop="charge"
                             label="余额变动">
                         <template v-slot="scope">
-                            {{scope.row.charge}}
+                            {{scope.row.charge | nullToLine}}
                         </template>
                     </el-table-column>
                     <el-table-column
                             prop="deposit_charge"
                             label="保证金变动">
                         <template v-slot="scope">
-                            {{scope.row.deposit_charge}}
+                            {{scope.row.deposit_charge | nullToLine}}
                         </template>
                     </el-table-column>
                     <el-table-column
