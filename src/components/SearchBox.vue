@@ -32,7 +32,7 @@
                             <el-option
                                     v-for="item in blacklistTypeList"
                                     :key="item.value"
-                                    :label="$t('risk.' + item.vale)"
+                                    :label="$t('risk.' + item.value)"
                                     :value="item.value">
                             </el-option>
                         </el-select>
@@ -64,12 +64,12 @@
             return {
                 searchForm: this.params,
                 blacklistTypeList: [
-                    {vale: 'fingerprint'},
-                    {vale: 'email'},
-                    {vale: 'ip'},
-                    {vale: 'address'},
-                    {vale: 'full_name'},
-                    {vale: 'phone'},
+                    {value: 'fingerprint'},
+                    {value: 'email'},
+                    {value: 'ip'},
+                    {value: 'address'},
+                    {value: 'full_name'},
+                    {value: 'phone'},
                 ],
             }
         },
@@ -80,7 +80,7 @@
             },
             submitSearch() {
                 this.$emit('search', this.form)
-            }
+            },
         },
         mounted() {
             //date时间控件
