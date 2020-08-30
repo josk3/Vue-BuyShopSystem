@@ -53,11 +53,11 @@
                             </template>
                         </el-table-column>
                         <el-table-column
-                                prop="reason"
+                                prop="remark"
                                 :show-overflow-tooltip="true"
                                 label="备注">
                             <template v-slot="scope">
-                                {{scope.row.reason }}
+                                {{scope.row.remark }}
                             </template>
                         </el-table-column>
                         <el-table-column width="50" fixed="right">
@@ -95,7 +95,7 @@
                         <el-card shadow="hover" class="box-card p-3 mb-3"
                                  :body-style="{ padding: '0px' }">
                             <div class="text-muted p-0">
-                                <i class="el-icon-info text-blue"></i> 风险国家或地区的交易将被拦截
+                                <i class="el-icon-info text-blue"></i> 设置风险地区的交易将被拦截
                             </div>
                         </el-card>
                         <el-form ref="risk_area_form"
@@ -131,7 +131,7 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="备注说明">
-                                <el-input type="textarea" v-model="risk_area_form.reason"></el-input>
+                                <el-input type="textarea" v-model="risk_area_form.remark"></el-input>
                             </el-form-item>
                         </el-form>
                     </div>
@@ -179,7 +179,7 @@
                     state_name: '',
                     select_country: '',
                     select_state: '',
-                    reason: ''
+                    remark: ''
                 },
                 select_state: null, //当前选择值
                 area_all_list: [],//所有国家数据

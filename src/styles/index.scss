@@ -397,6 +397,12 @@ span.ps-canceled{
 .sm-dialog{
   width: 410px;
 }
+.clear-mb-form .el-form-item{
+  margin-bottom: 0;
+}
+.clear-mb-form{
+  margin-bottom: 20px;
+}
 //-
 #blank-w main > .container{
   padding-top: 60px

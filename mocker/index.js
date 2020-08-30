@@ -807,6 +807,100 @@ const proxy = {
             data: {}
         });
     },
+    'GET /api/v1/order/get/:id': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                trade_id: req.params.id,
+                email: 'wle23jf@test.com',
+                ip: '12.32.3.34.34',
+                shipping_address: '23f lek',
+                shipping_first_name: 'Fwf',
+                shipping_last_name: 'h6g',
+                shipping_phone: '2345454',
+                card64: '423423***1111',
+            }
+        });
+    },
+    'POST /api/v1/blacklist/search': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: [
+                    {
+                        bli: 'ef2f34g',
+                        kind: "address",
+                        value: "上海",
+                        operator_name: "jian",
+                        trade_id: null,
+                        created: "2020-08-29 20:49:19",
+                        remark: "3g4Test",
+                        updated: "2020-08-29 20:49:19",
+                        pack_hash: "913624534d668192",
+                        status: 1,
+                    }, {
+                        bli: '9384g3gf4',
+                        kind: "phone",
+                        value: "13888888888",
+                        operator_name: "jian",
+                        trade_id: 'tr_wf23frg2fwef',
+                        created: "2020-08-29 20:49:19",
+                        remark: "3g2224Test",
+                        updated: "2020-08-29 20:49:19",
+                        pack_hash: "913624534d668192",
+                        status: 1,
+                    },
+                ]
+            }
+        });
+    },
+    'POST /api/v1/blacklist/add': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                bli: 'ef2f34g',
+                kind: "address",
+                value: "上海",
+                operator_name: "jian",
+                trade_id: null,
+                created: "2020-08-29 20:49:19",
+                remark: "3g4Test",
+                updated: "2020-08-29 20:49:19",
+                pack_hash: "913624534d668192",
+                status: 1,
+            }
+        });
+    },
+    'POST /api/v1/blacklist/disable': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {}
+        });
+    },
+    'POST /api/v1/blacklist/enable': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {}
+        });
+    },
+    'DELETE /api/v1/blacklist/delete': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {}
+        });
+    },
 
 }
 let sleep = false;

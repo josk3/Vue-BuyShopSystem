@@ -131,6 +131,14 @@ export function payStatus(payStatus) {
     }
 }
 
+/**
+ * 黑名单-类别 -》解析成文字
+ */
+export function blacklistKind(kind) {
+    if (isEmpty(kind)) return ''
+    return i18n.t('risk.' + kind);//ip, email..
+}
+
 /** 转时间 */
 export function toDayTime(date) {
     if (isEmpty(date)) return ''

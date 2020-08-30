@@ -21,6 +21,7 @@ module.exports = {
         contact_us: '联系我们',
         record_total: '总记录数',
         confirm: '确认',
+        remark: '备注说明',
 
         //
         submitted: '已提交',
@@ -38,6 +39,8 @@ module.exports = {
         merchant_order_no: '订单号',
         country_name: '国家',
         email: '邮箱',
+        blacklist_type: '黑名单类型',
+        blacklist_value: '黑名单值',
         order_amount: '订单金额',
         payment_time: '交易时间',
         currency: '币种',
@@ -140,6 +143,15 @@ module.exports = {
         refund: '退款',
         trade: '交易结算',
         deposit: '保证金结算',
+    },
+    risk: {
+        fingerprint: '卡指纹',
+        email: '邮箱',
+        ip: 'Ip',
+        address: '地址',
+        full_name: '姓名全名',
+        phone: '电话',
+        card_no: '卡号',
     },
     payout: {
         delivery_reject: '问题单',
