@@ -100,7 +100,8 @@
             <el-dialog custom-class="wpy-dialog sm-dialog"
                        :show-close="false" :close-on-click-modal="false"
                        title="上传物流单号"
-                       :visible.sync="addTrackNumberDialog">
+                       @close="closeDialog"
+                       :visible.sync="trackNumberDialogVisible">
                 <div>
                     <el-form ref="track_form"
                              :model="track_form"
@@ -120,7 +121,7 @@
                     </el-form>
                 </div>
                 <div slot="footer" class="dialog-footer" v-loading="loading">
-                    <el-button size="mini" @click="addTrackNumberDialog = false">取消</el-button>
+                    <el-button size="mini" @click="closeDialog">取消</el-button>
                     <el-button size="mini" type="primary" @click="submitTrackNumber">提交</el-button>
                 </div>
             </el-dialog>
@@ -146,8 +147,8 @@
         data() {
             return {
                 loading: false,
-                addTrackNumberDialog: false,
-                track_form: {action: '', index: '', trade_id: '', track_number: '', track_brand: ''},
+                trackNumberDialogVisible: false,
+                track_form: this.initFormObj(),
                 track_brand_all: [],
                 rules: {
                     track_number: [
@@ -168,6 +169,14 @@
             this.search();
         },
         methods: {
+            initFormObj() {
+                return {action: '', index: '', trade_id: '', track_number: '', track_brand: ''};
+            },
+            closeDialog(){
+                this.trackNumberDialogVisible = false
+                this.$refs['track_form'].resetFields();//重置
+                this.$refs['track_form'].clearValidate();//重置
+            },
             pageChange(page) {
                 this.searchParams.page = page.page_num
                 this.search()
@@ -191,26 +200,28 @@
                         this.$data.loading = false
                     })
                 }
-                if (row.trade_id !== this.track_form.trade_id) {
-                    this.initTrackFormData()
-                }
-                this.track_form.action = action
-                this.track_form.index = index
-                this.track_form.trade_id = row.trade_id
-                if (action === 'edit') {
-                    this.track_form.track_brand = row.track_brand
-                    this.track_form.track_number = row.track_number
-                }
-                this.addTrackNumberDialog = true
+                this.trackNumberDialogVisible = true
+                this.$nextTick(() => {
+                    if (row.trade_id !== this.$data.track_form.trade_id) {
+                        this.initTrackFormData()
+                    }
+                    this.track_form.action = action
+                    this.track_form.index = index
+                    this.track_form.trade_id = row.trade_id
+                    if (action === 'edit') {
+                        this.track_form.track_brand = row.track_brand
+                        this.track_form.track_number = row.track_number
+                    }
+                });
             },
             editTrackDialog(index, row) {
-              this.showTrackDialog('edit', index, row)
+                this.showTrackDialog('edit', index, row)
             },
             addTrackDialog(index, row) {
                 this.showTrackDialog('add', index, row)
             },
             initTrackFormData() {
-                this.track_form = {}
+                this.track_form = this.initFormObj()
             },
             submitTrackNumber() {
                 this.$refs['track_form'].validate((valid) => {
@@ -224,7 +235,7 @@
                             row.track_number = this.$data.track_form.track_number
                             row.track_brand = this.$data.track_form.track_brand
                             this.initTrackFormData()
-                            this.$data.addTrackNumberDialog = false
+                            this.closeDialog()
                             this.$message.success(this.$i18n.t('comm.success').toString())
                         }).finally(() => {
                             this.$data.loading = false

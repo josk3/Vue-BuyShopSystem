@@ -172,15 +172,7 @@
             return {
                 loading: false,
                 riskAreaDialogVisible: false,
-                risk_area_form: {
-                    action: '',
-                    index: '',
-                    country_name: '',
-                    state_name: '',
-                    select_country: '',
-                    select_state: '',
-                    remark: ''
-                },
+                risk_area_form: this.initAreaFormObj(),
                 select_state: null, //当前选择值
                 area_all_list: [],//所有国家数据
                 area_states_list: {},//对应国家所有洲省数据
@@ -227,8 +219,19 @@
                 this.risk_area_form.action = 'add'
                 this.riskAreaDialogVisible = true
             },
+            initAreaFormObj() {
+                return {
+                    action: '',
+                    index: '',
+                    country_name: '',
+                    state_name: '',
+                    select_country: '',
+                    select_state: '',
+                    remark: ''
+                };
+            },
             initRiskAreaForm() {
-                this.risk_area_form = {}
+                this.risk_area_form = this.initAreaFormObj()
                 this.select_state = null
             },
             submitRiskArea() {
