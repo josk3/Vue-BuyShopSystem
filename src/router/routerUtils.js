@@ -1,4 +1,4 @@
-import {isArray, isObject, isEmpty, isString} from "@/utils/validate";
+import {isArray, isEmpty, isObject, isString} from "@/utils/validate";
 import Layout from "@/layout/index";
 import blank from "@/layout/blank";
 
@@ -29,11 +29,11 @@ export const routerUtils = {
     },
     'decline_manage': {
         component: () => import('@/views/portal/decline'),
-        meta: { noCache: true}
+        meta: {noCache: true}
     },
     'refund_select': {
         component: () => import('@/views/portal/refund'),
-        meta: { noCache: true}
+        meta: {noCache: true}
     },
     'finance_select': {
         name: 'finance_select',
@@ -41,11 +41,11 @@ export const routerUtils = {
     },
     'finance_search': {
         component: () => import('@/views/portal/finance/finance'),
-        meta: { noCache: true}
+        meta: {noCache: true}
     },
     'settle_search': {
         component: () => import('@/views/portal/finance/settle'),
-        meta: { noCache: true}
+        meta: {noCache: true}
     },
     'chargeback_select': {
         component: () => import('@/views/portal/chargeback'),
@@ -55,7 +55,7 @@ export const routerUtils = {
         component: () => import('@/views/portal/ticket/index'),
         meta: {noCache: true}
     },
-    'delivery_manage' : {
+    'delivery_manage': {
         component: () => import('@/views/portal/delivery'),
         meta: {noCache: true}
     },
@@ -65,11 +65,35 @@ export const routerUtils = {
     },
     'risk_area': {
         component: () => import('@/views/portal/risk/area'),
-        meta: { noCache: true}
+        meta: {noCache: true}
     },
     'blacklist': {
         component: () => import('@/views/portal/risk/blacklist'),
-        meta: { noCache: true}
+        meta: {noCache: true}
+    },
+    'account_manage': {
+        name: 'account_manage',
+        meta: {noCache: true}
+    },
+    'merchant_info': {
+        component: () => import('@/views/portal/risk/area'),
+        meta: {noCache: true}
+    },
+    'merchant_identity': {
+        component: () => import('@/views/portal/risk/blacklist'),
+        meta: {noCache: true}
+    },
+    'merchant_setup': {
+        component: () => import('@/views/portal/risk/blacklist'),
+        meta: {noCache: true}
+    },
+    'merchant_users': {
+        component: () => import('@/views/portal/risk/blacklist'),
+        meta: {noCache: true}
+    },
+    'merchant_shop': {
+        component: () => import('@/views/portal/risk/blacklist'),
+        meta: {noCache: true}
     },
 }
 
@@ -113,8 +137,8 @@ export function convertRouters(userMenu) {
                 sideMenu.push(childItem);
             }
             //if (childList.length > 0) {
-                //路由跟menu区别 getMenu.children = childList;
-                //路由不放在child
+            //路由跟menu区别 getMenu.children = childList;
+            //路由不放在child
             //}
         }
         sideMenu.push(getMenu);

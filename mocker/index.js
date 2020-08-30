@@ -142,8 +142,44 @@ function demoUserInfo() {
                     "name": "account_manage",
                     "path": "/account/manage",
                     "meta": null,
-                    "children": null,
-                    "have_show_child": false
+                    "children": [
+                        {
+                            "name": "merchant_info",
+                            "path": "/merchant/info",
+                            "meta": null,
+                            "children": null,
+                            "have_show_child": false
+                        },
+                        {
+                            "name": "merchant_identity",
+                            "path": "/merchant/identity",
+                            "meta": null,
+                            "children": null,
+                            "have_show_child": false
+                        },
+                        {
+                            "name": "merchant_setup",
+                            "path": "/merchant/setup",
+                            "meta": null,
+                            "children": null,
+                            "have_show_child": false
+                        },
+                        {
+                            "name": "merchant_users",
+                            "path": "/merchant/users",
+                            "meta": null,
+                            "children": null,
+                            "have_show_child": false
+                        },
+                        {
+                            "name": "merchant_shop",
+                            "path": "/merchant/shop",
+                            "meta": null,
+                            "children": null,
+                            "have_show_child": false
+                        },
+                    ],
+                    "have_show_child": true
                 },
                 {
                     "name": "support_ticket",
