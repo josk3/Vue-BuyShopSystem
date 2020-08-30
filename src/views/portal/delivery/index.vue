@@ -110,7 +110,8 @@
                         </el-form-item>
                         <el-form-item label="物流公司" prop="track_brand">
                             <el-select v-model="track_form.track_brand" placeholder="请选择物流公司">
-                                <el-option v-for="brand in track_brand_all" :label="brand.text" :value="brand.value"></el-option>
+                                <el-option v-for="brand in track_brand_all" :key="brand.value"
+                                           :label="brand.text" :value="brand.value"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="物流单号" prop="track_number">

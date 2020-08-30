@@ -17,6 +17,10 @@
                         <el-input size="mini" v-model="searchForm.merchant_order_no"
                                   :placeholder="$t('comm.merchant_order_no')" clearable></el-input>
                     </el-form-item>
+                    <el-form-item v-if="searchForm.country_name !== undefined" prop="country_name">
+                        <el-input size="mini" v-model="searchForm.country_name"
+                                  :placeholder="$t('comm.country_name')" clearable></el-input>
+                    </el-form-item>
                     <el-form-item v-if="searchForm.email !== undefined" prop="email">
                         <el-input type="email" size="mini" v-model="searchForm.email" :placeholder="$t('comm.email')" clearable=""></el-input>
                     </el-form-item>

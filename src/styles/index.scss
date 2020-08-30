@@ -379,6 +379,9 @@ span.ps-canceled{
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 }
+.bg-body .el-dialog__body{
+  padding: 0;
+}
 .wpy-dialog .el-dialog__header{
   background-color: #ffffff;
   padding: 12px 20px 12px 20px;

@@ -113,8 +113,23 @@ function demoUserInfo() {
                     "name": "risk_manage",
                     "path": "/risk/manage",
                     "meta": null,
-                    "children": null,
-                    "have_show_child": false
+                    "children": [
+                        {
+                            "name": "risk_area",
+                            "path": "/risk/area",
+                            "meta": null,
+                            "children": null,
+                            "have_show_child": false
+                        },
+                        {
+                            "name": "blacklist",
+                            "path": "/risk/blacklist",
+                            "meta": null,
+                            "children": null,
+                            "have_show_child": false
+                        },
+                    ],
+                    "have_show_child": true
                 },
                 {
                     "name": "dispute_manage",
@@ -727,6 +742,69 @@ const proxy = {
                     },
                 ]
             }
+        });
+    },
+    'POST /api/v1/risk_area/search': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: [
+                    {
+                        country_name: '美国',
+                        state_name: 'state ' + new Date().getMilliseconds(),
+                        rai: 'rai_32234598j' + new Date().getMilliseconds(),
+                        status: 0,
+                        operator_name: '张一',
+                        updated: '2020-09-09 00:00:00'
+                    },
+                    {
+                        country_name: '美国', state_name: 'state 233', rai: 'rai_322129yg',
+                        status: 1, operator_name: '张一', updated: '2020-09-09 00:00:00'
+                    },
+                    {
+                        country_name: '美国', state_name: 'state 233', rai: 'rai_32234598j',
+                        status: 1, operator_name: '张一', updated: '2020-09-09 00:00:00'
+                    }
+                ]
+            }
+        });
+    },
+    'POST /api/v1/risk_area/add': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                country_name: '美国', state_name: 'state 233', rai: 'rai_32234598j',
+                status: 1, operator_name: '张一', updated: '2020-09-09 00:00:00'
+            }
+        });
+    },
+    'POST /api/v1/risk_area/disable': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {}
+        });
+    },
+    'POST /api/v1/risk_area/enable': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {}
+        });
+    },
+    'DELETE /api/v1/risk_area/delete': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {}
         });
     },
 

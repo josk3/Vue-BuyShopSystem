@@ -154,5 +154,40 @@ export function getHandleError(url, params) {
     });
 }
 
+export function del(url, params) {
+    return service({
+        method: 'delete',
+        url: url,
+        data: qs.stringify(params),
+        show_error_msg_dialog: true,
+    });
+}
+
+export function delHandleError(url, params) {
+    return service({
+        method: 'delete',
+        url: url,
+        data: qs.stringify(params),
+        show_error_msg_dialog: true,
+    });
+}
+
+
+export function localJson(url) {
+    return new Promise((resolve, reject) => {
+        axios({
+            method: 'get',
+            url: url,
+            dataType: "json",
+            crossDomain: true,
+            cache: false
+        }).then(res => {
+            resolve(res)
+        }).catch(error => {
+            reject(error)
+        })
+    });
+}
+
 
 export default service

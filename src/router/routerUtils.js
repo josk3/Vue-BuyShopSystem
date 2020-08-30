@@ -59,6 +59,18 @@ export const routerUtils = {
         component: () => import('@/views/portal/delivery'),
         meta: {noCache: true}
     },
+    'risk_manage': {
+        name: 'risk_manage',
+        meta: {noCache: true}
+    },
+    'risk_area': {
+        component: () => import('@/views/portal/risk/area'),
+        meta: { noCache: true}
+    },
+    'blacklist': {
+        component: () => import('@/views/portal/risk/blacklist'),
+        meta: { noCache: true}
+    },
 }
 
 function resolveMenu(menu) {
