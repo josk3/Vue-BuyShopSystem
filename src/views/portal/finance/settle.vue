@@ -90,6 +90,7 @@
             <el-dialog custom-class="wpy-dialog" @open="getPayoutSummary"
                        :show-close="false" :close-on-click-modal="false"
                        title="结算摘要"
+                       top="5vh"
                        :visible.sync="payoutSummaryDialog">
                 <div v-loading="loading">
                     <h4>{{summaryBatchId}}</h4>

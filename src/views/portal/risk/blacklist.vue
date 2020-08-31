@@ -94,6 +94,7 @@
             <el-dialog custom-class="wpy-dialog sm-dialog bg-body"
                        :show-close="false" :close-on-click-modal="false"
                        title="添加黑名单"
+                       top="5vh"
                        :visible.sync="blacklistDialogVisible">
                 <div>
                     <el-tabs v-model="paneName" @tab-click="paneClick">
