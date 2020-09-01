@@ -11,6 +11,7 @@ import {getSplitLast, toLower} from "@/utils/strUtils";
 /**
  * https://github.com/axios/axios
  * axios封装的工具类，用于http 请求 post , get , delete 等网络请求
+ * 统计处理 api url的前缀、header加token,language 、请求返回结果的错误码做相应处理
  */
 // create an axios instance
 const service = axios.create({
@@ -176,7 +177,9 @@ export function delHandleError(url, params) {
     });
 }
 
-
+/**
+ * 本地url, url不会加前缀
+ */
 export function localJson(url) {
     return new Promise((resolve, reject) => {
         axios({
