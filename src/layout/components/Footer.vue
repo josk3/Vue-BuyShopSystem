@@ -18,16 +18,18 @@
                     </li>
                     <li class="text-muted">
                         <small>Content protected Copyright © 2020 All Rights Reserved Wintopay.com</small>
-                        <el-dropdown trigger="click" class="float-right">
+                        <el-dropdown trigger="click" class="float-right" @command="handleLangChange">
                             <span class="el-dropdown-link text-blue">
                                 <font-awesome-icon icon="language" size="2x"/>
                             </span>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item>
-                                    <a href="javascript:void(0)" class="btn btn-link btn-sm mr-2" @click="goLangEn">English</a>
+                                <el-dropdown-item command="en">
+                                    <i v-if="lang === 'en'" class="el-icon-check"></i>
+                                    English
                                 </el-dropdown-item>
-                                <el-dropdown-item>
-                                    <a href="javascript:void(0)" class="btn btn-link btn-sm " @click="goLangZh">中文</a>
+                                <el-dropdown-item command="zh">
+                                    <i v-if="lang === 'zh'" class="el-icon-check"></i>
+                                    简体中文
                                 </el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
@@ -50,6 +52,7 @@
             ...mapState({
                 sidebar: state => state.app.sidebar,
                 device: state => state.app.device,
+                lang: state => state.app.lang,
             }),
             configs() {
                 return configs;
@@ -59,17 +62,12 @@
             },
         },
         methods: {
-            goLangEn: function () {
-                this.$i18n.locale = 'en'
-                this.$store.dispatch('app/setLang', 'en')
+            handleLangChange(lang){
+                this.$i18n.locale = lang
+                this.$store.dispatch('app/setLang', lang)
                 this.updatePageTitle()
             },
-            goLangZh: function () {
-                this.$i18n.locale = 'zh'
-                this.$store.dispatch('app/setLang', 'zh')
-                this.updatePageTitle()
-            },
-            updatePageTitle: function() {
+            updatePageTitle: function () {
                 reloadPageTitle(this.$route)
             },
         }

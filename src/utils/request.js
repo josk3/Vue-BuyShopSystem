@@ -8,6 +8,10 @@ import {isEmpty} from "@/utils/validate";
 import i18n from "@/service/i18n";
 import {getSplitLast, toLower} from "@/utils/strUtils";
 
+/**
+ * https://github.com/axios/axios
+ * axios封装的工具类，用于http 请求 post , get , delete 等网络请求
+ */
 // create an axios instance
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
