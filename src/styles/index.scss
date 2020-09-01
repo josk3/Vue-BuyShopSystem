@@ -411,6 +411,7 @@ span.ps-canceled{
 .el-loading-spinner .circular{
   display: none;
 }
+button:focus{outline:0;}
 //-
 #blank-w main > .container{
   padding-top: 60px

@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-column h-100" v-loading="loading">
         <div class="register-box">
-            <div class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" style="max-width:360px;">
+            <div class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" style="max-width:330px;">
                 <el-alert v-if="errorMsg" :title="errorMsg"
                           type="error"
                           class="text-center"

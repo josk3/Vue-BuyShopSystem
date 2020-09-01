@@ -128,14 +128,18 @@
 
     }
 </script>
+<style scoped src="../../../public/static/css/login.css"/>
 <style>
-    .login-box .form-signin .firs-input{
-        border-top: 0;
+    .login-box .form-signin{
+        padding: 25px;
+    }
+    .login-box .form-signin .firs-input,.login-box .form-signin .mid-clear{
+        margin-bottom:0;
     }
     .login-box .form-signin .firs-input, .login-box .form-signin .mid-clear, .login-box .form-signin .last-input{
         border-left: 0;
         border-right: 0;
         border-radius: 0;
+        border-top: 0;
     }
 </style>
-<style scoped src="../../../public/static/css/login.css"/>
