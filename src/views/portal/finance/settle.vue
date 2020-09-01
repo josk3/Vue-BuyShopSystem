@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div v-if="isPayoutList" class="payout-list">
             <SearchBox :params="searchParams" @search="search"></SearchBox>
-            <div class="wrap-tab p-0" v-loading="loading">
+            <div class="wrap-tab p-0">
                 <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
                     <div class="row">
                         <div class="col-8 pr-0" style="background-color: #F5F7FA">

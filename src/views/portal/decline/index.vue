@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <SearchBox :params="searchParams" @search="search"></SearchBox>
         <div class="wrap-tab p-0">
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
@@ -20,7 +20,6 @@
                 </div>
                 <el-table
                         :data="tabData.list"
-                        v-loading="loading"
                         :header-row-style="{background:'#2C2E2F'}"
                         style="width: 100%">
                     <el-table-column

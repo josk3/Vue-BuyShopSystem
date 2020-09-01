@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div class="row">
             <div class="col-12 mb-2">
                 <el-card shadow="hover" class="box-card p-3"
@@ -11,7 +11,7 @@
                 </el-card>
             </div>
         </div>
-        <div class="wrap-tab p-0" v-loading="loading">
+        <div class="wrap-tab p-0">
             <div class="p-2 text-right">
                 <el-button icon="el-icon-folder-checked" size="small"
                            @click="submitApply" type="primary" plain>提交申请

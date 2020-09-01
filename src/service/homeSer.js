@@ -1,11 +1,11 @@
 import request from '@/utils/request'
 
 /**
- * 拒付查询
+ * 首页
  */
-export function getChargeback(params) {
+export function getLastDate(params) {
     return request({
-        url: '/chargeback/search',
+        url: '/report/last_data',
         method: 'post',
         data: params
     })

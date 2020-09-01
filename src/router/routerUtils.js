@@ -47,10 +47,6 @@ export const routerUtils = {
         component: () => import('@/views/portal/finance/settle'),
         meta: {noCache: true}
     },
-    'chargeback_select': {
-        component: () => import('@/views/portal/chargeback'),
-        meta: {icon: 'user', noCache: true}
-    },
     'support_ticket': {
         component: () => import('@/views/portal/ticket/index'),
         meta: {noCache: true}

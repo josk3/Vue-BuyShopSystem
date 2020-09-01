@@ -403,6 +403,14 @@ span.ps-canceled{
 .clear-mb-form{
   margin-bottom: 20px;
 }
+.el-loading-spinner{
+  background: url("img/vloading.gif") no-repeat center;
+  height: 50px;
+  background-size: 50px;
+}
+.el-loading-spinner .circular{
+  display: none;
+}
 //-
 #blank-w main > .container{
   padding-top: 60px

@@ -59,7 +59,6 @@ module.exports = {
         payout_apply: '结算申请',
         payout_history: '申请历史',
         refund_select: '退款查询',
-        chargeback_select: '拒付查询',
         account_manage: '账户管理',
         merchant_info: '商户信息',
         merchant_identity: '我的认证',

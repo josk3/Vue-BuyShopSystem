@@ -52,7 +52,6 @@ module.exports = {
         payout_apply: 'Settlement apply',
         payout_history: 'Settlement history',
         refund_select: 'Refund',
-        chargeback_select: 'Chargeback',
         account_manage: 'Account',
         finance_select: 'Finance',
         fast_pay: 'Fast Payment',
