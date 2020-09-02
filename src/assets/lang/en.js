@@ -83,7 +83,7 @@ module.exports = {
     },
     login: {
         resolver_password: 'Find Password',
-        info_will_send_email: 'Information will send email',
+        forget_info_will_send: 'Information will send email or phone',
     },
     home: {},
     profile: {},

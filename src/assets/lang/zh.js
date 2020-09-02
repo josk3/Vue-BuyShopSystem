@@ -22,6 +22,7 @@ module.exports = {
         record_total: '总记录数',
         confirm: '确认',
         remark: '备注说明',
+        email_or_phone: '手机号或邮箱',
 
         //
         submitted: '已提交',
@@ -118,7 +119,7 @@ module.exports = {
     },
     login: {
         resolver_password: '找回密码',
-        info_will_send_email: '信息将发送到您的邮箱',
+        forget_info_will_send: '信息将发送到您的邮箱或手机',
         resolver_email_send: ['重置邮件已发送', '发送成功, 您现在可以进入邮箱重置密码了'],
         resolver_email_fail: ['没有收到?', '再次发送', '请查看垃圾箱内是否有邮件, 或再次发送'],
         reset_new_pwd: '设置新密码',

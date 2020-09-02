@@ -40,16 +40,16 @@
                 <form v-if="!submitOk" method="post" onsubmit="return false">
                     <font-awesome-icon icon="unlock-alt" size="3x" class="text-blue mb-3"/>
                     <p class="mb-3 text-muted">{{ $t('login.resolver_password') }}</p>
-                    <p class="small">{{ $t('login.info_will_send_email') }}</p>
+                    <p class="small">{{ $t('login.forget_info_will_send') }}</p>
                     <label for="inputMerNo" class="sr-only">{{ $t('user.mer_no') }}</label>
                     <input type="text" id="inputMerNo" name="merNo" class="form-control firs-input"
                            v-model="form.mer_no"
                            :placeholder="$t('user.mer_no')" required
                            autofocus>
-                    <label for="inputEmail" class="sr-only">Email</label>
-                    <input type="email" id="inputEmail" name="email" class="form-control last-input"
-                           v-model="form.email"
-                           :placeholder="$t('comm.email')"
+                    <label for="inputEmailOrPhone" class="sr-only">Email or Phone</label>
+                    <input type="email" id="inputEmailOrPhone" name="email_or_phone" class="form-control last-input"
+                           v-model="form.email_or_phone"
+                           :placeholder="$t('comm.email_or_phone')"
                            required>
                     <el-button type="primary"
                                class="btn-block wpy-btn"
@@ -92,7 +92,7 @@
                 submitOk: false,
                 confirmResendDialog: false,
                 hasResendEmail: false,
-                form: {mer_no: '', email: ''}
+                form: {mer_no: '', email_or_phone: ''}
             }
         },
         methods: {

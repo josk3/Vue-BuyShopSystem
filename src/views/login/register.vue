@@ -16,7 +16,7 @@
                             <el-form-item label="用户名" prop="username">
                                 <el-input v-model="register.username"></el-input>
                             </el-form-item>
-                            <el-form-item label="手机号/邮箱" prop="email_or_phone">
+                            <el-form-item :label="$t('comm.email_or_phone')" prop="email_or_phone">
                                 <el-input v-model="register.email_or_phone"></el-input>
                             </el-form-item>
                             <el-form-item label="密码" prop="password">
