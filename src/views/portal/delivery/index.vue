@@ -12,7 +12,7 @@
                         <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                             <div class="mr-5 mt-1 mb-1">
                                 <el-button icon="el-icon-upload2" size="mini" class="mr-3"
-                                           @click="uploadDelivery" plain>批量上传
+                                           @click="uploadTrackDialogVisible = true" plain>批量上传
                                 </el-button>
                                 <el-button icon="el-icon-download" size="mini"
                                            @click="downDelivery" plain>下载
@@ -96,6 +96,11 @@
 
                     <Pagination :page="tabData.page" @change="pageChange"></Pagination>
                 </el-card>
+
+                <!--                -->
+
+
+                <!--                -->
             </div>
             <el-dialog custom-class="wpy-dialog sm-dialog"
                        :show-close="false" :close-on-click-modal="false"
@@ -125,6 +130,45 @@
                     <el-button size="mini" type="primary" @click="submitTrackNumber">提交</el-button>
                 </div>
             </el-dialog>
+
+            <el-dialog custom-class="wpy-dialog sm-dialog bg-body"
+                       :show-close="false" :close-on-click-modal="false"
+                       title="批量上传物流信息"
+                       :visible.sync="uploadTrackDialogVisible">
+                <div>
+                    <el-card shadow="hover" class="box-card p-3 mb-3"
+                             :body-style="{ padding: '0px' }">
+                        <div class="text-muted p-0">
+                            <i class="el-icon-info text-blue"></i> 上传相对应的Excel表格文件
+                        </div>
+                    </el-card>
+                    <!--   accept="image/*" , :http-request="upload"  -->
+                    <div class="text-center">
+                        <el-upload
+                                class="text-center m-auto track_excel pb-3"
+                                :class="trackExcelUploadEnable ? 'showFileBox' : 'hideFileBox'"
+                                ref="track_excel"
+                                drag
+                                action=""
+                                name="track_excel"
+                                accept=".xls,.xlsx"
+                                :limit="1"
+                                :on-change="changeTrackExcelFile"
+                                :on-remove="removeTrackExcelFile"
+                                :auto-upload="false">
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text" >将文件拖到此处，或<em>点击上传</em></div>
+                            <div class="el-upload__tip" slot="tip">上传Excel表格文件，且不超过500行记录</div>
+                        </el-upload>
+
+                        <el-progress v-if="percentage >= 0" :percentage="percentage" status="success"></el-progress>
+                    </div>
+                </div>
+                <div slot="footer" class="dialog-footer" v-loading="loading">
+                    <el-button size="mini" @click="uploadTrackDialogVisible = false">取消</el-button>
+                    <el-button size="mini" type="primary" @click="uploadTrackFile">上传</el-button>
+                </div>
+            </el-dialog>
         </div>
     </div>
 </template>
@@ -133,7 +177,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {deliveryAdd, deliverySearch, getTrackBrands} from "@/service/deliverySer";
+    import {deliveryAdd, deliverySearch, deliveryUpload, getTrackBrands} from "@/service/deliverySer";
     import {isEmpty} from "@/utils/validate";
 
     export default {
@@ -163,16 +207,50 @@
                     trade_id: '', merchant_order_no: '', email: '',
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
+                percentage: -1,
+                trackExcelFile: '',
+                uploadTrackDialogVisible: false,
+                trackExcelUploadEnable: true,
             }
         },
         mounted() {
             this.search();
         },
         methods: {
+            removeTrackExcelFile() {
+                this.trackExcelFile = null
+                this.trackExcelUploadEnable = true
+            },
+            changeTrackExcelFile(e) {
+                //this.$refs.upload_img.uploadFiles //all file list
+                this.trackExcelFile = e.raw
+                this.trackExcelUploadEnable = false //只上传一个文件
+            },
+            progressCallback(n) {
+                this.percentage = n
+            },
+            uploadTrackFile() {
+                if (isEmpty(this.trackExcelFile)) {
+                    this.$message.error('请先选择上传文件')
+                } else {
+                    let formData = new FormData();
+                    formData.append("action", "upload_track_excel_file");
+                    formData.append("file", this.trackExcelFile);
+                    this.loading = true
+                    deliveryUpload(formData, this.progressCallback).then(() => {
+                        this.removeTrackExcelFile()
+                        this.$data.uploadTrackDialogVisible = false
+                        this.search();//reload page
+                    }).finally(() => {
+                        this.percentage = - 1
+                        this.loading = false
+                    })
+                }
+            },
             initFormObj() {
                 return {action: '', index: '', trade_id: '', track_number: '', track_brand: ''};
             },
-            closeDialog(){
+            closeDialog() {
                 this.trackNumberDialogVisible = false
                 this.$refs['track_form'].resetFields();//重置
                 this.$refs['track_form'].clearValidate();//重置
@@ -243,9 +321,6 @@
                     }
                 });
             },
-            uploadDelivery() {
-
-            },
             downDelivery() {
 
             },
@@ -253,6 +328,9 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    .track_excel .el-upload-dragger{
+        width: 280px;
+        height: 150px;
+    }
 </style>

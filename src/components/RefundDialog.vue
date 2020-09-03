@@ -43,7 +43,7 @@
         data() {
             return {
                 loading: false,
-                refund: this.initFormPojo(),
+                refund: this.initFormObj(),
                 refundDialogVisible: false,
                 rules: {
                     refund_amount: [
@@ -56,7 +56,7 @@
         mounted() {
         },
         methods: {
-            initFormPojo() {
+            initFormObj() {
                 return {trade_id: '', order_amount: '', order_currency: '', refund_amount: ''};
             },
             closeDialog() {
@@ -72,13 +72,20 @@
                 this.refundDialogVisible = true
             },
             submitRefund() {
-                applyRefund(this.refund).then(() => {
-                    this.$message.success(this.$i18n.t('comm.success').toString())
-                    this.closeDialog()
-                    this.getOrder();//reload
-                }).finally(() => {
-                    this.loading = false
-                })
+                this.$refs.refund.validate((valid) => {
+                    if (!valid) {
+                        return false;
+                    } else {
+                        this.loading = true
+                        applyRefund(this.refund).then(() => {
+                            this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.closeDialog()
+                            this.getOrder();//reload
+                        }).finally(() => {
+                            this.$data.loading = false
+                        })
+                    }
+                });
             },
 
         },

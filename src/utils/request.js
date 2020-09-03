@@ -196,5 +196,24 @@ export function localJson(url) {
     });
 }
 
+/**
+ * axios 上传文件
+ * @param url url
+ * @param formData 应该为  new FormData();  可包含表单的其他data参数
+ * @param progressCallback 如果要使用到进度条
+ */
+export function upload(url, formData, progressCallback) {
+    return service({
+        headers: { "Content-Type": "multipart/form-data" },
+        method: 'post',
+        url: url,
+        data: formData,
+        show_error_msg_dialog: true,
+        onUploadProgress: e => {
+            if (!isEmpty(progressCallback)) progressCallback( ((e.loaded / e.total * 100) | 0) )
+        }
+    });
+}
+
 
 export default service
