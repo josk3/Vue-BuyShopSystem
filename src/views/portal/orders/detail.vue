@@ -8,7 +8,7 @@
                         <div class="text-left clearfix">
                             <el-button type="text" @click="goBack"><i class="el-icon-arrow-left"></i></el-button>
                             订单交易金额
-                            <el-button class="float-right" size="mini" @click="refundDialogVisible = true">
+                            <el-button class="float-right" size="mini" @click="openRefundDialog">
                                 <font-awesome-icon icon="undo"/>
                                 退款
                             </el-button>
@@ -18,7 +18,8 @@
                             <span class="pay-status" :class="['ps-' + order.pay_status]">
                                 {{order.pay_status | payStatus}}
                             </span>
-                            <span class="ml-3 tr-id btn clipboard-btn" :data-clipboard-text="order.trade_id" @click="copy">
+                            <span class="ml-3 tr-id btn clipboard-btn" :data-clipboard-text="order.trade_id"
+                                  @click="copy">
                                 {{ order.trade_id }}
                                 <font-awesome-icon :icon="['far', 'clipboard']"/>
                             </span>
@@ -29,9 +30,9 @@
                     <el-card shadow="hover" class="wpy-card box-card">
                         <div slot="header" class="clearfix">
                             <span>时间轴</span>
-<!--                            <el-button class="float-right" size="mini">-->
-<!--                                <i class="el-icon-plus"></i>添加备注-->
-<!--                            </el-button>-->
+                            <!--                            <el-button class="float-right" size="mini">-->
+                            <!--                                <i class="el-icon-plus"></i>添加备注-->
+                            <!--                            </el-button>-->
                         </div>
                         <el-timeline>
                             <el-timeline-item
@@ -214,34 +215,7 @@
             </div>
         </div>
         <!--    d    -->
-        <el-dialog custom-class="wpy-dialog sm-dialog"
-                   :show-close="false" :close-on-click-modal="false"
-                   title="退款"
-                   :visible.sync="refundDialogVisible">
-            <div>
-                <el-form ref="refund_form"
-                         :model="refund_form"
-                         :rules="rules" label-width="80px">
-                    <el-form-item label="流水号">
-                        <el-input :value="refund_form.trade_id" :disabled="true"></el-input>
-                    </el-form-item>
-                    <el-form-item label="订单金额">
-                        <el-input :value="refund_form.order_amount" :disabled="true">
-                            <template slot="append">{{ refund_form.order_currency }}</template>
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item label="退款金额" prop="refund_amount">
-                        <el-input v-model="refund_form.refund_amount" placeholder="请输入退款金额">
-                            <template slot="append">{{ refund_form.order_currency }}</template>
-                        </el-input>
-                    </el-form-item>
-                </el-form>
-            </div>
-            <div slot="footer" class="dialog-footer" v-loading="loading">
-                <el-button size="mini" @click="closeDialog('refund_form')">取消</el-button>
-                <el-button size="mini" type="primary" @click="submitRefund">提交退款</el-button>
-            </div>
-        </el-dialog>
+        <RefundDialog ref="refund_dialog"></RefundDialog>
 
     </div>
 </template>
@@ -250,11 +224,12 @@
     import configs from '@/configs'
     import {getOrder, getTimeline} from "@/service/orderSer";
     import {isEmpty} from "@/utils/validate";
-    import {applyRefund} from "@/service/refundSer";
     import newClipboard from "@/utils/clipboard";
+    import RefundDialog from "@/components/RefundDialog";
 
     export default {
         name: "order_detail",
+        components: {RefundDialog},
         computed: { //watch跟踪数据变化, 重点user, configs
             configs() {
                 return configs;
@@ -266,13 +241,6 @@
                 tradeId: '',
                 order: {},
                 timeline: [],
-                refundDialogVisible: false,
-                refund_form: {trade_id: '', order_amount: '', order_currency: '', refund_amount: ''},
-                rules: {
-                    refund_amount: [
-                        {required: true, message: '请输入退款金额', trigger: 'blur'},
-                    ]
-                },
             }
         },
         mounted() {
@@ -282,18 +250,14 @@
             this.loadOrder();
         },
         methods: {
-            goBack(){
+            goBack() {
                 this.$router.go(-1)
             },
             copy() {
                 newClipboard('.clipboard-btn')
             },
             loadOrder() {
-                this.getOrder(function (data) {
-                    data.refund_form.trade_id = data.order.trade_id
-                    data.refund_form.order_amount = data.order.order_amount
-                    data.refund_form.order_currency = data.order.order_currency
-                })
+                this.getOrder()
             },
             getOrder(callback) {
                 this.loading = true
@@ -313,19 +277,10 @@
                     this.loading = false
                 })
             },
-            closeDialog(name) {
-                this.refundDialogVisible = false
-                this.$refs[name].resetFields();//重置
+            openRefundDialog() {
+                this.$refs.refund_dialog.show(this.order)
             },
-            submitRefund() {
-                applyRefund(this.refund_form).then(() => {
-                    this.$message.success(this.$i18n.t('comm.success').toString())
-                    this.closeDialog('refund_form')
-                    this.getOrder();//reload
-                }).finally(() => {
-                    this.loading = false
-                })
-            },
+
         },
     }
 </script>

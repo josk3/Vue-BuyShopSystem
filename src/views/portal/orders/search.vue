@@ -90,13 +90,14 @@
                                       </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item v-if="scope.row.refunded !== 1">
-                                        <el-button type="text">
+                                        <el-button type="text" @click="openRefundDialog(scope.row)"
+                                                   class="btn-link wpy-btn">
                                             退款
                                         </el-button>
                                     </el-dropdown-item>
                                     <el-dropdown-item>
                                         <router-link :to="{name: 'order_detail',params:{id:scope.row.trade_id}}"
-                                                     class="btn btn-sm btn-link wpy-btn">
+                                                     class="btn-link wpy-btn">
                                             查看详情
                                         </router-link>
                                     </el-dropdown-item>
@@ -109,18 +110,22 @@
                 <Pagination :page="tabData.page" @change="pageChange"></Pagination>
             </el-card>
         </div>
+
+        <!--    d    -->
+        <RefundDialog ref="refund_dialog"></RefundDialog>
     </div>
 </template>
 
 <script>
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
+    import RefundDialog from "@/components/RefundDialog";
     import Pagination from "@/components/Pagination";
     import {ordersSearch} from "@/service/orderSer";
 
     export default {
         name: "trade_manage",
-        components: {SearchBox, Pagination},
+        components: {SearchBox, Pagination, RefundDialog},
         computed: { //watch跟踪数据变化, 重点user, configs
             configs() {
                 return configs;
@@ -160,7 +165,10 @@
                 }).finally(() => {
                     this.loading = false
                 })
-            }
+            },
+            openRefundDialog(row) {
+                this.$refs.refund_dialog.show(row)
+            },
         },
     }
 </script>
