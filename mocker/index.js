@@ -933,7 +933,190 @@ const proxy = {
             status: 1,
             message: '测试test',
             data: {
-                list: [],
+                "list": [
+                    {
+                        "otl_id": "otl_0807532B6cjf0miciMie",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "settle",
+                        "title": "pass",
+                        "created_time": 1596802345000,
+                        "transaction": {
+                            "py_id": "py_M1130a080716KjF484k71hv7",
+                            "trade_id": "tr_M1130a0807s4C53263jC",
+                            "kind": "settle",
+                            "status": "pass",
+                            "amount": 5018.05,
+                            "currency": "CNY",
+                            "ch_id": null,
+                            "cr_id": null,
+                            "fees": 0,
+                            "fail_code": null,
+                            "fail_message": null,
+                            "pay_date": null,
+                            "created": 1596802338000,
+                            "reason": null,
+                            "mer_uid": null,
+                            "updated": null
+                        }
+                    },
+                    {
+                        "otl_id": "otl_0807s12kh7ceKAkZtcQM",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "shipment_info",
+                        "title": "pass",
+                        "created_time": 1596802341000,
+                        "transaction": null
+                    },
+                    {
+                        "otl_id": "otl_08071562e418c2D68NMi",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "settle",
+                        "title": "applySettle",
+                        "created_time": 1596802338000,
+                        "transaction": {
+                            "py_id": "py_M1130a080716KjF484k71hv7",
+                            "trade_id": "tr_M1130a0807s4C53263jC",
+                            "kind": "settle",
+                            "status": "pass",
+                            "amount": 5018.05,
+                            "currency": "CNY",
+                            "ch_id": null,
+                            "cr_id": null,
+                            "fees": 0,
+                            "fail_code": null,
+                            "fail_message": null,
+                            "pay_date": null,
+                            "created": 1596802338000,
+                            "reason": null,
+                            "mer_uid": null,
+                            "updated": null
+                        }
+                    },
+                    {
+                        "otl_id": "otl_0807731b05jCjY9cj7Vm",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "shipment_info",
+                        "title": "submitted",
+                        "created_time": 1596802333000,
+                        "transaction": null
+                    },
+                    {
+                        "otl_id": "otl_080713Ggjk3958MYwtqG",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "refund",
+                        "title": "bankAcceptRefund",
+                        "created_time": 1596802311000,
+                        "transaction": {
+                            "py_id": "py_M1130a080754j580dD762nCg",
+                            "trade_id": "tr_M1130a0807s4C53263jC",
+                            "kind": "refund",
+                            "status": "bankAcceptRefund",
+                            "amount": -236.05,
+                            "currency": "CNY",
+                            "ch_id": null,
+                            "cr_id": null,
+                            "fees": 0,
+                            "fail_code": null,
+                            "fail_message": null,
+                            "pay_date": null,
+                            "created": 1596802281000,
+                            "reason": "申请部份退款金额 34 USD",
+                            "mer_uid": null,
+                            "updated": null
+                        }
+                    },
+                    {
+                        "otl_id": "otl_0807s7986J10g1JlSsWZ",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "refund",
+                        "title": "waitBankReceive",
+                        "created_time": 1596802298000,
+                        "transaction": {
+                            "py_id": "py_M1130a080754j580dD762nCg",
+                            "trade_id": "tr_M1130a0807s4C53263jC",
+                            "kind": "refund",
+                            "status": "bankAcceptRefund",
+                            "amount": -236.05,
+                            "currency": "CNY",
+                            "ch_id": null,
+                            "cr_id": null,
+                            "fees": 0,
+                            "fail_code": null,
+                            "fail_message": null,
+                            "pay_date": null,
+                            "created": 1596802281000,
+                            "reason": "申请部份退款金额 34 USD",
+                            "mer_uid": null,
+                            "updated": null
+                        }
+                    },
+                    {
+                        "otl_id": "otl_080720Ae50C94dCyh3Nc",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "refund",
+                        "title": "applyRefund",
+                        "created_time": 1596802281000,
+                        "transaction": {
+                            "py_id": "py_M1130a080754j580dD762nCg",
+                            "trade_id": "tr_M1130a0807s4C53263jC",
+                            "kind": "refund",
+                            "status": "bankAcceptRefund",
+                            "amount": -236.05,
+                            "currency": "CNY",
+                            "ch_id": null,
+                            "cr_id": null,
+                            "fees": 0,
+                            "fail_code": null,
+                            "fail_message": null,
+                            "pay_date": null,
+                            "created": 1596802281000,
+                            "reason": "申请部份退款金额 34 USD",
+                            "mer_uid": null,
+                            "updated": null
+                        }
+                    },
+                    {
+                        "otl_id": "otl_080715AH1b0140YdDgfp",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "payment_paid",
+                        "title": null,
+                        "created_time": 1596802215000,
+                        "transaction": {
+                            "py_id": "py_M1130a080736J9DF2C2RnVsj",
+                            "trade_id": "tr_M1130a0807s4C53263jC",
+                            "kind": "ccpay",
+                            "status": "paid",
+                            "amount": 5018.05,
+                            "currency": "CNY",
+                            "ch_id": "ch_eYSBp3Xl",
+                            "cr_id": "cr_nikRBsLW5",
+                            "fees": -250.9,
+                            "fail_code": null,
+                            "fail_message": null,
+                            "pay_date": 1596802214000,
+                            "created": 1596802213000,
+                            "reason": null,
+                            "mer_uid": null,
+                            "updated": null
+                        }
+                    },
+                    {
+                        "otl_id": "otl_080712Egb0kg8C5OQPgQ",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "start_payment",
+                        "title": null,
+                        "created_time": 1596802214000,
+                        "transaction": null
+                    },
+                    {
+                        "otl_id": "otl_080717g7H0AhCjwjzYDU",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "created_order",
+                        "title": null,
+                        "created_time": 1596802212000,
+                        "transaction": null
+                    }
+                ]
             }
         });
     },

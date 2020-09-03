@@ -3,6 +3,11 @@ export function isGeneral(str) {
     return reg.test(str)
 }
 
+export function isNumber(n) {
+    const reg = /^[0-9]+$/
+    return reg.test(n)
+}
+
 export function isObject(obj) {
     return typeof obj === 'object' || obj instanceof Object;
 }

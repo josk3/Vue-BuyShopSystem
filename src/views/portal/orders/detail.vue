@@ -29,13 +29,23 @@
                     <el-card shadow="hover" class="wpy-card box-card">
                         <div slot="header" class="clearfix">
                             <span>时间轴</span>
-                            <el-button class="float-right" size="mini">
-                                <i class="el-icon-plus"></i>添加备注
-                            </el-button>
+<!--                            <el-button class="float-right" size="mini">-->
+<!--                                <i class="el-icon-plus"></i>添加备注-->
+<!--                            </el-button>-->
                         </div>
-                        <div v-for="line in timeline" :key="line" class="text item">
-                            {{'列表内容 ' }}
-                        </div>
+                        <el-timeline>
+                            <el-timeline-item
+                                    v-for="(activity, index) in timeline"
+                                    :key="index"
+                                    :type="activity.kind === 'payment_paid' ? 'success' : ''"
+                                    :timestamp="activity.created_time | toFullTime">
+                                {{ $t('timeline.' + activity.kind) }}
+                                <span v-if="activity.kind === 'refund'">
+                                    {{ activity.transaction.status | refundStatus}}
+                                    {{ activity.transaction.reason}}
+                                </span>
+                            </el-timeline-item>
+                        </el-timeline>
                     </el-card>
                 </div>
                 <div class="col-12 mb-2">
