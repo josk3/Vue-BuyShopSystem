@@ -99,6 +99,10 @@ export const routerUtils = {
         component: () => import('@/views/portal/orders/detail'),
         meta: {noCache: true}
     },
+    'dispute_manage': {
+        component: () => import('@/views/portal/dispute/index'),
+        meta: {noCache: true}
+    }
 }
 
 function resolveMenu(menu) {
@@ -176,6 +180,12 @@ export function convertRouters(userMenu) {
             path: '/order/detail/:id',
             name: 'order_detail',
             component: () => import('@/views/portal/orders/detail'),
+            hidden: true,
+        },
+        {
+            path: '/ticketDetail',
+            component: () => import('@/views/portal/ticket/ticketDetail'),
+            name: 'ticket_detail',
             hidden: true,
         },
     )

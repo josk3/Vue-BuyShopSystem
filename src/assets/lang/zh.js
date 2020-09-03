@@ -86,6 +86,7 @@ module.exports = {
         reset_pwd: '重置密码',
         active_email: '激活邮件',
         decline_manage: '拒付管理',
+        ticket_detail: '工单详情',
         '404': '404',
         '401': '401',
 
@@ -166,4 +167,16 @@ module.exports = {
     },
     home: {},
     profile: {},
+    ticket: {
+        other: '其他',
+        order: '订单问题',
+        interface: '对接接口',
+        settlement: '财务结算',
+        pending: '待处理',
+        wait_replay: '待回复',
+        replied: '已回复',
+        terminate: '处理结束',
+        urgent: '紧急',
+        plain: '一般',
+    }
 }
