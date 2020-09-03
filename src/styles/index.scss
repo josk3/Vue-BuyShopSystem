@@ -366,6 +366,31 @@ span.ps-failed{
 span.ps-canceled{
   background-color: #969796;
 }
+span.card-brand{
+  width: 30px;
+  height: 20px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+span.cb-visa{
+  background-image: url("img/icon/visa.svg");
+}
+span.cb-mastercard{
+  background-image: url("img/icon/mastercard.svg");
+}
+span.cb-DClub{
+  background-image: url("img/icon/diners-club.svg");
+}
+span.cb-jcb{
+  background-image: url("img/icon/jcb.svg");
+}
+span.cb-ae{
+  background-image: url("img/icon/american-express.svg");
+}
+span.cb-dc{
+  background-image: url("img/icon/discover.svg");
+}
 .wpy-dialog{
   border-radius: 6px;
 }

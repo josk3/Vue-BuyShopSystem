@@ -1235,7 +1235,7 @@ const proxy = {
                         },
                         "card": {
                             "cc_id": "cc_M1130a0807s738DDkaB8",
-                            "brand": "visa",
+                            "brand": "DClub",
                             "email": "Ursula_Lesch32@gmail.com",
                             "name": "Ibrahim Hettinger",
                             "phone_number": "61-825-947-1402",
@@ -1310,7 +1310,7 @@ const proxy = {
                         },
                         "card": {
                             "cc_id": "cc_M1130a0807s20KeFaF5G",
-                            "brand": "visa",
+                            "brand": "mastercard",
                             "email": "Hardy22@gmail.com",
                             "name": "Hilda McKenzie",
                             "phone_number": "72-404-517-2483",
@@ -1385,7 +1385,7 @@ const proxy = {
                         },
                         "card": {
                             "cc_id": "cc_M1130a0807s21EdA1G0d",
-                            "brand": "visa",
+                            "brand": "ae",
                             "email": "Brendan57@gmail.com",
                             "name": "Magnolia Grimes",
                             "phone_number": "53-825-277-2551",
@@ -1460,7 +1460,7 @@ const proxy = {
                         },
                         "card": {
                             "cc_id": "cc_M1130a0807s2e4JkbE8d",
-                            "brand": "visa",
+                            "brand": "jcb",
                             "email": "Lessie58@yahoo.com",
                             "name": "Derrick Tromp",
                             "phone_number": "44-415-162-3517",

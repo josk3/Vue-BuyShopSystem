@@ -19,6 +19,16 @@
                         <el-input size="mini" v-model="searchForm.merchant_order_no"
                                   :placeholder="$t('comm.merchant_order_no')" clearable></el-input>
                     </el-form-item>
+                    <el-form-item v-if="searchForm.pay_status !== undefined" prop="pay_status">
+                        <el-select size="mini" v-model="searchForm.pay_status" :placeholder="$t('comm.status')" clearable>
+                            <el-option
+                                    v-for="item in payStatusList"
+                                    :key="item.value"
+                                    :label="$t('status.' + item.value)"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
                     <el-form-item v-if="searchForm.country_name !== undefined" prop="country_name">
                         <el-input size="mini" v-model="searchForm.country_name"
                                   :placeholder="$t('comm.country_name')" clearable></el-input>
@@ -71,6 +81,12 @@
                     {value: 'full_name'},
                     {value: 'phone'},
                 ],
+                payStatusList: [
+                    {value: 'paid'},
+                    {value: 'pending'},
+                    {value: 'failed'},
+                    {value: 'canceled'},
+                ]
             }
         },
         watch: {},

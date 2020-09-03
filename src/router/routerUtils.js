@@ -91,6 +91,10 @@ export const routerUtils = {
         component: () => import('@/views/portal/risk/blacklist'),
         meta: {noCache: true}
     },
+    'trade_manage': {
+        component: () => import('@/views/portal/orders/search'),
+        meta: {noCache: true}
+    },
 }
 
 function resolveMenu(menu) {
