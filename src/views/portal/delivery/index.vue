@@ -142,30 +142,31 @@
                             <i class="el-icon-info text-blue"></i> 上传相对应的Excel表格文件
                         </div>
                     </el-card>
-                    <!--   accept="image/*" , :http-request="upload"  -->
                     <div class="text-center">
-                        <el-upload
-                                class="text-center m-auto track_excel pb-3"
-                                :class="trackExcelUploadEnable ? 'showFileBox' : 'hideFileBox'"
-                                ref="track_excel"
-                                drag
-                                action=""
-                                name="track_excel"
-                                accept=".xls,.xlsx"
-                                :limit="1"
-                                :on-change="changeTrackExcelFile"
-                                :on-remove="removeTrackExcelFile"
-                                :auto-upload="false">
-                            <i class="el-icon-upload"></i>
-                            <div class="el-upload__text" >将文件拖到此处，或<em>点击上传</em></div>
-                            <div class="el-upload__tip" slot="tip">上传Excel表格文件，且不超过500行记录</div>
-                        </el-upload>
-
+                        <el-form ref="track_upload" label-width="80px">
+                            <!--   accept="image/*" , :http-request="upload"  -->
+                            <el-upload
+                                    class="text-center m-auto track_excel pb-3"
+                                    :class="trackExcelUploadEnable ? 'showFileBox' : 'hideFileBox'"
+                                    ref="track_excel"
+                                    drag
+                                    action=""
+                                    name="track_excel"
+                                    accept=".xls,.xlsx"
+                                    :limit="1"
+                                    :on-change="changeTrackExcelFile"
+                                    :on-remove="removeTrackExcelFile"
+                                    :auto-upload="false">
+                                <i class="el-icon-upload"></i>
+                                <div class="el-upload__text" >将文件拖到此处，或<em>点击上传</em></div>
+                                <div class="el-upload__tip" slot="tip">上传Excel表格文件，且不超过500行记录</div>
+                            </el-upload>
+                        </el-form>
                         <el-progress v-if="percentage >= 0" :percentage="percentage" status="success"></el-progress>
                     </div>
                 </div>
                 <div slot="footer" class="dialog-footer" v-loading="loading">
-                    <el-button size="mini" @click="uploadTrackDialogVisible = false">取消</el-button>
+                    <el-button size="mini" @click="closeUploadExcelDialog">取消</el-button>
                     <el-button size="mini" type="primary" @click="uploadTrackFile">上传</el-button>
                 </div>
             </el-dialog>
@@ -217,6 +218,12 @@
             this.search();
         },
         methods: {
+            closeUploadExcelDialog() {
+                this.trackExcelFile = null
+                this.trackExcelUploadEnable = true
+                this.uploadTrackDialogVisible = false
+                this.$refs.track_excel.clearFiles();//重置
+            },
             removeTrackExcelFile() {
                 this.trackExcelFile = null
                 this.trackExcelUploadEnable = true
@@ -238,8 +245,8 @@
                     formData.append("file", this.trackExcelFile);
                     this.loading = true
                     deliveryUpload(formData, this.progressCallback).then(() => {
-                        this.removeTrackExcelFile()
-                        this.$data.uploadTrackDialogVisible = false
+                        this.closeUploadExcelDialog()
+                        this.$message.success(this.$i18n.t('comm.success').toString())
                         this.search();//reload page
                     }).finally(() => {
                         this.percentage = - 1
@@ -252,7 +259,7 @@
             },
             closeDialog() {
                 this.trackNumberDialogVisible = false
-                this.$refs['track_form'].resetFields();//重置
+                this.$refs['track_excel'].resetFields();//重置
                 this.$refs['track_form'].clearValidate();//重置
             },
             pageChange(page) {

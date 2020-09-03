@@ -1743,6 +1743,14 @@ const proxy = {
             "request_id": "req_UKvviBFHTC"
         });
     },
+    'POST /api/v1/delivery/upload': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {}
+        });
+    },
+
 
 }
 let sleep = false;
