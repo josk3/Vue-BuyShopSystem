@@ -19,7 +19,11 @@
                             prop="trade_id,merchant_order_no"
                             label="流水号/订单号" width="210px">
                         <template v-slot="scope">
-                            {{scope.row.trade_id }}<br/>
+                            <router-link :to="{name: 'order_detail',params:{id:scope.row.trade_id}}"
+                                         class="btn-link">
+                                {{scope.row.trade_id }}
+                            </router-link>
+                            <br/>
                             {{scope.row.merchant_order_no }}
                         </template>
                     </el-table-column>
@@ -39,7 +43,7 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            label="卡种">
+                            label="卡种" width="60px">
                         <template v-slot="scope">
                             <span class="card-brand" :class="['cb-' + scope.row.card.brand]">
                             </span>
@@ -47,11 +51,19 @@
                     </el-table-column>
                     <el-table-column
                             prop="pay_status"
+                            width="90px"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
                             <span class="pay-status" :class="['ps-' + scope.row.pay_status]">
                                 {{scope.row.pay_status | payStatus}}
                             </span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            prop="pay_status"
+                            label="拒付">
+                        <template v-slot="scope">
+                            {{scope.row.declined | yesOrNo}}
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -68,6 +80,28 @@
                         <template v-slot="scope">
                             {{scope.row.created_time | toDayTime}}<br/>
                             {{scope.row.payment_time | toDayTime}}
+                        </template>
+                    </el-table-column>
+                    <el-table-column width="50" fixed="right">
+                        <template v-slot="scope">
+                            <el-dropdown trigger="click">
+                                      <span class="el-dropdown-link">
+                                          <i class="el-icon-more"></i>
+                                      </span>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item v-if="scope.row.refunded !== 1">
+                                        <el-button type="text">
+                                            退款
+                                        </el-button>
+                                    </el-dropdown-item>
+                                    <el-dropdown-item>
+                                        <router-link :to="{name: 'order_detail',params:{id:scope.row.trade_id}}"
+                                                     class="btn btn-sm btn-link wpy-btn">
+                                            查看详情
+                                        </router-link>
+                                    </el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
                         </template>
                     </el-table-column>
                 </el-table>

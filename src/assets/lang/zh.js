@@ -56,6 +56,7 @@ module.exports = {
         profile: '人个中心',
         active_account: '激活您的账户',
         trade_manage: '交易管理',
+        order_detail: '订单详情',
         payout_select: '结算管理',
         payout_apply: '结算申请',
         payout_history: '申请历史',
@@ -130,6 +131,8 @@ module.exports = {
     status: {
         normal: '正常',
         disable: '已禁用',
+        yes: '是',
+        no: '否',
         un_declined: '未拒付',
         has_declined: '已拒付',
         paid: '成功',

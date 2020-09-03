@@ -1,6 +1,6 @@
 <template>
     <div class="clearfix">
-        <el-card class="search-box box-card mb-2" :body-style="{ padding: '0px' }" shadow="hover">
+        <el-card class="search-box wpy-card box-card mb-2" :body-style="{ padding: '0px' }" shadow="hover">
             <div slot="header" class="clearfix">
                 <span>{{ $t(searchForm.title) }}</span>
             </div>

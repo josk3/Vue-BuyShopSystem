@@ -65,18 +65,6 @@
                             {{scope.row.apply_time | toDay }}
                         </template>
                     </el-table-column>
-                    <el-table-column width="50" fixed="right">
-                        <template v-slot="scope">
-                            <el-dropdown trigger="click">
-                              <span class="el-dropdown-link">
-                                  <i class="el-icon-more"></i>
-                              </span>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>{{ scope.row.trade_id }}</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </template>
-                    </el-table-column>
                 </el-table>
 
                 <Pagination :page="tabData.page" @change="pageChange"></Pagination>

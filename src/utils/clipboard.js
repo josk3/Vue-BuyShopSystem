@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Clipboard from 'clipboard'
 
+/**
+ * https://zenorocha.github.io/clipboard.js
+ */
 function clipboardSuccess() {
   Vue.prototype.$message({
     message: 'Copy successfully',

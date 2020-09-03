@@ -15,6 +15,19 @@ export function nullToLine(val) {
 /**
  * 值 0,1 状态 -》解析成文字
  */
+export function yesOrNo(status) {
+    if (isEmpty(status)) return ''
+    switch (status) {
+        case 0:
+            return i18n.t('status.no')
+        case 1:
+            return i18n.t('status.yes')
+    }
+}
+
+/**
+ * 值 0,1 状态 -》解析成文字
+ */
 export function numberStatus(status) {
     if (isEmpty(status)) return ''
     switch (status) {

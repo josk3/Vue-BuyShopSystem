@@ -224,7 +224,7 @@ body, .wrap, .wrap-side .el-menu {
   //background-color: #fff;
 }
 
-.search-box .el-card__header {
+.wpy-card .el-card__header {
   padding: 10px 20px;
 }
 
@@ -440,4 +440,26 @@ button:focus{outline:0;}
 //-
 #blank-w main > .container{
   padding-top: 60px
+}
+.list-info-box .title{
+  margin-bottom: 10px;
+  display: block;
+  font-weight: bold;
+}
+.list-info-box .item{
+  margin-bottom: 3px;
+  font-size: 14px;
+}
+.list-info-box span.label{
+  width: 80px;
+  color: #a9a9a9;
+  display: inline-block;
+}
+.tr-id{
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-size: 14px;
+}
+.tr-id:hover{
+  background-color: #c3e2ff;
 }
