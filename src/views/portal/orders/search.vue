@@ -109,10 +109,10 @@
 
                 <Pagination :page="tabData.page" @change="pageChange"></Pagination>
             </el-card>
-        </div>
 
-        <!--    d    -->
-        <RefundDialog ref="refund_dialog"></RefundDialog>
+            <!--    d    -->
+            <RefundDialog ref="refund_dialog"></RefundDialog>
+        </div>
     </div>
 </template>
 
