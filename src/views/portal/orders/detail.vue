@@ -6,18 +6,22 @@
                     <el-card shadow="hover" class="wpy-card box-card p-3"
                              :body-style="{ padding: '0px' }">
                         <div class="text-left clearfix">
+                            <el-button type="text" @click="goBack"><i class="el-icon-arrow-left"></i></el-button>
                             订单交易金额
-                            <el-button style="float: right; padding: 3px 0"><font-awesome-icon icon="undo"/> 退款</el-button>
+                            <el-button class="float-right" size="mini" @click="refundDialogVisible = true">
+                                <font-awesome-icon icon="undo"/>
+                                退款
+                            </el-button>
                         </div>
                         <div class="text-left">
                             {{ order.order_currency }} {{ order.order_amount }}
                             <span class="pay-status" :class="['ps-' + order.pay_status]">
                                 {{order.pay_status | payStatus}}
                             </span>
-                            <div class="ml-3">
-                                <span class="tr-id">{{ order.trade_id }}</span>
-                                <font-awesome-icon :icon="['far', 'clipboard']" @click="handleCopy(order.trade_id,$event)"/>
-                            </div>
+                            <span class="ml-3 tr-id btn clipboard-btn" :data-clipboard-text="order.trade_id" @click="copy">
+                                {{ order.trade_id }}
+                                <font-awesome-icon :icon="['far', 'clipboard']"/>
+                            </span>
                         </div>
                     </el-card>
                 </div>
@@ -25,7 +29,7 @@
                     <el-card shadow="hover" class="wpy-card box-card">
                         <div slot="header" class="clearfix">
                             <span>时间轴</span>
-                            <el-button style="float: right; padding: 3px 0">
+                            <el-button class="float-right" size="mini">
                                 <i class="el-icon-plus"></i>添加备注
                             </el-button>
                         </div>
@@ -41,27 +45,37 @@
                         </div>
                         <div class="row list-info-box">
                             <div class="col-6">
-                                <div class="item"><span class="label">流水号</span><span class="value">{{ order.trade_id }}</span></div>
-                                <div class="item"><span class="label">订单号</span><span class="value">{{ order.merchant_order_no }}</span></div>
+                                <div class="item"><span class="label">流水号</span><span
+                                        class="value">{{ order.trade_id }}</span></div>
+                                <div class="item"><span class="label">订单号</span><span class="value">{{ order.merchant_order_no }}</span>
+                                </div>
                                 <div class="item"><span class="label">交易金额</span>
                                     <span class="value">{{ order.order_amount }} {{ order.order_currency }}</span>
                                 </div>
                                 <div class="item"><span class="label">结算金额</span>
                                     <span class="value">{{ order.settle_amount }} {{ order.settle_currency }}</span>
                                 </div>
-                                <div class="item"><span class="label">划款状态</span><span class="value">{{ order.settled | yesOrNo }}</span></div>
-                                <div class="item"><span class="label">拒付状态</span><span class="value">{{ order.declined | yesOrNo }}</span></div>
-                                <div class="item"><span class="label">退款状态</span><span class="value">{{ order.refunded | refundStatus }}</span></div>
-                                <div class="item"><span class="label">退款总金额</span><span class="value">{{ order.refund_total }}</span></div>
-                                <div class="item"><span class="label">物流状态</span><span class="value">{{ order.delivery_status }}</span></div>
-                                <div class="item"><span class="label">物流公司</span><span class="value">{{ order.track_brand }}</span></div>
-                                <div class="item"><span class="label">物流单号</span><span class="value">{{ order.track_number }}</span></div>
+                                <div class="item"><span class="label">划款状态</span><span class="value">{{ order.settled | settleStatus }}</span>
+                                </div>
+                                <div class="item"><span class="label">拒付状态</span><span class="value">{{ order.declined | yesOrNo }}</span>
+                                </div>
+                                <div class="item"><span class="label">退款状态</span><span class="value">{{ order.refunded | refundStatus }}</span>
+                                </div>
+                                <div class="item"><span class="label">退款总金额</span>
+                                    <span class="value">{{ order.refund_total }} {{ order.order_currency }}</span>
+                                </div>
+                                <div class="item"><span class="label">物流公司</span><span class="value">{{ order.track_brand }}</span>
+                                </div>
+                                <div class="item"><span class="label">物流单号</span><span class="value">{{ order.track_number }}</span>
+                                </div>
                             </div>
                             <div class="col-6">
                                 <div class="item"><span class="label">卡种</span>
-                                    <span class="value"><span class="card-brand" :class="['cb-' + order.card.brand]"></span></span>
+                                    <span class="value"><span class="card-brand"
+                                                              :class="['cb-' + order.card.brand]"></span></span>
                                 </div>
-                                <div class="item"><span class="label">卡号</span><span class="value">{{ order.card.card64 }}</span></div>
+                                <div class="item"><span class="label">卡号</span><span class="value">{{ order.card.card64 }}</span>
+                                </div>
                                 <div class="item"><span class="label">卡指纹</span>
                                     <span class="value">{{ order.card.fingerprint }}</span>
                                 </div>
@@ -71,11 +85,16 @@
                                 <div class="item"><span class="label">风控费</span>
                                     <span class="value">{{ order.risk_fees }} {{ order.settle_currency }}</span>
                                 </div>
-                                <div class="item"><span class="label">订单生成时间</span><span class="value">{{ order.created_time }}</span></div>
-                                <div class="item"><span class="label">支付时间</span><span class="value">{{ order.payment_time }}</span></div>
-                                <div class="item"><span class="label">支付编号</span><span class="value">{{ order.payment_id }}</span></div>
-                                <div class="item"><span class="label">交易网址</span><span class="value">{{ order.site_url }}</span></div>
-                                <div class="item"><span class="label">交易ip</span><span class="value">{{ order.ip }}</span></div>
+                                <div class="item"><span class="label">订单时间</span><span class="value">{{ order.created_time }}</span>
+                                </div>
+                                <div class="item"><span class="label">支付时间</span><span class="value">{{ order.payment_time }}</span>
+                                </div>
+                                <div class="item"><span class="label">支付编号</span><span class="value">{{ order.payment_id }}</span>
+                                </div>
+                                <div class="item"><span class="label">交易网址</span><span class="value">{{ order.site_url }}</span>
+                                </div>
+                                <div class="item"><span class="label">交易ip</span><span
+                                        class="value">{{ order.ip }}</span></div>
 
                             </div>
                         </div>
@@ -145,7 +164,7 @@
                         </div>
                     </el-card>
                 </div>
-            <!--                -->
+                <!--                -->
                 <div class="col-12 mb-2">
                     <el-card shadow="hover" class="wpy-card box-card">
                         <div slot="header" class="clearfix">
@@ -154,10 +173,14 @@
                         <div class="row list-info-box">
                             <div v-if="order.products" class="col-12">
                                 <div v-for="item in order.products" :key="item.sku">
-                                    <div class="item"><span class="label">产品编号</span><span class="value">{{ item.sku }}</span></div>
-                                    <div class="item"><span class="label">产品名称</span><span class="value">{{ item.name }}</span></div>
-                                    <div class="item"><span class="label">单价</span><span class="value">{{ item.price }} {{ item.currency }}</span></div>
-                                    <div class="item"><span class="label">数量</span><span class="value">{{ item.count }}</span></div>
+                                    <div class="item"><span class="label">产品编号</span><span
+                                            class="value">{{ item.sku }}</span></div>
+                                    <div class="item"><span class="label">产品名称</span><span
+                                            class="value">{{ item.name }}</span></div>
+                                    <div class="item"><span class="label">单价</span><span class="value">{{ item.price }} {{ item.currency }}</span>
+                                    </div>
+                                    <div class="item"><span class="label">数量</span><span
+                                            class="value">{{ item.count }}</span></div>
                                 </div>
                             </div>
                             <div v-else class="col-12">
@@ -180,7 +203,7 @@
                 </div>
             </div>
         </div>
-<!--    d    -->
+        <!--    d    -->
         <el-dialog custom-class="wpy-dialog sm-dialog"
                    :show-close="false" :close-on-click-modal="false"
                    title="退款"
@@ -217,8 +240,8 @@
     import configs from '@/configs'
     import {getOrder, getTimeline} from "@/service/orderSer";
     import {isEmpty} from "@/utils/validate";
-    import clipboard from "@/utils/clipboard";
     import {applyRefund} from "@/service/refundSer";
+    import newClipboard from "@/utils/clipboard";
 
     export default {
         name: "order_detail",
@@ -235,19 +258,34 @@
                 timeline: [],
                 refundDialogVisible: false,
                 refund_form: {trade_id: '', order_amount: '', order_currency: '', refund_amount: ''},
+                rules: {
+                    refund_amount: [
+                        {required: true, message: '请输入退款金额', trigger: 'blur'},
+                    ]
+                },
             }
         },
         mounted() {
             if (!isEmpty(this.$route.params)) {
                 this.tradeId = this.$route.params.id
             }
-            this.getOrder();
+            this.loadOrder();
         },
         methods: {
-            handleCopy(text, event) {
-                clipboard(text, event)
+            goBack(){
+                this.$router.go(-1)
             },
-            getOrder() {
+            copy() {
+                newClipboard('.clipboard-btn')
+            },
+            loadOrder() {
+                this.getOrder(function (data) {
+                    data.refund_form.trade_id = data.order.trade_id
+                    data.refund_form.order_amount = data.order.order_amount
+                    data.refund_form.order_currency = data.order.order_currency
+                })
+            },
+            getOrder(callback) {
                 this.loading = true
                 getOrder(this.tradeId).then(res => {
                     const {data} = res
@@ -255,6 +293,9 @@
                     getTimeline(this.tradeId).then(res => {
                         const {data} = res
                         this.$data.timeline = data.list
+                        if (callback !== undefined) {
+                            callback(this.$data)
+                        }
                     }).finally(() => {
                         this.loading = false
                     })
@@ -262,7 +303,7 @@
                     this.loading = false
                 })
             },
-            closeDialog(name){
+            closeDialog(name) {
                 this.refundDialogVisible = false
                 this.$refs[name].resetFields();//重置
             },
