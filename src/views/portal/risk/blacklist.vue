@@ -291,12 +291,12 @@
                             const {data} = res
                             this.initByTradeIdData()
                             this.formByTradeId.trade_id = data.trade_id
-                            this.formByTradeId.email = data.email
+                            this.formByTradeId.email = data.customer.email
                             this.formByTradeId.ip = data.ip
-                            this.formByTradeId.address = data.shipping_address
-                            this.formByTradeId.full_name = data.shipping_first_name + ' ' + data.shipping_last_name
-                            this.formByTradeId.phone = data.shipping_phone
-                            this.formByTradeId.card_no = data.card64
+                            this.formByTradeId.address = data.customer.shipping_address
+                            this.formByTradeId.full_name = data.customer.shipping_first_name + ' ' + data.customer.shipping_last_name
+                            this.formByTradeId.phone = data.customer.shipping_phone
+                            this.formByTradeId.card_no = data.card.card64
                         }).finally(() => {
                             this.$data.loading = false
                         })
