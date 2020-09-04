@@ -224,8 +224,9 @@
                     <el-divider></el-divider>
                     <el-form-item label="附件:" prop="attach" class="col-9">
                         <el-upload
+                                ref="upload"
                                 class="ml-2"
-                                :class="{uoloadSty:showBtnImg,disUoloadSty:noneBtnImg}"
+                                :class="{uploadSty:showBtnImg,disUploadSty:noneBtnImg}"
                                 id="accessory"
                                 action="#"
                                 :http-request="httpRequest"
@@ -240,6 +241,7 @@
                                 :on-exceed="handleExceedNorm">
                             <i class="el-icon-plus"></i>
                         </el-upload>
+                        <el-progress v-if="percentage >= 0" :percentage="percentage" status="success"></el-progress>
                         <el-dialog :visible.sync="dialogVisible">
                             <img width="100%" :src="dialogImageUrl" alt="附件">
                         </el-dialog>
@@ -253,7 +255,7 @@
                         <el-button class="ml-2" type="primary" style="margin-top: 12px;"
                                    @click="formSubmit('ticketFormParams')">提交
                         </el-button>
-                        <el-button @click="resetForm('ticketFormParams')">重置</el-button>
+                        <el-button @click="resetUploadParams">重置</el-button>
                     </el-form-item>
                 </el-form>
             </el-card>
@@ -277,6 +279,7 @@
                 isCloseTicket: true, //当前工单状态
                 subParam: '', //工单提交参数
                 fileList: [], //后期如果多文件上传扩展
+                percentage: -1, //上传图片进度
                 //表单验证
                 rules: {
                     content: [
@@ -341,9 +344,23 @@
                 let images = [...this.fileList];
                 //遍历图片集合
                 images.forEach((img, index) => {
-                    this.subParam.append(`img_${index}`, img) // 把单个图片重命名，存储起来（给后台）
+                    this.subParam.append(`ticket_reply_${index}`, img) // 把单个图片重命名，存储起来（给后台）
                 })
-            }, formSubmit(formName) {
+            },
+            /*上传图片回调进度*/
+            progressCallback(n) {
+                this.percentage = n;
+            },
+            /*重置上传信息*/
+            resetUploadParams() {
+                this.$refs.upload.clearFiles();
+                this.showBtnImg = true,
+                    this.noneBtnImg = false,
+                    this.$refs['ticketFormParams'].resetFields();//重置
+                this.$refs['ticketFormParams'].clearValidate();//重置
+            }
+            ,
+            formSubmit(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.loading = true;
@@ -351,39 +368,35 @@
                             this.subParam = new FormData();
                         }
                         this.subParam.append('content', this.ticketFormParams.content);
-                        ticketReply(this.$data.track_form).then(() => {
-                            this.$message.success(this.$i18n.t('comm.success').toString())
+                        ticketReply(this.subParam, this.progressCallback).then(() => {
+                            this.resetUploadParams();
+                            this.$message.success(this.$i18n.t('comm.success').toString());
+                            this.getTicketDetail();
                         }).finally(() => {
+                            this.percentage = -1;
                             this.$data.loading = false
                         });
-                        //回复完刷新聊天框列表
-                        this.getTicketDetail();
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });
             }, closeTicket() {
                 this.isCloseTicket = false; //已关闭回复表单
                 this.$message.success(`工单已成功关闭!`);
-            },
-            /*工单表单重置*/
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
-            },
+            }
         }
     }
 </script>
 
 <style>
 
-    .uoloadSty .el-upload--picture-card {
+    .uploadSty .el-upload--picture-card {
         width: 110px;
         height: 110px;
         line-height: 110px;
     }
 
-    .disUoloadSty .el-upload--picture-card {
+    .disUploadSty .el-upload--picture-card {
         display: none; /* 上传按钮隐藏 */
     }
 

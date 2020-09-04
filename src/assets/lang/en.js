@@ -99,5 +99,14 @@ module.exports = {
         terminate: 'Terminate',
         urgent: 'urgency',
         plain:  'general',
+        ticket_no: 'Ticket number',
+        title: 'title',
+        content: 'content',
+        email: 'email',
+        question_type: 'Problem types',
+        status: 'status',
+        priority: 'priority',
+        create_time: 'Creation time',
+        update_tIme: 'Update Time'
     }
 }

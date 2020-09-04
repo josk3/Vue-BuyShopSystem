@@ -39,7 +39,7 @@
             <el-table
                     :data="ticketDataRsp.list">
                 <el-table-column
-                        label="工单编号"
+                        :label="$t('ticket.ticket_no')"
                 >
                     <template slot-scope="scope">
                         <router-link target="_blank" :to="{path:'/ticketDetail',query:{tk_id:scope.row.ticket_no}}">
@@ -49,40 +49,40 @@
                 </el-table-column>
                 <el-table-column
                         prop="title"
-                        label="标题">
+                        :label="$t('ticket.title')" >
                 </el-table-column>
                 <el-table-column
                         prop="email"
-                        label="邮箱">
+                        :label="$t('ticket.email')" >
                 </el-table-column>
                 <el-table-column
                         prop="case_question"
-                        label="问题分类">
+                        :label="$t('ticket.question_type')" >
                     <template v-slot="scope">
                         {{scope.row.case_question | ticketQuestionStatus }}
                     </template>
                 </el-table-column>
                 <el-table-column
                         prop="ticket_status"
-                        label="工单状态">
+                        :label="$t('ticket.status')" >
                     <template v-slot="scope">
                         {{scope.row.ticket_status | ticketStatus }}
                     </template>
                 </el-table-column>
                 <el-table-column
                         prop="priority"
-                        label="优先级">
+                        :label="$t('ticket.priority')" >
                     <template v-slot="scope">
                         {{scope.row.priority | ticketPriority }}
                     </template>
                 </el-table-column>
                 <el-table-column
                         prop="create_time"
-                        label="创建时间">
+                        :label="$t('ticket.create_time')" >
                 </el-table-column>
                 <el-table-column
                         prop="update_time"
-                        label="修改时间">
+                        :label="$t('ticket.update_tIme')" >
                 </el-table-column>
             </el-table>
             <div class="block">
@@ -128,9 +128,12 @@
                             :on-remove="handleRemove" :limit="1"
                             :multiple="false"
                             :on-change="imgChange"
-                            :on-exceed="handleExceedNorm">
+                            :on-exceed="handleExceedNorm"
+                            accept=".png,.jpg,.gif,.bmp,.tif"
+                    >
                         <i class="el-icon-plus"></i>
                     </el-upload>
+                    <el-progress v-if="percentage >= 0" :percentage="percentage" status="success"></el-progress>
                     <el-dialog :visible.sync="dialogVisible">
                         <img width="100%" :src="dialogImageUrl" alt="附件">
                     </el-dialog>
@@ -195,6 +198,7 @@
                 showBtnImg: true,
                 noneBtnImg: false,
                 limitCountImg: 1,   //上传图片的最大数量
+                percentage: -1,  //上传进度条
                 //表单验证
                 rules: {
                     priority: [
@@ -319,7 +323,7 @@
                 let images = [...this.fileList];
                 //遍历图片集合
                 images.forEach((img, index) => {
-                    this.subParam.append(`img_${index}`, img) // 把单个图片重命名，存储起来（给后台）
+                    this.subParam.append(`ticket_${index}`, img) // 把单个图片重命名，存储起来（给后台）
                 })
             },
             /*工单表单重置*/
@@ -331,6 +335,11 @@
                 this.active = this.active - 1;
                 console.log('go back');
             },
+            /*上传图片回调进度*/
+            progressCallback(n) {
+                this.percentage = n;
+            }
+            ,
             /*表单上传*/
             formSubmit(formName) {
                 this.$refs[formName].validate((valid) => {
@@ -343,21 +352,15 @@
                         }
                         this.subParam.append('email', _this.email);
                         this.subParam.append('content', _this.content);
-                        /*// 赋予提交请求头，格式为：'multipart/form-data'（必填）
-                        let config = {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        }*/
-                        // 然后通过下面的方式把内容通过axios来传到后台
-                        /* axios.post('/ApiUrl?s=/api/sudoku/uploadClock', this.subParam, config).then(function (result) {
-                             console.log(result)
-                         })*/
-                        ticketCreate(this.subParam).then(res => {
+                        this.subParam.append('title', _this.title);
+                        this.subParam.append('caseId', _this.caseId);
+                        this.subParam.append('priority', _this.priority);
+                        ticketCreate(this.subParam, this.progressCallback).then(res => {
                             this.ticket_id = res.data.ticket_id;
                             //下一步
                             this.active++;
                         }).finally(() => {
+                            this.percentage = -1;
                             this.loading = false
                         })
                     } else {

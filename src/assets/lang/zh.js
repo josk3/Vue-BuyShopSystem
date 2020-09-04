@@ -197,5 +197,14 @@ module.exports = {
         terminate: '处理结束',
         urgent: '紧急',
         plain: '一般',
+        ticket_no: '工单编号',
+        title: '标题',
+        content: '内容',
+        email: '邮箱',
+        question_type: '问题类型',
+        status: '工单状态',
+        priority: '优先级',
+        create_time: '创建时间',
+        update_tIme: '修改时间'
     }
 }
