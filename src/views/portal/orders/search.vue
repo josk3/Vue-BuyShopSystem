@@ -84,22 +84,17 @@
                     </el-table-column>
                     <el-table-column width="50" fixed="right">
                         <template v-slot="scope">
-                            <el-dropdown trigger="click">
+                            <el-dropdown trigger="click" @command="handleCommand">
                                       <span class="el-dropdown-link">
                                           <i class="el-icon-more"></i>
                                       </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item v-if="scope.row.refunded !== 1">
-                                        <el-button type="text" @click="openRefundDialog(scope.row)"
-                                                   class="btn-link wpy-btn">
-                                            退款
-                                        </el-button>
+                                    <el-dropdown-item v-if="scope.row.refunded !== 1"
+                                                      :command="commandVal('refund', scope.row, scope.$index)">
+                                        退款
                                     </el-dropdown-item>
-                                    <el-dropdown-item>
-                                        <router-link :to="{name: 'order_detail',params:{id:scope.row.trade_id}}"
-                                                     class="btn-link wpy-btn">
-                                            查看详情
-                                        </router-link>
+                                    <el-dropdown-item :command="commandVal('detail', scope.row, scope.$index)">
+                                        查看详情
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
@@ -168,6 +163,20 @@
             },
             openRefundDialog(row) {
                 this.$refs.refund_dialog.show(row)
+            },
+            commandVal(action, row, index) {
+                return {action: action, row: row, index: index}
+            },
+            handleCommand(command) {
+                let row = command.row
+                switch (command.action) {
+                    case 'refund':
+                        this.openRefundDialog(row)
+                        break;
+                    case 'detail':
+                        this.$router.push({name: 'order_detail',params:{id:row.trade_id}})
+                        break;
+                }
             },
         },
     }

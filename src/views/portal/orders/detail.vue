@@ -192,6 +192,7 @@
                                     </div>
                                     <div class="item"><span class="label">数量</span><span
                                             class="value">{{ item.count }}</span></div>
+                                    <el-divider></el-divider>
                                 </div>
                             </div>
                             <div v-else class="col-12">

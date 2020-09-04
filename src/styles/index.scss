@@ -463,9 +463,13 @@ button:focus{outline:0;}
 }
 .tr-id{
   padding: 3px 8px;
-  border-radius: 2px;
+  border-radius: 5px;
   font-size: 14px;
 }
 .tr-id:hover{
-  background-color: #c3e2ff;
+  color:#0366d6;
+  background-color: #eff7ff;
+}
+.btn-link{
+  color:#0672ec;
 }
