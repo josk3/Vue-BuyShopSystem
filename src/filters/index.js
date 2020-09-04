@@ -1,5 +1,5 @@
 // import parseTime, formatTime and set to filter
-import {isEmpty} from "@/utils/validate";
+import {isEmpty, isNumber} from "@/utils/validate";
 import i18n from "@/service/i18n";
 import {parseTime} from "@/utils";
 
@@ -45,24 +45,34 @@ export function refundStatus(isRefund) {
     if (isEmpty(isRefund)) return ''
     switch (isRefund) {
         case 0:
+        case 'normal':
             return i18n.t('refund.un_refund')
         case 1:
+        case 'allAmountRefund':
             return i18n.t('refund.all_amount_refund')
         case 2:
+        case 'partRefund':
             return i18n.t('refund.part_refund')
         case 13:
+        case 'applyRefund':
             return i18n.t('refund.apply_refund')
         case 14:
+        case 'cancelRefund':
             return i18n.t('refund.cancel_refund')
         case 15:
+        case 'rejectRefund':
             return i18n.t('refund.reject_refund')
         case 16:
+        case 'waitBankReceive':
             return i18n.t('refund.wait_bank_receive')
         case 17:
+        case 'bankAcceptRefund':
             return i18n.t('refund.bank_accept_refund')
         case 18:
+        case 'bankRejectRefund':
             return i18n.t('refund.bank_reject_refund')
         case 19:
+        case 'bankCompleteRefund':
             return i18n.t('refund.bank_complete_refund')
     }
 }
@@ -153,6 +163,15 @@ export function blacklistKind(kind) {
 }
 
 /** 转时间 */
+export function toFullTime(date) {
+    if (isEmpty(date)) return ''
+    let format = '{y}-{m}-{d} {h}:{i}:{s}'
+    if (isNumber(date)) {
+        return parseTime(date, format)
+    }
+    return parseTime(new Date(date), format)
+}
+
 export function toDayTime(date) {
     if (isEmpty(date)) return ''
     return parseTime(new Date(date), '{m}-{d} {h}:{i}:{s}')

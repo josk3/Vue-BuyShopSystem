@@ -436,6 +436,12 @@ span.cb-dc{
 .el-loading-spinner .circular{
   display: none;
 }
+.hideFileBox .el-upload-dragger{
+  display: none;
+}
+.el-upload-list__item .el-icon-close{
+  display: inline-block;
+}
 button:focus{outline:0;}
 //-
 #blank-w main > .container{
