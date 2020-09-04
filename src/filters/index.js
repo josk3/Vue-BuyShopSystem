@@ -252,3 +252,50 @@ export function toThousandFilter(num) {
 export function uppercaseFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1)
 }
+
+/**
+ * 工单问题数值-》解析成文字
+ */
+export function ticketQuestionStatus(caseStatus) {
+    if (isEmpty(caseStatus)) return ''
+    switch (caseStatus) {
+        case 'OTHER':
+            return i18n.t('ticket.other')
+        case 'ORDER':
+            return i18n.t('ticket.order')
+        case 'INTERFACE':
+            return i18n.t('ticket.interface')
+        case 'SETTLEMENT':
+            return i18n.t('ticket.settlement')
+    }
+}
+
+/**
+ * 工单状态数值-》解析成文字
+ */
+export function ticketStatus(caseStatus) {
+    if (isEmpty(caseStatus)) return ''
+    switch (caseStatus) {
+        case 'PENDING':
+            return i18n.t('ticket.pending')
+        case 'WAIT_REPLY':
+            return i18n.t('ticket.wait_replay')
+        case 'REPLIED':
+            return i18n.t('ticket.replied')
+        case 'TERMINATE':
+            return i18n.t('ticket.terminate')
+    }
+}
+
+/**
+ * 工单紧急程度数值-》解析成文字
+ */
+export function ticketPriority(priorityValue) {
+    if (isEmpty(priorityValue)) return ''
+    switch (priorityValue) {
+        case '0':
+            return i18n.t('ticket.plain')
+        case '1':
+            return i18n.t('ticket.urgent')
+    }
+}
