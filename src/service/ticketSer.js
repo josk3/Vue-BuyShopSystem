@@ -1,7 +1,7 @@
-import request, {post}  from '@/utils/request'
+import request, {post, upload} from '@/utils/request'
 
-export function ticketCreate(data) {
-    return post('/ticket/create', data);
+export function ticketCreate(fromData, progressCallback) {
+    return upload('/ticket/create', fromData, progressCallback);
 }
 
 export function search(data) {
