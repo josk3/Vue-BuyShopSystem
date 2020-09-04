@@ -1,4 +1,4 @@
-import request, {post} from '@/utils/request'
+import request, {post}  from '@/utils/request'
 
 export function ticketCreate(data) {
     return post('/ticket/create', data);

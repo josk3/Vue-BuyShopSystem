@@ -60,6 +60,7 @@ module.exports = {
         support_ticket: 'Support Ticket',
         message_center: 'Notices',
         dispute_manage: 'Dispute',
+        ticket_detail: 'Work order details',
         faq: 'Faq',
 
     },
@@ -87,4 +88,16 @@ module.exports = {
     },
     home: {},
     profile: {},
+    ticket: {
+        other: 'Other',
+        order: 'Order problem',
+        interface: 'Docking problem',
+        settlement: 'Financial settlement',
+        pending: 'Pending',
+        wait_replay: 'Wait for reply',
+        replied: 'Replied',
+        terminate: 'Terminate',
+        urgent: 'urgency',
+        plain:  'general',
+    }
 }

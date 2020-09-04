@@ -1750,7 +1750,134 @@ const proxy = {
             data: {}
         });
     },
-
+    'POST /api/v1/ticket/create': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '工单生成成功',
+            data: {ticket_id: 'tk-888a888s888'}
+        });
+    },
+    'POST /api/v1/ticket/search': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: [
+                    {
+                        ticket_no: 'tk-888a888s888',
+                        title: "活法",
+                        email: "12512123123@1qq.com",
+                        case_question: "ORDER",
+                        ticket_status: 'PENDING',
+                        priority: "0",
+                        create_time: "2020-09-01 10:00:00",
+                        update_time: "2020-08-29 20:49:19",
+                    },
+                    {
+                        ticket_no: 'tk-666a666s665',
+                        title: "结算周期",
+                        email: "1507827723123@1qq.com",
+                        case_question: "INTERFACE",
+                        ticket_status: 'PENDING',
+                        priority: "1",
+                        create_time: "2020-09-01 10:00:00",
+                        update_time: "2020-08-29 20:49:19",
+                    },
+                    {
+                        ticket_no: 'tk-444s44444444',
+                        title: "测试咨询问题1",
+                        email: "1507827723123@1qq.com",
+                        case_question: "INTERFACE",
+                        ticket_status: 'PENDING',
+                        priority: "1",
+                        create_time: "2020-09-01 10:00:00",
+                        update_time: "2020-08-29 20:49:19",
+                    },
+                    {
+                        ticket_no: 'tk-23314111111',
+                        title: "测试咨询问题2",
+                        email: "1507827723123@1qq.com",
+                        case_question: "INTERFACE",
+                        ticket_status: 'PENDING',
+                        priority: "1",
+                        create_time: "2020-09-01 10:00:00",
+                        update_time: "2020-08-29 20:49:19",
+                    },
+                ]
+            }
+        });
+    },
+    'POST /api/v1/ticket/reply': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '信息回复成功',
+            data: {}
+        });
+    },
+    'GET /api/v1/ticket/detailInfo': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                list: [
+                    {
+                        content: '在吗',
+                        attach: null,
+                        create_time: "2020-09-01 10:00:00",
+                        current_dist: "前一天",
+                        user_name: '商户coco',
+                        operator: null,
+                        is_system: 1
+                    },
+                    {
+                        content: '您好',
+                        attach: null,
+                        create_time: "2020-09-01 10:00:00",
+                        current_dist: "前一天",
+                        user_name: null,
+                        operator: "管理小孙",
+                        is_system: 0
+                    },
+                    {
+                        content: '交易网站新加上去的审核要多久呀',
+                        attach: "https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg",
+                        create_time: "2020-09-01 10:00:00",
+                        current_dist: "前一天",
+                        user_name: '商户coco',
+                        operator: null,
+                        is_system: 1
+                    },
+                    {
+                        content: '是新提交上去的是吗',
+                        attach: null,
+                        create_time: "2020-09-01 10:00:00",
+                        current_dist: "前一天",
+                        user_name: null,
+                        operator: "管理小孙",
+                        is_system: 0
+                    },
+                    {
+                        content: '新提交上去的已经审核通过了',
+                        attach: "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+                        create_time: "2020-09-01 10:00:00",
+                        current_dist: "前一天",
+                        user_name: null,
+                        operator: "管理小孙",
+                        is_system: 0
+                    },
+                    {
+                        content: '这边您可以下单测试一下，确保正常',
+                        attach: null,
+                        create_time: "2020-09-01 10:00:00",
+                    }]
+            }
+        })}
 
 }
 let sleep = false;
