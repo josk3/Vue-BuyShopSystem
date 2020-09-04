@@ -260,7 +260,7 @@
             },
             closeDialog() {
                 this.trackNumberDialogVisible = false
-                this.$refs['track_excel'].resetFields();//重置
+                this.$refs['track_form'].resetFields();//重置
                 this.$refs['track_form'].clearValidate();//重置
             },
             pageChange(page) {
