@@ -11,6 +11,23 @@
                 </div>
                 <div class="col-10">
                     <nav class="my-2 my-md-0 mr-md-3 float-right">
+                        <el-dropdown trigger="click"
+                                     class="mr-4"
+                                     @command="handleLangChange">
+                            <span class="el-dropdown-link text-white">
+                                <font-awesome-icon icon="language" size="lg"/>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item command="en">
+                                    <i v-if="lang === 'en'" class="el-icon-check"></i>
+                                    English
+                                </el-dropdown-item>
+                                <el-dropdown-item command="zh">
+                                    <i v-if="lang === 'zh'" class="el-icon-check"></i>
+                                    简体中文
+                                </el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
                         <el-popover
                                 placement="bottom"
                                 width="360"
@@ -63,6 +80,7 @@
     import user from "@/store/modules/user";
     import {mapState} from "vuex";
     import {isEmpty} from "@/utils/validate";
+    import {reloadPageTitle} from "@/utils/get-page-title";
 
     export default {
         name: "Header",
@@ -70,6 +88,7 @@
             ...mapState({
                 sidebar: state => state.app.sidebar,
                 device: state => state.app.device,
+                lang: state => state.app.lang,
             }),
             configs() {
                 return configs;
@@ -95,6 +114,14 @@
             }
         },
         methods: {
+            handleLangChange(lang){
+                this.$i18n.locale = lang
+                this.$store.dispatch('app/setLang', lang)
+                this.updatePageTitle()
+            },
+            updatePageTitle: function () {
+                reloadPageTitle(this.$route)
+            },
             changeNoticeIco: function () {
                 let ico = document.getElementById('favicon');
                 if (!isEmpty(ico) && !isEmpty(ico.href)) {
@@ -110,7 +137,7 @@
             loadNotice: function() {
                 console.log('loadNotice')
                 //list and ico
-            }
+            },
         },
     }
 </script>
