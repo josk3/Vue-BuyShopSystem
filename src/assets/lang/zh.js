@@ -130,6 +130,7 @@ module.exports = {
         register_right_now: '立即创建您的账号',
     },
     status: {
+        all: '所有',
         normal: '正常',
         disable: '已禁用',
         yes: '是',

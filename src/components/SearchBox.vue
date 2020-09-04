@@ -82,6 +82,7 @@
                     {value: 'phone'},
                 ],
                 payStatusList: [
+                    {value: 'all'},
                     {value: 'paid'},
                     {value: 'pending'},
                     {value: 'failed'},
