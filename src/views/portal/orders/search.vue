@@ -63,7 +63,7 @@
                             prop="pay_status"
                             label="拒付">
                         <template v-slot="scope">
-                            {{scope.row.declined | yesOrNo}}
+                            <span :class="'declined-' + scope.row.declined">{{scope.row.declined | yesOrNo}}</span>
                         </template>
                     </el-table-column>
                     <el-table-column

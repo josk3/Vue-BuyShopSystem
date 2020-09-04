@@ -346,25 +346,28 @@ body, .wrap, .wrap-side .el-menu {
 
 }
 span.pay-status{
-  border-radius: 11px;
+  border-radius: 5px;
   padding: 3px 8px;
-  background-color: #ecf5ff;
-  color: #fff;
+  border: 1px solid #fff;
   text-align: center;
-  font-weight: bold;
   font-size: 12px;
 }
 span.ps-paid{
-  background-color: #60c515;
+  color: #05ccbf;
+  font-weight: 700;
+  background-color: #e0f6f6;
 }
 span.ps-pending{
-  color: #d2d2d2;
+  color: #ffc112;
+  background-color: #fff5d9;
 }
-span.ps-failed{
-  background-color: #ee6586;
+span.ps-failed, .refund-1, .declined-1{
+  color: #670d2e;
+  background-color: #f8f1ff;
 }
 span.ps-canceled{
-  background-color: #969796;
+  color: #172474;
+  background-color: #f5f8fe;
 }
 span.card-brand{
   width: 30px;
