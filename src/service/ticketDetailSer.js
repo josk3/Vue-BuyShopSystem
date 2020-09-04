@@ -1,7 +1,7 @@
-import request, {post}  from '@/utils/request'
+import request, {upload}  from '@/utils/request'
 
-export function ticketReply(data) {
-    return post('/ticket/reply', data);
+export function ticketReply(formData,progressCallback) {
+    return upload('/ticket/reply', formData,progressCallback);
 }
 
 export function ticketDetailInfo(ticketId) {
