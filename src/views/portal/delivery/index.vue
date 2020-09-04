@@ -134,6 +134,7 @@
             <el-dialog custom-class="wpy-dialog sm-dialog bg-body"
                        :show-close="false" :close-on-click-modal="false"
                        title="批量上传物流信息"
+                       @close="closeUploadExcelDialog"
                        :visible.sync="uploadTrackDialogVisible">
                 <div>
                     <el-card shadow="hover" class="box-card p-3 mb-3"
@@ -159,7 +160,7 @@
                                     :auto-upload="false">
                                 <i class="el-icon-upload"></i>
                                 <div class="el-upload__text" >将文件拖到此处，或<em>点击上传</em></div>
-                                <div class="el-upload__tip" slot="tip">上传Excel表格文件，且不超过500行记录</div>
+                                <div class="el-upload__tip" slot="tip">上传Excel表格文件，且一次不超过500行记录</div>
                             </el-upload>
                         </el-form>
                         <el-progress v-if="percentage >= 0" :percentage="percentage" status="success"></el-progress>
