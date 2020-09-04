@@ -200,17 +200,24 @@ export function localJson(url) {
  * axios 上传文件
  * @param url url
  * @param formData 应该为  new FormData();  可包含表单的其他data参数
- * @param progressCallback 如果要使用到进度条
+ *   let formData = new FormData();
+ *   formData.append("username", "you-data-xxx");
+ *   formData.append("key-xxx", "value-xxx");
+ *   formData.append("file-key-name1", file-value1);
+ *   formData.append("file-key-name2", file-value2);
+ *   formData.append("files[]", file-value-list);
+ *   .....表单请求参数
+ * @param progressCallback (可以为空) 使做到进度条回调
  */
 export function upload(url, formData, progressCallback) {
     return service({
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {"Content-Type": "multipart/form-data"},
         method: 'post',
         url: url,
         data: formData,
         show_error_msg_dialog: true,
         onUploadProgress: e => {
-            if (!isEmpty(progressCallback)) progressCallback( ((e.loaded / e.total * 100) | 0) )
+            if (!isEmpty(progressCallback)) progressCallback(((e.loaded / e.total * 100) | 0))
         }
     });
 }
