@@ -28,7 +28,7 @@
                     </div>
                 </el-card>
             </div>
-            <el-card class="col-12 mb-2">
+            <div class="col-12 mb-2">
                 <el-card shadow="hover" class="box-card p-3 bg-white"
                          :body-style="{ padding: '0px' }">
                     <div class="home-last-trade-report">
