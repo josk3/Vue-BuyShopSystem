@@ -2,8 +2,8 @@
     <div v-loading="loading">
         <div class="row p-0">
             <div class="col-12 mt-1 mb-2" style="font-size: 80%;">
-                <span class="float-left pl-3">早上好, 张三</span>
-                <span class="float-right pr-3">最近登录: 2020-09-09 00:00:00</span>
+                <span class="float-left pl-3">您好, {{ user.name }}</span>
+                <span class="float-right pr-3">最近登录: {{ user.second_login }}</span>
             </div>
             <div class="col-12 mb-2">
                 <el-card shadow="hover" class="box-card p-3"
@@ -32,7 +32,7 @@
                 <el-card shadow="hover" class="box-card p-3 bg-white"
                          :body-style="{ padding: '0px' }">
                     <div class="home-last-trade-report">
-                        <LastTimeReport :data="lastTimeData"></LastTimeReport>
+                        <LastTimeReport></LastTimeReport>
                     </div>
                 </el-card>
             </div>
@@ -60,7 +60,6 @@
         data() {
             return {
                 loading: false,
-                lastTimeData: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
             }
         },
         methods: {},
