@@ -1,11 +1,22 @@
 <template>
-    <div class="small">
+    <div v-loading="loading">
+        <div class="d-block">
+            <el-select v-model="range" placeholder="请选择" @change="rangeChange" size="mini">
+                <el-option
+                        v-for="item in reportRange"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                </el-option>
+            </el-select>
+        </div>
         <line-chart :styles="chartStyle" :options="options" :chartData="datacollection"></line-chart>
     </div>
 </template>
 
 <script>
     import LineChart from "@/service/chart/LineChart"
+    import {last24Hours, last30Days} from "@/service/reportSer";
 
     export default {
         components: {
@@ -13,6 +24,12 @@
         },
         data() {
             return {
+                loading: false,
+                reportRange: [
+                    {value: 'last24Hours', label: this.$i18n.t('label.last24Hours')},
+                    {value: 'last30Days', label: this.$i18n.t('label.last30Days')},
+                ],
+                range: 'last24Hours',//默认
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
@@ -85,7 +102,9 @@
                         }],
                     },
                 },
-                datacollection: null
+                datacollection: null,
+                dataLabels: [],
+                dataList: [],
             }
         },
         mounted() {
@@ -101,15 +120,19 @@
             }
         },
         methods: {
-            fillData() {
+            rangeChange() {
+                this.fillData()
+            },
+            getRangLabel() {
+                return this.$i18n.t('label.' + this.range).toString;
+            },
+            chartRender() {
                 this.datacollection = {
-                    labels: ["2020-01-01:00", "2020-01-01:01", "2020-01-01:02", "2020-01-01:03", "2020-01-01:04", "June", "2020-01-01:09"],
+                    labels: this.$data.dataLabels,
                     datasets: [
                         {
-                            label: "Last 24 hours",
-                            data: [this.getRandomInt(), this.getRandomInt(),
-                                88, 45, 34,
-                                this.getRandomInt(), this.getRandomInt()],
+                            label: this.getRangLabel(),
+                            data: this.$data.dataList,
                             backgroundColor: 'rgba(60,141,188,0.2)',
                             borderColor: 'rgba(60,141,188,0.9)',
                             fill: 'start',//背景
@@ -124,9 +147,29 @@
                     ]
                 }
             },
-            getRandomInt() {
-                return Math.floor(Math.random() * (50 - 5 + 1)) + 5
-            }
+            fillData() {
+                if (this.range === 'last24Hours') {
+                    this.loading = true
+                    last24Hours().then(res => {
+                        const {data} = res
+                        this.$data.dataLabels = data.labels
+                        this.$data.dataList = data.list
+                        this.chartRender()
+                    }).finally(() => {
+                        this.loading = false
+                    })
+                } else if (this.range === 'last30Days') {
+                    this.loading = true
+                    last30Days().then(res => {
+                        const {data} = res
+                        this.$data.dataLabels = data.labels
+                        this.$data.dataList = data.list
+                        this.chartRender()
+                    }).finally(() => {
+                        this.loading = false
+                    })
+                }
+            },
         }
     }
 </script>

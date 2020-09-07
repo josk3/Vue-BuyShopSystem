@@ -1877,7 +1877,28 @@ const proxy = {
                         create_time: "2020-09-01 10:00:00",
                     }]
             }
-        })}
+        })
+    },
+    'GET /api/v1/report/last24Hours': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                labels: ['2020-01-01:05', '2020-01-01:06', '2020-01-01:07'],
+                list: ['344.3', '0', '463.98']
+            }
+        })
+    },
+    'GET /api/v1/report/last30Days': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                labels: ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05'],
+                list: ['344.3', '0', '4643.98', '1255', '477', '688']
+            }
+        })
+    },
 
 }
 let sleep = false;

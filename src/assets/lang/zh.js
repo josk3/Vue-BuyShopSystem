@@ -184,6 +184,10 @@ module.exports = {
     payout: {
         delivery_reject: '问题单',
     },
+    label: {
+        last24Hours: '最近24小时',
+        last30Days: '最近30天',
+    },
     home: {},
     profile: {},
     ticket: {
