@@ -49,7 +49,9 @@
                             </div>
                             <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                                 <div class="mr-5 mt-1">
-                                    <el-button type="text">查看明细</el-button>
+                                    <router-link :to="configs.financePath">
+                                        <el-button type="text">查看明细</el-button>
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
@@ -124,6 +126,7 @@
     import LastTimeReport from "@/components/LastTimeReport";
     import {getBalances} from "@/service/merchantSer";
     import {getLastAnnounce} from "@/service/noticeSer";
+    import store from "@/store";
 
     export default {
         name: "home",
@@ -150,6 +153,7 @@
         mounted() {
             this.getBalances()
             this.getAnnounceList()
+            this.$store.dispatch('user/loadUserInfo')
         },
         methods: {
             paneClick(tab) {

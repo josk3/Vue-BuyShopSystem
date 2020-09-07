@@ -23,6 +23,7 @@ module.exports = {
     profilePath: '/profile',
     faqPath: '/faq',
     homePath: '/home',
+    financePath: '/finance/search',
     forgetPwdPath: '/forget_pwd',
     registerPath: '/register',
     termsPath: '/terms',
