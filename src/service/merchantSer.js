@@ -18,3 +18,7 @@ export function getMerSetup(type) {
 export function updateMerSetup(params) {
     return post('/merchant/setup', params); //当前登录状态下的mer
 }
+
+export function getBalances(params) {
+    return post('/merchant/balances', params);
+}

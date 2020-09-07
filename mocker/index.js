@@ -2083,6 +2083,30 @@ const proxy = {
             }
         })
     },
+    'GET /api/v1/announce/last': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                list:[
+                    {nid: 'n2f3f4', time: '2020-01-01', title: '2020年6月服务费发票寄送服务费发票寄送', content: 'dxx'},
+                    {nid: 'n8934g', time: '2020-01-01', title: '2020年6月服务费发票寄送服务费发票寄送', content: 'dxx'},
+                    {nid: 'n456ee2g', time: '2020-01-01', title: '2020年6月服务费发票寄送服务费发票寄送', content: 'dxx'},
+                    {nid: 'n5534g', time: '2020-01-01', title: '2020年6月服务费发票寄送服务费发票寄送', content: 'dxx'},
+                    {nid: 'n856ee2g', time: '2020-01-01', title: '2020年6月服务费发票寄送服务费发票寄送', content: 'dxx'},
+                ]
+            }
+        })
+    },
+    'POST /api/v1/merchant/balances': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                list:[
+                    {currency: 'CNY', balance: 34535.54 + new Date().getMilliseconds()},
+                ]
+            }
+        })
+    },
 
 }
 let sleep = false;

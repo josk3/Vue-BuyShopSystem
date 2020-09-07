@@ -49,6 +49,10 @@ module.exports = {
         status: '状态',
         refund_amount: '退款金额',
         settlement_amount: '结算金额',
+
+        trade_balance: '交易款',
+        deposit_balance: '保证金',
+        balance: '余额',
     },
     nav: {
         home: '主页',
@@ -87,6 +91,7 @@ module.exports = {
         active_email: '激活邮件',
         decline_manage: '拒付管理',
         ticket_detail: '工单详情',
+        announce_detail: '公告详情',
         '404': '404',
         '401': '401',
 
