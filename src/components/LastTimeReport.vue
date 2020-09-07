@@ -17,6 +17,7 @@
 <script>
     import LineChart from "@/service/chart/LineChart"
     import {last24Hours, last30Days, last90Days} from "@/service/reportSer";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         components: {
@@ -73,6 +74,7 @@
                                 lineWidth: 0,
                                 zeroLineWidth: 1,
                                 zeroLineColor: 'rgba(0, 0, 0, 0.5)',
+                                beginAtZero: true,
                             }
                         }],
                         xAxes: [{
@@ -131,7 +133,10 @@
             getRangLabel() {
                 return this.$i18n.t('label.' + this.range).toString;
             },
-            chartRender() {
+            chartRender(data) {
+                this.dataLabels = data.labels
+                if (isEmpty(data.list[0])) data.list[0] = 0
+                this.dataList = data.list
                 this.datacollection = {
                     labels: this.$data.dataLabels,
                     datasets: [
@@ -157,9 +162,7 @@
                     this.loading = true
                     last24Hours().then(res => {
                         const {data} = res
-                        this.$data.dataLabels = data.labels
-                        this.$data.dataList = data.list
-                        this.chartRender()
+                        this.chartRender(data)
                     }).finally(() => {
                         this.loading = false
                     })
@@ -167,9 +170,7 @@
                     this.loading = true
                     last30Days().then(res => {
                         const {data} = res
-                        this.$data.dataLabels = data.labels
-                        this.$data.dataList = data.list
-                        this.chartRender()
+                        this.chartRender(data)
                     }).finally(() => {
                         this.loading = false
                     })
@@ -177,9 +178,7 @@
                     this.loading = true
                     last90Days().then(res => {
                         const {data} = res
-                        this.$data.dataLabels = data.labels
-                        this.$data.dataList = data.list
-                        this.chartRender()
+                        this.chartRender(data)
                     }).finally(() => {
                         this.loading = false
                     })
