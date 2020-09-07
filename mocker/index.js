@@ -524,6 +524,12 @@ const proxy = {
             }
         });
     },
+    'POST /api/v1/refund/apply': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        });
+    },
     'POST /api/v1/payout/wait/apply': (req, res) => { //可申请结算的订单列表
         return res.json({
             status: 1,
