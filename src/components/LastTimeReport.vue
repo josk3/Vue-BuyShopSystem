@@ -16,7 +16,7 @@
 
 <script>
     import LineChart from "@/service/chart/LineChart"
-    import {last24Hours, last30Days} from "@/service/reportSer";
+    import {last24Hours, last30Days, last90Days} from "@/service/reportSer";
 
     export default {
         components: {
@@ -28,6 +28,7 @@
                 reportRange: [
                     {value: 'last24Hours', label: this.$i18n.t('label.last24Hours')},
                     {value: 'last30Days', label: this.$i18n.t('label.last30Days')},
+                    {value: 'last90Days', label: this.$i18n.t('label.last90Days')},
                 ],
                 range: 'last24Hours',//默认
                 options: {
@@ -80,12 +81,16 @@
                                 //display: false,
                                 padding: 10, //(文字与线的距离)结合tickMarkLength使用
                                 callback: function (value, index, values) {
-                                    if (index === 0 || index + 1 === values.length) {
+                                    if (index === 0 || index + 1 === values.length || index === ( values.length / 2)) {
                                         return value;
                                     } else {
                                         return ''
                                     }
                                 },
+                                //https://www.chartjs.org/docs/latest/axes/cartesian/#tick-configuration
+                                autoSkip: false, //底部文字不自动旋转角度
+                                maxRotation: 0,//底部文字不自动旋转角度
+                                minRotation: 0,
                             },
                             gridLines: {//https://www.chartjs.org/docs/latest/axes/styling.html#grid-line-configuration
                                 display: true,
@@ -161,6 +166,16 @@
                 } else if (this.range === 'last30Days') {
                     this.loading = true
                     last30Days().then(res => {
+                        const {data} = res
+                        this.$data.dataLabels = data.labels
+                        this.$data.dataList = data.list
+                        this.chartRender()
+                    }).finally(() => {
+                        this.loading = false
+                    })
+                } else if (this.range === 'last90Days') {
+                    this.loading = true
+                    last90Days().then(res => {
                         const {data} = res
                         this.$data.dataLabels = data.labels
                         this.$data.dataList = data.list

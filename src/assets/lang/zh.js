@@ -187,6 +187,7 @@ module.exports = {
     label: {
         last24Hours: '最近24小时',
         last30Days: '最近30天',
+        last90Days: '最近90天',
     },
     home: {},
     profile: {},

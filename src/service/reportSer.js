@@ -10,3 +10,7 @@ export function last24Hours() {
 export function last30Days() {
     return get('/report/last30Days', '');
 }
+
+export function last90Days() {
+    return get('/report/last90Days', '');
+}
