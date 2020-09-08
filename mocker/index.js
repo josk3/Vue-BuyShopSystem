@@ -985,6 +985,7 @@ const proxy = {
         let u = demoUserInfo();
         u.code = 7010;
         u.data.user.email = 'N' + u.data.user.email
+        u.data.user.notice_count = 0
         return res.json(u);
     },
     'DELETE /api/user/:id': (req, res) => {
@@ -2739,6 +2740,61 @@ const proxy = {
         return res.json({
             status: 1,
             data: {},
+        })
+    },
+    'GET /api/v1/notice/un_read/last5': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                notice_count: 9,
+                list: [
+                    {
+                        nid: 'n2f3f4',
+                        type: 'notify',
+                        kind: 'chargeback',
+                        created: '2020-01-01',
+                        title: '2020年6月服务费发票寄送服务费发票寄送',
+                        message: 'dxx',
+                        has_read: 1,
+                    },
+                    {
+                        nid: 'n8934g',
+                        type: 'notify',
+                        kind: 'chargeback',
+                        created: '2020-01-01',
+                        title: '2020年6月服务费发票寄送服务费发票寄送',
+                        message: 'dxx',
+                        has_read: 0,
+                    },
+                    {
+                        nid: 'n456ee2g',
+                        type: 'announce',
+                        kind: 'announce',
+                        created: '2020-01-01',
+                        title: '2020年6月服务费发票寄送服务费发票寄送',
+                        message: 'dxx',
+                        has_read: 1,
+                    },
+                    {
+                        nid: 'n5534g',
+                        type: 'notify',
+                        kind: 'chargeback',
+                        created: '2020-01-01',
+                        title: '2020年6月服务费发票寄送服务费发票寄送',
+                        message: 'dxx',
+                        has_read: 0,
+                    },
+                    {
+                        nid: 'n856ee2g',
+                        type: 'notify',
+                        kind: 'chargeback',
+                        created: '2020-01-01',
+                        title: '2020年6月服务费发票寄送服务费发票寄送',
+                        message: 'dxx',
+                        has_read: 0,
+                    },
+                ]
+            },
         })
     },
 

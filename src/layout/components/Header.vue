@@ -5,7 +5,7 @@
                 <div class="col-2">
                     <h5 class="my-0 mr-md-auto font-weight-normal">
                         <router-link :to="configs.homePath">
-                            <svg-icon icon-class="wintopay_logo_white" class-name="home-logo" />
+                            <svg-icon icon-class="wintopay_logo_white" class-name="home-logo"/>
                         </router-link>
                     </h5>
                 </div>
@@ -30,16 +30,35 @@
                         </el-dropdown>
                         <el-popover
                                 placement="bottom"
-                                width="360"
+                                width="350"
                                 trigger="click" @show="loadNotice">
-                            <el-table :data="noticeList">
-                                <el-table-column width="150" property="date" label="日期"></el-table-column>
-                                <el-table-column width="100" property="name" label="姓名"></el-table-column>
+                            <el-table v-loading="noticeLoading"
+                                      class="wpy-table pointer"
+                                      :show-header="false"
+                                      @row-click="goNoticeDetail"
+                                      :data="noticeList">
+                                <el-table-column
+                                        :show-overflow-tooltip="true"
+                                        width="220px"
+                                        label="title">
+                                    <template v-slot="scope">
+                                        {{scope.row.title }}
+                                    </template>
+                                </el-table-column>
+                                <el-table-column property="created" label="time">
+                                    <template v-slot="scope">
+                                        {{scope.row.created | toDay }}
+                                    </template>
+                                </el-table-column>
                             </el-table>
+                            <div>
+                                <router-link :to="configs.msgCenterPath" class="p-3 btn-link wpy-btn d-block">
+                                    {{ $t('comm.view_more') }}</router-link>
+                            </div>
 
                             <el-button type="text" class="p-0 pl-2 pr-2" slot="reference">
-                                <el-badge :value="noticeCount" :max="99"
-                                          :hidden="(noticeCount <= 0)"
+                                <el-badge :value="user.notice_count" :max="99"
+                                          :hidden="(user.notice_count <= 0)"
                                           class="item mr-4 text-white ">
                                     <font-awesome-icon :icon="['far', 'bell']"/>
                                 </el-badge>
@@ -81,6 +100,7 @@
     import {mapState} from "vuex";
     import {isEmpty} from "@/utils/validate";
     import {reloadPageTitle} from "@/utils/get-page-title";
+    import {getUnReadLast5Notice} from "@/service/noticeSer";
 
     export default {
         name: "Header",
@@ -99,22 +119,31 @@
         },
         data() {
             return {
-                noticeCount: 0,
                 noticeList: [],
+                noticeLoading: false,
             }
         },
         mounted() {
-            if(!isEmpty(this.user)) {
-                this.noticeCount = this.user.notice_count
-                if (this.user.notice_count > 0) {
-                    this.changeNoticeIco();
-                }else {
-                    this.resetIco()
+            if (!isEmpty(this.user)) {
+                this.reloadIco()
+            }
+        },
+        watch: {
+            user(newVal, oldVal) {
+                if (newVal.notice_count !== oldVal.notice_count) {
+                   this.reloadIco()
                 }
             }
         },
         methods: {
-            handleLangChange(lang){
+            reloadIco() {
+                if (this.user.notice_count > 0) {
+                    this.changeNoticeIco();
+                } else {
+                    this.resetIco()
+                }
+            },
+            handleLangChange(lang) {
                 this.$i18n.locale = lang
                 this.$store.dispatch('app/setLang', lang)
                 this.updatePageTitle()
@@ -134,9 +163,23 @@
                     ico.href = ico.href.replace("favicon_n.ico", "favicon.ico")
                 }
             },
-            loadNotice: function() {
-                console.log('loadNotice')
-                //list and ico
+            loadNotice: function () {
+                this.noticeLoading = true
+                getUnReadLast5Notice().then(res => {
+                    const {data} = res
+                    this.noticeList = data.list
+                    this.user.notice_count = data.notice_count
+                    this.reloadIco()
+                }).finally(() => {
+                    this.$data.noticeLoading = false
+                })
+            },
+            goNoticeDetail(row){
+                if (row.type === 'announce') {
+                    this.$router.push({name: 'announce_detail',params:{id:row.nid}})
+                }else {
+                    this.$router.push({name: 'notify_detail',params:{id:row.nid}})
+                }
             },
         },
     }

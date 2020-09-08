@@ -179,7 +179,7 @@ export function convertRouters(userMenu) {
         {
             path: '/profile',
             component: () => import('@/views/portal/profile'),
-            name: '/profile',
+            name: 'profile',
             hidden: true,
         },
         {

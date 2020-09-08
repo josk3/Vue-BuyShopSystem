@@ -57,7 +57,9 @@ module.exports = {
         title: '标题',
         announce: '公告',
         notify: '消息',
+
         go_back: '返回',
+        view_more: '查看更多',
     },
     nav: {
         home: '主页',

@@ -24,6 +24,7 @@ module.exports = {
     faqPath: '/faq',
     homePath: '/home',
     financePath: '/finance/search',
+    msgCenterPath: '/message/center',
     forgetPwdPath: '/forget_pwd',
     registerPath: '/register',
     termsPath: '/terms',

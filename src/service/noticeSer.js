@@ -7,6 +7,10 @@ export function getLastAnnounce() {
     return get('/announce/last', '');
 }
 
+export function getUnReadLast5Notice() {
+    return get('/notice/un_read/last5', '');
+}
+
 export function searchNotice(params) {
     return post('/notice/search', params);
 }
