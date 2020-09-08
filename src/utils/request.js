@@ -24,7 +24,6 @@ const service = axios.create({
 service.interceptors.request.use(
     config => {
         // do something before request is sent
-
         if (store.getters.token) {
             // 头部加token请求
             config.headers[getTokenKey()] = getToken()
@@ -58,6 +57,10 @@ service.interceptors.response.use(
             if (!isEmpty(headerToken)) {
                 let newToken = getSplitLast(headerToken)
                 if (newToken !== getToken()) setToken(newToken); //new token
+            }
+            //文件下载
+            if (response.headers['content-type'] === 'application/octet-stream') {
+                return response;
             }
         }
         const res = response.data
@@ -222,5 +225,33 @@ export function upload(url, formData, progressCallback) {
     });
 }
 
+export function download(url, params) {
+    return new Promise((resolve, reject) => {
+
+        service.post(url, params, {timeout: 45000,responseType: 'blob'})
+            .then((res) => {
+                const { data, headers } = res
+                let fileName = headers['content-disposition']
+                fileName = fileName.replace(/\w+; filename=(.*)/, '$1')
+                fileName = fileName.replace(/\w+;filename=(.*)/, '$1')
+                fileName = fileName.replaceAll('"', '')
+                fileName = fileName.trim()
+                const blob = new Blob([data], {type: headers['content-type']})
+                let dom = document.createElement('a')
+                let url = window.URL.createObjectURL(blob)
+                dom.href = url
+                dom.download = decodeURI(fileName)
+                dom.style.display = 'none'
+                document.body.appendChild(dom)
+                dom.click()
+                dom.parentNode.removeChild(dom)
+                window.URL.revokeObjectURL(url)
+                resolve(res);
+            }).catch((err) => {
+            reject(err)
+        })
+    })
+
+}
 
 export default service

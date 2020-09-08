@@ -1,4 +1,4 @@
-import {post, get, upload} from '@/utils/request'
+import {post, get, upload, download} from '@/utils/request'
 
 /**
  * 物流
@@ -8,7 +8,7 @@ export function deliverySearch(params) {
 }
 
 export function deliveryDownload(params) {
-    return post('/delivery/download', params);
+    return download('/delivery/download', params);
 }
 
 export function deliveryAdd(params) {
@@ -22,3 +22,4 @@ export function getTrackBrands() {
 export function deliveryUpload(formData, progressCallback) {
     return upload('/delivery/upload', formData , progressCallback);
 }
+

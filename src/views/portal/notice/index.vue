@@ -21,7 +21,7 @@
                 </div>
                 <el-table
                         class="hide-table-title pointer"
-                        :class="tabData.list ? '' : 'wpy-z-table'"
+                        :class="tabData.list.length ? '' : 'wpy-z-table'"
                         :data="tabData.list"
                         :show-header="false"
                         :highlight-current-row="true"
