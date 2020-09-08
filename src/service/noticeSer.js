@@ -27,3 +27,7 @@ export function getNotify(nid) {
     return get('/notice/detail/' + nid, '');
 }
 
+export function markRead(nid) {
+    return post('/notice/mark/read', {nid: nid});
+}
+

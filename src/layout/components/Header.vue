@@ -53,7 +53,8 @@
                             </el-table>
                             <div>
                                 <router-link :to="configs.msgCenterPath" class="p-3 btn-link wpy-btn d-block">
-                                    {{ $t('comm.view_more') }}</router-link>
+                                    {{ $t('comm.view_more') }}
+                                </router-link>
                             </div>
 
                             <el-button type="text" class="p-0 pl-2 pr-2" slot="reference">
@@ -90,6 +91,21 @@
                     </nav>
                 </div>
             </div>
+            <el-dialog v-if="popupData"
+                       custom-class="wpy-dialog sm-dialog"
+                       :show-close="false" :close-on-click-modal="false"
+                       :title="popupData.title"
+                       :visible.sync="popupDialogVisible">
+                <div class="p-1 mb-2">
+                    <div>
+                        <div v-html="popupData.message"></div>
+                    </div>
+                </div>
+                <div slot="footer" class="dialog-footer text-center" v-loading="popupLoading">
+                    <el-button size="mini" @click="popupDialogVisible = false">关闭</el-button>
+                    <el-button size="mini" type="primary" @click="readPopupDialog">已查看</el-button>
+                </div>
+            </el-dialog>
         </div>
     </div>
 </template>
@@ -100,7 +116,7 @@
     import {mapState} from "vuex";
     import {isEmpty} from "@/utils/validate";
     import {reloadPageTitle} from "@/utils/get-page-title";
-    import {getUnReadLast5Notice} from "@/service/noticeSer";
+    import {getUnReadLast5Notice, markRead} from "@/service/noticeSer";
 
     export default {
         name: "Header",
@@ -121,21 +137,45 @@
             return {
                 noticeList: [],
                 noticeLoading: false,
+                popupDialogVisible: false,
+                popupLoading: false,
+                popupData: null,
             }
         },
         mounted() {
             if (!isEmpty(this.user)) {
                 this.reloadIco()
             }
+            this.showPopup()
         },
         watch: {
             user(newVal, oldVal) {
                 if (newVal.notice_count !== oldVal.notice_count) {
-                   this.reloadIco()
+                    this.reloadIco()
+                }
+                if (!isEmpty(newVal.popup) && !isEmpty(newVal.popup.nid)) {
+                    this.showPopup()
                 }
             }
         },
         methods: {
+            showPopup(){
+                if (!isEmpty(this.user.popup)) {
+                    this.popupData = this.user.popup
+                    this.popupDialogVisible = true
+                }
+            },
+            readPopupDialog() {
+                if (!isEmpty(this.popupData.nid)) {
+                    this.popupLoading = true
+                    markRead(this.popupData.nid).then(() => {
+                        this.popupDialogVisible = false
+                        this.$store.dispatch('user/loadUserInfo')
+                    }).finally(() => {
+                        this.$data.popupLoading = false
+                    })
+                }
+            },
             reloadIco() {
                 if (this.user.notice_count > 0) {
                     this.changeNoticeIco();
@@ -174,11 +214,11 @@
                     this.$data.noticeLoading = false
                 })
             },
-            goNoticeDetail(row){
+            goNoticeDetail(row) {
                 if (row.type === 'announce') {
-                    this.$router.push({name: 'announce_detail',params:{id:row.nid}})
-                }else {
-                    this.$router.push({name: 'notify_detail',params:{id:row.nid}})
+                    this.$router.push({name: 'announce_detail', params: {id: row.nid}})
+                } else {
+                    this.$router.push({name: 'notify_detail', params: {id: row.nid}})
                 }
             },
         },

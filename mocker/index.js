@@ -16,7 +16,8 @@ function demoUserInfo() {
                 status: 1,
                 identifier_status: 0,
                 mer_no: '4008',
-                notice_count: 11
+                notice_count: 12,
+                popup: null,
             },
             token: "00e3c2a5d87a9e34ef2e879309cb1a31bf3dc56eb0f77fe4ba",
             menus: [
@@ -2795,6 +2796,12 @@ const proxy = {
                     },
                 ]
             },
+        })
+    },
+    'POST /api/v1/notice/mark/read': (req, res) => {
+        return res.json({
+            status: 1,
+            data:{}
         })
     },
 
