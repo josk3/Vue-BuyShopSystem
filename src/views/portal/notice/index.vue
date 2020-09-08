@@ -20,7 +20,8 @@
                     </div>
                 </div>
                 <el-table
-                        class="wpy-table hide-table-title pointer"
+                        class="hide-table-title pointer"
+                        :class="tabData.list ? '' : 'wpy-z-table'"
                         :data="tabData.list"
                         :show-header="false"
                         :highlight-current-row="true"

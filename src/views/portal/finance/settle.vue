@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <el-table
-                            class="wpy-table"
+                            :class="tabData.list ? '' : 'wpy-z-table'"
                             :data="tabData.list"
                             :header-row-style="{background:'#2C2E2F'}"
                             style="width: 100%">
@@ -95,7 +95,9 @@
                        :visible.sync="payoutSummaryDialog">
                 <div v-loading="loading">
                     <h4>{{summaryBatchId}}</h4>
-                    <el-table class="wpy-table" :data="summaryData">
+                    <el-table
+                              :class="summaryData ? '' : 'wpy-z-table'"
+                              :data="summaryData">
                         <el-table-column property="batch_id" label="批次号"></el-table-column>
                     </el-table>
                 </div>

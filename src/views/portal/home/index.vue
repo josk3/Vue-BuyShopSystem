@@ -28,7 +28,7 @@
                     </div>
                 </el-card>
             </div>
-            <div class="col-12 mb-3">
+            <div class="col-12 mb-3" style="min-height: 350px">
                 <el-card shadow="hover" class="box-card p-3 bg-white"
                          :body-style="{ padding: '0px' }">
                     <div class="home-last-trade-report">
@@ -36,9 +36,9 @@
                     </div>
                 </el-card>
             </div>
-            <div class="col-12 row">
+            <div class="col-12 row" style="min-height: 155px">
                 <div class="col-7" v-loading="balanceLoading">
-                    <el-card class="box-card wpy-card box-pane pb-4" shadow="hover" :body-style="{ padding: '0px' }">
+                    <el-card class="box-card wpy-card sm-card box-pane pb-4" shadow="hover" :body-style="{ padding: '0px' }">
                         <div class="row">
                             <div class="col-8 pr-0">
                                 <el-tabs v-model="paneName" type="border-card"
@@ -57,7 +57,7 @@
                         </div>
                         <el-table
                                 stripe
-                                class="wpy-table"
+                                :class="tabData.list ? '' : 'wpy-z-table'"
                                 :data="tabData.list"
                                 :header-row-style="{background:'#2C2E2F'}"
                                 style="width: 100%">
@@ -86,7 +86,7 @@
                     </el-card>
                 </div>
                 <div class="col-5 pr-0" v-loading="announceLoading">
-                    <el-card class="box-card wpy-card bg-body" shadow="hover">
+                    <el-card class="box-card wpy-card sm-card bg-body" shadow="hover">
                         <div slot="header" class="clearfix">
                             <span>公告</span>
                             <el-button style="float: right; padding: 3px 0" type="text">
@@ -100,6 +100,7 @@
                                     :show-header="false"
                                     :highlight-current-row="true"
                                     class="hide-table-title pointer"
+                                    :class="announceList ? '' : 'wpy-z-table'"
                                     :data="announceList"
                                     @row-click="goAnnounceDetail"
                                     style="width: 100%">

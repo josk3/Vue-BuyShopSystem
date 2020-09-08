@@ -33,7 +33,8 @@
                                 width="350"
                                 trigger="click" @show="loadNotice">
                             <el-table v-loading="noticeLoading"
-                                      class="wpy-table pointer"
+                                      class="pointer"
+                                      :class="noticeList ? '' : 'wpy-z-table'"
                                       :show-header="false"
                                       @row-click="goNoticeDetail"
                                       :data="noticeList">

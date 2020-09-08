@@ -12,7 +12,7 @@
                     <el-tab-pane :label="$t('status.canceled')" name="canceled"></el-tab-pane>
                 </el-tabs>
                 <el-table
-                        class="wpy-table"
+                        :class="tabData.list ? '' : 'wpy-z-table'"
                         :data="tabData.list"
                         :header-row-style="{background:'#2C2E2F'}"
                         style="width: 100%">
