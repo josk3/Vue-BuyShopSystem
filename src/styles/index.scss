@@ -345,6 +345,14 @@ body, .wrap, .wrap-side .el-menu {
 .wpy-btn{
 
 }
+.wpy-table .el-table__empty-block{
+  min-height: 260px;
+}
+.wpy-table .el-table__empty-text {
+  background: url("img/not-find-sm.svg") no-repeat top center;
+  background-size: 100px;
+  line-height: 140px;
+}
 span.pay-status{
   border-radius: 5px;
   padding: 3px 8px;

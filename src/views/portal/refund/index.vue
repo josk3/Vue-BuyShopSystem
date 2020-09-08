@@ -11,6 +11,7 @@
                     <el-tab-pane :label="$t('comm.refund_ing')" name="refund_ing"></el-tab-pane>
                 </el-tabs>
                 <el-table
+                        class="wpy-table"
                         :data="tabData.list"
                         :header-row-style="{background:'#2C2E2F'}"
                         style="width: 100%">

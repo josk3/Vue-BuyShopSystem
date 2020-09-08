@@ -14,6 +14,7 @@
                         </div>
                     </div>
                     <el-table
+                            class="wpy-table"
                             :data="tabData.list"
                             :header-row-style="{background:'#2C2E2F'}"
                             style="width: 100%">

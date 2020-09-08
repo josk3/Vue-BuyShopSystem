@@ -20,10 +20,10 @@
                     </div>
                 </div>
                 <el-table
+                        class="wpy-table hide-table-title pointer"
                         :data="tabData.list"
                         :show-header="false"
                         :highlight-current-row="true"
-                        class="hide-table-title pointer"
                         @row-click="goNoticeDetail"
                         :header-row-style="{background:'#2C2E2F'}"
                         style="width: 100%">

@@ -19,6 +19,7 @@
             </div>
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
                 <el-table
+                        class="wpy-table"
                         :data="tabData.list"
                         :header-row-style="{background:'#2C2E2F'}"
                         @selection-change="handleTableSelect"

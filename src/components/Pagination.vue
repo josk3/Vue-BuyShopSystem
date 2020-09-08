@@ -1,11 +1,11 @@
 <template>
-    <div class="pagination-links mt-3 row">
+    <div class="pagination-links mt-3 row" v-if="page">
         <div class="col-6 text-left">
             <div class="pl-3">
                 {{ $t('comm.record_total') }}: {{ page.total }}
             </div>
         </div>
-        <div class="col-6 text-right">
+        <div v-if="page.total > 0" class="col-6 text-right">
             <el-pagination
                     background
                     layout="prev, pager, next"

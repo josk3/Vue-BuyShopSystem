@@ -1748,7 +1748,7 @@ const proxy = {
                     "page_num": 1,
                     "page_size": 20
                 },
-                "list": [
+                list: [
                     {
                         "trade_id": "tr_M1130a0807s4C53263jC",
                         "merchant_order_no": "test1596802208",
@@ -2647,6 +2647,12 @@ const proxy = {
         return res.json({
             status: 1,
             data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
                 list: [
                     {
                         nid: 'n2f3f4',
