@@ -225,12 +225,25 @@ export function upload(url, formData, progressCallback) {
     });
 }
 
-export function download(url, params) {
+/**
+ * axios 上传文件
+ * @param url url
+ * @param params
+ * @param progressCallback (可以为空) 使做到进度条回调
+ */
+export function download(url, params, progressCallback) {
     return new Promise((resolve, reject) => {
 
-        service.post(url, params, {timeout: 45000,responseType: 'blob'})
+        service.post(url, params,
+            {
+                timeout: 45000,
+                responseType: 'blob',
+                onUploadProgress: e => {
+                    if (!isEmpty(progressCallback)) progressCallback(((e.loaded / e.total * 100) | 0))
+                }
+            })
             .then((res) => {
-                const { data, headers } = res
+                const {data, headers} = res
                 let fileName = headers['content-disposition']
                 fileName = fileName.replace(/\w+; filename=(.*)/, '$1')
                 fileName = fileName.replace(/\w+;filename=(.*)/, '$1')
