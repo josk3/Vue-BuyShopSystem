@@ -49,10 +49,15 @@ module.exports = {
         status: '状态',
         refund_amount: '退款金额',
         settlement_amount: '结算金额',
+        settle_amount: '结算金额',
 
         trade_balance: '交易款',
         deposit_balance: '保证金',
         balance: '余额',
+        title: '标题',
+        announce: '公告',
+        notify: '消息',
+        go_back: '返回',
     },
     nav: {
         home: '主页',
@@ -81,6 +86,7 @@ module.exports = {
         blacklist: '黑名单',
         support_ticket: '技术支持',
         message_center: '消息中心',
+        message_center_type: '消息中心',
         dispute_manage: '投诉订单',
         faq: '帮助中心',
         login: '登录',
@@ -92,6 +98,9 @@ module.exports = {
         decline_manage: '拒付管理',
         ticket_detail: '工单详情',
         announce_detail: '公告详情',
+        notify_detail: '消息详情',
+        announce: '公告',
+        notify: '消息',
         '404': '404',
         '401': '401',
 

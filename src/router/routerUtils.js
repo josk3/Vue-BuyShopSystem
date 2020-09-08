@@ -107,6 +107,14 @@ export const routerUtils = {
         component: () => import('@/views/portal/orders/detail'),
         meta: {noCache: true}
     },
+    'notify_detail': {
+        component: () => import('@/views/portal/orders/detail'),
+        meta: {noCache: true}
+    },
+    'message_center': {
+        component: () => import('@/views/portal/notice/index'),
+        meta: {noCache: true}
+    },
 }
 
 function resolveMenu(menu) {
@@ -187,9 +195,21 @@ export function convertRouters(userMenu) {
             hidden: true,
         },
         {
+            path: '/message/center/:type',
+            name: 'message_center_type',
+            component: () => import('@/views/portal/notice/index'),
+            hidden: true,
+        },
+        {
             path: '/announce/detail/:id',
             name: 'announce_detail',
-            component: () => import('@/views/portal/orders/detail'),
+            component: () => import('@/views/portal/notice/announceDetail'),
+            hidden: true,
+        },
+        {
+            path: '/notify/detail/:id',
+            name: 'notify_detail',
+            component: () => import('@/views/portal/notice/notifyDetail'),
             hidden: true,
         },
         {

@@ -247,8 +247,10 @@
         mounted() {
             if (!isEmpty(this.$route.params)) {
                 this.tradeId = this.$route.params.id
+                this.loadOrder();
+            }else {
+                this.$message.error(this.$i18n.t('comm.fail').toString())
             }
-            this.loadOrder();
         },
         methods: {
             goBack() {

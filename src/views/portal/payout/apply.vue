@@ -44,10 +44,10 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="settlement_amount,settlement_currency"
-                            :label="$t('comm.settlement_amount')">
+                            prop="settle_amount,settle_currency"
+                            :label="$t('comm.settle_amount')">
                         <template v-slot="scope">
-                            {{scope.row.settlement_amount}} {{scope.row.settlement_currency}}
+                            {{scope.row.settle_amount}} {{scope.row.settle_currency}}
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -60,19 +60,19 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="is_refund"
+                            prop="refunded"
                             :show-overflow-tooltip="true"
                             label="是否退款">
                         <template v-slot="scope">
-                            {{scope.row.refund_status | refundStatus }}
+                            {{scope.row.refunded | refundStatus }}
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="is_declined"
+                            prop="declined"
                             :show-overflow-tooltip="true"
                             label="是否拒付">
                         <template v-slot="scope">
-                            {{scope.row.is_declined }}
+                            {{scope.row.declined }}
                         </template>
                     </el-table-column>
                     <el-table-column
