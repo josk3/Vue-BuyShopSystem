@@ -25,6 +25,7 @@ module.exports = {
     homePath: '/home',
     financePath: '/finance/search',
     msgCenterPath: '/message/center',
+    notifyListPath: '/message/center/notify',
     forgetPwdPath: '/forget_pwd',
     registerPath: '/register',
     termsPath: '/terms',

@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-1">
                             <el-button class="float-right" type="text" size="mini">
-                                查看更多
+                                <router-link :to="configs.notifyListPath">{{ $t('comm.view_more') }}</router-link>
                             </el-button>
                         </div>
                     </div>
@@ -89,7 +89,9 @@
                     <el-card class="box-card wpy-card bg-body" shadow="hover">
                         <div slot="header" class="clearfix">
                             <span>公告</span>
-                            <el-button style="float: right; padding: 3px 0" type="text">更多</el-button>
+                            <el-button style="float: right; padding: 3px 0" type="text">
+                                <router-link :to="configs.msgCenterPath">{{ $t('comm.more') }}</router-link>
+                            </el-button>
                         </div>
                         <div>
                             <el-table
