@@ -1,4 +1,12 @@
 import {get, post, postHandleError} from '@/utils/request'
+import {isEmpty, isArray} from "@/utils/validate";
+
+export function hasPermission(perm, permissionLists) {
+    if (isEmpty(permissionLists)) return false;
+    if (isEmpty(perm)) return true;
+    if (!isArray(permissionLists)) return false;
+    return permissionLists.includes(perm);
+}
 
 export function login(data) {
     return post('/login', data);

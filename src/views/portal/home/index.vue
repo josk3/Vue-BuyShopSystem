@@ -28,7 +28,7 @@
                     </div>
                 </el-card>
             </div>
-            <div class="col-12 mb-3" style="min-height: 350px">
+            <div v-if="permReportLastTrade" class="col-12 mb-3" style="min-height: 350px">
                 <el-card shadow="hover" class="box-card p-3 bg-white"
                          :body-style="{ padding: '0px' }">
                     <div class="home-last-trade-report">
@@ -37,14 +37,16 @@
                 </el-card>
             </div>
             <div class="col-12 row" style="min-height: 155px">
-                <div class="col-7" v-loading="balanceLoading">
-                    <el-card class="box-card wpy-card sm-card box-pane pb-4" shadow="hover" :body-style="{ padding: '0px' }">
+                <div v-if="permViewBalance" class="col-7" v-loading="balanceLoading">
+                    <el-card class="box-card wpy-card sm-card box-pane pb-4" shadow="hover"
+                             :body-style="{ padding: '0px' }">
                         <div class="row">
                             <div class="col-8 pr-0">
                                 <el-tabs v-model="paneName" type="border-card"
                                          @tab-click="paneClick">
                                     <el-tab-pane :label="$t('comm.trade_balance')" name="trade_balance"></el-tab-pane>
-                                    <el-tab-pane :label="$t('comm.deposit_balance')" name="deposit_balance"></el-tab-pane>
+                                    <el-tab-pane :label="$t('comm.deposit_balance')"
+                                                 name="deposit_balance"></el-tab-pane>
                                 </el-tabs>
                             </div>
                             <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
@@ -130,12 +132,18 @@
     import LastTimeReport from "@/components/LastTimeReport";
     import {getBalances} from "@/service/merchantSer";
     import {getLastAnnounce} from "@/service/noticeSer";
-    import store from "@/store";
+    import {mapState} from "vuex";
+    import {hasPermission} from "@/service/userSer";
 
     export default {
         name: "home",
         components: {LastTimeReport},
         computed: { //watch跟踪数据变化, 重点user, configs
+            ...mapState({
+                sidebar: state => state.app.sidebar,
+                permissions: state => state.user.permissions,
+                lang: state => state.app.lang,
+            }),
             configs() {
                 return configs;
             },
@@ -152,9 +160,13 @@
                 balanceParams: {type: this.paneName},
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 announceList: [],
+                permReportLastTrade: false,
+                permViewBalance: false,
             }
         },
         mounted() {
+            this.permReportLastTrade = hasPermission(configs.perm.home_trade_report, this.permissions)
+            this.permViewBalance = hasPermission(configs.perm.can_view_balance, this.permissions)
             this.getBalances()
             this.getAnnounceList()
             this.$store.dispatch('user/loadUserInfo')
@@ -166,6 +178,7 @@
                 this.getBalances()
             },
             getBalances() {
+                if (!this.permViewBalance) return
                 this.balanceLoading = true
                 getBalances(this.balanceParams).then(res => {
                     const {data} = res
@@ -178,13 +191,13 @@
                 this.announceLoading = true
                 getLastAnnounce().then(res => {
                     const {data} = res
-                    this.$data.announceList = data.list.slice(0,3) //只显示
+                    this.$data.announceList = data.list.slice(0, 3) //只显示
                 }).finally(() => {
                     this.announceLoading = false
                 })
             },
             goAnnounceDetail(row) {
-                this.$router.push({name: 'announce_detail',params:{id:row.nid}})
+                this.$router.push({name: 'announce_detail', params: {id: row.nid}})
             },
         },
     }

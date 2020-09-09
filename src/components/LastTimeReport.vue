@@ -18,10 +18,30 @@
     import LineChart from "@/service/chart/LineChart"
     import {last24Hours, last30Days, last90Days} from "@/service/reportSer";
     import {isEmpty} from "@/utils/validate";
+    import {mapState} from "vuex";
+    import configs from "@/configs";
+    import {hasPermission} from "@/service/userSer";
 
     export default {
         components: {
             LineChart
+        },
+        computed: { //watch跟踪数据变化, 重点user, configs
+            ...mapState({
+                sidebar: state => state.app.sidebar,
+                permissions: state => state.user.permissions,
+                lang: state => state.app.lang,
+            }),
+            configs() {
+                return configs;
+            },
+            chartStyle() {
+                return {
+                    height: '350px',
+                    width: '100%',
+                    position: 'relative'
+                }
+            },
         },
         data() {
             return {
@@ -117,15 +137,6 @@
         mounted() {
             this.fillData()
         },
-        computed: { //watch跟踪数据变化, 重点user, configs
-            chartStyle() {
-                return {
-                    height: '350px',
-                    width: '100%',
-                    position: 'relative'
-                }
-            }
-        },
         methods: {
             rangeChange() {
                 this.fillData()
@@ -158,6 +169,7 @@
                 }
             },
             fillData() {
+                if (!hasPermission(configs.perm.home_trade_report, this.permissions)) return
                 if (this.range === 'last24Hours') {
                     this.loading = true
                     last24Hours().then(res => {

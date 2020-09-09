@@ -179,7 +179,7 @@ function demoUserInfo() {
                     "have_show_child": false
                 }
             ],
-            permissions:[
+            permissions: [
                 "home_trade_report",
                 "can_view_balance",
                 "delivery_download"
@@ -2771,7 +2771,7 @@ const proxy = {
     'POST /api/v1/notice/mark/read': (req, res) => {
         return res.json({
             status: 1,
-            data:{}
+            data: {}
         })
     },
 
