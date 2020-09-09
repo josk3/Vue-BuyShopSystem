@@ -196,7 +196,8 @@ function demoUserInfo() {
                     "children": null,
                     "have_show_child": false
                 }
-            ]
+            ],
+            permissions:[],
         }
     };
 }

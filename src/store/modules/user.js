@@ -22,7 +22,8 @@ const state = {
     avatar: '',
     introduction: '',
     roles: [],
-    menus: []//侧边目录
+    menus: [],//侧边目录
+    permissions: [],
 }
 
 const mutations = {
@@ -31,6 +32,9 @@ const mutations = {
     },
     SET_MENUS: (state, menus) => {
         state.menus = menus
+    },
+    SET_PERMISSIONS: (state, permissions) => {
+        state.permissions = permissions
     },
     SET_USER: (state, user) => {
         state.user = user
@@ -50,6 +54,7 @@ const actions = {
                 commit('SET_TOKEN', data.token)
                 commit('SET_USER', data.user)
                 commit('SET_MENUS', data.menus)
+                commit('SET_PERMISSIONS', data.permissions)
                 setToken(data.token)
                 //后端数据 add router
                 if (!isEmpty((data.menus))) {
@@ -72,12 +77,13 @@ const actions = {
                 if (!data) {
                     reject('Verification failed, please Login again.')
                 }
-                const {menus, user} = data
+                const {menus, permissions, user} = data
                 // menus must be a non-empty array
                 if (!menus || menus.length <= 0) {
                     reject('menus must be a non-null array!')
                 }
                 commit('SET_MENUS', menus)
+                commit('SET_PERMISSIONS', permissions)
                 commit('SET_USER', user)
                 resolve(data)
             }).catch(error => {
@@ -98,6 +104,7 @@ const actions = {
             logout(state.token).then(() => {
                 commit('SET_TOKEN', '')
                 commit('SET_MENUS', [])
+                commit('SET_PERMISSIONS', [])
                 removeToken()
                 resetRouter()
 
@@ -113,6 +120,7 @@ const actions = {
         return new Promise(resolve => {
             commit('SET_TOKEN', '')
             commit('SET_MENUS', [])
+            commit('SET_PERMISSIONS', [])
             removeToken()
             resolve()
         })
