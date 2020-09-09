@@ -96,6 +96,7 @@
                 this.search()
             },
             search() {
+                this.searchParams.type = this.paneName
                 this.loading = true
                 searchNotice(this.searchParams).then(res => {
                     const {data} = res

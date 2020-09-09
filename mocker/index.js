@@ -2705,22 +2705,6 @@ const proxy = {
             }
         })
     },
-    'GET /api/v1/announce/detail/:id': (req, res) => {
-        return res.json({
-            status: 1,
-            data: {
-                nid: 'n2f3f4',
-                type: 'notify',
-                kind: 'chargeback',
-                created: '2020-01-01',
-                title: '2020年6月服务费发票寄送服务费发票寄送',
-                message: 'dxx',
-                target_id: 'tr_wjfl23jfl2',
-                params: '',
-                has_read: 0,
-            },
-        })
-    },
     'GET /api/v1/notice/detail/:id': (req, res) => {
         return res.json({
             status: 1,
@@ -2733,7 +2717,6 @@ const proxy = {
                 message: 'dxx <h3>务费发票寄送服务费发票寄送</h3>',
                 target_id: 'tr_wjfl23jfl2',
                 params: '',
-                has_read: 0,
             },
         })
     },

@@ -20,7 +20,7 @@ export function markAllRead(params) {
 }
 
 export function getAnnounce(nid) {
-    return get('/announce/detail/' + nid, '');
+    return get('/notice/detail/' + nid, '');
 }
 
 export function getNotify(nid) {
