@@ -165,6 +165,7 @@
             }
         },
         mounted() {
+            this.balanceParams.type = this.paneName
             this.permReportLastTrade = hasPermission(configs.perm.home_trade_report, this.permissions)
             this.permViewBalance = hasPermission(configs.perm.can_view_balance, this.permissions)
             this.getBalances()
