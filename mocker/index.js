@@ -82,17 +82,13 @@ function demoUserInfo() {
                         {
                             "name": "finance_search",
                             "path": "/finance/search",
-                            "meta": null,
-                            "children": null,
-                            "have_show_child": false
+                            "meta": null
                         },
                         {
                             "name": "settle_search",
                             "path": "/settle/search",
-                            "meta": null,
-                            "children": null,
-                            "have_show_child": false
-                        },
+                            "meta": null
+                        }
                     ],
                     "have_show_child": true
                 },
@@ -118,17 +114,13 @@ function demoUserInfo() {
                         {
                             "name": "risk_area",
                             "path": "/risk/area",
-                            "meta": null,
-                            "children": null,
-                            "have_show_child": false
+                            "meta": null
                         },
                         {
                             "name": "blacklist",
                             "path": "/risk/blacklist",
-                            "meta": null,
-                            "children": null,
-                            "have_show_child": false
-                        },
+                            "meta": null
+                        }
                     ],
                     "have_show_child": true
                 },
@@ -147,38 +139,28 @@ function demoUserInfo() {
                         {
                             "name": "merchant_info",
                             "path": "/merchant/info",
-                            "meta": null,
-                            "children": null,
-                            "have_show_child": false
+                            "meta": null
                         },
                         {
                             "name": "merchant_identity",
                             "path": "/merchant/identity",
-                            "meta": null,
-                            "children": null,
-                            "have_show_child": false
+                            "meta": null
                         },
                         {
                             "name": "merchant_setup",
                             "path": "/merchant/setup",
-                            "meta": null,
-                            "children": null,
-                            "have_show_child": false
+                            "meta": null
                         },
                         {
                             "name": "merchant_users",
                             "path": "/merchant/users",
-                            "meta": null,
-                            "children": null,
-                            "have_show_child": false
+                            "meta": null
                         },
                         {
                             "name": "merchant_shop",
                             "path": "/merchant/shop",
-                            "meta": null,
-                            "children": null,
-                            "have_show_child": false
-                        },
+                            "meta": null
+                        }
                     ],
                     "have_show_child": true
                 },
@@ -197,7 +179,11 @@ function demoUserInfo() {
                     "have_show_child": false
                 }
             ],
-            permissions:[],
+            permissions:[
+                "home_trade_report",
+                "can_view_balance",
+                "delivery_download"
+            ],
         }
     };
 }
