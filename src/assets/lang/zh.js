@@ -61,6 +61,7 @@ module.exports = {
         go_back: '返回',
         more: '更多',
         view_more: '查看更多',
+        download: '下载',
     },
     nav: {
         home: '主页',

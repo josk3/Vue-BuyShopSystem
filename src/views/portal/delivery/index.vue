@@ -15,7 +15,7 @@
                                            @click="uploadTrackDialogVisible = true" plain>批量上传
                                 </el-button>
                                 <el-button icon="el-icon-download" size="mini"
-                                           @click="downDelivery" plain>下载
+                                           @click="downDelivery" plain>{{ $t('comm.download') }}
                                 </el-button>
                             </div>
                         </div>

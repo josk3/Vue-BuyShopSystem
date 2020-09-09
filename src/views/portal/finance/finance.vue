@@ -17,7 +17,7 @@
                     <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                         <div class="mr-5 mt-1">
                             <el-button icon="el-icon-download" size="mini"
-                                       @click="downFinance" plain>下载
+                                       @click="downFinance" plain>{{ $t('comm.download') }}
                             </el-button>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {financeSearch} from "@/service/financeSer";
+    import {financeDownload, financeSearch} from "@/service/financeSer";
 
     export default {
         name: "finance",
@@ -158,7 +158,12 @@
                 })
             },
             downFinance() {
-
+                this.loading = true
+                financeDownload(this.searchParams).then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.loading = false
+                })
             },
         },
     }

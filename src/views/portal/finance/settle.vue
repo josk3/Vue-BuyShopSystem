@@ -12,7 +12,7 @@
                         <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                             <div class="mr-5 mt-1">
                                 <el-button icon="el-icon-download" size="mini"
-                                           @click="downSettle" plain>下载
+                                           @click="downSettle" plain>{{ $t('comm.download') }}
                                 </el-button>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {settleSearch, settleSummary} from "@/service/financeSer";
+    import {settleDownload, settleSearch, settleSummary} from "@/service/financeSer";
 
     /** 当前vue 要实现结算列表和结算详情明细 */
     export default {
@@ -180,7 +180,12 @@
                 })
             },
             downSettle() {
-
+                this.loading = true
+                settleDownload(this.searchParams).then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.loading = false
+                })
             },
         },
     }

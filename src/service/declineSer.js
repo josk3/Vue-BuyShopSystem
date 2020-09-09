@@ -1,4 +1,4 @@
-import {post} from '@/utils/request'
+import {download, post} from '@/utils/request'
 
 /**
  * 拒付
@@ -8,7 +8,7 @@ export function declineSearch(params) {
 }
 
 export function declineDownload(params) {
-    return post('/decline/download', params);
+    return download('/decline/download', params);
 }
 
 export function declineSupply(params) {

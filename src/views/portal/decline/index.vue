@@ -13,7 +13,7 @@
                     <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                         <div class="mr-5 mt-1">
                             <el-button icon="el-icon-download" size="mini"
-                                       @click="downDecline" plain>下载
+                                       @click="downDecline" plain>{{ $t('comm.download') }}
                             </el-button>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {declineSearch} from "@/service/declineSer";
+    import {declineDownload, declineSearch} from "@/service/declineSer";
 
     export default {
         name: "decline",
@@ -135,7 +135,12 @@
                 })
             },
             downDecline() {
-
+                this.loading = true
+                declineDownload(this.searchParams).then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.loading = false
+                })
             },
         },
     }
