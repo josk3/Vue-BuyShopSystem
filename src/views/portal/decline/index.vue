@@ -40,41 +40,41 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="order_amount,currency"
+                            prop="order_amount,order_currency"
                             :label="$t('comm.order_amount')">
                         <template v-slot="scope">
-                            {{scope.row.order_amount}} {{scope.row.currency}}
+                            {{scope.row.order_amount}} {{scope.row.order_currency}}
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="is_declined"
+                            prop="declined"
                             :show-overflow-tooltip="true"
                             label="拒付">
                         <template v-slot="scope">
-                            {{scope.row.is_declined | declinedStatus }}
+                            <span :class="'declined-' + scope.row.declined">{{scope.row.declined | yesOrNo}}</span>
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="is_settled"
+                            prop="settled"
                             :show-overflow-tooltip="true"
                             label="结算">
                         <template v-slot="scope">
-                            {{scope.row.is_settled | settleStatus }}
+                            {{scope.row.settled | settleStatus }}
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="decline_reason"
+                            prop="chargeback.reason"
                             label="理由">
                         <template v-slot="scope">
-                            {{scope.row.decline_reason }}
+                            {{scope.row.chargeback.reason}}
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="decline_time"
+                            prop="chargeback.chargeback_time"
                             :show-overflow-tooltip="true"
                             label="拒付时间">
                         <template v-slot="scope">
-                            {{scope.row.decline_time | toDay }}
+                            {{scope.row.chargeback.chargeback_time | toDay }}
                         </template>
                     </el-table-column>
                 </el-table>
@@ -104,7 +104,7 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.decline_manage', page: 1,
-                    trade_id: '', merchant_order_no: '', email: ''
+                    trade_id: '', merchant_order_no: '',
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认
