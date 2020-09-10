@@ -188,10 +188,10 @@
                                             class="value">{{ item.sku }}</span></div>
                                     <div class="item"><span class="label">产品名称</span><span
                                             class="value">{{ item.name }}</span></div>
-                                    <div class="item"><span class="label">单价</span><span class="value">{{ item.price }} {{ item.currency }}</span>
+                                    <div class="item"><span class="label">单价</span><span class="value">{{ item.amount }} {{ item.currency }}</span>
                                     </div>
                                     <div class="item"><span class="label">数量</span><span
-                                            class="value">{{ item.count }}</span></div>
+                                            class="value">{{ item.quantity }}</span></div>
                                     <el-divider></el-divider>
                                 </div>
                             </div>

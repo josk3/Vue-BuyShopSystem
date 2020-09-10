@@ -1208,7 +1208,7 @@ const proxy = {
                     page_size: 20,
                     total: 50,
                 },
-                list: demoOrderList(req),
+                list: demoOrderInfoRefund(),
             }
         });
     },
@@ -1563,9 +1563,9 @@ const proxy = {
                 "site_url": "www.iioffer.vip",
                 "ip": "58.24.127.131",
                 "products": [
-                    {sku: 'f23f2', name: 'iPhone 12 Pro Max', price: 688.99, count: 2, currency: 'USD'},
-                    {sku: 'gerg', name: 'iPhone 12 Pro Max', price: 688.99, count: 2, currency: 'USD'},
-                    {sku: 'gtt', name: 'iPhone 12 Pro Max', price: 688.99, count: 2, currency: 'USD'},
+                    {sku: 'f23f2', name: 'iPhone 12 Pro Max', amount: 688.99, quantity: 2, currency: 'USD'},
+                    {sku: 'gerg', name: 'iPhone 12 Pro Max', amount: 688.99, quantity: 2, currency: 'USD'},
+                    {sku: 'gtt', name: 'iPhone 12 Pro Max', amount: 688.99, quantity: 2, currency: 'USD'},
                 ],
                 "delivery_status": 1,
                 "track_number": "TESTUoIiqtrXp1",
