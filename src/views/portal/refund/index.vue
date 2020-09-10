@@ -25,7 +25,7 @@
                             :label="$t('comm.merchant_order_no')">
                     </el-table-column>
                     <el-table-column
-                            prop="email"
+                            prop="customer.email"
                             :show-overflow-tooltip="true"
                             :label="$t('comm.email')">
                     </el-table-column>
@@ -37,21 +37,21 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="order_amount,currency"
+                            prop="order_amount,order_currency"
                             :label="$t('comm.order_amount')">
                         <template v-slot="scope">
-                            {{scope.row.order_amount}} {{scope.row.currency}}
+                            {{scope.row.order_amount}} {{scope.row.order_currency}}
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="refund_amount,currency"
+                            prop="refund_amount,order_currency"
                             :label="$t('comm.refund_amount')">
                         <template v-slot="scope">
-                            {{scope.row.refund_amount}} {{scope.row.currency}}
+                            {{scope.row.refund_amount}} {{scope.row.order_currency}}
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="is_refund"
+                            prop="refunded"
                             :show-overflow-tooltip="true"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
