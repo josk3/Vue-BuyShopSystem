@@ -12,7 +12,7 @@ export function deliveryDownload(params) {
 }
 
 export function deliveryAdd(params) {
-    return post('/delivery/add', params);
+    return post('/delivery/new', params);
 }
 
 export function getTrackBrands() {

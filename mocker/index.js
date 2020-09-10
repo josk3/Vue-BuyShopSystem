@@ -1310,7 +1310,7 @@ const proxy = {
             }
         });
     },
-    'POST /api/v1/delivery/add': (req, res) => {
+    'POST /api/v1/delivery/new': (req, res) => {
         return res.json({
             status: 1,
             message: '测试test',

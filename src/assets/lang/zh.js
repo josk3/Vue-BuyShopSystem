@@ -166,11 +166,13 @@ module.exports = {
     },
     kind: {
         settle: '结算',
-        deposit_settle: '保证金结算',
+        depositSettle: '保证金结算',
         sale: '收款',
         refund: '退款',
         trade: '交易结算',
         deposit: '保证金结算',
+        annualFee: '年费',
+        chargeback: '拒付',
     },
     risk: {
         fingerprint: '卡指纹',
