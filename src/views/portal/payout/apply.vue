@@ -2,7 +2,7 @@
     <div v-loading="loading">
         <div class="row">
             <div class="col-12 mb-2">
-                <el-card shadow="hover" class="box-card p-3"
+                <el-card shadow="always" class="box-card p-3"
                          :body-style="{ padding: '0px' }">
                     <h5>结算申请</h5>
                     <div class="text-muted p-0">

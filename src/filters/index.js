@@ -13,6 +13,13 @@ export function nullToLine(val) {
 }
 
 /**
+ * 金额显示 +/-
+ */
+export function chargeAmount(val) {
+    return isEmpty(val) ? '--' : (val > 0) ? '+' + val : val;
+}
+
+/**
  * 值 0,1 状态 -》解析成文字
  */
 export function yesOrNo(status) {

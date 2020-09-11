@@ -8,7 +8,7 @@
                         <div class="text-left clearfix">
                             <el-button type="text" @click="goBack"><i class="el-icon-arrow-left"></i></el-button>
                             订单交易金额
-                            <el-button class="float-right" size="mini" @click="openRefundDialog">
+                            <el-button v-if="order.pay_status === 'paid'" class="float-right" size="mini" @click="openRefundDialog">
                                 <font-awesome-icon icon="undo"/>
                                 退款
                             </el-button>

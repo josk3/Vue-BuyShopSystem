@@ -90,7 +90,7 @@
                                           <i class="el-icon-more"></i>
                                       </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item v-if="scope.row.refunded !== 1"
+                                    <el-dropdown-item v-if="scope.row.refunded !== 1 && scope.row.pay_status === 'paid'"
                                                       :command="commandVal('refund', scope.row, scope.$index)">
                                         退款
                                     </el-dropdown-item>

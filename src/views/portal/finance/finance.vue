@@ -11,6 +11,7 @@
                             <el-tab-pane label="收款" name="sale"></el-tab-pane>
                             <el-tab-pane label="提现" name="settle"></el-tab-pane>
                             <el-tab-pane label="退款" name="refund"></el-tab-pane>
+                            <el-tab-pane label="拒付" name="chargeback"></el-tab-pane>
                             <el-tab-pane label="保证金返还" name="depositSettle"></el-tab-pane>
                         </el-tabs>
                     </div>
@@ -78,14 +79,18 @@
                             prop="charge"
                             label="余额变动">
                         <template v-slot="scope">
-                            {{scope.row.charge | nullToLine}}
+                            <span :class="scope.row.charge === 0 ? '' : (scope.row.charge > 0 ? 'c-income' : 'c-outlay')">
+                                {{scope.row.charge | chargeAmount}}
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column
                             prop="deposit_charge"
                             label="保证金变动">
                         <template v-slot="scope">
-                            {{scope.row.deposit_charge | nullToLine}}
+                            <span :class="scope.row.deposit_charge === 0 ? '' : (scope.row.deposit_charge > 0 ? 'c-income' : 'c-outlay')">
+                                {{scope.row.deposit_charge | chargeAmount}}
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column
