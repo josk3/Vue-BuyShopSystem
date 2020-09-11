@@ -30,10 +30,10 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="order_amount,currency"
+                            prop="order_amount,order_currency"
                             :label="$t('comm.order_amount')">
                         <template v-slot="scope">
-                            {{scope.row.order_amount}} {{scope.row.currency}}
+                            {{scope.row.order_amount}} {{scope.row.order_currency}}
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -46,11 +46,11 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="is_declined"
+                            prop="declined"
                             :show-overflow-tooltip="true"
                             label="拒付">
                         <template v-slot="scope">
-                            {{scope.row.is_declined | declinedStatus }}
+                            {{scope.row.declined | declinedStatus }}
                         </template>
                     </el-table-column>
                     <el-table-column

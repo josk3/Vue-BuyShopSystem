@@ -50,7 +50,7 @@
                                 prop="updated"
                                 label="时间">
                             <template v-slot="scope">
-                                {{scope.row.updated }}
+                                {{scope.row.updated | toDay}}
                             </template>
                         </el-table-column>
                         <el-table-column
