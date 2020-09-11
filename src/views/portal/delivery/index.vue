@@ -30,7 +30,7 @@
                                 :label="$t('comm.trade_id')" width="210px">
                         </el-table-column>
                         <el-table-column
-                                prop="email"
+                                prop="customer.email"
                                 :show-overflow-tooltip="true"
                                 :label="$t('comm.email')">
                         </el-table-column>

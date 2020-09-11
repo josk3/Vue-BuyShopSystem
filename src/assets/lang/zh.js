@@ -37,6 +37,7 @@ module.exports = {
         //
         trade_id: '流水号',
         batch_id: '批次号',
+        trade_or_batch_id: '流水号/批次号',
         merchant_order_no: '订单号',
         country_name: '国家',
         email: '邮箱',

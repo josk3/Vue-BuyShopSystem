@@ -29,9 +29,11 @@
                         style="width: 100%">
                     <el-table-column
                             prop="trade_id"
-                            :label="$t('comm.trade_id')" width="210px">
+                            :label="$t('comm.trade_or_batch_id')" width="210px">
                         <template v-slot="scope">
-                            <span v-if="paneName === 'settle' || paneName === 'depositSettle'">{{scope.row.batch_id}}</span>
+                            <span v-if="scope.row.kind === 'settle' || scope.row.kind === 'depositSettle'">
+                                {{scope.row.batch_id}}
+                            </span>
                             <span v-else >{{scope.row.trade_id}}</span>
                         </template>
                     </el-table-column>

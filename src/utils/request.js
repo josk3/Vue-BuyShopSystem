@@ -135,11 +135,20 @@ export function postHandleError(url, params) {
     });
 }
 
+/**
+ * 当有包含数组时
+ qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'indices' })
+ // 'a[0]=b&a[1]=c'
+ qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'brackets' })
+ // 'a[]=b&a[]=c'
+ qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'repeat' })
+ // 'a=b&a=c'
+ */
 export function post(url, params) {
     return service({
         method: 'post',
         url: url,
-        data: qs.stringify(params),
+        data: qs.stringify(params, { arrayFormat: 'brackets' }),
         show_error_msg_dialog: true,
     });
 }
