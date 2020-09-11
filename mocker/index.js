@@ -1094,7 +1094,7 @@ const proxy = {
         data: null,
         request_id: 'req_uiClf1xx'
     },
-    'GET /api/:owner/:repo/raw/:ref/(.*)': (req, res) => {
+    'GET /api/:owner/:repo/raw/:ref/(.*)': (req, res) => { //demo 参数的使用
         const {owner, repo, ref} = req.params;
         // http://localhost:8081/api/admin/webpack-mock-api/raw/master/add/ddd.md
         // owner => admin
@@ -1198,6 +1198,7 @@ const proxy = {
             data: {}
         });
     },
+    //--
     'POST /api/v1/refund/search': (req, res) => {
         return res.json({
             status: 1,
@@ -2444,6 +2445,7 @@ const proxy = {
             data: {}
         });
     },
+    //---
     'POST /api/v1/ticket/create': (req, res) => {
         return res.json({
             status: 1,
@@ -2573,6 +2575,7 @@ const proxy = {
             }
         })
     },
+    //--
     'GET /api/v1/report/last24Hours': (req, res) => {
         return res.json({
             status: 1,
@@ -2943,6 +2946,7 @@ const proxy = {
             data: {}
         })
     },
+    //--
 
 }
 let sleep = false;
