@@ -1827,7 +1827,7 @@ const proxy = {
                 },
                 list: [
                     {
-                        bli: 'ef2f34g',
+                        mri: 'ef2f34g',
                         kind: "address",
                         value: "上海",
                         operator_name: "jian",
@@ -1838,7 +1838,7 @@ const proxy = {
                         pack_hash: "913624534d668192",
                         status: 1,
                     }, {
-                        bli: '9384g3gf4',
+                        mri: '9384g3gf4',
                         kind: "phone",
                         value: "13888888888",
                         operator_name: "jian",
@@ -1858,7 +1858,7 @@ const proxy = {
             status: 1,
             message: '测试test',
             data: {
-                bli: 'ef2f34g',
+                mri: 'ef2f34g',
                 kind: "address",
                 value: "上海",
                 operator_name: "jian",

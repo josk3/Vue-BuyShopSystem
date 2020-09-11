@@ -360,7 +360,7 @@
                         break;
                     case 'delete':
                         this.loading = true
-                        blacklistDel({bli: row.bli}).then(() => {
+                        blacklistDel({mri: row.mri}).then(() => {
                             this.search()
                             this.$message.success(this.$i18n.t('comm.success').toString())
                         }).finally(() => {
