@@ -11,7 +11,7 @@
                     <el-tab-pane :label="$t('comm.fail')" name="fail"></el-tab-pane>
                 </el-tabs>
                 <el-table
-                        :class="tabData.total ? '' : 'wpy-z-table'"
+                        :class="tabData.page.total ? '' : 'wpy-z-table'"
                         :data="tabData.list"
                         :header-row-style="{background:'#2C2E2F'}"
                         style="width: 100%">

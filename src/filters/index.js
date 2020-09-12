@@ -306,3 +306,18 @@ export function ticketPriority(priorityValue) {
             return i18n.t('ticket.urgent')
     }
 }
+
+/**
+ * 绑定网站状态 -》解析成文字  1:正常可用, 2: 已提交待审, 3:审失败
+ */
+export function shopStatus(val) {
+    if (isEmpty(val)) return ''
+    switch (val) {
+        case 1:
+            return i18n.t('status.normal')
+        case 2:
+            return i18n.t('status.wait_review')
+        case 3:
+            return i18n.t('status.review_reject')
+    }
+}

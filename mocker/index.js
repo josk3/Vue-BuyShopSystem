@@ -2947,6 +2947,87 @@ const proxy = {
         })
     },
     //--
+    //download, /decline/download, /finance/download, /settle/download, /delivery/download
+    'POST /api/v1/shop/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 0,
+                },
+                list: [],
+                list1: [
+                    {
+                        site_id: 'wfljw342f2',
+                        site_url: 'www.google.com',
+                        return_url: 'http://www.gooogle.com/payment/paymentRetReturn.php',
+                        site_system: 'Opencart',
+                        created: '2020-01-01',
+                        status: 1,
+                        review_reason: '',
+                        updated: '',
+                        is_virtual: 0,
+                        operator_name: '张三',
+                    },
+                    {
+                        site_id: 'wfljw342f2',
+                        site_url: 'www.google1.com',
+                        return_url: 'http://www.gooogle1.com/payment/paymentRetReturn.php',
+                        site_system: 'Opencart',
+                        created: '2020-01-01',
+                        status: 2,
+                        review_reason: '',
+                        updated: '',
+                        is_virtual: 0,
+                        operator_name: '张三',
+                    },
+                    {
+                        site_id: 'wfljw342f2',
+                        site_url: 'www.google2.com',
+                        return_url: 'http://www.gooogle13.com/payment/paymentRetReturn.php',
+                        site_system: 'Shopify',
+                        created: '2020-01-01',
+                        status: 3,
+                        review_reason: '',
+                        updated: '',
+                        is_virtual: 1,
+                        operator_name: '张三',
+                    },
+                ]
+            }
+        })
+    },
+    'GET /api/v1/shop/site_system_list': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                list: [
+                    {value: 'PrestaShop', text: 'PrestaShop'},
+                    {value: 'Shopify', text: 'Shopify'},
+                    {value: 'WooCommerce', text: 'WooCommerce'},
+                    {value: 'Opencart', text: 'Opencart'},
+                    {value: 'Java', text: 'Java'},
+                    {value: 'Php', text: 'Php'},
+                    {value: 'Other', text: 'Other'},
+                ]
+            }
+        })
+    },
+    'POST /api/v1/shop/add': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/shop/update': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
 
 }
 let sleep = false;

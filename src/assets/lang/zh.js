@@ -33,6 +33,8 @@ module.exports = {
         success: '成功',
         fail: '失败',
         refund_ing: '退款中',
+        wait_review: '等待审核',
+        review_reject: '审核没有通过',
 
         //
         trade_id: '流水号',
@@ -43,6 +45,7 @@ module.exports = {
         email: '邮箱',
         blacklist_type: '黑名单类型',
         blacklist_value: '黑名单值',
+        site_url: '网址',
         order_amount: '订单金额',
         payment_time: '交易时间',
         currency: '币种',
@@ -63,6 +66,7 @@ module.exports = {
         more: '更多',
         view_more: '查看更多',
         download: '下载',
+        edit: '编辑',
     },
     nav: {
         home: '主页',
@@ -164,6 +168,8 @@ module.exports = {
         has_settled: '已结算',
         payout_release: '已生成划款表',
         payout_paid: '已划款',
+        wait_review: '等待审核',
+        review_reject: '审核拒绝',
     },
     kind: {
         settle: '结算',
@@ -209,6 +215,13 @@ module.exports = {
         last24Hours: '最近24小时',
         last30Days: '最近30天',
         last90Days: '最近90天',
+    },
+    shop: {
+        site_url: '网址',
+        return_url: '返回网址',
+        site_system: '网站系统',
+        is_virtual: '虚拟产品',
+        add_site: '增加网站',
     },
     home: {},
     profile: {},

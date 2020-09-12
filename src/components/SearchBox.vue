@@ -51,6 +51,10 @@
                         <el-input type="email" size="mini" v-model="searchForm.email" :placeholder="$t('comm.email')"
                                   clearable=""></el-input>
                     </el-form-item>
+                    <el-form-item v-if="searchForm.site_url !== undefined" prop="site_url">
+                        <el-input size="mini" v-model="searchForm.site_url"
+                                  :placeholder="$t('comm.site_url')" clearable></el-input>
+                    </el-form-item>
                     <el-form-item>
                         <el-button size="mini" type="primary"
                                    @click="submitSearch">{{$t('comm.search')}}
