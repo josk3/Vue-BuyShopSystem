@@ -84,7 +84,7 @@ export const routerUtils = {
         meta: {noCache: true}
     },
     'merchant_users': {
-        component: () => import('@/views/portal/risk/blacklist'),
+        component: () => import('@/views/portal/account/users'),
         meta: {noCache: true}
     },
     'merchant_shop': {

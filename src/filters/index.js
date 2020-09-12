@@ -39,9 +39,22 @@ export function numberStatus(status) {
     if (isEmpty(status)) return ''
     switch (status) {
         case 0:
-            return i18n.t('status.disable')
+            return i18n.t('status.disabled')
         case 1:
             return i18n.t('status.normal')
+    }
+}
+
+/**
+ * 值 0,1 认证状态 -》解析成文字
+ */
+export function validStatus(status) {
+    if (isEmpty(status)) return ''
+    switch (status) {
+        case 0:
+            return i18n.t('status.invalid')
+        case 1:
+            return i18n.t('status.valid')
     }
 }
 

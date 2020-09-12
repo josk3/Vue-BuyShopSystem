@@ -43,6 +43,7 @@ module.exports = {
         merchant_order_no: '订单号',
         country_name: '国家',
         email: '邮箱',
+        phone: '电话',
         blacklist_type: '黑名单类型',
         blacklist_value: '黑名单值',
         site_url: '网址',
@@ -51,6 +52,7 @@ module.exports = {
         currency: '币种',
         apply_time: '申请时间',
         status: '状态',
+        email_status: '邮箱状态',
         refund_amount: '退款金额',
         settlement_amount: '结算金额',
         settle_amount: '结算金额',
@@ -62,11 +64,16 @@ module.exports = {
         announce: '公告',
         notify: '消息',
 
+        created: '时间',
+        updated: '更新时间',
         go_back: '返回',
         more: '更多',
         view_more: '查看更多',
         download: '下载',
         edit: '编辑',
+        disable: '禁用',
+        enable: '启用',
+        del: '删除',
     },
     nav: {
         home: '主页',
@@ -110,6 +117,9 @@ module.exports = {
         notify_detail: '消息详情',
         announce: '公告',
         notify: '消息',
+        can_view_balance: '查看余额',
+        home_trade_report: '最近交易图表',
+        delivery_download: '物流下载',
         '404': '404',
         '401': '401',
 
@@ -117,7 +127,10 @@ module.exports = {
     user: { //跟用户相关
         username: '用户名',
         password: '密码',
+        full_name: '名称',
         mer_no: '商户号',
+        role_name: '用户组',
+        role_menu: '权限',
 
     },
     valid: {
@@ -155,7 +168,7 @@ module.exports = {
     status: {
         all: '所有',
         normal: '正常',
-        disable: '已禁用',
+        disabled: '已禁用',
         yes: '是',
         no: '否',
         un_declined: '未拒付',
@@ -170,6 +183,8 @@ module.exports = {
         payout_paid: '已划款',
         wait_review: '等待审核',
         review_reject: '审核拒绝',
+        invalid: '未认证',
+        valid: '已认证',
     },
     kind: {
         settle: '结算',
@@ -223,6 +238,7 @@ module.exports = {
         is_virtual: '虚拟产品',
         add_site: '增加网站',
     },
+
     home: {},
     profile: {},
     ticket: {

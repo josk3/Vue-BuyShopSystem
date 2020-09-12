@@ -1,4 +1,4 @@
-import {get, post} from '@/utils/request'
+import {get, post, postArray} from '@/utils/request'
 
 /**
  * 商户
@@ -21,4 +21,40 @@ export function updateMerSetup(params) {
 
 export function getBalances(params) {
     return post('/merchant/balances', params);
+}
+
+export function getAllMenus() {
+    return get('/merchant/menus', '');
+}
+
+export function roleSearch(params) {
+    return post('/merchant/role/search', params);
+}
+
+export function addRole(params) {
+    return postArray('/merchant/role/add', params);
+}
+
+export function updateRole(params) {
+    return post('/merchant/role/update', params);
+}
+
+export function userSearch(params) {
+    return post('/merchant/user/search', params);
+}
+
+export function addUser(params) {
+    return post('/merchant/user/add', params);
+}
+
+export function updateUser(params) {
+    return post('/merchant/user/update', params);
+}
+
+export function disableUser(params) {
+    return post('/merchant/user/disable', params);
+}
+
+export function enableUser(params) {
+    return post('/merchant/user/enable', params);
 }

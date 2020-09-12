@@ -25,13 +25,28 @@ function demoUserInfo() {
                     "name": "home",
                     "path": "/",
                     "meta": null,
-                    "children": null,
+                    "hidden": false,
+                    "children": [
+                        {
+                            "name": "home_trade_report",
+                            "path": "/report/last24Hours",
+                            "meta": null,
+                            "hidden": true
+                        },
+                        {
+                            "name": "can_view_balance",
+                            "path": "/merchant/balances",
+                            "meta": null,
+                            "hidden": true
+                        }
+                    ],
                     "have_show_child": false
                 },
                 {
                     "name": "active_account",
                     "path": "/merchant/active_account",
                     "meta": null,
+                    "hidden": false,
                     "children": null,
                     "have_show_child": false
                 },
@@ -39,6 +54,7 @@ function demoUserInfo() {
                     "name": "trade_manage",
                     "path": "/trade/manage",
                     "meta": null,
+                    "hidden": false,
                     "children": null,
                     "have_show_child": false
                 },
@@ -46,6 +62,7 @@ function demoUserInfo() {
                     "name": "refund_select",
                     "path": "/refund/search",
                     "meta": null,
+                    "hidden": false,
                     "children": null,
                     "have_show_child": false
                 },
@@ -53,6 +70,7 @@ function demoUserInfo() {
                     "name": "decline_manage",
                     "path": "/decline/manage",
                     "meta": null,
+                    "hidden": false,
                     "children": null,
                     "have_show_child": false
                 },
@@ -60,16 +78,19 @@ function demoUserInfo() {
                     "name": "payout_select",
                     "path": "/payout/search",
                     "meta": null,
+                    "hidden": false,
                     "children": [
                         {
                             "name": "payout_apply",
                             "path": "/payout/apply",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         },
                         {
                             "name": "payout_history",
                             "path": "/payout/history",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         }
                     ],
                     "have_show_child": true
@@ -78,16 +99,19 @@ function demoUserInfo() {
                     "name": "finance_select",
                     "path": "/finance/select",
                     "meta": null,
+                    "hidden": false,
                     "children": [
                         {
                             "name": "finance_search",
                             "path": "/finance/search",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         },
                         {
                             "name": "settle_search",
                             "path": "/settle/search",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         }
                     ],
                     "have_show_child": true
@@ -96,6 +120,7 @@ function demoUserInfo() {
                     "name": "fast_pay",
                     "path": "/fast_pay/index",
                     "meta": null,
+                    "hidden": false,
                     "children": null,
                     "have_show_child": false
                 },
@@ -103,23 +128,34 @@ function demoUserInfo() {
                     "name": "delivery_manage",
                     "path": "/delivery/manage",
                     "meta": null,
-                    "children": null,
+                    "hidden": false,
+                    "children": [
+                        {
+                            "name": "delivery_download",
+                            "path": "/delivery/download",
+                            "meta": null,
+                            "hidden": true
+                        }
+                    ],
                     "have_show_child": false
                 },
                 {
                     "name": "risk_manage",
                     "path": "/risk/manage",
                     "meta": null,
+                    "hidden": false,
                     "children": [
                         {
                             "name": "risk_area",
                             "path": "/risk/area",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         },
                         {
                             "name": "blacklist",
                             "path": "/risk/blacklist",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         }
                     ],
                     "have_show_child": true
@@ -128,6 +164,7 @@ function demoUserInfo() {
                     "name": "dispute_manage",
                     "path": "/dispute/manage",
                     "meta": null,
+                    "hidden": false,
                     "children": null,
                     "have_show_child": false
                 },
@@ -135,31 +172,37 @@ function demoUserInfo() {
                     "name": "account_manage",
                     "path": "/account/manage",
                     "meta": null,
+                    "hidden": false,
                     "children": [
                         {
                             "name": "merchant_info",
                             "path": "/merchant/info",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         },
                         {
                             "name": "merchant_identity",
                             "path": "/merchant/identity",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         },
                         {
                             "name": "merchant_setup",
                             "path": "/merchant/setup",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         },
                         {
                             "name": "merchant_users",
                             "path": "/merchant/users",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         },
                         {
                             "name": "merchant_shop",
                             "path": "/merchant/shop",
-                            "meta": null
+                            "meta": null,
+                            "hidden": false
                         }
                     ],
                     "have_show_child": true
@@ -168,6 +211,7 @@ function demoUserInfo() {
                     "name": "support_ticket",
                     "path": "/support/ticket",
                     "meta": null,
+                    "hidden": false,
                     "children": null,
                     "have_show_child": false
                 },
@@ -175,6 +219,7 @@ function demoUserInfo() {
                     "name": "message_center",
                     "path": "/message/center",
                     "meta": null,
+                    "hidden": false,
                     "children": null,
                     "have_show_child": false
                 }
@@ -2956,10 +3001,9 @@ const proxy = {
                     count: 5,
                     page_num: req.body.page * 1 || 1,
                     page_size: 20,
-                    total: 0,
+                    total: 50,
                 },
-                list: [],
-                list1: [
+                list: [
                     {
                         site_id: 'wfljw342f2',
                         site_url: 'www.google.com',
@@ -3027,6 +3071,67 @@ const proxy = {
             status: 1,
             data: {}
         })
+    },
+    'POST /api/v1/merchant/role/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: [
+                    {
+                        role_uid: 'w454545',
+                        role_name: '客服1',
+                        role_menu: ['home', 'refund_select'],
+                        remark: 'wf3jw342f2',
+                        status: 1,
+                        created: '2020-01-01',
+                        updated: '2020-01-01',
+                    },
+                    {
+                        role_uid: 'w454534545',
+                        role_name: '客服3',
+                        role_menu: ['home', 'refund_select'],
+                        remark: 'wf3jw342f2',
+                        status: 1,
+                        created: '2020-01-01',
+                        updated: '2020-01-01',
+                    },
+                ]
+            }
+        })
+    },
+    'POST /api/v1/merchant/user/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: [
+                    {
+                        mer_uid: 'w454545',
+                        username: 'user11',
+                        email: 'wef4jl@x.com',
+                        phone: '21323',
+                        full_name: '昵称2',
+                        status: 1,
+                        email_status: 1,
+                        created: '2020-01-01',
+                    },
+                ]
+            }
+        })
+    },
+    'GET /api/v1/merchant/menus': (req, res) => {
+        return res.json(demoUserInfo());
     },
 
 }

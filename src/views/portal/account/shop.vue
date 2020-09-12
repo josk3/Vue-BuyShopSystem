@@ -15,7 +15,7 @@
                     <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                         <div class="mr-5 mt-1">
                             <el-button :type="tabData.page.total > 0 ? '' : 'success'"
-                                       @click="addShopBtn" size="small" class="float-right mr-2">
+                                       @click="addShopBtn" size="small" class="float-right mr-2" plain>
                                 <i class="el-icon-plus"></i> {{$t('shop.add_site')}}
                             </el-button>
                         </div>
@@ -75,7 +75,7 @@
                                       </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item :command="commandVal('edit', scope.row, scope.$index)">
-                                        {{$t('comm.edit')}}
+                                        <i class="el-icon-edit"></i> {{$t('comm.edit')}}
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
@@ -125,7 +125,7 @@
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
                 <el-button size="mini" @click="closeShopDialog()">取消</el-button>
-                <el-button size="mini" type="primary" @click="submitAddShop">提交退款</el-button>
+                <el-button size="mini" type="primary" @click="submitAddShop">提交网址</el-button>
             </div>
         </el-dialog>
     </div>
