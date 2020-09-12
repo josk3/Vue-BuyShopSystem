@@ -1,4 +1,4 @@
-import {post} from '@/utils/request'
+import {post, postArray} from '@/utils/request'
 
 /**
  * 结算
@@ -8,7 +8,7 @@ export function waitApply(params) {
 }
 
 export function payoutApply(params) {
-    return post('/payout/apply', params);
+    return postArray('/payout/apply', params);
 }
 
 export function payoutSearch(params) {

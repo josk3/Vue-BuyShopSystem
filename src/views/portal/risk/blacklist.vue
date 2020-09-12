@@ -20,13 +20,16 @@
                             style="width: 100%">
                         <el-table-column
                                 prop="trade_id"
-                                :label="$t('comm.trade_id')" width="210px">
+                                :label="$t('comm.trade_id')">
+                            <template v-slot="scope">
+                                {{scope.row.trade_id | nullToLine}}
+                            </template>
                         </el-table-column>
                         <el-table-column
                                 prop="kind"
                                 :label="$t('comm.blacklist_type')">
                             <template v-slot="scope">
-                                {{scope.row.kind | blacklistKind}}
+                                <strong>{{scope.row.kind | blacklistKind}}</strong>
                             </template>
                         </el-table-column>
                         <el-table-column
@@ -62,7 +65,7 @@
                                 :show-overflow-tooltip="true"
                                 :label="$t('comm.remark')">
                             <template v-slot="scope">
-                                {{scope.row.remark }}
+                                {{scope.row.remark | nullToLine }}
                             </template>
                         </el-table-column>
                         <el-table-column width="50" fixed="right">

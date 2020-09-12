@@ -135,6 +135,15 @@ export function postHandleError(url, params) {
     });
 }
 
+export function post(url, params) {
+    return service({
+        method: 'post',
+        url: url,
+        data: qs.stringify(params),
+        show_error_msg_dialog: true,
+    });
+}
+
 /**
  * 当有包含数组时
  qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'indices' })
@@ -144,7 +153,7 @@ export function postHandleError(url, params) {
  qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'repeat' })
  // 'a=b&a=c'
  */
-export function post(url, params) {
+export function postArray(url, params) {
     return service({
         method: 'post',
         url: url,
@@ -171,20 +180,22 @@ export function getHandleError(url, params) {
     });
 }
 
+//通过 request payload 发送, application/json 使用 @RequestBody 接收
 export function del(url, params) {
     return service({
         method: 'delete',
         url: url,
-        data: qs.stringify(params),
+        data: params,
         show_error_msg_dialog: true,
     });
 }
 
+//通过 request payload 发送, application/json 使用 @RequestBody 接收
 export function delHandleError(url, params) {
     return service({
         method: 'delete',
         url: url,
-        data: qs.stringify(params),
+        data: params,
         show_error_msg_dialog: true,
     });
 }

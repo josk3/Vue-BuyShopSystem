@@ -33,9 +33,9 @@
                             :label="$t('comm.trade_or_batch_id')" width="210px">
                         <template v-slot="scope">
                             <span v-if="scope.row.kind === 'settle' || scope.row.kind === 'depositSettle'">
-                                {{scope.row.batch_id}}
+                                {{scope.row.batch_id | nullToLine}}
                             </span>
-                            <span v-else >{{scope.row.trade_id}}</span>
+                            <span v-else >{{scope.row.trade_id | nullToLine}}</span>
                         </template>
                     </el-table-column>
                     <el-table-column
