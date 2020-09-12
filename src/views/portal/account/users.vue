@@ -105,6 +105,10 @@
                             :label="$t('user.full_name')">
                     </el-table-column>
                     <el-table-column
+                            prop="role_name"
+                            :label="$t('user.role_name')">
+                    </el-table-column>
+                    <el-table-column
                             prop="phone"
                             :show-overflow-tooltip="true"
                             :label="$t('comm.phone')">
@@ -202,11 +206,11 @@
                          :model="add_user"
                          :rules="rules" label-width="80px">
                     <el-form-item :label="$t('user.username')" prop="username">
-                        <el-input v-model="add_user.username"></el-input>
+                        <el-input v-model="add_user.username" :disabled="add_user.action === 'edit'"></el-input>
                     </el-form-item>
                     <el-form-item :label="$t('comm.email')" prop="email">
                         <el-input v-model="add_user.email"></el-input>
-                        *密码将发送至该邮箱
+                        <p v-show="add_user.action === 'add'" class="text-muted p-0 m-0">*密码将发送至该邮箱</p>
                     </el-form-item>
                     <el-form-item :label="$t('user.role_name')" prop="role_uid">
                         <el-select v-model="add_user.role_uid" placeholder="请选择用户组"
@@ -323,6 +327,9 @@
                 switch (command.action) {
                     case 'editRole':
                         this.openRoleDialog('edit', row)
+                        break;
+                    case 'editUser':
+                        this.openUserDialog('edit', row)
                         break;
                 }
             },

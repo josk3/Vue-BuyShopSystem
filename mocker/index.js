@@ -3122,6 +3122,8 @@ const proxy = {
                         email: 'wef4jl@x.com',
                         phone: '21323',
                         full_name: '昵称2',
+                        role_uid: 'w454534545',
+                        role_name: '客服3',
                         status: 1,
                         email_status: 1,
                         created: '2020-01-01',
