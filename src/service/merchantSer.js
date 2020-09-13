@@ -23,6 +23,7 @@ export function getBalances(params) {
     return post('/merchant/balances', params);
 }
 
+//--
 export function getAllMenus() {
     return get('/merchant/menus', '');
 }

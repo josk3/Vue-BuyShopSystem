@@ -13,7 +13,7 @@ const state = {
         email: null,
         second_login: null,
         status: null,
-        identifier_status: null,
+        identifier_status: 0,
         mer_no: null,
         notice_count: 0,
         popup: null,

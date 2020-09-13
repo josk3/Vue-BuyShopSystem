@@ -56,6 +56,8 @@ module.exports = {
         refund_amount: '退款金额',
         settlement_amount: '结算金额',
         settle_amount: '结算金额',
+        month_two_timer: '一个月两次',
+        month_four_timer: '一个月四次',
 
         trade_balance: '交易款',
         deposit_balance: '保证金',

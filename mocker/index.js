@@ -3135,6 +3135,60 @@ const proxy = {
     'GET /api/v1/merchant/menus': (req, res) => {
         return res.json(demoUserInfo());
     },
+    'GET /api/v1/merchant/info': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                info: {
+                    chargeback_fees: 18,
+                    created: "2020-08-07 23:53:09",
+                    declined_num: 0,
+                    email: "OzyeAgNpyB@test.com",
+                    expire_date: null,
+                    expire_date_fmt: "",
+                    expire_date_pretty: "",
+                    fixed_fees: 0.3,
+                    identity_status: 0,
+                    identity_validated: false,
+                    is_virtual: null,
+                    last_monthly_ecm: 0,
+                    max_ecm: null,
+                    md5_key: "q)Ico[lGvEHz",
+                    mer_no: "M70418",
+                    monitor_ecm: 0,
+                    name: null,
+                    normal_payout_day: 0,
+                    online: true,
+                    online_date: "2020-08-07 23:53:26",
+                    phone: "1663283804703",
+                    settlement_cycle: "monthFourTimer",
+                    status: 1,
+                    total_declined_num: 0,
+                    total_ecm: 0,
+                    trade_limit: null,
+                    updated: "2020-08-07 23:53:26",
+                    virtual: false,
+                },
+                bank: {
+                    bank_brand: '工商银行',
+                    bank_card_mobile: '1333323232',
+                    bank_id: 'bank_23r23r',
+                    bank_name: '上海工商银行xx支行',
+                    bank_photo: null,
+                    bank_swift_no: null,
+                    card_account_name: '李四一',
+                    card_no: '622988888888888888',
+                    card_type: '1',
+                    card_type_str: "个人",
+                    created: 1597560824000,
+                    disabled: false,
+                    mer_no: '4008',
+                    status: 1,
+                    updated: null,
+                }
+            }
+        })
+    },
 
 }
 let sleep = false;

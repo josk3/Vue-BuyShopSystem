@@ -334,3 +334,16 @@ export function shopStatus(val) {
             return i18n.t('status.review_reject')
     }
 }
+
+/**
+ * 结算日 -》解析成文字
+ */
+export function settleCycle(val) {
+    if (isEmpty(val)) return '--'
+    switch (val) {
+        case 'monthTwoTimer':
+            return i18n.t('comm.month_two_timer')
+        case 'monthFourTimer':
+            return i18n.t('comm.month_two_timer')
+    }
+}

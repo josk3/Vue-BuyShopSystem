@@ -72,11 +72,11 @@ export const routerUtils = {
         meta: {noCache: true}
     },
     'merchant_info': {
-        component: () => import('@/views/portal/risk/area'),
+        component: () => import('@/views/portal/account/info'),
         meta: {noCache: true}
     },
     'merchant_identity': {
-        component: () => import('@/views/portal/risk/blacklist'),
+        component: () => import('@/views/portal/account/identity'),
         meta: {noCache: true}
     },
     'merchant_setup': {

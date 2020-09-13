@@ -68,7 +68,7 @@
                         </el-popover>
                         <el-dropdown trigger="click">
                             <span class="el-dropdown-link text-white">
-                                {{ user.email }}<i class="el-icon-arrow-down el-icon--right"></i>
+                                ( {{ user.mer_no }} ) {{ user.email }}<i class="el-icon-arrow-down el-icon--right"></i>
                             </span>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item class="p-1 pl-3 pr-3">
