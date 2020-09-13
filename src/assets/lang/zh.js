@@ -240,6 +240,18 @@ module.exports = {
         is_virtual: '虚拟产品',
         add_site: '增加网站',
     },
+    bank: {
+        settle_bank: '结算银行卡',
+        add_bank: '增加银行卡',
+        name: '姓名/企业',
+        bank_name: '开户行名称',
+        card_no: '卡号',
+        card_type: '卡类型',
+        bank_card_mobile: '银行预留手机号',
+        bank_swift_no: '开户行号支行',
+        bank_swift_no_option: '开户行号支行(选填)',
+        bank_photo: '手持银行卡照片',
+    },
 
     home: {},
     profile: {},

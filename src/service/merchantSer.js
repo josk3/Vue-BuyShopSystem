@@ -23,6 +23,12 @@ export function getBalances(params) {
     return post('/merchant/balances', params);
 }
 
+
+//-
+export function addBank(params) {
+    return postArray('/merchant/bank/add', params);
+}
+
 //--
 export function getAllMenus() {
     return get('/merchant/menus', '');

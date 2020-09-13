@@ -3189,6 +3189,20 @@ const proxy = {
             }
         })
     },
+    'GET /api/v1/merchant/setup': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                notice: {
+                    "pay_ok_to_customer": "1",
+                    "pay_ok_to_merchant": "1",
+                    "complain_notice_mer": "1",
+                    "charge_back_notice_mer": "1",
+                    "refunded_to_customer": "1"
+                }
+            }
+        })
+    },
 
 }
 let sleep = false;

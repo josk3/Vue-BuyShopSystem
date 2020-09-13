@@ -71,33 +71,40 @@
             <!--            -->
             <el-card class="box-card wpy-card mb-2" shadow="never" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
-                    <span>结算银行卡</span>
+                    <span>{{$t('bank.settle_bank')}}</span>
                 </div>
                 <div class="row">
                     <div class="col-7">
-                        <div class="info-control-list">
-                            <div class="row"><label class="col-4">类型</label>
+                        <div v-if="bank" class="info-control-list">
+                            <div class="row"><label class="col-4">{{$t('bank.card_type')}}</label>
                                 <div class="col-8"><span>{{bank.card_type_str}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">姓名/企业</label>
+                            <div class="row"><label class="col-4">{{$t('bank.name')}}</label>
                                 <div class="col-8"><span>{{bank.card_account_name}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">开户行名称</label>
+                            <div class="row"><label class="col-4">{{$t('bank.bank_name')}}</label>
                                 <div class="col-8"><span>{{bank.bank_name}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">卡号</label>
+                            <div class="row"><label class="col-4">{{$t('bank.card_no')}}</label>
                                 <div class="col-8">
                                     <ShowMoreBtn :txt="bank.card_no"></ShowMoreBtn>
                                 </div>
                             </div>
-                            <div class="row"><label class="col-4">手机号</label>
+                            <div class="row"><label class="col-4">{{$t('bank.bank_card_mobile')}}</label>
                                 <div class="col-8"><span>{{bank.bank_card_mobile}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">状态</label>
+                            <div class="row"><label class="col-4">{{$t('comm.status')}}</label>
                                 <div class="col-8"><span>{{bank.status | validStatus}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">时间</label>
+                            <div class="row"><label class="col-4">{{$t('comm.created')}}</label>
                                 <div class="col-8"><span>{{bank.created | toDay}}</span></div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="p-3">
+                                <el-button type="primary" plain @click="addBankBtn">
+                                    {{$t('bank.add_bank')}}
+                                </el-button>
                             </div>
                         </div>
                     </div>
@@ -106,6 +113,71 @@
             <!--            -->
 
         </div>
+
+        <!--    d    -->
+        <el-dialog custom-class="wpy-dialog md-dialog bg-body"
+                   @close="closeBankDialog"
+                   :show-close="false" :close-on-click-modal="false"
+                   :title="$t('bank.add_bank')"
+                   :visible.sync="addBankDialogVisible">
+            <div>
+                <el-form ref="add_bank"
+                         :model="add_bank"
+                         :show-message="false"
+                         status-icon
+                         :rules="rules" label-width="140px" class="pl-1 pr-3 pt-3 pb-0">
+                    <el-form-item prop="name">
+                        <template slot="label">
+                            <el-popover
+                                    placement="top-start"
+                                    width="240"
+                                    trigger="hover"
+                                    content="银行卡所属于的姓名或公司名">
+                                <span slot="reference">{{ $t('bank.name') }} <i class="el-icon-warning-outline"></i></span>
+                            </el-popover>
+                        </template>
+                        <el-input v-model="add_bank.name"></el-input>
+                    </el-form-item>
+                    <el-form-item prop="bank_name">
+                        <template slot="label">
+                            <el-popover
+                                    placement="top-start"
+                                    width="240"
+                                    trigger="hover"
+                                    content="例如: 工商银行上海某某支行">
+                                <span slot="reference">{{ $t('bank.bank_name') }} <i class="el-icon-warning-outline"></i></span>
+                            </el-popover>
+                        </template>
+                        <el-input v-model="add_bank.bank_name"></el-input>
+                    </el-form-item>
+                    <el-form-item :label="$t('bank.card_no')" prop="card_no">
+                        <el-input v-model="add_bank.card_no"></el-input>
+                    </el-form-item>
+                    <el-form-item :label="$t('bank.card_type')" prop="card_type">
+                        <el-select v-model="add_bank.card_type" placeholder="请选择类型"
+                                   filterable clearable>
+                            <el-option
+                                    v-for="item in cardType"
+                                    :key="item.value"
+                                    :label="item.text"
+                                    :value="item.value">
+                                <span style="float: left">{{ item.text }}</span>
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item :label="$t('bank.bank_card_mobile')" prop="bank_card_mobile">
+                        <el-input v-model="add_bank.bank_card_mobile"></el-input>
+                    </el-form-item>
+                    <el-form-item :label="$t('bank.bank_swift_no_option')" prop="bank_swift_no">
+                        <el-input v-model="add_bank.bank_swift_no"></el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div slot="footer" class="dialog-footer" v-loading="loading">
+                <el-button size="mini" @click="closeBankDialog()">取消</el-button>
+                <el-button size="mini" type="primary" @click="submitAddBank">确认提交</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -114,7 +186,7 @@
     import user from "@/store/modules/user";
     import {mapState} from "vuex";
     import ShowMoreBtn from "@/components/ShowMoreBtn";
-    import {getMerInfo} from "@/service/merchantSer";
+    import {addBank, getMerInfo} from "@/service/merchantSer";
 
     export default {
         name: "merchant_info",
@@ -135,6 +207,19 @@
                 loading: false,
                 info: {},
                 bank: {},
+                //-
+                addBankDialogVisible: false,
+                cardType: this.cardTypeList(),
+                add_bank: this.initBankFormObj(),
+                rules: {
+                    name: [{required: true, message: '', trigger: 'blur'},],
+                    bank_name: [{required: true, trigger: 'blur'},],
+                    card_no: [{required: true, trigger: 'blur'},],
+                    card_type: [{required: true, trigger: 'blur'},],
+                    bank_card_mobile: [{required: true, trigger: 'blur'},],
+                },
+                //
+
             }
         },
         mounted() {
@@ -151,6 +236,60 @@
                     this.loading = false
                 })
             },
+            cardTypeList() {
+                return [
+                    {value: "00", text: "借记卡"},
+                    {value: "05", text: "基本户"},
+                    {value: "06", text: "一般户"},
+                ]
+            },
+            addBankBtn() {
+                this.openBankDialog('add', null)
+            },
+            openBankDialog(action) {
+                this.initBankForm()
+                this.add_bank.action = action
+                this.addBankDialogVisible = true
+            },
+            initBankFormObj() {
+                return {
+                    action: '',
+                    name: '',
+                    bank_name: '',
+                    card_no: '',
+                    card_type: '',
+                    bank_card_mobile: '',
+                    bank_swift_no: '',
+                    file: ''
+                }
+            },
+            initBankForm() {
+                this.add_bank = this.initBankFormObj()
+            },
+            closeBankDialog() {
+                this.addBankDialogVisible = false
+                this.$refs.add_bank.resetFields();//重置
+            },
+            submitAddBank() {
+                this.$refs['add_bank'].validate((valid) => {
+                    if (!valid) {
+                        return false;
+                    } else {
+                        //
+                        if (this.add_bank.action === 'add') {
+                            this.$data.loading = true
+                            addBank(this.add_bank).then(() => {
+                                this.$message.success(this.$i18n.t('comm.success').toString())
+                                this.loadMerInfo()
+                                this.closeBankDialog()
+                            }).finally(() => {
+                                this.$data.loading = false
+                            })
+                        }
+                    }
+                });
+            },
+            //-------
         },
     }
 </script>

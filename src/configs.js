@@ -28,6 +28,7 @@ module.exports = {
     notifyListPath: '/message/center/notify',
     forgetPwdPath: '/forget_pwd',
     registerPath: '/register',
+    ticketPath: '/support/ticket',
     termsPath: '/terms',
     apiCode: {
         needLogin: 7011,
