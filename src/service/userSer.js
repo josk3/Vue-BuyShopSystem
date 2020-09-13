@@ -1,5 +1,5 @@
 import {get, post, postHandleError} from '@/utils/request'
-import {isEmpty, isArray} from "@/utils/validate";
+import {isArray, isEmpty} from "@/utils/validate";
 
 export function hasPermission(perm, permissionLists) {
     if (isEmpty(permissionLists)) return false;
@@ -14,6 +14,14 @@ export function login(data) {
 
 export function getInfo(token) {
     return post('/user/info', {token: token});
+}
+
+export function getUserInfo() {
+    return get('/user/info', '');
+}
+
+export function updateUserInfo(params) {
+    return post('/user/update_info', params);
 }
 
 export function logout() {
@@ -50,4 +58,9 @@ export function resendForgetPwdEmail(data) {
 
 export function resetPwd(data) {
     return postHandleError('/password/reset', data);
+}
+
+//-
+export function updatePwd(data) {
+    return post('/password/update', data);
 }

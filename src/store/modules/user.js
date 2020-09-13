@@ -9,11 +9,12 @@ const state = {
     user: {
         uid: null,
         username: null,
-        name: null,
+        full_name: null,
         email: null,
         second_login: null,
         status: null,
         identifier_status: 0,
+        name: null,
         mer_no: null,
         notice_count: 0,
         popup: null,

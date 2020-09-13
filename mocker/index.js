@@ -16,6 +16,7 @@ function demoUserInfo() {
                 status: 1,
                 identifier_status: 0,
                 mer_no: '4008',
+                role_name: '管理员',
                 notice_count: 12,
                 popup: null,
             },
@@ -1181,6 +1182,9 @@ const proxy = {
         });
     },
     'POST /api/v1/user/info': (req, res) => {
+        return res.json(demoUserInfo());
+    },
+    'GET /api/v1/user/info': (req, res) => {
         return res.json(demoUserInfo());
     },
     'GET /api/v1/profile': (req, res) => {
@@ -3168,6 +3172,7 @@ const proxy = {
                     trade_limit: null,
                     updated: "2020-08-07 23:53:26",
                     virtual: false,
+                    mid_type: 'personal', //company
                 },
                 bank: {
                     bank_brand: '工商银行',
@@ -3199,6 +3204,49 @@ const proxy = {
                     "complain_notice_mer": "1",
                     "charge_back_notice_mer": "1",
                     "refunded_to_customer": "1"
+                }
+            }
+        })
+    },
+    'GET /api/v1/merchant/identity': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                detail: {
+                    "identity_reason": '图片不清楚',
+                    "name": "测试26",
+                    "identity_photo_a": "wef",
+                    "identity_photo_b": null,
+                    "identity_bank_photo": null,
+                    "identity_number": null,
+                    "identity_start_date": null,
+                    "identity_expire_date": null,
+                    "qq": null,
+                    "address": null,
+                    "zip_code": null,
+                    "shop_site": null,
+                    "company_name": null,
+                    "company_identity_photo": null,
+                    "company_identity_id": null,
+                    "company_start_date": null,
+                    "company_expire_date": null,
+                    "company_scope": null,
+                    "company_phone": null,
+                    "company_state": null,
+                    "company_city": null,
+                    "company_address": null,
+                    "product_info": null,
+                    "me_nickname": null,
+                    "profession": null,
+                    "sex": null,
+                    "identity_start_date_fmt": "",
+                    "identity_expire_date_fmt": "",
+                    "company_start_date_fmt": "",
+                    "company_expire_date_fmt": "",
+                    "identity_photo_b_url": "",
+                    "identity_bank_photo_url": "",
+                    "company_identity_photo_url": "",
+                    "identity_photo_a_url": "/mer/id_img?name=wef"
                 }
             }
         })

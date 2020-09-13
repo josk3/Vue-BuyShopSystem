@@ -133,10 +133,11 @@
                                     width="240"
                                     trigger="hover"
                                     content="银行卡所属于的姓名或公司名">
-                                <span slot="reference">{{ $t('bank.name') }} <i class="el-icon-warning-outline"></i></span>
+                                <span slot="reference">{{ $t('bank.name') }} <i
+                                        class="el-icon-warning-outline"></i></span>
                             </el-popover>
                         </template>
-                        <el-input v-model="add_bank.name"></el-input>
+                        <el-input v-model="add_bank.name" :disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item prop="bank_name">
                         <template slot="label">
@@ -145,7 +146,8 @@
                                     width="240"
                                     trigger="hover"
                                     content="例如: 工商银行上海某某支行">
-                                <span slot="reference">{{ $t('bank.bank_name') }} <i class="el-icon-warning-outline"></i></span>
+                                <span slot="reference">{{ $t('bank.bank_name') }} <i
+                                        class="el-icon-warning-outline"></i></span>
                             </el-popover>
                         </template>
                         <el-input v-model="add_bank.bank_name"></el-input>
@@ -224,6 +226,7 @@
         },
         mounted() {
             this.loadMerInfo();
+            this.add_bank.name = this.user.name
         },
         methods: {
             loadMerInfo() {
@@ -244,7 +247,13 @@
                 ]
             },
             addBankBtn() {
-                this.openBankDialog('add', null)
+                if (this.user.identifier_status !== 1) {
+                    this.$alert('请先完成账户激活认证', '', {
+                        confirmButtonText: '确定',
+                    });
+                } else {
+                    this.openBankDialog('add', null)
+                }
             },
             openBankDialog(action) {
                 this.initBankForm()

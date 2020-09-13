@@ -1,4 +1,4 @@
-import {get, post, postArray} from '@/utils/request'
+import {get, post, postArray, upload} from '@/utils/request'
 
 /**
  * 商户
@@ -9,6 +9,10 @@ export function getMerInfo() {
 
 export function getMerIdentity() {
     return get('/merchant/identity', ''); //当前登录状态下的mer
+}
+
+export function updateIdentity(params) {
+    return upload('/merchant/update/identity', params);
 }
 
 export function getMerSetup(type) {

@@ -133,6 +133,8 @@ module.exports = {
         mer_no: '商户号',
         role_name: '用户组',
         role_menu: '权限',
+        old_password: '老密码',
+        new_password: '新密码',
 
     },
     valid: {
