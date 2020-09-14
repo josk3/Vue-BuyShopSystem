@@ -13,20 +13,19 @@
                         <p class="text-center">{{$t('login.register_right_now')}}</p>
                         <el-form label-position="top" :rules="rules" ref="register" label-width="90px"
                                  :model="register">
-                            <el-form-item label="用户名" prop="username">
+                            <el-form-item :label="$t('user.username')" prop="username">
                                 <el-input v-model="register.username"></el-input>
                             </el-form-item>
                             <el-form-item :label="$t('comm.email_or_phone')" prop="email_or_phone">
                                 <el-input v-model="register.email_or_phone"></el-input>
                             </el-form-item>
-                            <el-form-item label="密码" prop="password">
+                            <el-form-item :label="$t('user.password')" prop="password">
                                 <el-input v-model="register.password" type="password"></el-input>
                             </el-form-item>
                             <el-form-item prop="terms">
                                 <el-checkbox label="" :checked="register.terms" v-model="register.terms"
                                              name="term"></el-checkbox>
-                                <span class="small"> 我已阅读同意《<router-link :to="configs.termsPath">服务条款</router-link>》和
-                                    《<router-link :to="configs.termsPath">法律声明</router-link>》</span>
+                                <span class="small"> {{$t('login.reg_terms[0]')}}《<router-link :to="configs.termsPath">{{$t('login.reg_terms[1]')}}</router-link>》</span>
                             </el-form-item>
 
                             <el-form-item>
@@ -44,9 +43,9 @@
                             <div>
                                 <div class="mb-4 font-weight-bold">{{$t('user.mer_no')}} {{ res.mer_no }}</div>
                                 <p class="mb-3 text-green"><i class="el-icon-circle-check"></i>
-                                    已发送一封激活邮件</p>
+                                    {{$t('login.has_send_active_email')}}</p>
                                 <p class="mb-3">
-                                    到您注册的邮箱 {{ register.email_or_phone }}, 请打开邮件激活。
+                                    {{ register.email_or_phone }}
                                 </p>
                             </div>
                             <div class="mb-3">
@@ -71,11 +70,11 @@
                             <div class="mb-4 mt-2">
                                 <div class="mb-4 font-weight-bold">{{$t('user.mer_no')}} {{ res.mer_no }}</div>
                                 <el-form :inline="true">
-                                    <el-form-item label="短信验证码">
-                                        <el-input type="phone" v-model="phoneCode" placeholder="短信验证码"></el-input>
+                                    <el-form-item :label="$t('login.sms_valid_code')">
+                                        <el-input type="phone" v-model="phoneCode" :placeholder="$t('login.sms_valid_code')"></el-input>
                                     </el-form-item>
                                     <el-form-item>
-                                        <el-button type="primary" @click="activePhoneCode">提交</el-button>
+                                        <el-button type="primary" @click="activePhoneCode">{{$t('comm.submit')}}</el-button>
                                     </el-form-item>
                                 </el-form>
                             </div>
@@ -104,12 +103,12 @@
                         {{ $t('comm.success') }}
                     </h4>
                     <h2>{{$t('user.mer_no')}}: {{ res.mer_no }}</h2>
-                    <p class="mt-4 font-weight-bold">请记下您的商户号，登录时使用</p>
+                    <p class="mt-4 font-weight-bold">{{$t('login.remember_you_merchant_no')}}</p>
                 </div>
 
             </div>
             <div class="mt-4 text-center">
-                <span v-if="!submitOk" class="small text-muted">已经有账号?</span>
+                <span v-if="!submitOk" class="small text-muted">{{$t('comm.has_a_account')}}</span>
                 <router-link :to="configs.loginPath"
                              class="btn btn-sm p-2 pl-1 pr-4 btn-link wpy-btn">
                     {{ $t('comm.login') }}
@@ -143,7 +142,7 @@
         data() {
             var emailOrPhone = (rule, value, callback) => {
                 if (value === '') {
-                    callback(new Error('请输入手机号或邮箱'));
+                    callback(new Error(this.validMsg('comm.email_or_phone')));
                 } else {
                     if (!isEmpty(value)) value = value.trim();
                     if (/^1\d{10}$/.test(value)) {
@@ -156,7 +155,7 @@
                         const validator = new Schema(descriptor);
                         validator.validate({email: value}, (errors) => {
                             if (errors) {
-                                callback(new Error('请填写正确的手机号或邮箱'));
+                                callback(new Error(this.$i18n.t('valid.bad.input_valid_email_or_phone').toString()));
                             }
                             this.$data.useEmail = true
                             // validation passed
@@ -189,20 +188,20 @@
                 regSuccess: false,
                 rules: {
                     username: [
-                        {required: true, message: '请输入用户名', trigger: 'blur'},
-                        {min: 5, max: 20, message: '长度在 5 到 20 个字符', trigger: 'blur'},
+                        {required: true, message: this.validMsg('user.username'), trigger: 'blur'},
+                        {min: 5, max: 20, message: this.$i18n.t('valid.bad.length_5_20'), trigger: 'blur'},
                         {
                             type: 'string', pattern: /^[a-zA-Z0-9@_\-.]+$/,
-                            message: '英文字母数字或邮箱', trigger: 'change'
+                            message: this.$i18n.t('valid.bad.only_en_number_email'), trigger: 'change'
                         }
                     ],
                     email_or_phone: [
-                        {required: true, message: '请输入手机号或邮箱', trigger: 'change'},
+                        {required: true, message: this.validMsg('comm.email_or_phone'), trigger: 'change'},
                         {validator: emailOrPhone, trigger: ['blur']}
                     ],
                     password: [
-                        {required: true, message: '请输入密码', trigger: 'blur'},
-                        {min: 6, max: 25, message: '长度不能少于6位', trigger: 'blur'},
+                        {required: true, message: this.validMsg('user.password'), trigger: 'blur'},
+                        {min: 6, max: 25, message: this.$i18n.t('valid.bad.min_length_6'), trigger: 'blur'},
                     ],
                     terms: [
                         {validator: termCheck, trigger: ['blur', 'change']},
@@ -211,6 +210,9 @@
             }
         },
         methods: {
+            validMsg(name) {
+                return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
+            },
             submitRegister() {
                 this.$refs['register'].validate((valid) => {
                     if (!valid) {

@@ -2,7 +2,7 @@
     <div class="d-flex flex-column h-100" v-loading="loading">
 
         <div class="text-center login-box">
-            <form class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" method="post" onsubmit="return false">
+            <form class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" action="" method="post" @submit.prevent="submitLogin">
                 <h1 class="h3 mb-3 font-weight-normal">
                     <svg-icon icon-class="wintopay_icon_color" style="width: 45px;height: 29px;"/>
                     {{ $t('comm.merchant_login') }}
@@ -33,7 +33,7 @@
                         </router-link>
                     </el-link>
                 </div>
-                <el-button type="primary"
+                <el-button type="primary" native-type="submit"
                            class="btn-block wpy-btn"
                            @click="submitLogin"
                            :loading="loading">{{ $t('comm.login') }}
@@ -85,33 +85,46 @@
             }
         },
         methods: {
+            validMsg(name) {
+                return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
+            },
             submitLogin() {
-                try {
-                    this.loading = true
-                    this.$store.dispatch('user/login', this.userLogin)
-                        .then(() => {
-                            let redirect;
-                            if (!isEmpty(this.redirect) && this.redirect !== configs.loginPath) {
-                                let findRouterPath = findPath('/' + this.redirect, this.menus);
-                                if (isEmpty(findRouterPath)) {//在路由有存在
-                                    redirect = configs.homePath
+                this.$data.errorMsg = ''
+                if (isEmpty(this.userLogin.mer_no)) {
+                    this.$data.errorMsg = this.validMsg('user.mer_no')
+                }else if (isEmpty(this.userLogin.username)) {
+                    this.$data.errorMsg = this.validMsg('user.username')
+                }else if (isEmpty(this.userLogin.password)) {
+                    this.$data.errorMsg = this.validMsg('user.password')
+                }else {
+                    try {
+                        this.loading = true
+                        this.$store.dispatch('user/login', this.userLogin)
+                            .then(() => {
+                                let redirect;
+                                if (!isEmpty(this.redirect) && this.redirect !== configs.loginPath) {
+                                    let findRouterPath = findPath('/' + this.redirect, this.menus);
+                                    if (isEmpty(findRouterPath)) {//在路由有存在
+                                        redirect = configs.homePath
+                                    } else {
+                                        redirect = this.redirect
+                                    }
                                 } else {
-                                    redirect = this.redirect
+                                    redirect = configs.homePath
                                 }
-                            } else {
-                                redirect = configs.homePath
-                            }
-                            this.$router.push({path: redirect})
-                            //this.$message.success('登录成功')
+                                this.$router.push({path: redirect})
+                                //this.$message.success('登录成功')
+                            })
+                            .catch((e) => {
+                                this.$data.errorMsg = e.message
+                            }).finally(() => {
+                            this.loading = false
                         })
-                        .catch((e) => {
-                            this.$data.errorMsg = e.message
-                        }).finally(() => {
-                        this.loading = false
-                    })
-                } catch (e) {
-                    console.log(e)
+                    } catch (e) {
+                        console.log(e)
+                    }
                 }
+                return false
             }
         },
         watch: {

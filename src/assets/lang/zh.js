@@ -7,6 +7,7 @@ module.exports = {
         "re_login": "重新登录",
         "forget_pwd": "忘记密码?",
         "not_a_account": "还没有账号?",
+        "has_a_account": "已经有账号?",
         "register_now": "立即注册",
         "register": "注册",
         "logout": "退出登录",
@@ -35,6 +36,7 @@ module.exports = {
         "refund_ing": "退款中",
         "wait_review": "等待审核",
         "review_reject": "审核没有通过",
+        "submit": "提交",
 
         //
         "trade_id": "流水号",
@@ -124,6 +126,7 @@ module.exports = {
         "delivery_download": "物流下载",
         "404": "404",
         "401": "401",
+        "terms": "条款",
 
     },
     "user": { //跟用户相关
@@ -138,8 +141,13 @@ module.exports = {
 
     },
     "valid": {
+        "required_field": "请输入{0}",
         "bad": {
-            "username_or_password": "用户名或密码错误"
+            "username_or_password": "用户名或密码错误",
+            "only_en_number_email": "英文字母数字或邮箱",
+            "min_length_6": "长度不能少于6位",
+            "length_5_20": "长度在 5 到 20 个字符",
+            "input_valid_email_or_phone": "请填写正确的手机号或邮箱",
         },
         "fail": {
             "password_more_miss": "密码错误次数过多,请找回密码或联系管理员"
@@ -168,6 +176,10 @@ module.exports = {
         "new_password": "新密码",
         "confirm_new_password": "确认新密码",
         "register_right_now": "立即创建您的账号",
+        "reg_terms": ["我已阅读同意", "服务条款"],
+        "remember_you_merchant_no": "请记下您的商户号，登录时使用",
+        "has_send_active_email": "已发送一封激活邮件",
+        "sms_valid_code": "短信验证码",
     },
     "status": {
         "all": "所有",

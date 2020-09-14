@@ -7,6 +7,7 @@ module.exports = {
         "re_login": "Try login again",
         "forget_pwd": "Forget password?",
         "not_a_account": "No account yet?",
+        "has_a_account": "Have Account?",
         "register_now": "Register Now",
         "register": "Register",
         "logout": "Logout",
@@ -35,6 +36,7 @@ module.exports = {
         "refund_ing": "Refunding",
         "wait_review": "Wait Review",
         "review_reject": "Review reject",
+        "submit": "Submit",
 
         //
         "trade_id": "Trade ID",
@@ -124,6 +126,7 @@ module.exports = {
         "delivery_download": "Deliver Download",
         "404": "404",
         "401": "401",
+        "terms": "Terms",
 
     },
     "user": { //跟用户相关
@@ -138,8 +141,13 @@ module.exports = {
 
     },
     "valid": {
+        "required_field": "{0} is null",
         "bad": {
-            "username_or_password": "Username or password fail"
+            "username_or_password": "Username or password fail",
+            "only_en_number_email": "A-z,Number,Email",
+            "min_length_6": "Min length 6",
+            "length_5_20": "Length 5-20",
+            "input_valid_email_or_phone": "Invalid email or phone",
         },
         "fail": {
             "password_more_miss": "Too many incorrect passwords, please retrieve the password or contact the administrator"
@@ -168,6 +176,11 @@ module.exports = {
         "new_password": "New password",
         "confirm_new_password": "Confirm password",
         "register_right_now": "Register Now",
+        "reg_terms": ["I read agree", "Service Terms"],
+        "remember_you_merchant_no": "Remember you merchant ID",
+        "has_send_active_email": "Send a active email,pleas check",
+        "sms_valid_code": "Sms Valid Code",
+
     },
     "status": {
         "all": "All",
