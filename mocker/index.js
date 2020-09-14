@@ -117,14 +117,14 @@ function demoUserInfo() {
                     ],
                     "have_show_child": true
                 },
-                {
-                    "name": "fast_pay",
-                    "path": "/fast_pay/index",
-                    "meta": null,
-                    "hidden": false,
-                    "children": null,
-                    "have_show_child": false
-                },
+                // {
+                //     "name": "fast_pay",
+                //     "path": "/fast_pay/index",
+                //     "meta": null,
+                //     "hidden": false,
+                //     "children": null,
+                //     "have_show_child": false
+                // },
                 {
                     "name": "delivery_manage",
                     "path": "/delivery/manage",
