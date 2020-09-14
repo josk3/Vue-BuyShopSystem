@@ -87,7 +87,7 @@
             </el-card>
         </div>
         <!--    d    -->
-        <el-dialog custom-class="wpy-dialog sm-dialog bg-body"
+        <el-dialog custom-class="wpy-dialog md-dialog bg-body"
                    @close="closeShopDialog"
                    :show-close="false" :close-on-click-modal="false"
                    :title="$t('shop.add_site')"
@@ -95,13 +95,29 @@
             <div>
                 <el-form ref="add_shop"
                          :model="add_shop"
-                         :rules="rules" label-width="80px" class="p-1 pt-3 pb-0">
-                    <el-form-item :label="$t('shop.site_url')" prop="site_url">
-                        <el-input v-model="add_shop.site_url" placeholder="请输入网站域名"></el-input>
+                         :rules="rules" label-width="100px" class="p-1 pt-3 pb-0">
+                    <el-form-item prop="site_url">
+                        <template slot="label">
+                            <el-popover
+                                    placement="top-start"
+                                    width="240"
+                                    trigger="hover"
+                                    content="请正确认真选择 http 或 https, 如果错误将影响回调">
+                                <span slot="reference">{{ $t('shop.site_url') }}
+                                    <i class="el-icon-warning-outline"></i></span>
+                            </el-popover>
+                        </template>
+                        <el-input v-model="add_shop.site_url" placeholder="请输入网站域名" class="input-with-select">
+                            <el-select v-model="add_shop.url_protocol" slot="prepend" placeholder="http协议"
+                                       filterable>
+                                <el-option label="http" value="http"><span style="float: left">http</span></el-option>
+                                <el-option label="https" value="https"><span style="float: left">https</span></el-option>
+                            </el-select>
+                        </el-input>
                     </el-form-item>
                     <el-form-item :label="$t('shop.site_system')" prop="site_system">
                         <el-select v-model="add_shop.site_system" placeholder="请选择网站系统"
-                                   filterable clearable>
+                                   filterable>
                             <el-option
                                     v-for="item in site_sys_list"
                                     :key="item.value"
@@ -111,9 +127,21 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item v-show="add_shop.site_system === 'Other'" :label="$t('shop.return_url')"
+                    <el-form-item v-show="customer_return_url.includes(add_shop.site_system)"
                                   prop="return_url">
-                        <el-input v-model="add_shop.return_url" placeholder="请输入返回网址"></el-input>
+                        <template slot="label">
+                            <el-popover
+                                    placement="top-start"
+                                    width="240"
+                                    trigger="hover"
+                                    content="订单状态更新的回调通知url">
+                                <span slot="reference">{{ $t('shop.return_url') }}
+                                    <i class="el-icon-warning-outline"></i></span>
+                            </el-popover>
+                        </template>
+                        <el-input v-model="add_shop.return_url" placeholder="请输入返回网址">
+                            <template slot="prepend">{{add_shop.url_protocol}}://</template>
+                        </el-input>
                     </el-form-item>
                     <el-form-item prop="is_virtual">
                         <el-checkbox :label="$t('shop.is_virtual')"
@@ -148,7 +176,7 @@
         },
         data() {
             var checkReturnUrl = (rule, value, callback) => {
-                if (this.$data.add_shop.site_system === 'Other' && isEmpty(value)) {
+                if (this.$data.customer_return_url.includes(this.$data.add_shop.site_system) && isEmpty(value)) {
                     callback(new Error('请输入返回网址'));
                 }
                 callback();
@@ -164,9 +192,13 @@
                 add_shop: this.initShopFormObj(),
                 addShopDialogVisible: false,
                 site_sys_list: [],
+                customer_return_url: ['Other', 'Java', 'Php', 'Asp'],
                 rules: {
                     site_url: [
                         {required: true, message: '请输入网址', trigger: 'blur'},
+                    ],
+                    url_protocol: [
+                        {required: true, message: '请选择http协议', trigger: 'blur'},
                     ],
                     site_system: [
                         {required: true, message: '请选择网站系统', trigger: 'blur'},
@@ -237,12 +269,13 @@
                     this.add_shop.site_system = data.site_system
                     this.add_shop.return_url = data.return_url
                     this.add_shop.is_virtual = data.is_virtual
+                    this.add_shop.url_protocol = data.url_protocol
                 }
                 this.add_shop.action = action
                 this.addShopDialogVisible = true
             },
             initShopFormObj() {
-                return {action: '', site_id: '', site_url: '', site_system: '', return_url: '', is_virtual: ''}
+                return {action: '', site_id: '', site_url: '', url_protocol: '', site_system: '', return_url: '', is_virtual: ''}
             },
             initShopForm() {
                 this.add_shop = this.initShopFormObj()
@@ -253,6 +286,9 @@
             },
             submitAddShop() {
                 this.$refs['add_shop'].validate((valid) => {
+                    if (isEmpty(this.add_shop.url_protocol)) {
+                        this.$message.error('请选择http协议')
+                    }
                     if (!valid) {
                         return false;
                     } else {
@@ -282,6 +318,11 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    .input-with-select .el-select .el-input {
+        width: 100px;
+    }
+    .input-with-select .el-input-group__prepend {
+        background-color: #fff;
+    }
 </style>

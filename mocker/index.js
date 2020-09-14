@@ -3030,6 +3030,7 @@ const proxy = {
                         review_reason: '',
                         updated: '',
                         is_virtual: 0,
+                        url_protocol: 'https',
                         operator_name: '张三',
                     },
                     {
@@ -3042,6 +3043,7 @@ const proxy = {
                         review_reason: '',
                         updated: '',
                         is_virtual: 1,
+                        url_protocol: 'https',
                         operator_name: '张三',
                     },
                 ]

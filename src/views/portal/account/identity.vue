@@ -133,7 +133,9 @@
                                                    @img="updateImg($event, 'company_identity_photo')"></UploadImgOnce>
                                 </el-form-item>
                                 <el-form-item label="公司营业范围" prop="company_scope">
-                                    <el-input v-model="detail.company_scope" :disabled="hold_edit"></el-input>
+                                    <el-input type="textarea"
+                                              :rows="2"
+                                              v-model="detail.company_scope" :disabled="hold_edit"></el-input>
                                 </el-form-item>
                                 <el-form-item label="公司地址" prop="company_address">
                                     <el-input v-model="detail.company_address" :disabled="hold_edit"></el-input>
