@@ -5,22 +5,22 @@
                 <span class="float-left pl-3">您好, {{ user.full_name }}</span>
                 <span class="float-right pr-3">最近登录: {{ user.second_login }}</span>
             </div>
-            <div class="col-12 mb-3">
-                <el-card shadow="hover" class="box-card p-3"
+            <div class="col-12 mb-3 home-top-info-box">
+                <el-card shadow="hover" class="box-card p-2 pl-3"
                          :body-style="{ padding: '0px' }">
                     <div class="row p-0">
                         <div class="col-11 row">
-                            <div class="col-4">
-                                <i class="el-icon-info text-blue"></i> 您有1笔拒付交易未处理
+                            <div class="col-4 item">
+                                <i class="el-icon-info text-blue"></i> 最近一个月拒付率 {{ user.monitor_ecm }}
                             </div>
-                            <div class="col-4">
-                                <i class="el-icon-info text-blue"></i> 您有1笔拒付交易未处理
+                            <div class="col-4 item">
+                                <i class="el-icon-info text-blue"></i> 账号总拒付率 {{ user.total_ecm }}
                             </div>
-                            <div class="col-4">
-                                <i class="el-icon-info text-blue"></i> 您有1笔拒付交易未处理
+                            <div class="col-4 item">
+                                <i class="el-icon-info text-blue"></i> 总拒付订单笔数 {{ user.total_declined_num }}
                             </div>
                         </div>
-                        <div class="col-1">
+                        <div class="col-1" v-if="user.notice_count > 0">
                             <el-button class="float-right" type="text" size="mini">
                                 <router-link :to="configs.notifyListPath">{{ $t('comm.view_more') }}</router-link>
                             </el-button>
@@ -36,89 +36,91 @@
                     </div>
                 </el-card>
             </div>
-            <div class="col-12 row" style="min-height: 155px">
-                <div v-if="permViewBalance" class="col-7" v-loading="balanceLoading">
-                    <el-card class="box-card wpy-card sm-card box-pane pb-4" shadow="hover"
-                             :body-style="{ padding: '0px' }">
-                        <div class="row">
-                            <div class="col-8 pr-0">
-                                <el-tabs v-model="paneName" type="border-card"
-                                         @tab-click="paneClick">
-                                    <el-tab-pane :label="$t('comm.trade_balance')" name="trade_balance"></el-tab-pane>
-                                    <el-tab-pane :label="$t('comm.deposit_balance')"
-                                                 name="deposit_balance"></el-tab-pane>
-                                </el-tabs>
-                            </div>
-                            <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
-                                <div class="mr-5 mt-1">
-                                    <router-link :to="configs.financePath">
-                                        <el-button type="text">查看明细</el-button>
-                                    </router-link>
+            <div class="col-12" style="min-height: 155px">
+                <div class="row">
+                    <div v-if="permViewBalance" class="col-7" v-loading="balanceLoading">
+                        <el-card class="box-card wpy-card sm-card box-pane pb-4" shadow="hover"
+                                 :body-style="{ padding: '0px' }">
+                            <div class="row">
+                                <div class="col-8 pr-0">
+                                    <el-tabs v-model="paneName" type="border-card"
+                                             @tab-click="paneClick">
+                                        <el-tab-pane :label="$t('comm.trade_balance')" name="trade_balance"></el-tab-pane>
+                                        <el-tab-pane :label="$t('comm.deposit_balance')"
+                                                     name="deposit_balance"></el-tab-pane>
+                                    </el-tabs>
+                                </div>
+                                <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
+                                    <div class="mr-5 mt-1">
+                                        <router-link :to="configs.financePath">
+                                            <el-button type="text">查看明细</el-button>
+                                        </router-link>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <el-table
-                                stripe
-                                :class="tabData.list.length ? '' : 'wpy-z-table'"
-                                :data="tabData.list"
-                                :header-row-style="{background:'#2C2E2F'}"
-                                style="width: 100%">
-                            <el-table-column
-                                    prop="currency"
-                                    label="类型">
-                                <template>
-                                    {{ $t('comm.' + paneName) }}
-                                </template>
-                            </el-table-column>
-                            <el-table-column
-                                    prop="currency"
-                                    :label="$t('comm.currency')">
-                                <template v-slot="scope">
-                                    {{scope.row.currency}}
-                                </template>
-                            </el-table-column>
-                            <el-table-column
-                                    prop="balance"
-                                    :label="$t('comm.balance')">
-                                <template v-slot="scope">
-                                    {{scope.row.balance}} {{scope.row.currency}}
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </el-card>
-                </div>
-                <div class="col-5 pr-0" v-loading="announceLoading">
-                    <el-card class="box-card wpy-card sm-card bg-body" shadow="hover">
-                        <div slot="header" class="clearfix">
-                            <span>公告</span>
-                            <el-button style="float: right; padding: 3px 0" type="text">
-                                <router-link :to="configs.msgCenterPath">{{ $t('comm.more') }}</router-link>
-                            </el-button>
-                        </div>
-                        <div>
                             <el-table
-                                    size="mini"
-                                    max-height="200"
-                                    :show-header="false"
-                                    :highlight-current-row="true"
-                                    class="hide-table-title pointer"
-                                    :class="announceList ? '' : 'wpy-z-table'"
-                                    :data="announceList"
-                                    @row-click="goAnnounceDetail"
+                                    stripe
+                                    :class="tabData.list.length ? '' : 'wpy-z-table'"
+                                    :data="tabData.list"
+                                    :header-row-style="{background:'#2C2E2F'}"
                                     style="width: 100%">
-                                <el-table-column width="220px" :show-overflow-tooltip="true">
-                                    <template v-slot="scope">
-                                        {{scope.row.title}}
+                                <el-table-column
+                                        prop="currency"
+                                        label="类型">
+                                    <template>
+                                        {{ $t('comm.' + paneName) }}
                                     </template>
                                 </el-table-column>
-                                <el-table-column>
+                                <el-table-column
+                                        prop="currency"
+                                        :label="$t('comm.currency')">
                                     <template v-slot="scope">
-                                        {{scope.row.time}}
+                                        {{scope.row.currency}}
+                                    </template>
+                                </el-table-column>
+                                <el-table-column
+                                        prop="balance"
+                                        :label="$t('comm.balance')">
+                                    <template v-slot="scope">
+                                        {{scope.row.balance}} {{scope.row.currency}}
                                     </template>
                                 </el-table-column>
                             </el-table>
-                        </div>
-                    </el-card>
+                        </el-card>
+                    </div>
+                    <div class="col-5 pr-0" v-loading="announceLoading">
+                        <el-card class="box-card wpy-card sm-card bg-body" shadow="hover">
+                            <div slot="header" class="clearfix">
+                                <span>公告</span>
+                                <el-button style="float: right; padding: 3px 0" type="text">
+                                    <router-link :to="configs.msgCenterPath">{{ $t('comm.more') }}</router-link>
+                                </el-button>
+                            </div>
+                            <div>
+                                <el-table
+                                        size="mini"
+                                        max-height="200"
+                                        :show-header="false"
+                                        :highlight-current-row="true"
+                                        class="hide-table-title pointer"
+                                        :class="announceList ? '' : 'wpy-z-table'"
+                                        :data="announceList"
+                                        @row-click="goAnnounceDetail"
+                                        style="width: 100%">
+                                    <el-table-column width="220px" :show-overflow-tooltip="true">
+                                        <template v-slot="scope">
+                                            {{scope.row.title}}
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column>
+                                        <template v-slot="scope">
+                                            {{scope.row.time}}
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+                        </el-card>
+                    </div>
                 </div>
             </div>
 
@@ -205,6 +207,12 @@
 </script>
 
 <style>
+    .home-top-info-box{
+        font-size: 14px;
+    }
+    .home-top-info-box .item{
+        padding-top:5px;
+    }
     .home-last-trade-report {
     }
 </style>

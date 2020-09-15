@@ -18,6 +18,9 @@ const state = {
         mer_no: null,
         notice_count: 0,
         popup: null,
+        monitor_ecm: 0,//实时拒付率-当月(每月清)
+        total_ecm: 0,//商户总拒付率
+        total_declined_num: 0,//总拒付笔数
     },
     roles: [],
     menus: [],//侧边目录

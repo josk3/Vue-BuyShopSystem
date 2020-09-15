@@ -20,6 +20,9 @@ function demoUserInfo() {
                 role_name: '管理员',
                 notice_count: 12,
                 popup: null,
+                monitor_ecm: 0.2,//实时拒付率-当月(每月清)
+                total_ecm: 0.3,//商户总拒付率
+                total_declined_num: 5,//总拒付笔数
             },
             token: "00e3c2a5d87a9e34ef2e879309cb1a31bf3dc56eb0f77fe4ba",
             menus: [
