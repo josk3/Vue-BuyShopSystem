@@ -9,7 +9,7 @@ export function hasPermission(perm, permissionLists) {
 }
 
 export function login(data) {
-    return post('/login', data);
+    return postHandleError('/login', data);
 }
 
 export function getInfo(token) {
