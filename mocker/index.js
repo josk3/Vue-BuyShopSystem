@@ -11,6 +11,7 @@ function demoUserInfo() {
                 uid: 1,
                 username: 'kenny',
                 full_name: '张三',
+                is_master: true,
                 email: '',
                 phone: '13818181818',
                 second_login: '2020-01-01 00:00:00',
