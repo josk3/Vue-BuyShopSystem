@@ -118,7 +118,7 @@
             </div>
         </div>
 
-        <AliValidCode :visible="validCodeVisible" @callback="validCodeCallback"></AliValidCode>
+        <AliValidCode :visible="validCodeVisible" @close="validCodeClose" @callback="validCodeCallback"></AliValidCode>
     </div>
 </template>
 
@@ -290,6 +290,9 @@
             validCodeCallback(jsonData) {
                 this.register.valid_sig = jsonData
                 this.submitRegister()
+            },
+            validCodeClose(){
+                this.validCodeVisible = false
             },
 
         },

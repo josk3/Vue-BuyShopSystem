@@ -44,7 +44,6 @@
         },
         watch: {
             img_url(newVal) {
-                console.log(this.img_url)
                 if (!isEmpty(newVal) && newVal !== '--') this.is_show = true
             }
         },

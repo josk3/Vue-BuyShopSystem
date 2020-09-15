@@ -19,7 +19,6 @@
 
     import AliImageValid from "@/utils/AliImageValid";
     import configs from "@/configs";
-    import {isEmpty} from "@/utils/validate";
     import {mapState} from "vuex";
 
     export default {
@@ -41,7 +40,9 @@
         },
         watch: {
             visible(newVal) {
-                this.validCodeDialogVisible = isEmpty(newVal) ? false : newVal
+                if (newVal === true) {
+                    this.openValidCodeDialog()
+                }
             },
         },
         mounted() {
@@ -53,6 +54,7 @@
             },
             closeValidCodeDialog() {
                 this.validCodeDialogVisible = false
+                this.$emit('close')
             },
             validCodeCallback(data) {
                 this.closeValidCodeDialog()
@@ -60,6 +62,7 @@
             },
             validCodeDialogOpened() {
                 AliImageValid(configs.aliImageValidAppKey, this.validCodeCallback, this.lang)
+                this.$emit('opened')
             },
         },
 

@@ -52,7 +52,7 @@
 
             </form>
         </div>
-        <AliValidCode :visible="validCodeVisible" @callback="validCodeCallback"></AliValidCode>
+        <AliValidCode :visible="validCodeVisible" @close="validCodeClose" @callback="validCodeCallback"></AliValidCode>
     </div>
 </template>
 
@@ -122,11 +122,10 @@
                                 //this.$message.success('登录成功')
                             })
                             .catch((res) => {
+                                this.$data.errorMsg = res.message
                                 if (res.code === configs.apiCode.needValidCode) {
                                     //验证码
                                     this.validCodeVisible = true
-                                } else {
-                                    this.$data.errorMsg = res.message
                                 }
                             }).finally(() => {
                             this.loading = false
@@ -141,6 +140,9 @@
             validCodeCallback(jsonData) {
                 this.userLogin.valid_sig = jsonData
                 this.submitLogin()
+            },
+            validCodeClose(){
+                this.validCodeVisible = false
             },
 
         },
