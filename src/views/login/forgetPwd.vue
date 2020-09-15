@@ -23,12 +23,13 @@
                                               :placeholder="$t('user.new_password')" name="password-wpy"></el-input>
                                 </el-form-item>
                             </el-form>
-                            <el-button type="primary" @click="forgetPwdByPhoneCode">{{$t('comm.submit')}}
+                            <el-button type="primary" @click="forgetValidPhoneBtn">{{$t('comm.submit')}}
                             </el-button>
                         </div>
                         <div class="mb-12">
                             <span class="small">{{ $t('login.resolver_email_fail[0]') }}</span>
-                            <el-link type="primary" @click="resendForgetPwdEmailBtn">
+                            <span v-show="!showTime" class="count"> {{countTime}} s</span>
+                            <el-link v-show="showTime" type="primary" @click="resendForgetPwdEmailBtn">
                                 {{ $t('login.resolver_email_fail[1]') }}
                             </el-link>
                         </div>
@@ -41,7 +42,8 @@
                         </div>
                         <div class="mb-5">
                             <span class="small">{{ $t('login.resolver_email_fail[0]') }}</span>
-                            <el-link type="primary" @click="confirmResendDialog = true">
+                            <span v-show="!showTime" class="count"> {{countTime}} s</span>
+                            <el-link v-show="showTime" type="primary" @click="confirmResendDialog = true">
                                 {{ $t('login.resolver_email_fail[1]') }}
                             </el-link>
                             <el-dialog
@@ -86,7 +88,7 @@
 
                 </form>
             </div>
-            <div v-if="!submitOk" class="mt-4 text-center">
+            <div class="mt-4 text-center">
                 <router-link :to="configs.loginPath"
                              class="btn btn-sm p-2 pl-1 pr-4 btn-link wpy-btn">
                     {{ $t('comm.login') }}
@@ -118,6 +120,9 @@
         },
         data() {
             return {
+                countTime: 0,
+                showTime: true,
+                timer: null,
                 validCodeVisible: false,
                 validCodeFrom: 'reset',
                 forgetPhoneForm: {phone_code: '', new_pwd: ''},
@@ -140,15 +145,37 @@
             }
         },
         methods: {
+            getCoded() {
+                const TIME_COUNT = 60;
+                if (!this.timer) {
+                    this.countTime = TIME_COUNT;
+                    this.showTime = false;
+                    this.timer = setInterval(() => {
+                        if (this.countTime > 0 && this.countTime <= TIME_COUNT) {
+                            this.countTime--;
+                        } else {
+                            this.showTime = true;
+                            clearInterval(this.timer);
+                            this.timer = null;
+                        }
+                    }, 1000)
+                }
+            },
             submitForgetPwd() {
                 this.loading = true
                 this.errorMsg = ''
                 this.form.action = ''
                 forgetPwd(this.form).then(() => {
                     this.$data.submitOk = true
+                    this.getCoded()
                     this.$message.success(this.$i18n.t('comm.success').toString())
-                }).catch((e) => {
-                    this.$data.errorMsg = e.message
+                }).catch((res) => {
+                    if (res.code === configs.apiCode.needValidCode) {
+                        //验证码
+                        this.showValidCode('reset')
+                    } else {
+                        this.$data.errorMsg = res.message
+                    }
                 }).finally(() => {
                     this.loading = false
                 })
@@ -160,10 +187,16 @@
                 this.form.action = 'resend'
                 resendForgetPwdCode(this.form).then(() => {
                     this.$data.submitOk = true
+                    this.getCoded()
                     this.$message.success(this.$i18n.t('comm.success').toString())
-                }).catch((e) => {
+                }).catch((res) => {
                     this.hasResendEmail = true
-                    this.$data.errorMsg = e.message
+                    if (res.code === configs.apiCode.needValidCode) {
+                        //验证码
+                        this.resendForgetPwdEmailBtn()
+                    } else {
+                        this.$data.errorMsg = res.message
+                    }
                 }).finally(() => {
                     this.loading = false
                 })
@@ -191,6 +224,9 @@
             resendForgetPwdEmailBtn() {
                 this.showValidCode('resend_email')
             },
+            forgetValidPhoneBtn(){
+                this.showValidCode('valid_phone')
+            },
             forgetPwdByPhoneCode() {
                 this.$refs['phone_form'].validate((valid) => {
                     if (!valid) {
@@ -203,11 +239,17 @@
                         req.new_pwd = this.forgetPhoneForm.new_pwd
                         forgetValidPhoneCode(req).then(() => {
                             this.$data.submitOk = true
+                            this.getCoded()
                             this.$message.success(this.$i18n.t('comm.success').toString())
                             this.$router.push({name: 'login'})
-                        }).catch((e) => {
+                        }).catch((res) => {
                             this.hasResendEmail = true
-                            this.$data.errorMsg = e.message
+                            if (res.code === configs.apiCode.needValidCode) {
+                                //验证码
+                                this.forgetValidPhoneBtn()
+                            } else {
+                                this.$data.errorMsg = res.message
+                            }
                         }).finally(() => {
                             this.loading = false
                         })
@@ -223,7 +265,10 @@
                 if (this.validCodeFrom === 'reset') {
                     this.form.valid_sig = jsonData
                     this.submitForgetPwd()
-                } else {
+                } else if (this.validCodeFrom === 'valid_phone') {
+                    this.form.valid_sig = jsonData
+                    this.forgetPwdByPhoneCode()
+                }else {
                     this.form.valid_sig = jsonData
                     this.submitResendForgetPwdCode()
                 }

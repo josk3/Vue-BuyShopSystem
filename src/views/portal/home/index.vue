@@ -2,8 +2,8 @@
     <div v-loading="loading">
         <div class="row p-0">
             <div class="col-12 mt-1 mb-2" style="font-size: 80%;">
-                <span class="float-left pl-3">您好, {{ user.full_name }}</span>
-                <span class="float-right pr-3">最近登录: {{ user.second_login }}</span>
+                <span class="float-left pl-3">{{$t('home.hello')}}, {{ user.full_name }}</span>
+                <span class="float-right pr-3">{{$t('home.last_login')}}: {{ user.second_login | toFullTime }}</span>
             </div>
             <div class="col-12 mb-3 home-top-info-box">
                 <el-card shadow="hover" class="box-card p-2 pl-3"
@@ -11,13 +11,15 @@
                     <div class="row p-0">
                         <div class="col-11 row">
                             <div class="col-4 item">
-                                <i class="el-icon-info text-blue"></i> 最近一个月拒付率 {{ user.monitor_ecm }}
+                                <i class="el-icon-info text-blue"></i> {{$t('home.last_month_ecm')}} {{ user.monitor_ecm
+                                }}
                             </div>
                             <div class="col-4 item">
-                                <i class="el-icon-info text-blue"></i> 账号总拒付率 {{ user.total_ecm }}
+                                <i class="el-icon-info text-blue"></i> {{$t('home.total_ecm')}} {{ user.total_ecm }}
                             </div>
                             <div class="col-4 item">
-                                <i class="el-icon-info text-blue"></i> 总拒付订单笔数 {{ user.total_declined_num }}
+                                <i class="el-icon-info text-blue"></i> {{$t('home.total_chargeback_order')}} {{
+                                user.total_declined_num }}
                             </div>
                         </div>
                         <div class="col-1" v-if="user.notice_count > 0">
@@ -45,7 +47,8 @@
                                 <div class="col-8 pr-0">
                                     <el-tabs v-model="paneName" type="border-card"
                                              @tab-click="paneClick">
-                                        <el-tab-pane :label="$t('comm.trade_balance')" name="trade_balance"></el-tab-pane>
+                                        <el-tab-pane :label="$t('comm.trade_balance')"
+                                                     name="trade_balance"></el-tab-pane>
                                         <el-tab-pane :label="$t('comm.deposit_balance')"
                                                      name="deposit_balance"></el-tab-pane>
                                     </el-tabs>
@@ -53,7 +56,7 @@
                                 <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                                     <div class="mr-5 mt-1">
                                         <router-link :to="configs.financePath">
-                                            <el-button type="text">查看明细</el-button>
+                                            <el-button type="text">{{$t('comm.view_more')}}</el-button>
                                         </router-link>
                                     </div>
                                 </div>
@@ -66,7 +69,7 @@
                                     style="width: 100%">
                                 <el-table-column
                                         prop="currency"
-                                        label="类型">
+                                        :label="$t('comm.type')">
                                     <template>
                                         {{ $t('comm.' + paneName) }}
                                     </template>
@@ -91,7 +94,7 @@
                     <div class="col-5 pr-0" v-loading="announceLoading">
                         <el-card class="box-card wpy-card sm-card bg-body" shadow="hover">
                             <div slot="header" class="clearfix">
-                                <span>公告</span>
+                                <span>{{$t('nav.announce')}}</span>
                                 <el-button style="float: right; padding: 3px 0" type="text">
                                     <router-link :to="configs.msgCenterPath">{{ $t('comm.more') }}</router-link>
                                 </el-button>
@@ -207,12 +210,14 @@
 </script>
 
 <style>
-    .home-top-info-box{
+    .home-top-info-box {
         font-size: 14px;
     }
-    .home-top-info-box .item{
-        padding-top:5px;
+
+    .home-top-info-box .item {
+        padding-top: 4px;
     }
+
     .home-last-trade-report {
     }
 </style>

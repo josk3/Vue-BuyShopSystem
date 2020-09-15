@@ -37,6 +37,7 @@ module.exports = {
         "wait_review": "Wait Review",
         "review_reject": "Review reject",
         "submit": "Submit",
+        "type": "Type",
 
         //
         "trade_id": "Trade ID",
@@ -269,7 +270,13 @@ module.exports = {
         "bank_photo": "手持银行卡照片",
     },
 
-    "home": {},
+    "home": {
+        "last_month_ecm": "Last month ECM",
+        "total_ecm": "Account Total ECM",
+        "total_chargeback_order": "Account total Chargeback order",
+        "hello": "Hi",
+        "last_login": "Last Login",
+    },
     "profile": {},
     "ticket": {
         "other": "Other",

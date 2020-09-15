@@ -121,7 +121,9 @@ function tryReLogin() {
             type: 'warning'
         }).then(() => {
         store.dispatch('user/resetToken').then(() => {
-            location.reload()
+            //this.$router.push({name: 'login', params: {v: '1'}})
+            //location.reload()
+            location.href = configs.loginPath
         })
     })
 }

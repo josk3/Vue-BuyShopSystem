@@ -37,6 +37,7 @@ module.exports = {
         "wait_review": "等待审核",
         "review_reject": "审核没有通过",
         "submit": "提交",
+        "type": "类型",
 
         //
         "trade_id": "流水号",
@@ -269,7 +270,13 @@ module.exports = {
         "bank_photo": "手持银行卡照片",
     },
 
-    "home": {},
+    "home": {
+        "last_month_ecm": "最近一个月拒付率",
+        "total_ecm": "账号总拒付率",
+        "total_chargeback_order": "总拒付订单笔数",
+        "hello": "您好",
+        "last_login": "最近登录",
+    },
     "profile": {},
     "ticket": {
         "other": "其他",

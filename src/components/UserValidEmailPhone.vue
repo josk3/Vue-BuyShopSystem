@@ -1,5 +1,11 @@
 <template>
     <div>
+        <el-alert v-if="errorMsg" :title="errorMsg"
+                  type="error"
+                  class="text-center"
+                  style="background: none;margin-bottom: 10px;"
+                  center show-icon :closable="false">
+        </el-alert>
         <div v-if="useEmail">
             <div>
                 <div class="mb-4 font-weight-bold">{{$t('user.mer_no')}} {{ userData.mer_no }}</div>
@@ -11,7 +17,8 @@
             </div>
             <div class="mb-3">
                 <span class="small">{{ $t('login.resolver_email_fail[0]') }}</span>
-                <el-link type="primary" @click="confirmResendDialog = true">
+                <span v-show="!showTime" class="count"> {{countTime}} s</span>
+                <el-link v-show="showTime" type="primary" @click="confirmResendDialog = true">
                     {{ $t('login.resolver_email_fail[1]') }}
                 </el-link>
                 <el-dialog
@@ -43,8 +50,9 @@
             </div>
             <div class="mb-3">
                 <span class="small">{{ $t('login.resolver_email_fail[0]') }}</span>
+                <span v-show="!showTime" class="count"> {{countTime}} s</span>
                 <!--      phone          -->
-                <el-link type="primary" @click="resendPhoneBtn">
+                <el-link v-show="showTime" type="primary" @click="resendPhoneBtn">
                     {{ $t('login.resolver_email_fail[1]') }}
                 </el-link>
             </div>
@@ -82,6 +90,9 @@
         },
         data() {
             return {
+                countTime: 0,
+                showTime: true,
+                timer: null,
                 userData: {},
                 validCodeVisible: false,
                 validCodeFrom: 'register',
@@ -96,10 +107,27 @@
             this.renderUser(this.user_info)
         },
         methods: {
+            getCoded() {
+                const TIME_COUNT = 60;
+                if (!this.timer) {
+                    this.countTime = TIME_COUNT;
+                    this.showTime = false;
+                    this.timer = setInterval(() => {
+                        if (this.countTime > 0 && this.countTime <= TIME_COUNT) {
+                            this.countTime--;
+                        } else {
+                            this.showTime = true;
+                            clearInterval(this.timer);
+                            this.timer = null;
+                        }
+                    }, 1000)
+                }
+            },
             renderUser(newVal){
                 if (!isEmpty(newVal)) {
                     this.useEmail = !isEmpty(newVal.user.email);
                     this.userData = newVal.user
+                    this.getCoded()
                 }else {
                     this.userData = {}
                 }
@@ -120,8 +148,14 @@
                 this.confirmResendDialog = false
                 resendRegisterPhone(this.userData).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
-                }).catch((e) => {
-                    this.$data.errorMsg = e.message
+                    this.getCoded()
+                }).catch((res) => {
+                    if (res.code === configs.apiCode.needValidCode) {
+                        //验证码
+                        this.resendPhoneBtn()
+                    } else {
+                        this.$data.errorMsg = res.message
+                    }
                 }).finally(() => {
                     this.loading = false
                 })
@@ -139,8 +173,13 @@
                 activePhone(data).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
                     this.$emit('success', true)
-                }).catch((e) => {
-                    this.$data.errorMsg = e.message
+                }).catch((res) => {
+                    if (res.code === configs.apiCode.needValidCode) {
+                        //验证码
+                        this.activePhoneBtn()
+                    } else {
+                        this.$data.errorMsg = res.message
+                    }
                 }).finally(() => {
                     this.loading = false
                 })
@@ -152,8 +191,14 @@
                 this.confirmResendDialog = false
                 resendRegisterEmail(this.userData).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
-                }).catch((e) => {
-                    this.$data.errorMsg = e.message
+                    this.getCoded()
+                }).catch((res) => {
+                    if (res.code === configs.apiCode.needValidCode) {
+                        //验证码
+                        this.resendEmailBtn()
+                    } else {
+                        this.$data.errorMsg = res.message
+                    }
                 }).finally(() => {
                     this.loading = false
                 })
