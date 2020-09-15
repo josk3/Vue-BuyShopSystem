@@ -9,6 +9,7 @@
                           center show-icon :closable="false">
                 </el-alert>
                 <div v-if="submitOk">
+            <!--          byPhone          -->
                     <div v-if="!useEmail">
                         <div class="mb-12 mt-2">
                             <el-form ref="phone_form"

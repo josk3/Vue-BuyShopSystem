@@ -10,6 +10,9 @@
                     </h5>
                 </div>
                 <div class="col-10">
+                    <div class="float-left">
+                        <small class="mt-1" style="font-size: 8px;color:#9e9e9e;">beta</small>
+                    </div>
                     <nav class="my-2 my-md-0 mr-md-3 float-right">
                         <el-dropdown trigger="click"
                                      class="mr-4"
