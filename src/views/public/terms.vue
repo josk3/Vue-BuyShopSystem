@@ -1,8 +1,14 @@
 <template>
     <div class="container-md" style="max-width: 750px">
-        <div class="p-5">
+        <div class="d-block">
+            <el-button type="text" @click="goBack"><i class="el-icon-arrow-left"></i> {{$t('comm.go_back')}}</el-button>
+        </div>
+        <div class="p-1">
             <div class="mb-5">
-                条款
+                <h3 class="text-center">条款</h3>
+                <div class="content">
+                    1.x
+                </div>
             </div>
             <div class="mb-3 text-center">
                 <router-link :to="configs.loginPath"
@@ -37,6 +43,11 @@
         },
         data() {
             return {}
+        },
+        methods: {
+            goBack() {
+                this.$router.go(-1)
+            },
         }
     }
 </script>

@@ -1156,7 +1156,16 @@ const proxy = {
     'POST /api/v1/login': (req, res) => {
         const {password, username} = req.body;
         if (password === 'Test123456' && username === 'admin') {
-            return res.json(demoUserInfo());
+            if (req.body.valid_sig) {
+                return res.json(demoUserInfo());
+            }else {
+                return res.status(200).json({
+                    status: 0,
+                    code: 7002,
+                    message: '登录失败 ' + new Date().getMilliseconds(),
+                    i18n: 'login.username.fail'
+                });
+            }
         } else {
             return res.status(200).json({
                 status: 0,
@@ -1168,7 +1177,8 @@ const proxy = {
     },
     'POST /api/v1/register': (req, res) => {
         return res.json({
-            status: 1,
+            status: req.body.valid_sig ? 1 : 0,
+            code: req.body.valid_sig ? 0 : 7002,
             message: '注册成功',
             data: {uid: 'wef823fo2', mer_no: 'M892834'},
             i18n: 'success',

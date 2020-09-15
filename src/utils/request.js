@@ -77,7 +77,7 @@ service.interceptors.response.use(
                     })
                 }
             }
-            return Promise.reject(new Error(res.message || 'Error'))
+            return Promise.reject(!isEmpty(res.code) ? res : new Error(res.message || 'Error'))
         } else {
             if (res.code === configs.apiCode.reloadUserData) {
                 if (res.data.user !== undefined) {

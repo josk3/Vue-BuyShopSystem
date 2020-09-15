@@ -2,7 +2,8 @@
     <div class="d-flex flex-column h-100" v-loading="loading">
 
         <div class="text-center login-box">
-            <form class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" action="" method="post" @submit.prevent="submitLogin">
+            <form class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" action="" method="post"
+                  @submit.prevent="submitLogin">
                 <h1 class="h3 mb-3 font-weight-normal">
                     <svg-icon icon-class="wintopay_icon_color" style="width: 45px;height: 29px;"/>
                     {{ $t('comm.merchant_login') }}
@@ -51,6 +52,7 @@
 
             </form>
         </div>
+        <AliValidCode :visible="validCodeVisible" @callback="validCodeCallback"></AliValidCode>
     </div>
 </template>
 
@@ -59,9 +61,11 @@
     import {findPath} from "@/router/routerUtils";
     import {mapState} from "vuex";
     import {isEmpty} from "@/utils/validate";
+    import AliValidCode from "@/components/AliValidCode";
 
     export default {
         name: "login",
+        components: {AliValidCode},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 sidebar: state => state.app.sidebar,
@@ -74,11 +78,13 @@
         },
         data() {
             return {
+                validCodeVisible: false,
                 errorMsg: '',
                 userLogin: {
                     mer_no: 'M70447',
                     username: 'admin',
-                    password: 'Test123456'
+                    password: 'Test123456',
+                    valid_sig: {},
                 },
                 redirect: '',
                 loading: false,
@@ -92,11 +98,11 @@
                 this.$data.errorMsg = ''
                 if (isEmpty(this.userLogin.mer_no)) {
                     this.$data.errorMsg = this.validMsg('user.mer_no')
-                }else if (isEmpty(this.userLogin.username)) {
+                } else if (isEmpty(this.userLogin.username)) {
                     this.$data.errorMsg = this.validMsg('user.username')
-                }else if (isEmpty(this.userLogin.password)) {
+                } else if (isEmpty(this.userLogin.password)) {
                     this.$data.errorMsg = this.validMsg('user.password')
-                }else {
+                } else {
                     try {
                         this.loading = true
                         this.$store.dispatch('user/login', this.userLogin)
@@ -115,8 +121,13 @@
                                 this.$router.push({path: redirect})
                                 //this.$message.success('登录成功')
                             })
-                            .catch((e) => {
-                                this.$data.errorMsg = e.message
+                            .catch((res) => {
+                                if (res.code === configs.apiCode.needValidCode) {
+                                    //验证码
+                                    this.validCodeVisible = true
+                                } else {
+                                    this.$data.errorMsg = res.message
+                                }
                             }).finally(() => {
                             this.loading = false
                         })
@@ -125,7 +136,13 @@
                     }
                 }
                 return false
-            }
+            },
+            //---
+            validCodeCallback(jsonData) {
+                this.userLogin.valid_sig = jsonData
+                this.submitLogin()
+            },
+
         },
         watch: {
             $route: {
@@ -143,13 +160,15 @@
 </script>
 <style scoped src="../../../public/static/css/login.css"/>
 <style>
-    .login-box .form-signin{
+    .login-box .form-signin {
         padding: 25px;
     }
-    .login-box .form-signin .firs-input,.login-box .form-signin .mid-clear{
-        margin-bottom:0;
+
+    .login-box .form-signin .firs-input, .login-box .form-signin .mid-clear {
+        margin-bottom: 0;
     }
-    .login-box .form-signin .firs-input, .login-box .form-signin .mid-clear, .login-box .form-signin .last-input{
+
+    .login-box .form-signin .firs-input, .login-box .form-signin .mid-clear, .login-box .form-signin .last-input {
         border-left: 0;
         border-right: 0;
         border-radius: 0;

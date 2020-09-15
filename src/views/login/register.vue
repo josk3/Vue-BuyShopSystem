@@ -71,10 +71,12 @@
                                 <div class="mb-4 font-weight-bold">{{$t('user.mer_no')}} {{ res.mer_no }}</div>
                                 <el-form :inline="true">
                                     <el-form-item :label="$t('login.sms_valid_code')">
-                                        <el-input type="phone" v-model="phoneCode" :placeholder="$t('login.sms_valid_code')"></el-input>
+                                        <el-input type="phone" v-model="phoneCode"
+                                                  :placeholder="$t('login.sms_valid_code')"></el-input>
                                     </el-form-item>
                                     <el-form-item>
-                                        <el-button type="primary" @click="activePhoneCode">{{$t('comm.submit')}}</el-button>
+                                        <el-button type="primary" @click="activePhoneCode">{{$t('comm.submit')}}
+                                        </el-button>
                                     </el-form-item>
                                 </el-form>
                             </div>
@@ -115,6 +117,8 @@
                 </router-link>
             </div>
         </div>
+
+        <AliValidCode :visible="validCodeVisible" @callback="validCodeCallback"></AliValidCode>
     </div>
 </template>
 
@@ -124,14 +128,16 @@
     import {isEmpty} from "@/utils/validate";
     import Schema from 'async-validator';
     import {activePhone, registerMer, resendRegisterEmail, resendRegisterPhone} from "@/service/userSer";
+    import AliValidCode from "@/components/AliValidCode";
 
     export default {
         name: "register",
+        components: {AliValidCode},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
-                sidebar: state => state.app.sidebar,
                 device: state => state.app.device,
                 rf: state => state.app.rf,
+                lang: state => state.app.lang,//多语言
             }),
             configs() {
                 return configs;
@@ -169,6 +175,7 @@
                 callback();
             };
             return {
+                validCodeVisible: false,
                 errorMsg: '',
                 loading: false,
                 regBtnDisable: false,
@@ -176,12 +183,13 @@
                 useEmail: false,
                 confirmResendDialog: false,
                 register: {
-                    username: '',
-                    email_or_phone: '',
-                    password: '',
+                    username: 'admin',
+                    email_or_phone: 'test@test.com',
+                    password: '1243424234',
                     valid_code: '',
                     rf: this.rf,
                     terms: true,
+                    valid_sig: {},
                 },
                 res: {},
                 phoneCode: '',
@@ -225,8 +233,13 @@
                             this.$message.success(this.$i18n.t('comm.success').toString())
                             this.$data.submitOk = true
                             this.$data.res = response.data
-                        }).catch((e) => {
-                            this.$data.errorMsg = e.message
+                        }).catch((res) => {
+                            if (res.code === configs.apiCode.needValidCode) {
+                                //验证码
+                                this.validCodeVisible = true
+                            } else {
+                                this.$data.errorMsg = res.message
+                            }
                         }).finally(() => {
                             this.$data.loading = false
                         })
@@ -271,7 +284,14 @@
                 }).finally(() => {
                     this.loading = false
                 })
-            }
+            },
+
+            //---
+            validCodeCallback(jsonData) {
+                this.register.valid_sig = jsonData
+                this.submitRegister()
+            },
+
         },
 
     }

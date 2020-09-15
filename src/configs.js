@@ -15,6 +15,7 @@ module.exports = {
     //
     aboutUsUrl: 'https://www.wintopay.com/',
     contactUsUrl: 'https://www.wintopay.com/',
+    aliImageValidAppKey: 'FFFF0N00000000009051',
 
     anonAuthPages: ['/login', '/logout', '/404', '/401', '/500',
         '/register', '/forget_pwd', '/reset_pwd', '/active_email', '/terms'], //不用登录状态也能访问
@@ -32,7 +33,8 @@ module.exports = {
     termsPath: '/terms',
     apiCode: {
         needLogin: 7011,
-        reloadUserData: 7010,
+        reloadUserData: 7010,//用户状态或有新消息或数据有更新时
+        needValidCode: 7002,//当前操作需要验证码, 例如注册登录多次尝试失败时
     },
     perm: {
         home_trade_report: 'home_trade_report',
