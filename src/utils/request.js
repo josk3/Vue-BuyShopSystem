@@ -240,6 +240,7 @@ export function upload(url, formData, progressCallback) {
         method: 'post',
         url: url,
         data: formData,
+        timeout: 45000,
         show_error_msg_dialog: true,
         onUploadProgress: e => {
             if (!isEmpty(progressCallback)) progressCallback(((e.loaded / e.total * 100) | 0))

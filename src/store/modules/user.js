@@ -10,6 +10,7 @@ const state = {
         uid: null,
         username: null,
         full_name: null,
+        is_master: true,
         email: null,
         second_login: null,
         status: null,

@@ -7,10 +7,15 @@
                           style="background: none;margin-bottom: 10px;"
                           center show-icon :closable="false">
                 </el-alert>
-                <h3 v-if="ok" class="mb-3 text-green">
-                    <i class="el-icon-circle-check"></i>
-                    {{ $t('comm.success') }}
-                </h3>
+                <div v-if="ok" class="mb-3">
+                    <h3 class="text-green">
+                        <i class="el-icon-circle-check"></i>
+                        {{ $t('comm.success') }}
+                    </h3>
+                    <hr>
+                    {{$t('user.mer_no')}}: {{ merNo }}
+                    <p>{{$t('login.remember_you_merchant_no')}}</p>
+                </div>
             </div>
             <div class="mt-3">
                 <router-link :to="configs.loginPath"
@@ -43,6 +48,7 @@
                 errorMsg: '',
                 loading: false,
                 ok: false,
+                merNo: '',
                 form: {uid: '', code: ''}
             }
         },
@@ -55,8 +61,9 @@
             submitActiveEmail() {
                 this.loading = true
                 this.errorMsg = ''
-                activeEmail(this.form).then(() => {
+                activeEmail(this.form).then((res) => {
                     this.$data.ok = true
+                    this.$data.merNo = res.data.mer_no
                     this.$message.success(this.$i18n.t('comm.success').toString())
                 }).catch((e) => {
                     this.$data.errorMsg = e.message
