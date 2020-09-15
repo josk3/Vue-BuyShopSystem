@@ -52,16 +52,16 @@ export function forgetPwd(data) {
     return postHandleError('/password/forget', data);
 }
 
-export function resendForgetPwdEmail(data) {
-    return postHandleError('/password/forget/resend_email', data);
+export function resendForgetPwdCode(data) {
+    return postHandleError('/password/forget/resend_code', data);
 }
 
 export function forgetValidPhoneCode(data) {
     return postHandleError('/password/forget/valid_phone_code', data);
 }
 
-export function resetPwd(data) {
-    return postHandleError('/password/reset', data);
+export function forgetValidEmailCode(data) {
+    return postHandleError('/password/forget/valid_email_code', data);
 }
 
 //-

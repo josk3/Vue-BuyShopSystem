@@ -36,7 +36,7 @@
                                   :placeholder="$t('login.sms_valid_code')"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="activePhoneCode">{{$t('comm.submit')}}
+                        <el-button type="primary" @click="activePhoneBtn">{{$t('comm.submit')}}
                         </el-button>
                     </el-form-item>
                 </el-form>
@@ -127,6 +127,9 @@
                 })
             },
             //验证phone code
+            activePhoneBtn() {
+                this.showValidCode('active_phone')
+            },
             activePhoneCode() {
                 this.loading = true
                 this.errorMsg = ''
@@ -147,7 +150,7 @@
                 this.loading = true
                 this.errorMsg = ''
                 this.confirmResendDialog = false
-                resendRegisterEmail(this.res).then(() => {
+                resendRegisterEmail(this.userData).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
                 }).catch((e) => {
                     this.$data.errorMsg = e.message
@@ -162,7 +165,10 @@
                 this.validCodeFrom = type
             },
             validCodeCallback(jsonData) {
-                if (this.validCodeFrom === 'resend_email') {
+                if (this.validCodeFrom === 'active_phone') {
+                    this.userData.valid_sig = jsonData
+                    this.activePhoneCode()
+                }else if (this.validCodeFrom === 'resend_email') {
                     this.userData.valid_sig = jsonData
                     this.submitResendActiveEmail()
                 }else {

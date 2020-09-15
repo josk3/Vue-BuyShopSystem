@@ -1224,7 +1224,7 @@ const proxy = {
         console.log('---->', req.params.id)
         res.send({status: 'ok', message: '删除成功！'});
     },
-    'POST /api/v1/password/forget/resend_email': (req, res) => {
+    'POST /api/v1/password/forget/resend_code': (req, res) => {
         const {mer_no} = req.body;
         return res.json({
             status: mer_no === '4008' ? 1 : 0,

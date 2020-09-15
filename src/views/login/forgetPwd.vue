@@ -9,11 +9,11 @@
                           center show-icon :closable="false">
                 </el-alert>
                 <div v-if="submitOk">
-            <!--          byPhone          -->
+                    <!--          byPhone          -->
                     <div v-if="!useEmail">
-                        <div class="mb-12 mt-2">
+                        <div class="mb-12 mt-2 mb-4">
                             <el-form ref="phone_form"
-                                    :model="forgetPhoneForm" :rules="rules" label-width="100px">
+                                     :model="forgetPhoneForm" :rules="rules" label-width="100px">
                                 <el-form-item :label="$t('login.sms_valid_code')" prop="phone_code">
                                     <el-input type="phone" v-model="forgetPhoneForm.phone_code"
                                               :placeholder="$t('login.sms_valid_code')" name="phone_code"></el-input>
@@ -63,7 +63,7 @@
                         </p>
                     </div>
                 </div>
-    <!--       MAIN         -->
+                <!--       MAIN         -->
                 <form v-if="!submitOk" method="post" onsubmit="return false">
                     <font-awesome-icon icon="unlock-alt" size="3x" class="text-blue mb-3"/>
                     <p class="mb-3 text-muted">{{ $t('login.resolver_password') }}</p>
@@ -100,7 +100,7 @@
 <script>
     import configs from "@/configs";
     import {mapState} from "vuex";
-    import {forgetPwd, forgetValidPhoneCode, resendForgetPwdEmail} from "@/service/userSer";
+    import {forgetPwd, forgetValidPhoneCode, resendForgetPwdCode} from "@/service/userSer";
     import AliValidCode from "@/components/AliValidCode";
     import {isEmpty} from "@/utils/validate";
 
@@ -136,13 +136,14 @@
                 submitOk: false,
                 confirmResendDialog: false,
                 hasResendEmail: false,
-                form: {mer_no: '', email_or_phone: ''}
+                form: {action: '', mer_no: '', email_or_phone: ''}
             }
         },
         methods: {
             submitForgetPwd() {
                 this.loading = true
                 this.errorMsg = ''
+                this.form.action = ''
                 forgetPwd(this.form).then(() => {
                     this.$data.submitOk = true
                     this.$message.success(this.$i18n.t('comm.success').toString())
@@ -152,11 +153,12 @@
                     this.loading = false
                 })
             },
-            submitResendForgetPwdEmail() {
+            submitResendForgetPwdCode() {//email or phone
                 this.loading = true
                 this.errorMsg = ''
                 this.confirmResendDialog = false
-                resendForgetPwdEmail(this.form).then(() => {
+                this.form.action = 'resend'
+                resendForgetPwdCode(this.form).then(() => {
                     this.$data.submitOk = true
                     this.$message.success(this.$i18n.t('comm.success').toString())
                 }).catch((e) => {
@@ -174,7 +176,7 @@
                     this.$data.errorMsg = this.validMsg('user.mer_no')
                 } else if (isEmpty(this.form.email_or_phone)) {
                     this.$data.errorMsg = this.validMsg('comm.email_or_phone')
-                }else {
+                } else {
                     let val = this.form.email_or_phone
                     if (!isEmpty(val)) val = val.trim();
                     if (/^1\d{10}$/.test(val)) {
@@ -213,7 +215,7 @@
                 })
             },
             //---
-            showValidCode(type){
+            showValidCode(type) {
                 this.validCodeVisible = true
                 this.validCodeFrom = type
             },
@@ -221,12 +223,12 @@
                 if (this.validCodeFrom === 'reset') {
                     this.form.valid_sig = jsonData
                     this.submitForgetPwd()
-                }else {
+                } else {
                     this.form.valid_sig = jsonData
-                    this.submitResendForgetPwdEmail()
+                    this.submitResendForgetPwdCode()
                 }
             },
-            validCodeClose(){
+            validCodeClose() {
                 this.validCodeVisible = false
             },
 
