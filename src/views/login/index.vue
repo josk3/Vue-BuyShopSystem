@@ -81,9 +81,9 @@
                 validCodeVisible: false,
                 errorMsg: '',
                 userLogin: {
-                    mer_no: 'M70447',
-                    username: 'admin',
-                    password: 'Test123456',
+                    mer_no: '',
+                    username: '',
+                    password: '',
                     valid_sig: {},
                 },
                 redirect: '',

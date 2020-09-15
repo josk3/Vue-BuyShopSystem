@@ -9,33 +9,58 @@
                           center show-icon :closable="false">
                 </el-alert>
                 <div v-if="submitOk">
-                    <div v-if="!hasResendEmail">
-                        <p class="mb-3 text-green"><i class="el-icon-circle-check"></i>
-                            {{ $t('login.resolver_email_send[0]') }}</p>
-                        <p class="mb-4 small">{{ $t('login.resolver_email_send[1]') }}</p>
+                    <div v-if="!useEmail">
+                        <div class="mb-12 mt-2">
+                            <el-form ref="phone_form"
+                                    :model="forgetPhoneForm" :rules="rules" label-width="100px">
+                                <el-form-item :label="$t('login.sms_valid_code')" prop="phone_code">
+                                    <el-input type="phone" v-model="forgetPhoneForm.phone_code"
+                                              :placeholder="$t('login.sms_valid_code')"></el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('user.new_password')" prop="new_pwd">
+                                    <el-input type="password" v-model="forgetPhoneForm.new_pwd"
+                                              :placeholder="$t('user.new_password')"></el-input>
+                                </el-form-item>
+                            </el-form>
+                            <el-button type="primary" @click="forgetPwdByPhoneCode">{{$t('comm.submit')}}
+                            </el-button>
+                        </div>
+                        <div class="mb-12">
+                            <span class="small">{{ $t('login.resolver_email_fail[0]') }}</span>
+                            <el-link type="primary" @click="resendForgetPwdEmailBtn">
+                                {{ $t('login.resolver_email_fail[1]') }}
+                            </el-link>
+                        </div>
                     </div>
-                    <div class="mb-5">
-                        <span class="small">{{ $t('login.resolver_email_fail[0]') }}</span>
-                        <el-link type="primary" @click="confirmResendDialog = true">
-                            {{ $t('login.resolver_email_fail[1]') }}
-                        </el-link>
-                        <el-dialog
-                                :title="$t('comm.confirm')"
-                                :visible.sync="confirmResendDialog"
-                                width="350px"
-                                center>
-                            <p class="text-center">{{$t('login.resolver_email_fail[2]')}}</p>
-                            <span slot="footer" class="dialog-footer">
+                    <div v-else>
+                        <div v-if="!hasResendEmail">
+                            <p class="mb-3 text-green"><i class="el-icon-circle-check"></i>
+                                {{ $t('login.resolver_email_send[0]') }}</p>
+                            <p class="mb-4 small">{{ $t('login.resolver_email_send[1]') }}</p>
+                        </div>
+                        <div class="mb-5">
+                            <span class="small">{{ $t('login.resolver_email_fail[0]') }}</span>
+                            <el-link type="primary" @click="confirmResendDialog = true">
+                                {{ $t('login.resolver_email_fail[1]') }}
+                            </el-link>
+                            <el-dialog
+                                    :title="$t('comm.confirm')"
+                                    :visible.sync="confirmResendDialog"
+                                    width="350px"
+                                    center>
+                                <p class="text-center">{{$t('login.resolver_email_fail[2]')}}</p>
+                                <span slot="footer" class="dialog-footer">
                                 <el-button @click="confirmResendDialog = false">{{$t('comm.cancel')}}</el-button>
-                                <el-button type="primary" @click="resendForgetPwdEmail">{{ $t('login.resolver_email_fail[1]') }}</el-button>
+                                <el-button type="primary" @click="resendForgetPwdEmailBtn">{{ $t('login.resolver_email_fail[1]') }}</el-button>
                             </span>
-                        </el-dialog>
+                            </el-dialog>
+                        </div>
+                        <p>
+                            <router-link :to="configs.loginPath" class="btn btn-sm p-2 pl-5 pr-5 btn-outline-primary">
+                                {{ $t('comm.login') }}
+                            </router-link>
+                        </p>
                     </div>
-                    <p>
-                        <router-link :to="configs.loginPath" class="btn btn-sm p-2 pl-5 pr-5 btn-outline-primary">
-                            {{ $t('comm.login') }}
-                        </router-link>
-                    </p>
                 </div>
                 <form v-if="!submitOk" method="post" onsubmit="return false">
                     <font-awesome-icon icon="unlock-alt" size="3x" class="text-blue mb-3"/>
@@ -53,7 +78,7 @@
                            required>
                     <el-button type="primary"
                                class="btn-block wpy-btn"
-                               @click="submitForgetPwd"
+                               @click="forgetPwdBtn"
                                :loading="loading">{{ $t('comm.setup_next') }}
                     </el-button>
 
@@ -66,16 +91,20 @@
                 </router-link>
             </div>
         </div>
+        <AliValidCode :visible="validCodeVisible" @close="validCodeClose" @callback="validCodeCallback"></AliValidCode>
     </div>
 </template>
 
 <script>
     import configs from "@/configs";
     import {mapState} from "vuex";
-    import {forgetPwd, resendForgetPwdEmail} from "@/service/userSer";
+    import {forgetPwd, forgetValidPhoneCode, resendForgetPwdEmail} from "@/service/userSer";
+    import AliValidCode from "@/components/AliValidCode";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "forgetPwd",
+        components: {AliValidCode},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 sidebar: state => state.app.sidebar,
@@ -87,6 +116,19 @@
         },
         data() {
             return {
+                validCodeVisible: false,
+                validCodeFrom: 'reset',
+                forgetPhoneForm: {phone_code: '', new_pwd: ''},
+                rules: {
+                    new_pwd: [
+                        {required: true, message: this.validMsg('user.password'), trigger: 'blur'},
+                        {min: 6, max: 25, message: this.$i18n.t('valid.bad.min_length_6'), trigger: 'blur'},
+                    ],
+                    phone_code: [
+                        {required: true, message: '请输入短信验证码', trigger: 'blur'},
+                    ],
+                },
+                useEmail: true,
                 errorMsg: '',
                 loading: false,
                 submitOk: false,
@@ -108,7 +150,7 @@
                     this.loading = false
                 })
             },
-            resendForgetPwdEmail() {
+            submitResendForgetPwdEmail() {
                 this.loading = true
                 this.errorMsg = ''
                 this.confirmResendDialog = false
@@ -122,6 +164,70 @@
                     this.loading = false
                 })
             },
+            validMsg(name) {
+                return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
+            },
+            forgetPwdBtn() {
+                if (isEmpty(this.form.mer_no)) {
+                    this.$data.errorMsg = this.validMsg('user.mer_no')
+                } else if (isEmpty(this.form.email_or_phone)) {
+                    this.$data.errorMsg = this.validMsg('comm.email_or_phone')
+                }else {
+                    let val = this.form.email_or_phone
+                    if (!isEmpty(val)) val = val.trim();
+                    if (/^1\d{10}$/.test(val)) {
+                        this.$data.useEmail = false
+                        if (!isEmpty(this.$refs['phone_form'])) {
+                            this.$refs['phone_form'].clearValidate();//重置
+                        }
+                    }
+                    this.showValidCode('reset')
+                }
+            },
+            resendForgetPwdEmailBtn() {
+                this.showValidCode('resend_email')
+            },
+            forgetPwdByPhoneCode() {
+                this.$refs['phone_form'].validate((valid) => {
+                    if (!valid) {
+                        return false;
+                    } else {
+                        this.loading = true
+                        this.errorMsg = ''
+                        let req = this.form
+                        req.phone_code = this.forgetPhoneForm.phone_code
+                        req.new_pwd = this.forgetPhoneForm.new_pwd
+                        forgetValidPhoneCode(req).then(() => {
+                            this.$data.submitOk = true
+                            this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.$router.push({name: 'login'})
+                        }).catch((e) => {
+                            this.hasResendEmail = true
+                            this.$data.errorMsg = e.message
+                        }).finally(() => {
+                            this.loading = false
+                        })
+                    }
+                })
+            },
+            //---
+            showValidCode(type){
+                this.validCodeVisible = true
+                this.validCodeFrom = type
+            },
+            validCodeCallback(jsonData) {
+                if (this.validCodeFrom === 'reset') {
+                    this.form.valid_sig = jsonData
+                    this.submitForgetPwd()
+                }else {
+                    this.form.valid_sig = jsonData
+                    this.submitResendForgetPwdEmail()
+                }
+            },
+            validCodeClose(){
+                this.validCodeVisible = false
+            },
+
         },
 
     }

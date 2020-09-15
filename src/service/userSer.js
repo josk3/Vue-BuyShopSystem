@@ -56,6 +56,10 @@ export function resendForgetPwdEmail(data) {
     return postHandleError('/password/forget/resend_email', data);
 }
 
+export function forgetValidPhoneCode(data) {
+    return postHandleError('/password/forget/valid_phone_code', data);
+}
+
 export function resetPwd(data) {
     return postHandleError('/password/reset', data);
 }

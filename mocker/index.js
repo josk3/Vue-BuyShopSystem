@@ -1225,6 +1225,14 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/password/forget/valid_phone_code': (req, res) => {
+        const {mer_no} = req.body;
+        return res.json({
+            status: mer_no === '4008' ? 1 : 0,
+            message: mer_no === '4008' ? "ok" : "商户号找不到",
+            data: {}
+        });
+    },
     'POST /api/v1/password/reset': (req, res) => {
         const {code} = req.body;
         return res.json({

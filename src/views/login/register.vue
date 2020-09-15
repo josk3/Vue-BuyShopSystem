@@ -176,6 +176,7 @@
             };
             return {
                 validCodeVisible: false,
+                validCodeFrom: 'register',
                 errorMsg: '',
                 loading: false,
                 regBtnDisable: false,
@@ -183,9 +184,9 @@
                 useEmail: false,
                 confirmResendDialog: false,
                 register: {
-                    username: 'admin',
-                    email_or_phone: 'test@test.com',
-                    password: '1243424234',
+                    username: '',
+                    email_or_phone: '',
+                    password: '',
                     valid_code: '',
                     rf: this.rf,
                     terms: true,
@@ -236,7 +237,7 @@
                         }).catch((res) => {
                             if (res.code === configs.apiCode.needValidCode) {
                                 //验证码
-                                this.validCodeVisible = true
+                                this.showValidCode('register')
                             } else {
                                 this.$data.errorMsg = res.message
                             }
@@ -246,7 +247,10 @@
                     }
                 });
             },
-            resendRegEmail() {
+            resendRegEmail(){
+                this.showValidCode('resend_email')
+            },
+            submitResendRegEmail() {
                 this.loading = true
                 this.errorMsg = ''
                 this.confirmResendDialog = false
@@ -287,9 +291,18 @@
             },
 
             //---
+            showValidCode(type){
+                this.validCodeVisible = true
+                this.validCodeFrom = type
+            },
             validCodeCallback(jsonData) {
-                this.register.valid_sig = jsonData
-                this.submitRegister()
+                if (this.validCodeFrom === 'register') {
+                    this.register.valid_sig = jsonData
+                    this.submitRegister()
+                }else {
+                    this.res.valid_sig = jsonData
+                    this.submitResendRegEmail()
+                }
             },
             validCodeClose(){
                 this.validCodeVisible = false

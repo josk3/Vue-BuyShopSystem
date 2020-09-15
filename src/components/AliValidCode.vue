@@ -58,6 +58,7 @@
             },
             validCodeCallback(data) {
                 this.closeValidCodeDialog()
+                //data : csessionid, value ,sig
                 this.$emit('callback', JSON.stringify(data))
             },
             validCodeDialogOpened() {
