@@ -2,7 +2,7 @@
     <div class="ali-valid-code">
         <el-dialog custom-class="wpy-dialog mini-dialog"
                    :close-on-click-modal="false"
-                   title="机器人验证"
+                   :title="$t('login.robot_valid')"
                    @opened="validCodeDialogOpened"
                    @close="closeValidCodeDialog"
                    :visible.sync="validCodeDialogVisible">

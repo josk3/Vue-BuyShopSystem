@@ -15,6 +15,7 @@ export default function AliImageValid(appKey, callback, lang) {
       duration: 1500
     })
   }
+  let language = (lang === 'zh') ? 'cn' : 'en';
   var nc=NoCaptcha.init({
     renderTo: '#nc',
     appkey: appKey,
@@ -23,7 +24,7 @@ export default function AliImageValid(appKey, callback, lang) {
     trans: {"key1": "code200"},
     elementID: ["usernameID"],
     is_Opt: 0,
-    language: "cn",
+    language: language,
     timeout: 10000,
     retryTimes: 5,
     errorTimes: 5,
@@ -35,6 +36,7 @@ export default function AliImageValid(appKey, callback, lang) {
     bannerHidden:false,
     initHidden:false,
     callback: function (data) {
+      data.token = nc_token
       callback(data)
     },
     error: function (s) {
@@ -49,8 +51,8 @@ export default function AliImageValid(appKey, callback, lang) {
   NoCaptcha.setEnabled(true);
   nc.reset();//请务必确保这里调用一次reset()方法
 
-  if (lang === 'en') {
-    NoCaptcha.upLang('en');
+  if (language === 'en') {
+    NoCaptcha.upLang(language);
   }else {
     NoCaptcha.upLang('cn', {
       'LOADING': "加载中...",//加载

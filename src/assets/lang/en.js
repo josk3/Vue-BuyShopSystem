@@ -168,6 +168,7 @@ module.exports = {
         "bank_complete_refund": "Bank complete",
     },
     "login": {
+        "robot_valid": "Robot?",
         "resolver_password": "Reset password",
         "forget_info_will_send": "Information will be sent to your email or phone",
         "resolver_email_send": ["Reset email sent", "Sending successfully, you can now enter the mailbox to reset your password"],

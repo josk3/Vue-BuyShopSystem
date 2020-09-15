@@ -168,6 +168,7 @@ module.exports = {
         "bank_complete_refund": "银行已完成退款",
     },
     "login": {
+        "robot_valid": "机器人验证",
         "resolver_password": "找回密码",
         "forget_info_will_send": "信息将发送到您的邮箱或手机",
         "resolver_email_send": ["重置邮件已发送", "发送成功, 您现在可以进入邮箱重置密码了"],
