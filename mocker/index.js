@@ -10,8 +10,9 @@ function demoUserInfo() {
             user: {
                 uid: 1,
                 username: 'kenny',
-                name: '张三',
-                email: 'xxx@test.com',
+                full_name: '张三',
+                email: '',
+                phone: '13818181818',
                 second_login: '2020-01-01 00:00:00',
                 status: 1,
                 identifier_status: 0,
@@ -1158,13 +1159,23 @@ const proxy = {
         if (password === 'Test123456' && username === 'admin') {
             if (req.body.valid_sig) {
                 return res.json(demoUserInfo());
-            }else {
-                return res.status(200).json({
-                    status: 0,
-                    code: 7002,
-                    message: '登录失败 ' + new Date().getMilliseconds(),
-                    i18n: 'login.username.fail'
-                });
+            } else {
+                if (req.body.mer_no === '4008') {
+                    return res.status(200).json({
+                        status: 0,
+                        code: 7003,
+                        message: '认证 ' + new Date().getMilliseconds(),
+                        data: demoUserInfo().data,
+                        i18n: 'login.username.fail'
+                    });
+                } else {
+                    return res.status(200).json({
+                        status: 0,
+                        code: 7002,
+                        message: '登录失败 ' + new Date().getMilliseconds(),
+                        i18n: 'login.username.fail'
+                    });
+                }
             }
         } else {
             return res.status(200).json({
@@ -1177,10 +1188,11 @@ const proxy = {
     },
     'POST /api/v1/register': (req, res) => {
         return res.json({
-            status: req.body.valid_sig ? 1 : 0,
-            code: req.body.valid_sig ? 0 : 7002,
+            // status: req.body.valid_sig ? 1 : 0,
+            // code: req.body.valid_sig ? 0 : 7002,
+            status: 1,
             message: '注册成功',
-            data: {uid: 'wef823fo2', mer_no: 'M892834'},
+            data: demoUserInfo().data,
             i18n: 'success',
         });
     },

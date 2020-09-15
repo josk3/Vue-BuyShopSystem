@@ -2,55 +2,66 @@
     <div class="d-flex flex-column h-100" v-loading="loading">
 
         <div class="text-center login-box">
-            <form class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" action="" method="post"
-                  @submit.prevent="submitLogin">
-                <h1 class="h3 mb-3 font-weight-normal">
-                    <svg-icon icon-class="wintopay_icon_color" style="width: 45px;height: 29px;"/>
-                    {{ $t('comm.merchant_login') }}
-                </h1>
-                <el-alert v-if="errorMsg" :title="errorMsg"
-                          type="error"
-                          style="background: none;margin-bottom: 10px;"
-                          center show-icon :closable="false">
-                </el-alert>
-                <label for="inputMerNo" class="sr-only">{{ $t('user.mer_no') }}</label>
-                <input type="text" id="inputMerNo" name="merNo" class="form-control firs-input"
-                       v-model="userLogin.mer_no"
-                       :placeholder="$t('user.mer_no')" required
-                       autofocus>
-                <label for="inputUsername" class="sr-only">Username</label>
-                <input type="text" id="inputUsername" name="username" class="form-control mid-clear"
-                       v-model="userLogin.username"
-                       :placeholder="$t('user.username')" required>
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" name="password" class="form-control last-input"
-                       v-model="userLogin.password"
-                       :placeholder="$t('user.password')"
-                       required>
-                <div class="d-block clearfix mb-2">
-                    <el-link type="primary" class="small float-right">
-                        <router-link :to="configs.forgetPwdPath">
-                            {{ $t('comm.forget_pwd') }}
-                        </router-link>
-                    </el-link>
-                </div>
-                <el-button type="primary" native-type="submit"
-                           class="btn-block wpy-btn"
-                           @click="submitLogin"
-                           :loading="loading">{{ $t('comm.login') }}
-                </el-button>
-                <div class="d-block row">
-                    <div class="col-12 mt-5 mb-3">
-                        <span class="text-dark small">{{ $t('comm.not_a_account') }}</span>
-                        <el-link type="primary" style="font-size: 17px;">
-                            <router-link :to="configs.registerPath">
-                                {{ $t('comm.register_now') }}
+            <div v-if="!nextCheckStatus" >
+                <form class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" action="" method="post"
+                      @submit.prevent="submitLogin">
+                    <h1 class="h3 mb-3 font-weight-normal">
+                        <svg-icon icon-class="wintopay_icon_color" style="width: 45px;height: 29px;"/>
+                        {{ $t('comm.merchant_login') }}
+                    </h1>
+                    <el-alert v-if="errorMsg" :title="errorMsg"
+                              type="error"
+                              style="background: none;margin-bottom: 10px;"
+                              center show-icon :closable="false">
+                    </el-alert>
+                    <label for="inputMerNo" class="sr-only">{{ $t('user.mer_no') }}</label>
+                    <input type="text" id="inputMerNo" name="merNo" class="form-control firs-input"
+                           v-model="userLogin.mer_no"
+                           :placeholder="$t('user.mer_no')" required
+                           autofocus>
+                    <label for="inputUsername" class="sr-only">Username</label>
+                    <input type="text" id="inputUsername" name="username" class="form-control mid-clear"
+                           v-model="userLogin.username"
+                           :placeholder="$t('user.username')" required>
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" name="password" class="form-control last-input"
+                           v-model="userLogin.password"
+                           :placeholder="$t('user.password')"
+                           required>
+                    <div class="d-block clearfix mb-2">
+                        <el-link type="primary" class="small float-right">
+                            <router-link :to="configs.forgetPwdPath">
+                                {{ $t('comm.forget_pwd') }}
                             </router-link>
                         </el-link>
                     </div>
-                </div>
+                    <el-button type="primary" native-type="submit"
+                               class="btn-block wpy-btn"
+                               @click="submitLogin"
+                               :loading="loading">{{ $t('comm.login') }}
+                    </el-button>
+                    <div class="d-block row">
+                        <div class="col-12 mt-5 mb-3">
+                            <span class="text-dark small">{{ $t('comm.not_a_account') }}</span>
+                            <el-link type="primary" style="font-size: 17px;">
+                                <router-link :to="configs.registerPath">
+                                    {{ $t('comm.register_now') }}
+                                </router-link>
+                            </el-link>
+                        </div>
+                    </div>
 
-            </form>
+                </form>
+            </div>
+            <div v-else>
+                <div class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" style="max-width:330px;">
+                    <UserValidEmailPhone :user_info="res" @success="validStatueOk"></UserValidEmailPhone>
+                    <div class="mt-4 text-center">
+                        <span class="small text-muted">{{$t('comm.has_a_account')}}</span>
+                        <el-button @click="loadPage" type="text">{{ $t('comm.login') }}</el-button>
+                    </div>
+                </div>
+            </div>
         </div>
         <AliValidCode :visible="validCodeVisible" @close="validCodeClose" @callback="validCodeCallback"></AliValidCode>
     </div>
@@ -62,10 +73,11 @@
     import {mapState} from "vuex";
     import {isEmpty} from "@/utils/validate";
     import AliValidCode from "@/components/AliValidCode";
+    import UserValidEmailPhone from "@/components/UserValidEmailPhone";
 
     export default {
         name: "login",
-        components: {AliValidCode},
+        components: {UserValidEmailPhone, AliValidCode},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 sidebar: state => state.app.sidebar,
@@ -88,6 +100,8 @@
                 },
                 redirect: '',
                 loading: false,
+                nextCheckStatus: false,
+                res: {},
             }
         },
         methods: {
@@ -126,6 +140,10 @@
                                 if (res.code === configs.apiCode.needValidCode) {
                                     //验证码
                                     this.validCodeVisible = true
+                                }else if (res.code === configs.apiCode.needValidStatus) {
+                                    //状态
+                                    this.$data.nextCheckStatus = true
+                                    this.$data.res = res.data
                                 }
                             }).finally(() => {
                             this.loading = false
@@ -135,6 +153,17 @@
                     }
                 }
                 return false
+            },
+            validStatueOk() {
+                this.$message.success(this.$i18n.t('comm.success').toString())
+                this.nextCheckStatus = false
+                this.errorMsg = ''
+                this.$router.push({name: 'login', params: {v: '1'}})
+                //location.reload()
+            },
+            loadPage(){
+                this.nextCheckStatus = false
+                this.errorMsg = ''
             },
             //---
             validCodeCallback(jsonData) {

@@ -13,11 +13,14 @@
                         <p class="text-center">{{$t('login.register_right_now')}}</p>
                         <el-form label-position="top" :rules="rules" ref="register" label-width="90px"
                                  :model="register">
-                            <el-form-item :label="$t('user.username')" prop="username">
-                                <el-input v-model="register.username" name="username"></el-input>
+                            <el-form-item :label="$t('user.name')" prop="name">
+                                <el-input v-model="register.name" name="name"></el-input>
                             </el-form-item>
                             <el-form-item :label="$t('comm.email_or_phone')" prop="email_or_phone">
                                 <el-input v-model="register.email_or_phone" name="email_or_phone"></el-input>
+                            </el-form-item>
+                            <el-form-item :label="$t('user.username')" prop="username">
+                                <el-input v-model="register.username" name="username"></el-input>
                             </el-form-item>
                             <el-form-item :label="$t('user.password')" prop="password">
                                 <el-input v-model="register.password" type="password" name="password-wpy"></el-input>
@@ -39,64 +42,7 @@
                         </el-form>
                     </div>
                     <div v-if="submitOk" class="text-center">
-                        <div v-if="useEmail">
-                            <div>
-                                <div class="mb-4 font-weight-bold">{{$t('user.mer_no')}} {{ res.mer_no }}</div>
-                                <p class="mb-3 text-green"><i class="el-icon-circle-check"></i>
-                                    {{$t('login.has_send_active_email')}}</p>
-                                <p class="mb-3">
-                                    {{ register.email_or_phone }}
-                                </p>
-                            </div>
-                            <div class="mb-3">
-                                <span class="small">{{ $t('login.resolver_email_fail[0]') }}</span>
-                                <el-link type="primary" @click="confirmResendDialog = true">
-                                    {{ $t('login.resolver_email_fail[1]') }}
-                                </el-link>
-                                <el-dialog
-                                        :title="$t('comm.confirm')"
-                                        :visible.sync="confirmResendDialog"
-                                        width="350px"
-                                        center>
-                                    <p class="text-center">{{$t('login.resolver_email_fail[2]')}}</p>
-                                    <span slot="footer" class="dialog-footer">
-                                <el-button @click="confirmResendDialog = false">{{$t('comm.cancel')}}</el-button>
-                                <el-button type="primary" @click="resendRegEmail">{{ $t('login.resolver_email_fail[1]') }}</el-button>
-                            </span>
-                                </el-dialog>
-                            </div>
-                        </div>
-                        <div v-if="!useEmail">
-                            <div class="mb-4 mt-2">
-                                <div class="mb-4 font-weight-bold">{{$t('user.mer_no')}} {{ res.mer_no }}</div>
-                                <el-form :inline="true">
-                                    <el-form-item :label="$t('login.sms_valid_code')">
-                                        <el-input type="phone" v-model="phoneCode"
-                                                  :placeholder="$t('login.sms_valid_code')"></el-input>
-                                    </el-form-item>
-                                    <el-form-item>
-                                        <el-button type="primary" @click="activePhoneCode">{{$t('comm.submit')}}
-                                        </el-button>
-                                    </el-form-item>
-                                </el-form>
-                            </div>
-                            <div class="mb-3">
-                                <span class="small">{{ $t('login.resolver_email_fail[0]') }}</span>
-                                <el-link type="primary" @click="confirmResendDialog = true">
-                                    {{ $t('login.resolver_email_fail[1]') }}
-                                </el-link>
-                                <el-dialog
-                                        :title="$t('comm.confirm')"
-                                        :visible.sync="confirmResendDialog"
-                                        width="350px"
-                                        center>
-                                <span slot="footer" class="dialog-footer">
-                                <el-button @click="confirmResendDialog = false">{{$t('comm.cancel')}}</el-button>
-                                <el-button type="primary" @click="resendRegEmail">{{ $t('login.resolver_email_fail[1]') }}</el-button>
-                            </span>
-                                </el-dialog>
-                            </div>
-                        </div>
+                        <UserValidEmailPhone :user_info="res" @success="validStatueOk"></UserValidEmailPhone>
                     </div>
                 </div>
                 <div v-if="regSuccess" class="text-center">
@@ -127,12 +73,13 @@
     import {mapState} from "vuex";
     import {isEmpty} from "@/utils/validate";
     import Schema from 'async-validator';
-    import {activePhone, registerMer, resendRegisterEmail, resendRegisterPhone} from "@/service/userSer";
+    import {registerMer} from "@/service/userSer";
     import AliValidCode from "@/components/AliValidCode";
+    import UserValidEmailPhone from "@/components/UserValidEmailPhone";
 
     export default {
         name: "register",
-        components: {AliValidCode},
+        components: {UserValidEmailPhone, AliValidCode},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 device: state => state.app.device,
@@ -184,6 +131,7 @@
                 useEmail: false,
                 confirmResendDialog: false,
                 register: {
+                    name: '',
                     username: '',
                     email_or_phone: '',
                     password: '',
@@ -196,6 +144,9 @@
                 phoneCode: '',
                 regSuccess: false,
                 rules: {
+                    name: [
+                        {required: true, message: this.validMsg('user.name'), trigger: 'blur'},
+                    ],
                     username: [
                         {required: true, message: this.validMsg('user.username'), trigger: 'blur'},
                         {min: 5, max: 20, message: this.$i18n.t('valid.bad.length_5_20'), trigger: 'blur'},
@@ -230,10 +181,10 @@
                         //
                         this.$data.errorMsg = ''
                         this.$data.loading = true
-                        registerMer(this.$data.register).then(response => {
-                            this.$message.success(this.$i18n.t('comm.success').toString())
+                        registerMer(this.$data.register).then(res => {
+                            //this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.$data.res = res.data
                             this.$data.submitOk = true
-                            this.$data.res = response.data
                         }).catch((res) => {
                             if (res.code === configs.apiCode.needValidCode) {
                                 //验证码
@@ -247,51 +198,11 @@
                     }
                 });
             },
-            resendRegEmail(){
-                this.showValidCode('resend_email')
+            validStatueOk() {
+                this.regSuccess = true
             },
-            submitResendRegEmail() {
-                this.loading = true
-                this.errorMsg = ''
-                this.confirmResendDialog = false
-                resendRegisterEmail(this.res).then(() => {
-                    this.$message.success(this.$i18n.t('comm.success').toString())
-                }).catch((e) => {
-                    this.$data.errorMsg = e.message
-                }).finally(() => {
-                    this.loading = false
-                })
-            },
-            resendRegPhone() {
-                this.loading = true
-                this.errorMsg = ''
-                this.confirmResendDialog = false
-                resendRegisterPhone(this.res).then(() => {
-                    this.$message.success(this.$i18n.t('comm.success').toString())
-                }).catch((e) => {
-                    this.$data.errorMsg = e.message
-                }).finally(() => {
-                    this.loading = false
-                })
-            },
-            activePhoneCode() {
-                this.loading = true
-                this.errorMsg = ''
-                this.confirmResendDialog = false
-                let data = this.res
-                data.code = this.phoneCode
-                activePhone(data).then(() => {
-                    this.$message.success(this.$i18n.t('comm.success').toString())
-                    this.$data.regSuccess = true
-                }).catch((e) => {
-                    this.$data.errorMsg = e.message
-                }).finally(() => {
-                    this.loading = false
-                })
-            },
-
             //---
-            showValidCode(type){
+            showValidCode(type) {
                 this.validCodeVisible = true
                 this.validCodeFrom = type
             },
@@ -299,14 +210,12 @@
                 if (this.validCodeFrom === 'register') {
                     this.register.valid_sig = jsonData
                     this.submitRegister()
-                }else {
-                    this.res.valid_sig = jsonData
-                    this.submitResendRegEmail()
                 }
             },
-            validCodeClose(){
+            validCodeClose() {
                 this.validCodeVisible = false
             },
+            //--
 
         },
 

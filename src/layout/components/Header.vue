@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-10">
                     <div class="float-left">
-                        <small class="mt-1" style="font-size: 8px;color:#9e9e9e;">beta</small>
+                        <small class="mt-1" style="font-size: 8px;color:#9e9e9e;">{{user.mer_no}}</small>
                     </div>
                     <nav class="my-2 my-md-0 mr-md-3 float-right">
                         <el-dropdown trigger="click"
@@ -71,7 +71,7 @@
                         </el-popover>
                         <el-dropdown trigger="click">
                             <span class="el-dropdown-link text-white">
-                                ( {{ user.mer_no }} ) {{ user.email }}<i class="el-icon-arrow-down el-icon--right"></i>
+                                ( {{ user.mer_no }} ) {{ user.username }}<i class="el-icon-arrow-down el-icon--right"></i>
                             </span>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item class="p-1 pl-3 pr-3">

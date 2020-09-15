@@ -35,6 +35,7 @@ module.exports = {
         needLogin: 7011,
         reloadUserData: 7010,//用户状态或有新消息或数据有更新时
         needValidCode: 7002,//当前操作需要验证码, 例如注册登录多次尝试失败时
+        needValidStatus: 7003, //用户还没验证邮箱或手机号
     },
     perm: {
         home_trade_report: 'home_trade_report',

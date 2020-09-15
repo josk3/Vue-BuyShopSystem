@@ -2,7 +2,7 @@
     <div v-loading="loading">
         <div class="row p-0">
             <div class="col-12 mt-1 mb-2" style="font-size: 80%;">
-                <span class="float-left pl-3">您好, {{ user.name }}</span>
+                <span class="float-left pl-3">您好, {{ user.full_name }}</span>
                 <span class="float-right pr-3">最近登录: {{ user.second_login }}</span>
             </div>
             <div class="col-12 mb-3">

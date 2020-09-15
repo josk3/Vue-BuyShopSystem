@@ -19,9 +19,6 @@ const state = {
         notice_count: 0,
         popup: null,
     },
-    name: '',
-    avatar: '',
-    introduction: '',
     roles: [],
     menus: [],//侧边目录
     permissions: [],
@@ -39,7 +36,6 @@ const mutations = {
     },
     SET_USER: (state, user) => {
         state.user = user
-        state.name = user.name
     },
 }
 

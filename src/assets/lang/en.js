@@ -23,7 +23,7 @@ module.exports = {
         "record_total": "Total Record",
         "confirm": "Confirm",
         "remark": "Remark",
-        "email_or_phone": "Email Or Phone",
+        "email_or_phone": "Email",
 
         //
         "submitted": "Submit",
@@ -147,7 +147,7 @@ module.exports = {
             "only_en_number_email": "A-z,Number,Email",
             "min_length_6": "Min length 6",
             "length_5_20": "Length 5-20",
-            "input_valid_email_or_phone": "Invalid email or phone",
+            "input_valid_email_or_phone": "Invalid email",
         },
         "fail": {
             "password_more_miss": "Too many incorrect passwords, please retrieve the password or contact the administrator"
@@ -170,7 +170,7 @@ module.exports = {
     "login": {
         "robot_valid": "Robot?",
         "resolver_password": "Reset password",
-        "forget_info_will_send": "Information will be sent to your email or phone",
+        "forget_info_will_send": "Information will be sent to your email",
         "resolver_email_send": ["Reset email sent", "Sending successfully, you can now enter the mailbox to reset your password"],
         "resolver_email_fail": ["Did not receive?", "Resend", "Please check if there is any mail in the trash can, or send it again"],
         "reset_new_pwd": "Set new password",

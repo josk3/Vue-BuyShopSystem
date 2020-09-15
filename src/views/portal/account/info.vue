@@ -226,7 +226,7 @@
         },
         mounted() {
             this.loadMerInfo();
-            this.add_bank.name = this.user.name
+            this.add_bank.name = this.user.full_name
         },
         methods: {
             loadMerInfo() {
