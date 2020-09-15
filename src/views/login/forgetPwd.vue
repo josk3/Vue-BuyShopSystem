@@ -15,11 +15,11 @@
                                     :model="forgetPhoneForm" :rules="rules" label-width="100px">
                                 <el-form-item :label="$t('login.sms_valid_code')" prop="phone_code">
                                     <el-input type="phone" v-model="forgetPhoneForm.phone_code"
-                                              :placeholder="$t('login.sms_valid_code')"></el-input>
+                                              :placeholder="$t('login.sms_valid_code')" name="phone_code"></el-input>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.new_password')" prop="new_pwd">
                                     <el-input type="password" v-model="forgetPhoneForm.new_pwd"
-                                              :placeholder="$t('user.new_password')"></el-input>
+                                              :placeholder="$t('user.new_password')" name="password-wpy"></el-input>
                                 </el-form-item>
                             </el-form>
                             <el-button type="primary" @click="forgetPwdByPhoneCode">{{$t('comm.submit')}}
@@ -62,6 +62,7 @@
                         </p>
                     </div>
                 </div>
+    <!--       MAIN         -->
                 <form v-if="!submitOk" method="post" onsubmit="return false">
                     <font-awesome-icon icon="unlock-alt" size="3x" class="text-blue mb-3"/>
                     <p class="mb-3 text-muted">{{ $t('login.resolver_password') }}</p>

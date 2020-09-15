@@ -14,13 +14,13 @@
                         <el-form label-position="top" :rules="rules" ref="register" label-width="90px"
                                  :model="register">
                             <el-form-item :label="$t('user.username')" prop="username">
-                                <el-input v-model="register.username"></el-input>
+                                <el-input v-model="register.username" name="username"></el-input>
                             </el-form-item>
                             <el-form-item :label="$t('comm.email_or_phone')" prop="email_or_phone">
-                                <el-input v-model="register.email_or_phone"></el-input>
+                                <el-input v-model="register.email_or_phone" name="email_or_phone"></el-input>
                             </el-form-item>
                             <el-form-item :label="$t('user.password')" prop="password">
-                                <el-input v-model="register.password" type="password"></el-input>
+                                <el-input v-model="register.password" type="password" name="password-wpy"></el-input>
                             </el-form-item>
                             <el-form-item prop="terms">
                                 <el-checkbox label="" :checked="register.terms" v-model="register.terms"
