@@ -58,7 +58,7 @@
                         <i class="el-icon-circle-check"></i>
                         {{ $t('comm.success') }}
                     </h4>
-                    <h2>{{$t('user.mer_no')}}: {{ res.user.mer_no }}</h2>
+                    <h2>{{$t('user.mer_no')}}: <span class="text-red">{{ res.user.mer_no }}</span></h2>
                     <p class="mt-4 font-weight-bold">{{$t('login.remember_you_merchant_no')}}</p>
                 </div>
 
