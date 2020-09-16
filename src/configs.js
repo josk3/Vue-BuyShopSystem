@@ -14,7 +14,7 @@ module.exports = {
 
     //
     aboutUsUrl: 'https://www.wintopay.com/',
-    contactUsUrl: 'https://www.wintopay.com/',
+    contactUsUrl: 'https://www.wintopay.com/new/Contact.html',
     aliImageValidAppKey: 'FFFF0N00000000009051',
 
     anonAuthPages: ['/login', '/logout', '/404', '/401', '/500',
