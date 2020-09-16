@@ -131,6 +131,7 @@ module.exports = {
 
     },
     "user": { //跟用户相关
+        "name": "Name or Company",
         "username": "Username",
         "password": "Password",
         "full_name": "Name",
