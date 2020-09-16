@@ -125,6 +125,7 @@ module.exports = {
         "can_view_balance": "View Balance",
         "home_trade_report": "Order Report",
         "delivery_download": "Deliver Download",
+        "dispute_detail": "Dispute Detail",
         "404": "404",
         "401": "401",
         "terms": "Terms",
@@ -302,5 +303,10 @@ module.exports = {
         "priority": "Priority",
         "create_time": "Time",
         "update_tIme": "Update"
+    },
+    dispute: {
+        untreated: 'untreated',
+        underway: 'underway',
+        complete: 'complete'
     }
 }

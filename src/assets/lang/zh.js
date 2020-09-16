@@ -125,6 +125,7 @@ module.exports = {
         "can_view_balance": "查看余额",
         "home_trade_report": "最近交易图表",
         "delivery_download": "物流下载",
+        "dispute_detail": "投诉详情",
         "404": "404",
         "401": "401",
         "terms": "条款",
@@ -301,5 +302,10 @@ module.exports = {
         "priority": "优先级",
         "create_time": "创建时间",
         "update_tIme": "修改时间"
+    },
+    dispute: {
+        untreated: '未处理',
+        underway: '处理中',
+        complete: '处理完成'
     }
 }

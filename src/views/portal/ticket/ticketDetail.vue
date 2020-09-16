@@ -4,7 +4,7 @@
         <el-card>
             <!--工单对话栏-->
             <div slot="header" class="clearfix">
-                <span>工单详情</span>
+                <el-page-header @back="goBack()" content="工单详情" title="返回"></el-page-header>
             </div>
             <div class="card-header" v-if="ticketDetailRsp">
                 <!--聊天框头部-->
@@ -383,6 +383,9 @@
             }, closeTicket() {
                 this.isCloseTicket = false; //已关闭回复表单
                 this.$message.success(`工单已成功关闭!`);
+            },
+            goBack() {
+                this.$router.go(-1)
             }
         }
     }

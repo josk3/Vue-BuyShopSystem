@@ -347,3 +347,18 @@ export function settleCycle(val) {
             return i18n.t('comm.month_two_timer')
     }
 }
+
+/**
+ * 投诉管理状态值转文字
+ */
+export function disputeStatus(priorityValue) {
+    if (isEmpty(priorityValue)) return ''
+    switch (priorityValue) {
+        case 'complete':
+            return i18n.t('dispute.complete')
+        case 'underway':
+            return i18n.t('dispute.underway')
+        case 'complete':
+            return i18n.t('dispute.complete')
+    }
+}
