@@ -3287,7 +3287,202 @@ const proxy = {
             }
         })
     },
-
+    'POST /api/v1/dispute/search': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '',
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: [
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        merchant_order_no: '5200191919181838282',
+                        order_no: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        status: 'underway',
+                        reason: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        merchant_order_no: '5200191919181838282',
+                        order_no: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        status: 'underway',
+                        reason: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        merchant_order_no: '5200191919181838282',
+                        order_no: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        status: 'underway',
+                        reason: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        merchant_order_no: '5200191919181838282',
+                        order_no: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        status: 'underway',
+                        reason: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        merchant_order_no: '5200191919181838282',
+                        order_no: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        status: 'complete',
+                        reason: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        merchant_order_no: '5200191919181838282',
+                        order_no: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        status: 'complete',
+                        reason: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        merchant_order_no: '5200191919181838282',
+                        order_no: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        status: 'complete',
+                        reason: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        merchant_order_no: '5200191919181838282',
+                        order_no: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        status: 'complete',
+                        reason: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        merchant_order_no: '5200191919181838282',
+                        order_no: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        status: 'underway',
+                        reason: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        merchant_order_no: '5200191919181838282',
+                        order_no: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        status: 'complete',
+                        reason: '货不对版'
+                    },
+                ]
+            }
+        })
+    },
+    'POST /api/v1/dispute/disputeDetail': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '',
+            data: [
+                {
+                    email: '1506266211@qq.com',
+                    complaint_content: '这批货不对啊,airPod重量不达标,官网标准41g,实际量37.2g,不行这批货不要',
+                    is_system: '0',
+                    created: '2020-09-14 17:11:01',
+                    operator: 'fan'
+                },
+                {
+                    email: '1506266211@qq.com',
+                    complaint_content: '收到后请尽快处理,不然就直接走拒付了',
+                    is_system: '0',
+                    created: '2020-09-14 17:11:01',
+                    operator: 'fan'
+                },
+                {
+                    email: '1506266211@qq.com',
+                    complaint_content: '收到后请尽快处理,不然就直接走拒付了',
+                    is_system: '0',
+                    created: '2020-09-14 17:11:02',
+                    operator: 'fan'
+                },
+                {
+                    email: '1506266211@qq.com',
+                    complaint_content: '收到后请尽快处理,不然就直接走拒付了',
+                    is_system: '0',
+                    created: '2020-09-14 17:11:03',
+                    operator: 'fan'
+                },
+                {
+                    email: '1506266211@qq.com',
+                    complaint_content: '收到后请尽快处理,不然就直接走拒付了',
+                    is_system: '0',
+                    created: '2020-09-14 17:11:04',
+                    operator: 'fan'
+                },
+                {
+                    email: '1506266211@qq.com',
+                    complaint_content: '收到后请尽快处理,不然就直接走拒付了',
+                    is_system: '0',
+                    created: '2020-09-14 17:11:05',
+                    operator: 'fan'
+                },
+                {
+                    email: '1584300100@qq.com',
+                    complaint_content: '已与客户沟通调解,将货物回收,回来邮费自费,在三个工作日内会将款项原路返回',
+                    is_system: '1',
+                    created: '2020-09-14 17:11:01',
+                    operator: 'fan'
+                }
+            ]
+        })
+    },
+    'POST /api/v1/dispute/disputeInfo': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '',
+            data: {
+                statusName: '未处理',
+                statusValue: 'UNDERWAY'
+            }
+        })
+    },
+    "POST /api/v1/dispute/updateDispute": (req, res) => {
+        return res.json({
+            status: 1,
+            message: '状态更新！',
+            data: null
+        })
+    }, "POST /api/v1/dispute/appendDispute": (req, res) => {
+        return res.json({
+            status: 1,
+            message: '投诉已处理完成！',
+            data: null
+        })
+    }
 }
 let sleep = false;
 // let sleep = true;// true 测试延迟响应

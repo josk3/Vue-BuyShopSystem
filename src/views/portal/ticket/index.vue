@@ -42,47 +42,47 @@
                         :label="$t('ticket.ticket_no')"
                 >
                     <template slot-scope="scope">
-                        <router-link target="_blank" :to="{path:'/ticketDetail',query:{tk_id:scope.row.ticket_no}}">
-                            <span style="color:deepskyblue;">{{scope.row.ticket_no}}</span>
+                        <router-link :to="{name:'ticket_detail',params:{id:scope.row.ticket_no}}" class="btn-link">
+                            {{scope.row.ticket_no}}
                         </router-link>
                     </template>
                 </el-table-column>
                 <el-table-column
                         prop="title"
-                        :label="$t('ticket.title')" >
+                        :label="$t('ticket.title')">
                 </el-table-column>
                 <el-table-column
                         prop="email"
-                        :label="$t('ticket.email')" >
+                        :label="$t('ticket.email')">
                 </el-table-column>
                 <el-table-column
                         prop="case_question"
-                        :label="$t('ticket.question_type')" >
+                        :label="$t('ticket.question_type')">
                     <template v-slot="scope">
                         {{scope.row.case_question | ticketQuestionStatus }}
                     </template>
                 </el-table-column>
                 <el-table-column
                         prop="ticket_status"
-                        :label="$t('ticket.status')" >
+                        :label="$t('ticket.status')">
                     <template v-slot="scope">
                         {{scope.row.ticket_status | ticketStatus }}
                     </template>
                 </el-table-column>
                 <el-table-column
                         prop="priority"
-                        :label="$t('ticket.priority')" >
+                        :label="$t('ticket.priority')">
                     <template v-slot="scope">
                         {{scope.row.priority | ticketPriority }}
                     </template>
                 </el-table-column>
                 <el-table-column
                         prop="create_time"
-                        :label="$t('ticket.create_time')" >
+                        :label="$t('ticket.create_time')">
                 </el-table-column>
                 <el-table-column
                         prop="update_time"
-                        :label="$t('ticket.update_tIme')" >
+                        :label="$t('ticket.update_tIme')">
                 </el-table-column>
             </el-table>
             <div class="block">
@@ -161,7 +161,7 @@
                                  style="border:1px solid mediumseagreen;border-radius:50%;color:mediumseagreen;"></el-icon>
                         <span class="ml-1">提交成功！</span></p>
                     <small>您提交的问题已经受理.
-                        <router-link target="_blank" :to="{path:'/ticketDetail',query:{tk_id:ticket_id}}">查看详情&nbsp;<i
+                        <router-link target="_blank" :to="{path:'/ticket/detail',query:{tk_id:ticket_id}}">查看详情&nbsp;<i
                                 class="el-icon-right"></i></router-link>
                     </small>
                 </div>
@@ -333,7 +333,6 @@
             /*回退到上一步骤*/
             goBack() {
                 this.active = this.active - 1;
-                console.log('go back');
             },
             /*上传图片回调进度*/
             progressCallback(n) {

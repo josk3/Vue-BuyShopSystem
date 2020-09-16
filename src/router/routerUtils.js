@@ -222,6 +222,12 @@ export function convertRouters(userMenu) {
             name: 'ticket_detail',
             hidden: true,
         },
+        {
+            path: '/dispute/detail/:id',
+            component: () => import('@/views/portal/dispute/disputeDetail'),
+            name: 'dispute_detail',
+            hidden: true,
+        },
     )
     return [
         {
