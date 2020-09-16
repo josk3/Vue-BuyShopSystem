@@ -128,13 +128,15 @@ function tryReLogin() {
     })
 }
 
-export function postHandleError(url, params) {
-    return service({
+export function postHandleError(url, params, timeout) {
+    let req = {
         method: 'post',
         url: url,
         data: qs.stringify(params),
         show_error_msg_dialog: false, //如果请求返回status=0 是否显示错误信息弹框
-    });
+    };
+    if (!isEmpty(timeout)) req.timeout = timeout
+    return service(req);
 }
 
 export function post(url, params) {

@@ -191,6 +191,7 @@
                                 this.showValidCode('register')
                             } else {
                                 this.$data.errorMsg = res.message
+                                this.$message.error(this.$data.errorMsg)
                             }
                         }).finally(() => {
                             this.$data.loading = false

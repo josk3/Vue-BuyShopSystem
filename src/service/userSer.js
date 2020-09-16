@@ -29,7 +29,7 @@ export function logout() {
 }
 
 export function registerMer(data) {
-    return postHandleError('/register', data);
+    return postHandleError('/register', data, 10000);//10s
 }
 
 export function resendRegisterEmail(data) {
