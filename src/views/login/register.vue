@@ -103,7 +103,7 @@
         data() {
             var emailOrPhone = (rule, value, callback) => {
                 if (value === '') {
-                    callback(new Error(this.validMsg('comm.email_or_phone')));
+                    callback(new Error(this.validMsg('register_form.email_or_phone')));
                 } else {
                     if (!isEmpty(value)) value = value.trim();
                     if (/^1\d{10}$/.test(value)) {
@@ -165,7 +165,7 @@
                         }
                     ],
                     email_or_phone: [
-                        {required: true, message: this.validMsg('comm.email_or_phone'), trigger: 'change'},
+                        {required: true, message: this.validMsg('register_form.email_or_phone'), trigger: 'change'},
                         {validator: emailOrPhone, trigger: ['blur']}
                     ],
                     password: [
