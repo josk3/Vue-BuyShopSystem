@@ -184,6 +184,9 @@ module.exports = {
         "sms_valid_code": "Sms Valid Code",
 
     },
+    "register_form": {
+        "email_or_phone": "Email",
+    },
     "status": {
         "all": "All",
         "normal": "Normal",

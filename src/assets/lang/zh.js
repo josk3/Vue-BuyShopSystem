@@ -142,6 +142,9 @@ module.exports = {
         "new_password": "新密码",
 
     },
+    "register_form": {
+        "email_or_phone": "手机号", //字面上优化让用户使用手机号,英文使用email
+    },
     "valid": {
         "required_field": "请输入{0}",
         "bad": {

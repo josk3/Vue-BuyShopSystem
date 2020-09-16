@@ -7,6 +7,14 @@
                           class="text-center"
                           style="background: none;margin-bottom: 10px;"
                           center show-icon :closable="false">
+                    <template>
+                        <span v-show="showLoginByError">
+                            <router-link :to="configs.loginPath"
+                                         class="btn btn-sm p-2 pl-1 pr-4 btn-link wpy-btn">
+                                {{ $t('comm.login') }}
+                            </router-link>
+                        </span>
+                    </template>
                 </el-alert>
                 <div v-if="!regSuccess">
                     <div v-if="!submitOk">
@@ -16,7 +24,7 @@
                             <el-form-item :label="$t('user.name')" prop="name">
                                 <el-input v-model="register.name" name="name"></el-input>
                             </el-form-item>
-                            <el-form-item :label="$t('comm.email_or_phone')" prop="email_or_phone">
+                            <el-form-item :label="$t('register_form.email_or_phone')" prop="email_or_phone">
                                 <el-input v-model="register.email_or_phone" name="email_or_phone"></el-input>
                             </el-form-item>
                             <el-form-item :label="$t('user.username')" prop="username">
@@ -125,6 +133,7 @@
                 validCodeVisible: false,
                 validCodeFrom: 'register',
                 errorMsg: '',
+                showLoginByError: false,
                 loading: false,
                 regBtnDisable: false,
                 submitOk: false,
@@ -180,6 +189,7 @@
                     } else {
                         //
                         this.$data.errorMsg = ''
+                        this.$data.showLoginByError = false
                         this.$data.loading = true
                         registerMer(this.$data.register).then(res => {
                             //this.$message.success(this.$i18n.t('comm.success').toString())
@@ -190,6 +200,9 @@
                                 //验证码
                                 this.showValidCode('register')
                             } else {
+                                if (res.code === configs.apiCode.existsParam) {
+                                    this.$data.showLoginByError = true
+                                }
                                 this.$data.errorMsg = res.message
                                 this.$message.error(this.$data.errorMsg)
                             }
