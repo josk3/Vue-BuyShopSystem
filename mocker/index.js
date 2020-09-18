@@ -1038,7 +1038,7 @@ function demoOrderInfoRefund() {
 function demoFinanceList(req) {
     return [
         {
-            trade_id: 'tr_M112d20820s11e1' + req.body.finance_status,
+            trade_id: 'tr_700370918s2141j1s' + req.body.finance_status,
             batch_id: 'b23ou82f2' + new Date().getMilliseconds(),
             merchant_order_no: 'wef2fv23433d' + new Date().getMilliseconds(),
             kind: 'sale',

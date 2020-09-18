@@ -30,7 +30,7 @@
                         style="width: 100%">
                     <el-table-column
                             prop="trade_id"
-                            :label="$t('comm.trade_or_batch_id')" width="210px">
+                            :label="$t('comm.trade_or_batch_id')" width="190px">
                         <template v-slot="scope">
                             <span v-if="scope.row.kind === 'settle' || scope.row.kind === 'depositSettle'">
                                 {{scope.row.batch_id | nullToLine}}
@@ -65,7 +65,7 @@
                             :show-overflow-tooltip="true"
                             label="支付时间">
                         <template v-slot="scope">
-                            {{scope.row.charge_time | toDay }}
+                            {{scope.row.charge_time | toFullTime }}
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -76,8 +76,17 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="charge"
-                            label="余额变动">
+                            min-width="100px"
+                            prop="charge">
+                        <template slot="header">
+                            <el-popover
+                                    placement="top-start"
+                                    width="200"
+                                    trigger="hover"
+                                    content="包含了手续费">
+                                <span slot="reference">余额变动 <i class="el-icon-warning-outline"></i></span>
+                            </el-popover>
+                        </template>
                         <template v-slot="scope">
                             <span :class="scope.row.charge === 0 ? '' : (scope.row.charge > 0 ? 'c-income' : 'c-outlay')">
                                 {{scope.row.charge | chargeAmount}}
