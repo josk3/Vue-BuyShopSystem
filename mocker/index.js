@@ -3188,6 +3188,7 @@ const proxy = {
                     expire_date_fmt: "",
                     expire_date_pretty: "",
                     fixed_fees: 0.3,
+                    fees_rate: '[{"card":"feesRateVisa","rate":0.05},{"card":"feesRateMaster","rate":0.06},{"card":"feesRateJcb","rate":0.06},{"card":"feesRateAe","rate":0.06},{"card":"feesRateDClub","rate":0}]',
                     identity_status: 0,
                     identity_validated: false,
                     is_virtual: null,

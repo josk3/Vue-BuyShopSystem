@@ -263,7 +263,7 @@ module.exports = {
     },
     "bank": {
         "settle_bank": "结算银行卡",
-        "add_bank": "增加银行卡",
+        "add_bank": "添加银行卡",
         "name": "姓名/企业",
         "bank_name": "开户行名称",
         "card_no": "卡号",

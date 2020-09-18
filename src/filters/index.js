@@ -174,6 +174,18 @@ export function payStatus(payStatus) {
     }
 }
 
+export function tradeFeeStr(val) {
+    if (isEmpty(val)) return '--'
+    let arr = JSON.parse(val)
+    let str = ''
+    arr.forEach(function (item) {
+        if (!isEmpty(item) && !isEmpty(item.rate) && item.rate > 0) {
+            str = str + (item.card.replace('feesRate', '')) + ':' + item.rate + ' '
+        }
+    });
+    return str;
+}
+
 /**
  * 黑名单-类别 -》解析成文字
  */

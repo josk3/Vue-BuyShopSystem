@@ -5,7 +5,7 @@
                 <el-card shadow="always" class="box-card p-3"
                          :body-style="{ padding: '0px' }">
                     <div class="text-muted p-0">
-                        <i class="el-icon-info text-blue"></i> {{$t('user.mer_no')}}: {{ user.mer_no }}
+                        <i class="el-icon-info text-blue"></i> {{$t('user.mer_no')}}: <strong>{{ user.mer_no }}</strong>
                     </div>
                 </el-card>
             </div>
@@ -18,6 +18,10 @@
                 <div>
                     <div v-if="info" class="row info-control-list">
                         <div class="col-6">
+                            <div class="row">
+                                <label class="col-4">姓名/企业</label>
+                                <div class="col-8"><span>{{info.name}}</span></div>
+                            </div>
                             <div class="row">
                                 <label class="col-4">
                                     <el-popover
@@ -34,7 +38,11 @@
                             </div>
                             <div class="row">
                                 <label class="col-4">注册时间</label>
-                                <div class="col-8"><span>{{info.created}}</span></div>
+                                <div class="col-8"><span>{{info.created | toDay}}</span></div>
+                            </div>
+                            <div class="row">
+                                <label class="col-4">开通时间</label>
+                                <div class="col-8"><span>{{info.online_date | toDay }}</span></div>
                             </div>
                             <div class="row"><label class="col-4">过期时间</label>
                                 <div class="col-8"><span>{{info.expire_date | nullToLine}}</span></div>
@@ -42,8 +50,12 @@
                             <div class="row"><label class="col-4">结算日</label>
                                 <div class="col-8"><span>{{info.settlement_cycle | settleCycle}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">拒付处理费</label>
-                                <div class="col-8"><span>{{info.chargeback_fees | nullToLine}}美元, 每个自然月1号更新</span>
+                            <div class="row"><label class="col-4">风控处理率</label>
+                                <div class="col-8"><span>USD{{info.fixed_fees | nullToLine}}</span>
+                                </div>
+                            </div>
+                            <div class="row"><label class="col-4">交易手续率</label>
+                                <div class="col-8"><span>{{info.fees_rate | tradeFeeStr}}</span>
                                 </div>
                             </div>
                         </div>
@@ -62,6 +74,10 @@
                             </div>
                             <div class="row"><label class="col-4">拒付率(上个月)</label>
                                 <div class="col-8"><span>{{info.last_monthly_ecm | nullToLine}}</span></div>
+                            </div>
+                            <div class="row"><label class="col-4">拒付处理费</label>
+                                <div class="col-8"><span>{{info.chargeback_fees | nullToLine}}美元, 每个自然月1号更新</span>
+                                </div>
                             </div>
                         </div>
 

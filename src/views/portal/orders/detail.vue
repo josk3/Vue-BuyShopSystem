@@ -96,9 +96,9 @@
                                 <div class="item"><span class="label">风控费</span>
                                     <span class="value">{{ order.risk_fees }} {{ order.settle_currency }}</span>
                                 </div>
-                                <div class="item"><span class="label">订单时间</span><span class="value">{{ order.created_time }}</span>
+                                <div class="item"><span class="label">订单时间</span><span class="value">{{ order.created_time | toFullTime }}</span>
                                 </div>
-                                <div class="item"><span class="label">支付时间</span><span class="value">{{ order.payment_time }}</span>
+                                <div class="item"><span class="label">支付时间</span><span class="value">{{ order.payment_time | toFullTime }}</span>
                                 </div>
                                 <div class="item"><span class="label">支付编号</span><span class="value">{{ order.payment_id }}</span>
                                 </div>
