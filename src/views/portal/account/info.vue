@@ -45,7 +45,7 @@
                                 <div class="col-8"><span>{{info.online_date | toDay }}</span></div>
                             </div>
                             <div class="row"><label class="col-4">过期时间</label>
-                                <div class="col-8"><span>{{info.expire_date | nullToLine}}</span></div>
+                                <div class="col-8"><span>{{info.expire_date | toDay}}</span></div>
                             </div>
                             <div class="row"><label class="col-4">结算日</label>
                                 <div class="col-8"><span>{{info.settlement_cycle | settleCycle}}</span></div>
