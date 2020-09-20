@@ -13,7 +13,7 @@
                         {{ $t('comm.success') }}
                     </h3>
                     <hr>
-                    {{$t('user.mer_no')}}: {{ merNo }}
+                    {{$t('user.mer_no')}}: <strong class="text-red">{{ merNo }}</strong>
                     <p>{{$t('login.remember_you_merchant_no')}}</p>
                 </div>
             </div>

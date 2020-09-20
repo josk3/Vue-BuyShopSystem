@@ -1257,6 +1257,12 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/password/update': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        });
+    },
     'POST /api/v1/register/resend_phone': (req, res) => {
         const {uid} = req.body;
         return res.json({

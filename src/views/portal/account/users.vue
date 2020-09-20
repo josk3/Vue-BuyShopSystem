@@ -85,10 +85,10 @@
                     <el-button style="float: right; padding: 3px 0" type="text" @click="addUserBtn">增加子用户</el-button>
                 </div>
                 <el-table stripe
-                        :class="tabUserData.page.total ? '' : 'wpy-z-table'"
-                        :data="tabUserData.list"
-                        :header-row-style="{background:'#2C2E2F'}"
-                        style="width: 100%">
+                          :class="tabUserData.page.total ? '' : 'wpy-z-table'"
+                          :data="tabUserData.list"
+                          :header-row-style="{background:'#2C2E2F'}"
+                          style="width: 100%">
                     <el-table-column
                             prop="username"
                             :label="$t('user.username')">
@@ -98,6 +98,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="email"
+                            min-width="100px"
                             :label="$t('comm.email')">
                     </el-table-column>
                     <el-table-column
@@ -149,10 +150,10 @@
                                     <el-dropdown-item :command="commandVal('editUser', scope.row, scope.$index)">
                                         <i class="el-icon-edit"></i> {{$t('comm.edit')}}
                                     </el-dropdown-item>
-                                    <el-dropdown-item :command="commandVal('disable', scope.row, scope.$index)">
+                                    <el-dropdown-item :command="commandVal('disableUser', scope.row, scope.$index)">
                                         <i class="el-icon-turn-off"></i> {{$t('comm.disable')}}
                                     </el-dropdown-item>
-                                    <el-dropdown-item :command="commandVal('enable', scope.row, scope.$index)">
+                                    <el-dropdown-item :command="commandVal('enableUser', scope.row, scope.$index)">
                                         <i class="el-icon-open"></i> {{$t('comm.enable')}}
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
@@ -181,7 +182,7 @@
                         <el-checkbox-group v-model="add_role.role_perm" size="mini">
                             <div v-for="perm in perm_list" :key="perm.name">
                                 <el-checkbox :label="perm.name"
-                                             :disabled="perm.name === 'home'"
+                                             :disabled="perm.name === 'home' || perm.name === 'message_center'"
                                              name="role_perm" size="mini">
                                     {{ $t('nav.' + perm.name) }}
                                 </el-checkbox>
@@ -241,8 +242,8 @@
                 </el-form>
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
-                <el-button size="mini" @click="closeUserDialog()">取消</el-button>
-                <el-button size="mini" type="primary" @click="submitAddUser">确认提交</el-button>
+                <el-button size="mini" @click="closeUserDialog()">{{$t('comm.cancel')}}</el-button>
+                <el-button size="mini" type="primary" @click="submitAddUser">{{$t('comm.confirm_submit')}}</el-button>
             </div>
         </el-dialog>
     </div>
@@ -251,8 +252,17 @@
 <script>
     import configs from '@/configs'
     import Pagination from "@/components/Pagination";
-    import {isEmpty, isArray} from "@/utils/validate";
-    import {addRole, addUser, getAllMenus, roleSearch, updateRole, updateUser, userSearch} from "@/service/merchantSer";
+    import {isArray, isEmpty} from "@/utils/validate";
+    import {
+        addRole,
+        addUser,
+        disableUser, enableUser,
+        getAllMenus,
+        roleSearch,
+        updateRole,
+        updateUser,
+        userSearch
+    } from "@/service/merchantSer";
 
     export default {
         name: "merchant_users",
@@ -342,6 +352,24 @@
                     case 'editUser':
                         this.openUserDialog('edit', row)
                         break;
+                    case 'disableUser':
+                        this.loading = true
+                        disableUser(row).then(() => {
+                            this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.userSearch()
+                        }).finally(() => {
+                            this.loading = false
+                        })
+                        break;
+                    case 'enableUser':
+                        this.loading = true
+                        enableUser(row).then(() => {
+                            this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.userSearch()
+                        }).finally(() => {
+                            this.loading = false
+                        })
+                        break;
                 }
             },
             //---role
@@ -358,7 +386,7 @@
                     }).finally(() => {
                         this.$data.loading = false
                     })
-                }else {
+                } else {
                     this.renderRoleDialog(action, item)
                 }
             },
@@ -375,6 +403,8 @@
                     }
                     this.add_role.remark = data.remark
                 }
+                this.add_role.role_perm.push('home')
+                this.add_role.role_perm.push('message_center')
                 this.add_role.action = action
                 this.addRoleDialogVisible = true
             },
@@ -396,7 +426,7 @@
                         //
                         if (!isEmpty(this.add_role.role_perm)) {
                             this.add_role.perms = JSON.stringify(this.add_role.role_perm)
-                        }else {
+                        } else {
                             this.add_role.perms = ''
                         }
                         if (this.add_role.action === 'add') {
@@ -425,16 +455,21 @@
             addUserBtn() {
                 this.openUserDialog('add', null)
             },
-            openUserDialog(action, data) {
+            openUserDialog(action, item) {
                 if (isEmpty(this.role_list) || this.role_list.length <= 0) {
                     this.$data.loading = true
                     roleSearch({}).then(res => {
                         const {data} = res
                         this.$data.role_list = data.list
+                        this.renderUserDialog(action, item)
                     }).finally(() => {
                         this.$data.loading = false
                     })
+                }else {
+                    this.renderUserDialog(action, item)
                 }
+            },
+            renderUserDialog(action, data) {
                 this.initUserForm()
                 if (!isEmpty(data)) {
                     this.add_user.mer_uid = data.mer_uid
@@ -442,6 +477,7 @@
                     this.add_user.email = data.email
                     this.add_user.phone = data.phone
                     this.add_user.full_name = data.full_name
+                    this.add_user.role_uid = data.role_uid
                 }
                 this.add_user.action = action
                 this.addUserDialogVisible = true
