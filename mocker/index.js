@@ -3569,6 +3569,12 @@ const proxy = {
             data: {}
         })
     },
+    'POST /api/v1/shop/open': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
 
 }
 let sleep = false;

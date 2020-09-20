@@ -24,3 +24,7 @@ export function closeShop(params) {
     return post('/shop/close', params);
 }
 
+export function openShop(params) {
+    return post('/shop/open', params);
+}
+

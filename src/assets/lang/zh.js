@@ -82,6 +82,7 @@ module.exports = {
         "enable": "启用",
         "del": "删除",
         "close": "关闭",
+        "open": "打开",
     },
     "nav": {
         "home": "主页",

@@ -74,17 +74,19 @@
                     </el-table-column>
                     <el-table-column width="50" fixed="right">
                         <template v-slot="scope">
-                            <el-dropdown v-show="scope.row.status !== 1"
-                                         trigger="click" @command="handleCommand">
+                            <el-dropdown trigger="click" @command="handleCommand">
                                       <span class="el-dropdown-link">
                                           <i class="el-icon-more"></i>
                                       </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item :command="commandVal('edit', scope.row, scope.$index)">
+                                    <el-dropdown-item v-show="scope.row.status !== 1 && scope.row.status !== 4" :command="commandVal('edit', scope.row, scope.$index)">
                                         <i class="el-icon-edit"></i> {{$t('comm.edit')}}
                                     </el-dropdown-item>
-                                    <el-dropdown-item :command="commandVal('close', scope.row, scope.$index)">
+                                    <el-dropdown-item v-if="scope.row.status === 1" :command="commandVal('close', scope.row, scope.$index)">
                                         <i class="el-icon-turn-off"></i> {{$t('comm.close')}}
+                                    </el-dropdown-item>
+                                    <el-dropdown-item v-if="scope.row.status === 4" :command="commandVal('open', scope.row, scope.$index)">
+                                        <i class="el-icon-turn-off"></i> {{$t('comm.open')}}
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
@@ -164,7 +166,7 @@
                 </el-form>
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
-                <el-button size="mini" @click="closeShopDialog()">取消</el-button>
+                <el-button size="mini" @click="closeShopDialog()">{{$t('comm.cancel')}}</el-button>
                 <el-button size="mini" type="primary" @click="submitAddShop">提交网址</el-button>
             </div>
         </el-dialog>
@@ -175,7 +177,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {addShop, closeShop, getSiteSystemList, shopSearch, updateShop} from "@/service/shopSer";
+    import {addShop, closeShop, getSiteSystemList, openShop, shopSearch, updateShop} from "@/service/shopSer";
     import {isEmpty} from "@/utils/validate";
 
     export default {
@@ -204,7 +206,7 @@
                 add_shop: this.initShopFormObj(),
                 addShopDialogVisible: false,
                 site_sys_list: [],
-                customer_return_url: ['Other', 'Java', 'Php', 'Asp', 'PHP' ],
+                customer_return_url: ['Other', 'Java', 'Php', 'Asp', 'PHP'],
                 rules: {
                     site_url: [
                         {required: true, message: '请输入网址', trigger: 'blur'},
@@ -267,6 +269,15 @@
                             this.$data.loading = false
                         })
                         break;
+                    case 'open':
+                        this.$data.loading = true
+                        openShop(row).then(() => {
+                            this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.search()
+                        }).finally(() => {
+                            this.$data.loading = false
+                        })
+                        break;
                 }
             },
             //-
@@ -283,7 +294,7 @@
                     }).finally(() => {
                         this.$data.loading = false
                     })
-                }else {
+                } else {
                     this.renderShopDialog(action, item)
                 }
             },

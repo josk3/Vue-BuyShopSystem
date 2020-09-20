@@ -22,6 +22,7 @@ module.exports = {
         "contact_us": "Contact Us",
         "record_total": "Total Record",
         "confirm": "Confirm",
+        "confirm_submit": "Confirm Submit",
         "remark": "Remark",
         "email_or_phone": "Email",
 
@@ -68,6 +69,7 @@ module.exports = {
         "title": "Title",
         "announce": "Announce",
         "notify": "Notice",
+        "operator": "Operator",
 
         "created": "Time",
         "updated": "Update time",
@@ -79,6 +81,8 @@ module.exports = {
         "disable": "Disable",
         "enable": "Enable",
         "del": "Delete",
+        "close": "Close",
+        "open": "Open",
     },
     "nav": {
         "home": "Home",
@@ -261,6 +265,7 @@ module.exports = {
         "site_system": "Website System",
         "is_virtual": "Virtual Product",
         "add_site": "Add Site",
+        "protocol": "Protocol",
     },
     "bank": {
         "settle_bank": "Settle Bank",
