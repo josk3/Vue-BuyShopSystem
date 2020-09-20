@@ -3545,7 +3545,7 @@ const proxy = {
     "POST /api/v1/dispute/appendDispute": (req, res) => {
         return res.json({
             status: 1,
-            message: '投诉已处理完成！',
+            message: '争议已处理完成！',
             data: null
         })
     },

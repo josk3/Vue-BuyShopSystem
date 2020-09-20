@@ -3,7 +3,7 @@
 
         <el-card>
             <div slot="header">
-                <el-page-header @back="goBack()" content="投诉邮件详情" title="返回"></el-page-header>
+                <el-page-header @back="goBack()" content="争议邮件详情" title="返回"></el-page-header>
             </div>
             <el-main class="bg-light ">
                 <el-row :gutter="20" class="mb-5">
@@ -66,16 +66,16 @@
                 <el-button :type="dispose.disposeType" class="mb-3 col-3" @click="open()">{{dispose.status}}
                 </el-button>
                 <div class="mb-2"><strong>{{dispose.msg}}</strong></div>
-                <div class="mb-2"><small class="opacity-65">此处按钮利于跟进投诉进度,望如实操作</small></div>
+                <div class="mb-2"><small class="opacity-65">此处按钮利于跟进争议进度,望如实操作</small></div>
             </div>
         </el-card>
 
-        <!--投诉关闭及商户解决过程描述-->
+        <!--争议关闭及商户解决过程描述-->
         <el-card>
             <!--<div slot="header" class="clearfix">
                 <strong></strong>
             </div>-->
-            <!--填写投诉表单-->
+            <!--填写争议表单-->
             <el-dialog :visible="refundDialogVisible" title="处理结果描述" :show-close="false" :close-on-click-modal="false">
                 <el-form :model="disputeSubmitParams" :rules="rules" ref="disputeSubmitParams" label-width="100px"
                          class="demo-ruleForm" id="disputeAppendForm">
@@ -107,8 +107,8 @@
         data() {
             return {
                 loading: false, //加载效果
-                dispute: this.$route.query.id, //投诉号
-                currentDisputeStatus: '', //当前投诉状态值
+                dispute: this.$route.query.id, //争议号
+                currentDisputeStatus: '', //当前争议状态值
                 refundDialogVisible: false, //对话框显隐
                 disputeDetail: [],
                 disputeSubmitParams: {
@@ -131,7 +131,7 @@
                         }
                     ],
                     content: [
-                        {required: true, message: '投诉内容不能为空', trigger: 'blur'},
+                        {required: true, message: '争议内容不能为空', trigger: 'blur'},
                         {min: 1, max: 270, message: '内容限制270字以下,请酌情精简内容', trigger: 'blur'}
                     ]
                 },
@@ -148,7 +148,7 @@
                         this.refundDialogVisible = true;
                         return false;
                     }
-                    this.$confirm('根据实际投诉进度,确认是否进入下阶段?', '提示', {
+                    this.$confirm('根据实际争议进度,确认是否进入下阶段?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
@@ -197,13 +197,13 @@
             }, disposeDispute(disputeStatus) {
                 switch (disputeStatus) {
                     case 'UNTREATED':
-                        this.dispose = {msg: '尊敬商户如您已知悉投诉内容,请点击\'处理投诉\'按钮', disposeType: 'info', status: '开始处理'};
+                        this.dispose = {msg: '尊敬商户如您已知悉争议内容,请点击\'处理争议\'按钮', disposeType: 'info', status: '开始处理'};
                         break;
                     case 'UNDERWAY':
                         this.dispose = {msg: '尊敬商户如您已联系客户并解决问题,请点击\'结束处理\'按钮', disposeType: 'primary', status: '结束处理'};
                         break;
                     case 'COMPLETE':
-                        this.dispose = {msg: '投诉已处理!', disposeType: 'success', status: '处理完成'};
+                        this.dispose = {msg: '争议已处理!', disposeType: 'success', status: '处理完成'};
                         break;
                 }
             }, disputeStatus() {

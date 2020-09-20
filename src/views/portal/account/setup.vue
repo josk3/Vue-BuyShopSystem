@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <label class="col-sm-9">有投诉时邮件通知商户</label>
+                                <label class="col-sm-9">有争议时邮件通知商户</label>
                                 <div class="col-sm-3">
                                     <el-switch v-model="notice.complain_notice_mer" active-value="1" disabled></el-switch>
                                 </div>

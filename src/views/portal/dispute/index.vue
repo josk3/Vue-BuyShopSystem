@@ -18,7 +18,7 @@
                 <el-table-column
                         fixed
                         prop="dispute_no"
-                        label="投诉单号"
+                        label="争议单号"
                         width="160">
                     <template slot-scope="scope">
                         <router-link :to="{name:'dispute_detail',params:{id:scope.row.dispute_no}}" class="btn-link">
@@ -49,11 +49,11 @@
                 </el-table-column>
                 <el-table-column
                         prop="reason"
-                        label="投诉事由">
+                        label="争议事由">
                 </el-table-column>
                 <el-table-column
                         prop="created"
-                        label="持卡人投诉日期">
+                        label="持卡人争议日期">
                 </el-table-column>
                 <el-table-column
                         prop="updated"
@@ -103,14 +103,14 @@
                     }
                 },
                 tabName: 'all',
-                /* dispute_no: '', //投诉单号
+                /* dispute_no: '', //争议单号
                  merchant_order_no: '', //商户流水号
                  order_no: '', //订单号
                  email: '', //持卡人或商户邮箱
-                 created: '', //持卡人投诉日期
+                 created: '', //持卡人争议日期
                  updated: '', //最近更新日期
                  status: '', //处理状态: 待处理 处理中 处理完成
-                 reason: '', //投诉事由(下拉值)*/
+                 reason: '', //争议事由(下拉值)*/
             }
         },
         mounted() {

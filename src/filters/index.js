@@ -363,7 +363,7 @@ export function settleCycle(val) {
 }
 
 /**
- * 投诉管理状态值转文字
+ * 争议管理状态值转文字
  */
 export function disputeStatus(priorityValue) {
     if (isEmpty(priorityValue)) return ''
