@@ -24,12 +24,12 @@
                                      :label="$t('user.role_menu')">
                         <template slot-scope="props">
                             <el-tag
-                                    v-for="item in props.row.role_menu"
-                                    :key="item"
+                                    v-for="item in props.row.menus"
+                                    :key="item.name"
                                     type="info"
                                     class="mr-2"
                                     effect="plain">
-                                {{ $t('nav.' + item) }}
+                                {{ $t('nav.' + item.name) }}
                             </el-tag>
                         </template>
                     </el-table-column>
@@ -132,6 +132,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="created"
+                            :show-overflow-tooltip="true"
                             :label="$t('comm.created')">
                         <template v-slot="scope">
                             {{scope.row.created | toDay }}
@@ -163,10 +164,11 @@
             </el-card>
         </div>
         <!--    d    -->
-        <el-dialog custom-class="wpy-dialog md-dialog bg-body"
+        <el-dialog custom-class="wpy-dialog bg-dialog bg-body"
                    @close="closeRoleDialog"
                    :show-close="false" :close-on-click-modal="false"
                    :title="$t('user.role_name')"
+                   top="15px"
                    :visible.sync="addRoleDialogVisible">
             <div>
                 <el-form ref="add_role"
@@ -175,14 +177,20 @@
                     <el-form-item :label="$t('user.role_name')" prop="role_name">
                         <el-input v-model="add_role.role_name"></el-input>
                     </el-form-item>
-                    <el-form-item label="权限" prop="role_perm">
-                        <el-checkbox-group v-for="perm in perm_list"
-                                           :label="perm.name" :key="perm.name" v-model="add_role.role_perm" >
-                            <el-checkbox :label="perm.name" name="role_perm">{{ $t('nav.' + perm.name) }}</el-checkbox>
-                            <div class="pl-3">
-                                <el-checkbox v-for="item in perm.children" :label="item.name" :key="item.name">
-                                    {{ $t('nav.' + item.name) }}
+                    <el-form-item :label="$t('user.role_menu')" prop="role_perm" v-if="perm_list">
+                        <el-checkbox-group v-model="add_role.role_perm" size="mini">
+                            <div v-for="perm in perm_list" :key="perm.name">
+                                <el-checkbox :label="perm.name"
+                                             :disabled="perm.name === 'home'"
+                                             name="role_perm" size="mini">
+                                    {{ $t('nav.' + perm.name) }}
                                 </el-checkbox>
+                                <div class="pl-3">
+                                    <el-checkbox v-for="item in perm.children" :key="item.name"
+                                                 :label="item.name" size="mini">
+                                        {{ $t('nav.' + item.name) }}
+                                    </el-checkbox>
+                                </div>
                             </div>
                         </el-checkbox-group>
                     </el-form-item>
@@ -192,8 +200,8 @@
                 </el-form>
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
-                <el-button size="mini" @click="closeRoleDialog()">取消</el-button>
-                <el-button size="mini" type="primary" @click="submitAddRole">确认提交</el-button>
+                <el-button size="mini" @click="closeRoleDialog()">{{$t('comm.cancel')}}</el-button>
+                <el-button size="mini" type="primary" @click="submitAddRole">{{$t('comm.confirm_submit')}}</el-button>
             </div>
         </el-dialog>
         <el-dialog custom-class="wpy-dialog sm-dialog"
@@ -209,7 +217,7 @@
                         <el-input v-model="add_user.username" :disabled="add_user.action === 'edit'"></el-input>
                     </el-form-item>
                     <el-form-item :label="$t('comm.email')" prop="email">
-                        <el-input v-model="add_user.email"></el-input>
+                        <el-input v-model="add_user.email" :disabled="add_user.action === 'edit'"></el-input>
                         <p v-show="add_user.action === 'add'" class="text-muted p-0 m-0">*密码将发送至该邮箱</p>
                     </el-form-item>
                     <el-form-item :label="$t('user.role_name')" prop="role_uid">
@@ -243,7 +251,7 @@
 <script>
     import configs from '@/configs'
     import Pagination from "@/components/Pagination";
-    import {isEmpty} from "@/utils/validate";
+    import {isEmpty, isArray} from "@/utils/validate";
     import {addRole, addUser, getAllMenus, roleSearch, updateRole, updateUser, userSearch} from "@/service/merchantSer";
 
     export default {
@@ -260,10 +268,13 @@
                 searchParams: {
                     title: 'nav.merchant_user', page: 1,
                 },
+                searchUserParams: {
+                    title: 'nav.merchant_user', page: 1,
+                },
                 tabRoleData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 add_role: this.initRoleFormObj(),
                 addRoleDialogVisible: false,
-                perm_list: [],
+                perm_list: null,
                 tabUserData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 add_user: this.initUserFormObj(),
                 addUserDialogVisible: false,
@@ -294,7 +305,7 @@
         },
         methods: {
             pageUserChange(page) {
-                this.searchParams.page = page.page_num
+                this.searchUserParams.page = page.page_num
                 this.roleSearch()
             },
             pageRoleChange(page) {
@@ -312,7 +323,7 @@
             },
             userSearch() {
                 this.loading = true
-                userSearch(this.searchParams).then(res => {
+                userSearch(this.searchUserParams).then(res => {
                     const {data} = res
                     this.$data.tabUserData = data
                 }).finally(() => {
@@ -337,21 +348,31 @@
             addRoleBtn() {
                 this.openRoleDialog('add', null)
             },
-            openRoleDialog(action, data) {
-                if (isEmpty(this.perm_list) || this.perm_list.length <= 0) {
+            openRoleDialog(action, item) {
+                if (isEmpty(this.perm_list)) {
                     this.$data.loading = true
                     getAllMenus().then(res => {
                         const {data} = res
                         this.$data.perm_list = data.menus
+                        this.renderRoleDialog(action, item)
                     }).finally(() => {
                         this.$data.loading = false
                     })
+                }else {
+                    this.renderRoleDialog(action, item)
                 }
+            },
+            renderRoleDialog(action, data) {
                 this.initRoleForm()
                 if (!isEmpty(data)) {
                     this.add_role.role_uid = data.role_uid
                     this.add_role.role_name = data.role_name
-                    this.add_role.role_perm = data.role_menu
+                    this.add_role.role_perm = []
+                    if (!isEmpty(data.menus) && isArray(data.menus) && data.menus.length > 0) {
+                        data.menus.forEach(val => {
+                            this.add_role.role_perm.push(val.name)
+                        });
+                    }
                     this.add_role.remark = data.remark
                 }
                 this.add_role.action = action
@@ -373,11 +394,17 @@
                         return false;
                     } else {
                         //
+                        if (!isEmpty(this.add_role.role_perm)) {
+                            this.add_role.perms = JSON.stringify(this.add_role.role_perm)
+                        }else {
+                            this.add_role.perms = ''
+                        }
                         if (this.add_role.action === 'add') {
                             this.$data.loading = true
                             addRole(this.add_role).then(() => {
                                 this.$message.success(this.$i18n.t('comm.success').toString())
                                 this.closeRoleDialog()
+                                this.roleSearch()
                             }).finally(() => {
                                 this.$data.loading = false
                             })
@@ -386,6 +413,7 @@
                             updateRole(this.add_role).then(() => {
                                 this.$message.success(this.$i18n.t('comm.success').toString())
                                 this.closeRoleDialog()
+                                this.roleSearch()
                             }).finally(() => {
                                 this.$data.loading = false
                             })
@@ -439,6 +467,7 @@
                             addUser(this.add_user).then(() => {
                                 this.$message.success(this.$i18n.t('comm.success').toString())
                                 this.closeUserDialog()
+                                this.userSearch()
                             }).finally(() => {
                                 this.$data.loading = false
                             })
@@ -447,6 +476,7 @@
                             updateUser(this.add_user).then(() => {
                                 this.$message.success(this.$i18n.t('comm.success').toString())
                                 this.closeUserDialog()
+                                this.userSearch()
                             }).finally(() => {
                                 this.$data.loading = false
                             })

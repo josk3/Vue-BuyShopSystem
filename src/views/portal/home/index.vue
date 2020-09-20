@@ -91,7 +91,7 @@
                             </el-table>
                         </el-card>
                     </div>
-                    <div class="col-5 pr-0" v-loading="announceLoading">
+                    <div class="col-5" v-loading="announceLoading">
                         <el-card class="box-card wpy-card sm-card bg-body" shadow="hover">
                             <div slot="header" class="clearfix">
                                 <span>{{$t('nav.announce')}}</span>

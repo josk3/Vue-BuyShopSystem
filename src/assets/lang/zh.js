@@ -22,6 +22,7 @@ module.exports = {
         "contact_us": "联系我们",
         "record_total": "总记录数",
         "confirm": "确认",
+        "confirm_submit": "确认提交",
         "remark": "备注说明",
         "email_or_phone": "手机号或邮箱",
 

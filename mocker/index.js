@@ -3126,7 +3126,24 @@ const proxy = {
                     {
                         role_uid: 'w454545',
                         role_name: '客服1',
-                        role_menu: ['home', 'refund_select'],
+                        "menus": [
+                            {
+                                "name": "finance_select",
+                                "title": "portal.title.finance.select",
+                                "sort": 11,
+                                "icon": null,
+                                "remark": null,
+                                "status_txt": "启用"
+                            },
+                            {
+                                "name": "finance_search",
+                                "title": "title.finance_search",
+                                "sort": 101,
+                                "icon": null,
+                                "remark": null,
+                                "status_txt": "启用"
+                            }
+                        ],
                         remark: 'wf3jw342f2',
                         status: 1,
                         created: '2020-01-01',
@@ -3135,7 +3152,24 @@ const proxy = {
                     {
                         role_uid: 'w454534545',
                         role_name: '客服3',
-                        role_menu: ['home', 'refund_select'],
+                        "menus": [
+                            {
+                                "name": "finance_select",
+                                "title": "portal.title.finance.select",
+                                "sort": 11,
+                                "icon": null,
+                                "remark": null,
+                                "status_txt": "启用"
+                            },
+                            {
+                                "name": "finance_search",
+                                "title": "title.finance_search",
+                                "sort": 101,
+                                "icon": null,
+                                "remark": null,
+                                "status_txt": "启用"
+                            }
+                        ],
                         remark: 'wf3jw342f2',
                         status: 1,
                         created: '2020-01-01',
@@ -3477,13 +3511,53 @@ const proxy = {
             message: '状态更新！',
             data: null
         })
-    }, "POST /api/v1/dispute/appendDispute": (req, res) => {
+    },
+    "POST /api/v1/dispute/appendDispute": (req, res) => {
         return res.json({
             status: 1,
             message: '投诉已处理完成！',
             data: null
         })
-    }
+    },
+
+    //=-=-=
+    'POST /api/v1/merchant/role/add': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/merchant/role/update': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/merchant/user/add': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/merchant/user/update': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/merchant/user/disable': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/merchant/user/enable': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+
 }
 let sleep = false;
 // let sleep = true;// true 测试延迟响应

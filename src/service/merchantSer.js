@@ -43,7 +43,7 @@ export function roleSearch(params) {
 }
 
 export function addRole(params) {
-    return postArray('/merchant/role/add', params);
+    return post('/merchant/role/add', params);
 }
 
 export function updateRole(params) {

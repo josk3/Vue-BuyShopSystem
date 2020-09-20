@@ -78,7 +78,7 @@
                     <label for="inputEmailOrPhone" class="sr-only">Email or Phone</label>
                     <input type="email" id="inputEmailOrPhone" name="email_or_phone" class="form-control last-input"
                            v-model="form.email_or_phone"
-                           :placeholder="$t('register_form.email_or_phone')"
+                           :placeholder="$t('comm.email_or_phone')"
                            required>
                     <el-button type="primary"
                                class="btn-block wpy-btn"

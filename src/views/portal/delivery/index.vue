@@ -116,7 +116,7 @@
                             <el-input :value="track_form.trade_id" :disabled="true"></el-input>
                         </el-form-item>
                         <el-form-item label="物流公司" prop="track_brand">
-                            <el-select v-model="track_form.track_brand" placeholder="请选择物流公司">
+                            <el-select v-model="track_form.track_brand" placeholder="请选择物流公司" filterable>
                                 <el-option v-for="brand in track_brand_all" :key="brand.value"
                                            :label="brand.text" :value="brand.value"></el-option>
                             </el-select>
