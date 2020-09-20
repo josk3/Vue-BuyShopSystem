@@ -8,10 +8,11 @@
                 </div>
                 <el-table
                         stripe
-                        default-expand-all
+                        :expand-row-keys="expandKeys"
                         :class="tabRoleData.page.total ? '' : 'wpy-z-table'"
                         :data="tabRoleData.list"
                         :header-row-style="{background:'#2C2E2F'}"
+                        row-key="role_uid"
                         style="width: 100%">
                     <el-table-column
                             prop="role_name"
@@ -307,6 +308,8 @@
                         {required: true, message: '请输入邮箱', trigger: 'blur'},
                     ],
                 },
+
+                expandKeys: [],
             }
         },
         mounted() {
@@ -327,6 +330,7 @@
                 roleSearch(this.searchParams).then(res => {
                     const {data} = res
                     this.$data.tabRoleData = data
+                    if (!isEmpty(data.list)) this.expandKeys = [data.list[0].role_uid] //显示第一个
                 }).finally(() => {
                     this.loading = false
                 })

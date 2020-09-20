@@ -3037,6 +3037,30 @@ const proxy = {
     },
     //--
     //download, /decline/download, /finance/download, /settle/download, /delivery/download
+    'POST /api/v1/decline/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/finance/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/settle/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/delivery/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
     'POST /api/v1/shop/search': (req, res) => {
         return res.json({
             status: 1,
