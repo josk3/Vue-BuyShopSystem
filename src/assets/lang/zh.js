@@ -69,6 +69,7 @@ module.exports = {
         "title": "标题",
         "announce": "公告",
         "notify": "消息",
+        "operator": "操作者",
 
         "created": "时间",
         "updated": "更新时间",
@@ -80,6 +81,7 @@ module.exports = {
         "disable": "禁用",
         "enable": "启用",
         "del": "删除",
+        "close": "关闭",
     },
     "nav": {
         "home": "主页",
@@ -261,6 +263,7 @@ module.exports = {
         "site_system": "网站系统",
         "is_virtual": "虚拟产品",
         "add_site": "增加网站",
+        "protocol": "协议",
     },
     "bank": {
         "settle_bank": "结算银行卡",

@@ -9,6 +9,7 @@
                                  @tab-click="paneClick">
                             <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
                             <el-tab-pane :label="$t('comm.wait_review')" name="wait_review"></el-tab-pane>
+                            <el-tab-pane :label="$t('comm.close')" name="close"></el-tab-pane>
                             <el-tab-pane :label="$t('comm.review_reject')" name="review_reject"></el-tab-pane>
                         </el-tabs>
                     </div>
@@ -26,6 +27,11 @@
                         :data="tabData.list"
                         :header-row-style="{background:'#2C2E2F'}"
                         style="width: 100%">
+                    <el-table-column
+                            prop="url_protocol"
+                            width="60px"
+                            :label="$t('shop.protocol')">
+                    </el-table-column>
                     <el-table-column
                             prop="site_url"
                             :label="$t('shop.site_url')">
@@ -62,9 +68,9 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="operator_name"
+                            prop="operator"
                             :show-overflow-tooltip="true"
-                            label="操作者">
+                            :label="$t('comm.operator')">
                     </el-table-column>
                     <el-table-column width="50" fixed="right">
                         <template v-slot="scope">
@@ -76,6 +82,9 @@
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item :command="commandVal('edit', scope.row, scope.$index)">
                                         <i class="el-icon-edit"></i> {{$t('comm.edit')}}
+                                    </el-dropdown-item>
+                                    <el-dropdown-item :command="commandVal('close', scope.row, scope.$index)">
+                                        <i class="el-icon-turn-off"></i> {{$t('comm.close')}}
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
@@ -111,7 +120,8 @@
                             <el-select v-model="add_shop.url_protocol" slot="prepend" placeholder="http协议"
                                        filterable>
                                 <el-option label="http" value="http"><span style="float: left">http</span></el-option>
-                                <el-option label="https" value="https"><span style="float: left">https</span></el-option>
+                                <el-option label="https" value="https"><span style="float: left">https</span>
+                                </el-option>
                             </el-select>
                         </el-input>
                     </el-form-item>
@@ -147,6 +157,8 @@
                         <el-checkbox :label="$t('shop.is_virtual')"
                                      :checked="add_shop.is_virtual === 1 || add_shop.is_virtual === '1'"
                                      v-model="add_shop.is_virtual"
+                                     true-label="1"
+                                     false-label="0"
                                      name="is_virtual"></el-checkbox>
                     </el-form-item>
                 </el-form>
@@ -163,7 +175,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {addShop, getSiteSystemList, shopSearch, updateShop} from "@/service/shopSer";
+    import {addShop, closeShop, getSiteSystemList, shopSearch, updateShop} from "@/service/shopSer";
     import {isEmpty} from "@/utils/validate";
 
     export default {
@@ -192,7 +204,7 @@
                 add_shop: this.initShopFormObj(),
                 addShopDialogVisible: false,
                 site_sys_list: [],
-                customer_return_url: ['Other', 'Java', 'Php', 'Asp'],
+                customer_return_url: ['Other', 'Java', 'Php', 'Asp', 'PHP' ],
                 rules: {
                     site_url: [
                         {required: true, message: '请输入网址', trigger: 'blur'},
@@ -210,14 +222,14 @@
             }
         },
         mounted() {
-            this.searchParams.stauts = this.paneName
+            this.searchParams.status = this.paneName
             this.search();
         },
         methods: {
             paneClick(tab) {
                 this.searchParams.page = 1;//重置页码
                 this.paneName = tab.name
-                this.searchParams.stauts = tab.name //搜索对应status
+                this.searchParams.status = tab.name //搜索对应status
                 this.search('pane')
             },
             pageChange(page) {
@@ -227,7 +239,7 @@
             search(source) {
                 if (isEmpty(source)) {//搜索网址时-搜索所有状态
                     this.paneName = 'all'
-                    this.searchParams.stauts = this.paneName
+                    this.searchParams.status = this.paneName
                 }
                 this.loading = true
                 shopSearch(this.searchParams).then(res => {
@@ -246,22 +258,36 @@
                     case 'edit':
                         this.openShopDialog('edit', row)
                         break;
+                    case 'close':
+                        this.$data.loading = true
+                        closeShop(row).then(() => {
+                            this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.search()
+                        }).finally(() => {
+                            this.$data.loading = false
+                        })
+                        break;
                 }
             },
             //-
             addShopBtn() {
                 this.openShopDialog('add', null)
             },
-            openShopDialog(action, data){
+            openShopDialog(action, item) {
                 if (isEmpty(this.site_sys_list) || this.site_sys_list.length <= 0) {
                     this.$data.loading = true
                     getSiteSystemList().then(res => {
                         const {data} = res
                         this.$data.site_sys_list = data.list
+                        this.renderShopDialog(action, item)
                     }).finally(() => {
                         this.$data.loading = false
                     })
+                }else {
+                    this.renderShopDialog(action, item)
                 }
+            },
+            renderShopDialog(action, data) {
                 this.initShopForm()
                 if (!isEmpty(data)) {
                     this.add_shop.site_id = data.site_id
@@ -275,7 +301,15 @@
                 this.addShopDialogVisible = true
             },
             initShopFormObj() {
-                return {action: '', site_id: '', site_url: '', url_protocol: '', site_system: '', return_url: '', is_virtual: ''}
+                return {
+                    action: '',
+                    site_id: '',
+                    site_url: '',
+                    url_protocol: '',
+                    site_system: '',
+                    return_url: '',
+                    is_virtual: ''
+                }
             },
             initShopForm() {
                 this.add_shop = this.initShopFormObj()
@@ -298,6 +332,7 @@
                             addShop(this.add_shop).then(() => {
                                 this.$message.success(this.$i18n.t('comm.success').toString())
                                 this.closeShopDialog()
+                                this.search()
                             }).finally(() => {
                                 this.$data.loading = false
                             })
@@ -306,6 +341,7 @@
                             updateShop(this.add_shop).then(() => {
                                 this.$message.success(this.$i18n.t('comm.success').toString())
                                 this.closeShopDialog()
+                                this.search('pane')
                             }).finally(() => {
                                 this.$data.loading = false
                             })
@@ -322,6 +358,7 @@
     .input-with-select .el-select .el-input {
         width: 100px;
     }
+
     .input-with-select .el-input-group__prepend {
         background-color: #fff;
     }

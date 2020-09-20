@@ -48,7 +48,7 @@
                         </el-table-column>
                         <el-table-column
                                 prop="operator_name"
-                                label="操作者">
+                                :label="$t('comm.operator')">
                             <template v-slot="scope">
                                 {{scope.row.operator_name }}
                             </template>

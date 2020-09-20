@@ -19,3 +19,8 @@ export function addShop(params) {
 export function updateShop(params) {
     return post('/shop/update', params);
 }
+
+export function closeShop(params) {
+    return post('/shop/close', params);
+}
+
