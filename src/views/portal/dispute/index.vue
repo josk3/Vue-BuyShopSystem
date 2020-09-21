@@ -27,47 +27,43 @@
                     </template>
                 </el-table-column>
                 <el-table-column
+                        prop="mer_no"
+                        label="商户号">
+                </el-table-column>
+                <el-table-column
+                        prop="trade_no"
+                        :show-overflow-tooltip="true"
+                        label="订单号" width="200">
+                </el-table-column>
+                <el-table-column
                         prop="merchant_order_no"
-                        label="商户流水号" width="210px">
+                        label="商户流水号" width="130px">
                 </el-table-column>
                 <el-table-column
-                        prop="order_no"
-                        :show-overflow-tooltip="true"
-                        label="订单号">
-                </el-table-column>
-                <el-table-column
-                        prop="email"
-                        :show-overflow-tooltip="true"
-                        label="持卡人邮箱">
-                </el-table-column>
-                <el-table-column
-                        prop="status"
+                        prop="dispute_status"
                         label="处理状态">
                     <template v-slot="scope">
-                        {{scope.row.status | disputeStatus }}
+                            <span>
+                                {{scope.row.dispute_status | disputeStatus}}
+                            </span>
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="reason"
-                        label="争议事由">
+                        prop="dispute_type"
+                        label="争议类型">
+                </el-table-column>
+                <el-table-column
+                        prop="remark"
+                        :show-overflow-tooltip="true"
+                        label="争议说明">
+                </el-table-column>
+                <el-table-column
+                        prop="email"
+                        label="持卡人邮箱">
                 </el-table-column>
                 <el-table-column
                         prop="created"
                         label="持卡人争议日期">
-                </el-table-column>
-                <el-table-column
-                        prop="updated"
-                        label="最近更新日期">
-                </el-table-column>
-                <el-table-column
-                        fixed="right"
-                        label="操作"
-                        width="150">
-                    <template slot-scope="scope">
-                        <router-link :to="{name:'dispute_detail',params:{id:scope.row.dispute_no}}" class="btn-link">
-                            查看
-                        </router-link>
-                    </template>
                 </el-table-column>
             </el-table>
             <div class="block mb-3">
@@ -102,18 +98,11 @@
                         total: 0, //工单总数
                     }
                 },
-                tabName: 'all',
-                /* dispute_no: '', //争议单号
-                 merchant_order_no: '', //商户流水号
-                 order_no: '', //订单号
-                 email: '', //持卡人或商户邮箱
-                 created: '', //持卡人争议日期
-                 updated: '', //最近更新日期
-                 status: '', //处理状态: 待处理 处理中 处理完成
-                 reason: '', //争议事由(下拉值)*/
+                tabName: 'ALL',
             }
         },
         mounted() {
+            this.searchParams.dispute_status = this.tabName;
             this.disputeSearch();
         },
         methods: {
@@ -130,7 +119,8 @@
                 })
             }, clickSearch(tab) {
                 this.searchParams.dispute_status = tab.name;
-                this.search();
+                this.searchParams.page = 1;
+                this.disputeSearch();
             }
         }
     }
@@ -140,12 +130,12 @@
     .el-row {
         margin-bottom: 20px;
 
-    &
+    }
+
     :last-child {
         margin-bottom: 0;
     }
 
-    }
     .el-col {
         border-radius: 4px;
     }
@@ -170,5 +160,20 @@
     .row-bg {
         padding: 10px 0;
         background-color: #f9fafc;
+    }
+
+    span.dp-untreated {
+        color: #ffc112;
+        background-color: #fff5d9;
+    }
+
+    span.dp-underway {
+        color: #172474;
+        background-color: #f5f8fe;
+    }
+
+    span.dp-complete {
+        color: #670d2e;
+        background-color: #f8f1ff;
     }
 </style>

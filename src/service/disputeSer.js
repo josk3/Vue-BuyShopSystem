@@ -1,4 +1,4 @@
-import {post} from '@/utils/request'
+import {post, get} from '@/utils/request'
 
 /**
  * 争议展示列表
@@ -11,26 +11,19 @@ export function disputeSearch(params) {
  * 争议邮箱详情
  */
 export function disputeDetail(dispute) {
-    return post("/dispute/disputeDetail", dispute);
+    return get("/dispute/detail/" + dispute, "");
 }
 
 /**
  * 追加争议消息
  */
-export function appendDispute(params) {
-    return post("/dispute/appendDispute", params);
-}
-
-/**
- * 根据争议工号获取争议信息
- */
-export function disputeInfo(dispute) {
-    return post("/dispute/disputeInfo", dispute);
+export function finishDispute(params) {
+    return post("/dispute/finish", params);
 }
 
 /**
  * 更新争议状态
  */
 export function updateDispute(params) {
-    return post("/dispute/updateDispute", params)
+    return post("/dispute/update", params)
 }
