@@ -71,11 +71,11 @@
                 rules: {
                     new_pwd: [
                         {required: true, message: this.validMsg('user.password'), trigger: 'blur'},
-                        {min: 6, max: 25, message: this.$i18n.t('valid.bad.min_length_6'), trigger: 'blur'},
+                        {min: 7, max: 25, message: this.$i18n.t('valid.bad.min_length_7'), trigger: 'blur'},
                     ],
                     confirm_new_pwd: [
                         {required: true, message: this.validMsg('user.password'), trigger: 'blur'},
-                        {min: 6, max: 25, message: this.$i18n.t('valid.bad.min_length_6'), trigger: 'blur'},
+                        {min: 7, max: 25, message: this.$i18n.t('valid.bad.min_length_7'), trigger: 'blur'},
                         { validator: pwdAgainCheck, trigger: 'blur' }
                     ],
                 }

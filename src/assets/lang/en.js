@@ -155,7 +155,7 @@ module.exports = {
         "bad": {
             "username_or_password": "Username or password fail",
             "only_en_number_email": "A-z,Number,Email",
-            "min_length_6": "Min length 6",
+            "min_length_7": "Min length 7",
             "length_5_20": "Length 5-20",
             "input_valid_email_or_phone": "Invalid email",
         },
