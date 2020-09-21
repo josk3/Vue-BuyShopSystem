@@ -58,6 +58,7 @@
                 getAnnounce(this.nid).then(res => {
                     const {data} = res
                     this.$data.detail = data
+                    this.$store.dispatch('user/loadUserInfo') //reload userInfo未读数据
                 }).finally(() => {
                     this.loading = false
                 })

@@ -107,14 +107,6 @@ export const routerUtils = {
         component: () => import('@/views/portal/dispute/index'),
         meta: {noCache: true}
     },
-    'announce_detail': {
-        component: () => import('@/views/portal/orders/detail'),
-        meta: {noCache: true}
-    },
-    'notify_detail': {
-        component: () => import('@/views/portal/orders/detail'),
-        meta: {noCache: true}
-    },
     'message_center': {
         component: () => import('@/views/portal/notice/index'),
         meta: {noCache: true}

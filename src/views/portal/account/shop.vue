@@ -50,7 +50,16 @@
                             :show-overflow-tooltip="true"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
-                            {{scope.row.status | shopStatus }}
+                            <span v-if="scope.row.status === 3">
+                                <el-popover
+                                            placement="top"
+                                            width="240"
+                                            trigger="hover"
+                                            :content="scope.row.review_reason">
+                                    <span slot="reference"><i class="el-icon-warning-outline text-red"></i> {{scope.row.status | shopStatus }} ?</span>
+                                </el-popover>
+                            </span>
+                            <span v-else>{{scope.row.status | shopStatus }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -79,13 +88,16 @@
                                           <i class="el-icon-more"></i>
                                       </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item v-show="scope.row.status !== 1 && scope.row.status !== 4" :command="commandVal('edit', scope.row, scope.$index)">
+                                    <el-dropdown-item v-show="scope.row.status !== 1 && scope.row.status !== 4"
+                                                      :command="commandVal('edit', scope.row, scope.$index)">
                                         <i class="el-icon-edit"></i> {{$t('comm.edit')}}
                                     </el-dropdown-item>
-                                    <el-dropdown-item v-if="scope.row.status === 1" :command="commandVal('close', scope.row, scope.$index)">
+                                    <el-dropdown-item v-if="scope.row.status === 1"
+                                                      :command="commandVal('close', scope.row, scope.$index)">
                                         <i class="el-icon-turn-off"></i> {{$t('comm.close')}}
                                     </el-dropdown-item>
-                                    <el-dropdown-item v-if="scope.row.status === 4" :command="commandVal('open', scope.row, scope.$index)">
+                                    <el-dropdown-item v-if="scope.row.status === 4"
+                                                      :command="commandVal('open', scope.row, scope.$index)">
                                         <i class="el-icon-turn-off"></i> {{$t('comm.open')}}
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
