@@ -103,6 +103,7 @@
                         this.$data.loading = true
                         updatePwd(this.update_pwd).then(() => {
                             this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.$router.push({name: 'logout'})
                         }).finally(() => {
                             this.$data.loading = false
                         })

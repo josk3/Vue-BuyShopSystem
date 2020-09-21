@@ -9,7 +9,7 @@
                                  @tab-click="paneClick">
                             <el-tab-pane label="余额" name="all"></el-tab-pane>
                             <el-tab-pane label="收款" name="sale"></el-tab-pane>
-                            <el-tab-pane label="提现" name="settle"></el-tab-pane>
+                            <el-tab-pane label="结算" name="settle"></el-tab-pane>
                             <el-tab-pane label="退款" name="refund"></el-tab-pane>
                             <el-tab-pane label="拒付" name="chargeback"></el-tab-pane>
                             <el-tab-pane label="保证金返还" name="depositSettle"></el-tab-pane>
