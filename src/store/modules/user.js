@@ -103,6 +103,12 @@ const actions = {
         }
     },
 
+    updateToken({commit}, newToken) {
+        if (!isEmpty(newToken)) {
+            commit('SET_TOKEN', newToken)
+        }
+    },
+
     // user logout
     logout({commit, state}) {
         return new Promise((resolve, reject) => {

@@ -56,7 +56,10 @@ service.interceptors.response.use(
             let headerToken = response.headers[toLower(getTokenKey())];
             if (!isEmpty(headerToken)) {
                 let newToken = getSplitLast(headerToken)
-                if (newToken !== getToken()) setToken(newToken); //new token
+                if (newToken !== getToken()) {
+                    setToken(newToken);
+                    store.dispatch('user/updateToken', newToken).then()
+                } //new token
             }
             //文件下载
             if (response.headers['content-type'] === 'application/octet-stream') {

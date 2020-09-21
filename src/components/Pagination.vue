@@ -5,7 +5,7 @@
                 {{ $t('comm.record_total') }}: {{ page.total }}
             </div>
         </div>
-        <div v-if="page.page_size > 1" class="col-6 text-right">
+        <div v-if="page.count > 1" class="col-6 text-right">
             <el-pagination
                     background
                     layout="prev, pager, next"
