@@ -284,8 +284,9 @@ module.exports = {
     },
 
     "home": {
-        "last_month_ecm": "Last month ECM",
+        "this_month_ecm": "This month ECM",
         "total_ecm": "Account Total ECM",
+        "last_month_ecm": "Last month ECM",
         "total_chargeback_order": "Account total Chargeback order",
         "hello": "Hi",
         "last_login": "Last Login",

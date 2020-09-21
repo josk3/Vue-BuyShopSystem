@@ -118,7 +118,7 @@
     import configs from "@/configs";
     import user from "@/store/modules/user";
     import {mapState} from "vuex";
-    import {isEmpty} from "@/utils/validate";
+    import {isEmpty,isObject} from "@/utils/validate";
     import {reloadPageTitle} from "@/utils/get-page-title";
     import {getUnReadLast5Notice, markRead} from "@/service/noticeSer";
 
@@ -165,8 +165,18 @@
         methods: {
             showPopup(){
                 if (!isEmpty(this.user.popup)) {
-                    this.popupData = this.user.popup
-                    this.popupDialogVisible = true
+                    if (!isObject(this.user.popup)) {
+                        try {
+                            this.popupData = JSON.parse(this.user.popup)
+                        }catch (e) {
+                            console.warn(e)
+                        }
+                    }else {
+                        this.popupData = this.user.popup
+                    }
+                    if (!isEmpty(this.popupData) && isObject(this.popupData)) {
+                        this.popupDialogVisible = true
+                    }
                 }
             },
             readPopupDialog() {

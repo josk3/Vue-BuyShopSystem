@@ -283,8 +283,9 @@ module.exports = {
     },
 
     "home": {
-        "last_month_ecm": "最近一个月拒付率",
+        "this_month_ecm": "当前月拒付率",
         "total_ecm": "账号总拒付率",
+        "last_month_ecm": "上个月拒付率",
         "total_chargeback_order": "总拒付订单笔数",
         "hello": "您好",
         "last_login": "最近登录",

@@ -11,15 +11,15 @@
                     <div class="row p-0">
                         <div class="col-11 row">
                             <div class="col-4 item">
-                                <i class="el-icon-info text-blue"></i> {{$t('home.last_month_ecm')}} {{ user.monitor_ecm
+                                <i class="el-icon-info text-blue"></i> {{$t('home.this_month_ecm')}} {{ user.monitor_ecm
                                 }}
                             </div>
                             <div class="col-4 item">
                                 <i class="el-icon-info text-blue"></i> {{$t('home.total_ecm')}} {{ user.total_ecm }}
                             </div>
                             <div class="col-4 item">
-                                <i class="el-icon-info text-blue"></i> {{$t('home.total_chargeback_order')}} {{
-                                user.total_declined_num }}
+                                <i class="el-icon-info text-blue"></i> {{$t('home.last_month_ecm')}} {{
+                                user.last_monthly_ecm }}
                             </div>
                         </div>
                         <div class="col-1" v-if="user.notice_count > 0">

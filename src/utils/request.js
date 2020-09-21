@@ -4,7 +4,7 @@ import store from '@/store'
 import {getToken, getTokenKey, setToken} from '@/service/auth/token'
 import configs from '@/configs'
 import qs from "qs";
-import {isEmpty} from "@/utils/validate";
+import {isEmpty,isObject} from "@/utils/validate";
 import i18n from "@/service/i18n";
 import {getSplitLast, toLower} from "@/utils/strUtils";
 
@@ -79,9 +79,9 @@ service.interceptors.response.use(
             }
             return Promise.reject(!isEmpty(res.code) ? res : new Error(res.message || 'Error'))
         } else {
-            if (res.code === configs.apiCode.reloadUserData) {
-                if (res.data.user !== undefined) {
-                    store.dispatch('user/updateUser', res.data.user).then()
+            if (!isEmpty(res.code) && res.code === configs.apiCode.reloadUserData) {
+                if (!isEmpty(res.user_info) && isObject(res.user_info)) {
+                    store.dispatch('user/updateUser', res.user_info).then()
                 }
             }
             return res

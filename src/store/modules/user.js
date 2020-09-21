@@ -2,7 +2,7 @@ import {getInfo, login, logout} from '@/service/userSer'
 import {getToken, removeToken, setToken} from '@/service/auth/token'
 import router, {resetRouter} from '@/router'
 import {convertRouters} from "@/router/routerUtils";
-import {isEmpty} from "@/utils/validate";
+import {isEmpty,isObject} from "@/utils/validate";
 
 const state = {
     token: getToken(),
@@ -21,6 +21,7 @@ const state = {
         popup: null,
         monitor_ecm: 0,//实时拒付率-当月(每月清)
         total_ecm: 0,//商户总拒付率
+        last_monthly_ecm: 0,
         total_declined_num: 0,//总拒付笔数
     },
     roles: [],
@@ -94,8 +95,11 @@ const actions = {
     },
 
     updateUser({commit}, newData) {
-        if (newData !== undefined && newData !== '') {
-            commit('SET_USER', newData);
+        if (newData !== undefined && !isEmpty(newData) && isObject(newData) && !isEmpty(newData.user)) {
+            const {menus, permissions, user} = newData
+            commit('SET_MENUS', menus)
+            commit('SET_PERMISSIONS', permissions)
+            commit('SET_USER', user)
         }
     },
 
