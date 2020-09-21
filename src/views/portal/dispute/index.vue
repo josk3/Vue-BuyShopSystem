@@ -1,7 +1,7 @@
 <template>
     <div v-loading="loading">
         <!--公共搜索栏-->
-        <SearchBox :params="searchParams"></SearchBox>
+        <SearchBox :params="searchParams" @search="disputeSearch"></SearchBox>
         <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
             <!--标签页-->
             <el-tabs v-model="tabName" type="border-card" @tab-click="clickSearch">
@@ -16,7 +16,6 @@
                     :header-row-style="{background:'#2C2E2F'}"
                     style="width: 100%">
                 <el-table-column
-                        fixed
                         prop="dispute_no"
                         label="争议单号"
                         width="160">
@@ -33,11 +32,11 @@
                 <el-table-column
                         prop="trade_no"
                         :show-overflow-tooltip="true"
-                        label="订单号" width="200">
+                        label="订单流水号" width="200">
                 </el-table-column>
                 <el-table-column
                         prop="merchant_order_no"
-                        label="商户流水号" width="130px">
+                        label="商户订单号" width="130px">
                 </el-table-column>
                 <el-table-column
                         prop="dispute_status"
@@ -98,7 +97,7 @@
                         total: 0, //工单总数
                     }
                 },
-                tabName: 'ALL',
+                tabName: 'all',
             }
         },
         mounted() {
