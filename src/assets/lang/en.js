@@ -145,6 +145,9 @@ module.exports = {
         "role_menu": "Permission",
         "old_password": "Old password",
         "new_password": "New password",
+        "mer_user": "User",
+        "add_user": "Add User",
+        "add_role": "Add Role",
 
     },
     "valid": {

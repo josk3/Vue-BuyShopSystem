@@ -3,8 +3,8 @@
         <div class="wrap-tab p-0">
             <el-card class="box-card" shadow="hover" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
-                    <span>用户组</span>
-                    <el-button style="float: right; padding: 3px 0" type="text" @click="addRoleBtn">增加用户组</el-button>
+                    <strong>{{$t('user.role_name')}}</strong>
+                    <el-button style="float: right; padding: 3px 0" type="text" @click="addRoleBtn">{{$t('user.add_role')}}</el-button>
                 </div>
                 <el-table
                         stripe
@@ -22,6 +22,7 @@
                         </template>
                     </el-table-column>
                     <el-table-column type="expand" prop="role_menu"
+                                     min-width="100px"
                                      :label="$t('user.role_menu')">
                         <template slot-scope="props">
                             <el-tag
@@ -82,8 +83,8 @@
             <el-divider></el-divider>
             <el-card class="box-card" shadow="hover" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
-                    <span>子用户</span>
-                    <el-button style="float: right; padding: 3px 0" type="text" @click="addUserBtn">增加子用户</el-button>
+                    <strong>{{$t('user.mer_user')}}</strong>
+                    <el-button style="float: right; padding: 3px 0" type="text" @click="addUserBtn">{{$t('user.add_user')}}</el-button>
                 </div>
                 <el-table stripe
                           :class="tabUserData.page.total ? '' : 'wpy-z-table'"
@@ -224,7 +225,7 @@
                     </el-form-item>
                     <el-form-item :label="$t('user.role_name')" prop="role_uid">
                         <el-select v-model="add_user.role_uid" placeholder="请选择用户组"
-                                   filterable clearable>
+                                   filterable>
                             <el-option
                                     v-for="item in role_list"
                                     :key="item.role_uid"
@@ -302,7 +303,8 @@
                         {required: true, message: '请选择用户组', trigger: 'blur'},
                     ],
                     username: [
-                        {required: true, message: '请输入用户名', trigger: 'blur'},
+                        {required: true, message: this.validMsg('user.username'), trigger: 'blur'},
+                        {min: 5, max: 20, message: this.$i18n.t('valid.bad.length_5_20'), trigger: 'blur'},
                     ],
                     email: [
                         {required: true, message: '请输入邮箱', trigger: 'blur'},
@@ -460,18 +462,14 @@
                 this.openUserDialog('add', null)
             },
             openUserDialog(action, item) {
-                if (isEmpty(this.role_list) || this.role_list.length <= 0) {
-                    this.$data.loading = true
-                    roleSearch({}).then(res => {
-                        const {data} = res
-                        this.$data.role_list = data.list
-                        this.renderUserDialog(action, item)
-                    }).finally(() => {
-                        this.$data.loading = false
-                    })
-                }else {
+                this.$data.loading = true
+                roleSearch({}).then(res => { //先加载组数据
+                    const {data} = res
+                    this.$data.role_list = data.list
                     this.renderUserDialog(action, item)
-                }
+                }).finally(() => {
+                    this.$data.loading = false
+                })
             },
             renderUserDialog(action, data) {
                 this.initUserForm()

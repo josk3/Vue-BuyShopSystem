@@ -145,6 +145,9 @@ module.exports = {
         "role_menu": "权限",
         "old_password": "老密码",
         "new_password": "新密码",
+        "mer_user": "子用户",
+        "add_user": "添加子用户",
+        "add_role": "添加用户组",
 
     },
     "register_form": {
