@@ -27,7 +27,7 @@
                                     <el-avatar icon="el-icon-s-custom" :size="40" class="bg-blue"></el-avatar>
                                 </div>
                                 <el-card style="border-radius: 18px;font-size: 20px;">
-                                    <div><span style="color:rgba(75.5,178.5,255,20)">持卡人邮件E-mail: </span>{{dispute.email}}
+                                    <div><span style="color:rgba(75.5,178.5,255,20)">顾客邮件E-mail: </span>{{dispute.email}}
                                     </div>
                                     <el-divider></el-divider>
                                     <div><span style="color:rgba(75.5,178.5,255,20)">发送时间: </span>{{dispute.created}}
@@ -51,7 +51,7 @@
                                     <p>{{dispute.complaint_content}}</p>
                                 </el-card>
                                 <div class="mb-n1 ml-3" style="width: 50px; height: 50px;">
-                                    <el-avatar icon="el-icon-user-solid" :size="40"></el-avatar>
+                                    <el-avatar icon="el-icon-user-solid" class="bg-secondary" :size="40"></el-avatar>
                                 </div>
                             </div>
                         </el-row>
@@ -70,7 +70,7 @@
             </div>
             <div class="text-center mt-3" v-show="!dispose.isClose">
                 <div class="mb-2"><i class="el-icon-check text-success mr-1"></i><strong>{{dispose.msg}}</strong></div>
-                <div class="mb-2"><small class="opacity-65">望如实操作,防止持卡人再次争议</small></div>
+                <div class="mb-2"><small class="opacity-65">望如实操作,防止顾客再次争议</small></div>
             </div>
         </el-card>
 

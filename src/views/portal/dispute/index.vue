@@ -30,7 +30,7 @@
                         label="商户号">
                 </el-table-column>
                 <el-table-column
-                        prop="trade_no"
+                        prop="trade_id"
                         :show-overflow-tooltip="true"
                         label="订单流水号" width="200">
                 </el-table-column>
@@ -58,11 +58,11 @@
                 </el-table-column>
                 <el-table-column
                         prop="email"
-                        label="持卡人邮箱">
+                        label="顾客邮箱">
                 </el-table-column>
                 <el-table-column
                         prop="created"
-                        label="持卡人争议日期">
+                        label="顾客争议日期">
                 </el-table-column>
             </el-table>
             <div class="block mb-3">
