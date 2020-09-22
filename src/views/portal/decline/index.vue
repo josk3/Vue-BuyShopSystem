@@ -49,22 +49,22 @@
                     <el-table-column
                             prop="declined"
                             :show-overflow-tooltip="true"
-                            label="拒付">
+                            :label="$t('comm.type')">
                         <template v-slot="scope">
-                            <span :class="'declined-' + scope.row.declined">{{scope.row.declined | yesOrNo}}</span>
+                            {{scope.row.chargeback.decline_type | declineType}}
                         </template>
                     </el-table-column>
                     <el-table-column
                             prop="settled"
                             :show-overflow-tooltip="true"
-                            label="结算">
+                            :label="$t('kind.settle')">
                         <template v-slot="scope">
                             {{scope.row.settled | settleStatus }}
                         </template>
                     </el-table-column>
                     <el-table-column
                             prop="chargeback.reason"
-                            label="理由">
+                            :label="$t('comm.reason')">
                         <template v-slot="scope">
                             {{scope.row.chargeback.reason}}
                         </template>
@@ -72,7 +72,7 @@
                     <el-table-column
                             prop="chargeback.chargeback_time"
                             :show-overflow-tooltip="true"
-                            label="拒付时间">
+                            :label="$t('comm.created')">
                         <template v-slot="scope">
                             {{scope.row.chargeback.chargeback_time | toDay }}
                         </template>
@@ -104,7 +104,7 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.decline_manage', page: 1,
-                    trade_id: '', merchant_order_no: '',
+                    trade_id: '', merchant_order_no: '', decline_type: '',
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认

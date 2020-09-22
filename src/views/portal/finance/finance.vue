@@ -30,7 +30,9 @@
                         style="width: 100%">
                     <el-table-column
                             prop="trade_id"
-                            :label="$t('comm.trade_or_batch_id')" width="190px">
+                            :show-overflow-tooltip="true"
+                            min-width="150px"
+                            :label="$t('comm.trade_or_batch_id')" >
                         <template v-slot="scope">
                             <span v-if="scope.row.kind === 'settle' || scope.row.kind === 'depositSettle'">
                                 {{scope.row.batch_id | nullToLine}}
@@ -48,14 +50,17 @@
                     </el-table-column>
                     <el-table-column
                             prop="currency"
-                            label="币种">
+                            width="50px"
+                            :label="$t('comm.currency')">
                         <template v-slot="scope">
                             {{scope.row.currency}}
                         </template>
                     </el-table-column>
                     <el-table-column
                             prop="kind"
-                            label="类型">
+                            width="50px"
+                            :show-overflow-tooltip="true"
+                            :label="$t('comm.type')">
                         <template v-slot="scope">
                             {{scope.row.kind | chargeKind }}
                         </template>
@@ -63,16 +68,25 @@
                     <el-table-column
                             prop="charge_time"
                             :show-overflow-tooltip="true"
-                            label="支付时间">
+                            :label="$t('comm.created')">
                         <template v-slot="scope">
                             {{scope.row.charge_time | toFullTime }}
                         </template>
                     </el-table-column>
                     <el-table-column
                             prop="fees"
+                            width="70px"
                             label="手续费">
                         <template v-slot="scope">
                             {{scope.row.fees | nullToLine}}
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            prop="fixed_fees"
+                            width="70px"
+                            label="处理费">
+                        <template v-slot="scope">
+                            {{scope.row.fixed_fees | nullToLine}}
                         </template>
                     </el-table-column>
                     <el-table-column

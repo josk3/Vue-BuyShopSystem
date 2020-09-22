@@ -11,10 +11,6 @@ export const routerUtils = {
         component: () => import('@/views/portal/profile/index'),
         meta: {title: 'Profile', icon: 'user', noCache: true}
     },
-    'faq': {
-        component: () => import('@/views/portal/faq/index'),
-        meta: {noCache: true}
-    },
     'payout_select': {
         name: 'payout_select',
         meta: {noCache: true}

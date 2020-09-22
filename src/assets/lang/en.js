@@ -83,6 +83,8 @@ module.exports = {
         "del": "Delete",
         "close": "Close",
         "open": "Open",
+        "reason": "Reason",
+
     },
     "nav": {
         "home": "Home",
@@ -290,6 +292,10 @@ module.exports = {
         "total_chargeback_order": "Account total Chargeback order",
         "hello": "Hi",
         "last_login": "Last Login",
+    },
+    "decline": {
+        "customer_service": "Customer Service",
+        "fraud": "Fraud",
     },
     "profile": {},
     "ticket": {

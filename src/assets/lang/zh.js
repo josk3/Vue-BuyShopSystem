@@ -83,6 +83,8 @@ module.exports = {
         "del": "删除",
         "close": "关闭",
         "open": "打开",
+        "reason": "原因",
+
     },
     "nav": {
         "home": "主页",
@@ -289,6 +291,10 @@ module.exports = {
         "total_chargeback_order": "总拒付订单笔数",
         "hello": "您好",
         "last_login": "最近登录",
+    },
+    "decline": {
+        "customer_service": "售后服务",
+        "fraud": "欺诈",
     },
     "profile": {},
     "ticket": {

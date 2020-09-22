@@ -55,6 +55,16 @@
                         <el-input size="mini" v-model="searchForm.site_url"
                                   :placeholder="$t('comm.site_url')" clearable></el-input>
                     </el-form-item>
+                    <el-form-item v-if="searchForm.decline_type !== undefined" prop="decline_type">
+                        <el-select size="mini" v-model="searchForm.decline_type" :placeholder="$t('comm.type')" clearable>
+                            <el-option
+                                    v-for="item in declineTypes"
+                                    :key="item.value"
+                                    :label="$t('decline.' + item.value)"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
                     <el-form-item>
                         <el-button size="mini" type="primary"
                                    @click="submitSearch">{{$t('comm.search')}}
@@ -91,7 +101,11 @@
                     {value: 'pending'},
                     {value: 'failed'},
                     {value: 'canceled'},
-                ]
+                ],
+                declineTypes: [
+                    {value: 'customer_service'},
+                    {value: 'fraud'},
+                ],
             }
         },
         watch: {},
