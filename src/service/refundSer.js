@@ -10,3 +10,7 @@ export function refundSearch(params) {
 export function applyRefund(params) {
     return post('/refund/apply', params);
 }
+
+export function cancelApply(params) {
+    return post('/refund/cancel', params);
+}

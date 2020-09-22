@@ -97,7 +97,7 @@
                                                 <span v-if="scope.row.condition_ecm_l">
                                                     {{scope.row.condition_ecm_l}} <
                                                 </span>
-                                                ECM
+                                                Rate
                                                 <span v-if="scope.row.condition_ecm_r">
                                                     ≤ {{scope.row.condition_ecm_r}}
                                                 </span>
