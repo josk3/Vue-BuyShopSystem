@@ -107,6 +107,10 @@ export const routerUtils = {
         component: () => import('@/views/portal/notice/index'),
         meta: {noCache: true}
     },
+    'dispute_detail': {
+        component: () => import('@/views/portal/dispute/disputeDetail'),
+        meta: {noCache: true}
+    }
 }
 
 function resolveMenu(menu) {
