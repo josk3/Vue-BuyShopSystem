@@ -20,14 +20,14 @@
                 </el-row>
                 <div style="overflow-y: scroll;height:800px;"
                      ref="disputeBody">
-                    <div v-for="(dispute,index) in disputeDetail" :key="index">
+                    <div v-for="(dispute,index) in disputeDetail.list" :key="index">
                         <el-row :gutter="20" class="mb-2 ml-2 mr-2" v-if="dispute.is_system === '0'">
                             <div class="d-flex align-items-start justify-content-start">
                                 <div class="mb-n1 mr-1" style="width: 50px; height: 50px;">
                                     <el-avatar icon="el-icon-s-custom" :size="40" class="bg-blue"></el-avatar>
                                 </div>
                                 <el-card style="border-radius: 18px;font-size: 20px;">
-                                    <div><span style="color:rgba(75.5,178.5,255,20)">商户邮件E-mail: </span>{{dispute.email}}
+                                    <div><span style="color:rgba(75.5,178.5,255,20)">顾客邮件E-mail: </span>{{dispute.email}}
                                     </div>
                                     <el-divider></el-divider>
                                     <div><span style="color:rgba(75.5,178.5,255,20)">发送时间: </span>{{dispute.created}}
@@ -41,7 +41,7 @@
                         <el-row :gutter="20" class="mb-2 ml-2 mr-2" v-if="dispute.is_system === '1'">
                             <div class="d-flex align-items-start justify-content-end">
                                 <el-card style="border-radius: 18px;font-size: 20px;">
-                                    <div><span style="color:rgba(75.5,178.5,255,20)">持卡人邮件E-mail: </span>{{dispute.email}}
+                                    <div><span style="color:rgba(75.5,178.5,255,20)">商户邮件E-mail: </span>{{dispute.email}}
                                     </div>
                                     <el-divider></el-divider>
                                     <div><span style="color:rgba(75.5,178.5,255,20)">发送时间: </span>{{dispute.created}}
@@ -51,7 +51,7 @@
                                     <p>{{dispute.complaint_content}}</p>
                                 </el-card>
                                 <div class="mb-n1 ml-3" style="width: 50px; height: 50px;">
-                                    <el-avatar icon="el-icon-user-solid" :size="40"></el-avatar>
+                                    <el-avatar icon="el-icon-user-solid" class="bg-secondary" :size="40"></el-avatar>
                                 </div>
                             </div>
                         </el-row>
@@ -62,11 +62,15 @@
 
         <!--处理按钮-->
         <el-card ref="disposeCard">
-            <div class="text-center mt-3">
+            <div class="text-center mt-3" v-show="dispose.isClose">
                 <el-button :type="dispose.disposeType" class="mb-3 col-3" @click="open()">{{dispose.status}}
                 </el-button>
                 <div class="mb-2"><strong>{{dispose.msg}}</strong></div>
                 <div class="mb-2"><small class="opacity-65">此处按钮利于跟进争议进度,望如实操作</small></div>
+            </div>
+            <div class="text-center mt-3" v-show="!dispose.isClose">
+                <div class="mb-2"><i class="el-icon-check text-success mr-1"></i><strong>{{dispose.msg}}</strong></div>
+                <div class="mb-2"><small class="opacity-65">望如实操作,防止顾客再次争议</small></div>
             </div>
         </el-card>
 
@@ -80,9 +84,6 @@
                 <el-form :model="disputeSubmitParams" :rules="rules" ref="disputeSubmitParams" label-width="100px"
                          class="demo-ruleForm" id="disputeAppendForm">
                     <el-input type="hidden" v-model="disputeSubmitParams.type"></el-input>
-                    <el-form-item label="商户邮箱" prop="email" class="col-10">
-                        <el-input placeholder="请填写邮箱,为方便后续及时联系" v-model="disputeSubmitParams.email"></el-input>
-                    </el-form-item>
                     <el-form-item label="完成情况" prop="content" class="col-12">
                         <el-input type="textarea" placeholder="请输入解决情况" maxlength="270" show-word-limit :rows="4"
                                   v-model="disputeSubmitParams.content"></el-input>
@@ -100,20 +101,30 @@
 </template>
 
 <script>
-    import {disputeDetail, appendDispute, disputeInfo, updateDispute} from '@/service/disputeSer';
+    import configs from '@/configs'
+    import {disputeDetail, finishDispute, updateDispute} from '@/service/disputeSer';
+    import {isEmpty} from "@/utils/validate";
 
     export default {
-        name: "index",
+        name: "dispute_detail",
+        computed: { //watch跟踪数据变化, 重点user, configs
+            configs() {
+                return configs;
+            },
+        },
         data() {
             return {
                 loading: false, //加载效果
-                dispute: this.$route.query.id, //争议号
-                currentDisputeStatus: '', //当前争议状态值
+                dispute: '', //争议号
+                disputeInfo: [], //争议单信息
                 refundDialogVisible: false, //对话框显隐
-                disputeDetail: [],
+                disputeDetail: {
+                    list: [],
+                    info: {}
+                },
+                disputeStatusParam: {dp_id: ''},
                 disputeSubmitParams: {
-                    type: 'appendDetail',
-                    email: '',
+                    dp_id: '',
                     content: '',
                 },
                 closeDialog() {
@@ -122,14 +133,6 @@
                 }
                 ,
                 rules: {
-                    email: [
-                        {required: true, message: '请填写邮箱', trigger: 'blur'},
-                        {
-                            pattern: /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
-                            message: '邮箱格式不正确,请重新填写',
-                            trigger: 'blur'
-                        }
-                    ],
                     content: [
                         {required: true, message: '争议内容不能为空', trigger: 'blur'},
                         {min: 1, max: 270, message: '内容限制270字以下,请酌情精简内容', trigger: 'blur'}
@@ -138,13 +141,14 @@
                 dispose: {
                     msg: '',
                     disposeType: '',
-                    status: ''
+                    status: '',
+                    isClose: true
                 },
                 open() {
-                    if (this.currentDisputeStatus === 'COMPLETE') {
+                    if (this.disputeDetail.info.dispute_status === 'complete') {
                         return false;
                     }
-                    if (this.currentDisputeStatus === 'UNDERWAY') {
+                    if (this.disputeDetail.info.dispute_status === 'underway') {
                         this.refundDialogVisible = true;
                         return false;
                     }
@@ -164,8 +168,15 @@
             }
         },
         mounted() {
-            this.disputeStatus();
-            this.disputeDetailSearch();
+            /*跳转路由后获取请求参数*/
+            if (!isEmpty(this.$route.params)) {
+                this.dispute = this.$route.params.id;
+                this.disputeStatusParam.dp_id = this.$route.params.id;
+                this.disputeSubmitParams.dp_id = this.$route.params.id;
+                this.disputeDetailSearch();
+            } else {
+                this.$message.error(this.$i18n.t('comm.fail').toString())
+            }
         },
         methods: {
             disputeDetailSearch() {
@@ -173,6 +184,10 @@
                 disputeDetail(this.dispute).then(res => {
                     console.log(res);
                     this.disputeDetail = res.data;
+                    this.disposeDispute(this.disputeDetail.info.dispute_status);
+                }).catch(() => {
+                    //状态失败提示后回退到列表
+                    this.$router.push({name: 'dispute_manage'});
                 }).finally(() => {
                     this.loading = false;
                 })
@@ -185,7 +200,8 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.loading = true;
-                        appendDispute(this.disputeSubmitParams).then(() => {
+                        finishDispute(this.disputeSubmitParams).then(() => {
+                            this.refundDialogVisible = false;
                             this.disputeDetailSearch();
                         }).finally(() => {
                             this.loading = false;
@@ -196,29 +212,29 @@
                 });
             }, disposeDispute(disputeStatus) {
                 switch (disputeStatus) {
-                    case 'UNTREATED':
-                        this.dispose = {msg: '尊敬商户如您已知悉争议内容,请点击\'处理争议\'按钮', disposeType: 'info', status: '开始处理'};
+                    case 'untreated':
+                        this.dispose = {
+                            msg: '尊敬商户如您已知悉争议内容,请点击\'处理争议\'按钮',
+                            disposeType: 'info',
+                            status: '开始处理',
+                            isClose: true
+                        };
                         break;
-                    case 'UNDERWAY':
-                        this.dispose = {msg: '尊敬商户如您已联系客户并解决问题,请点击\'结束处理\'按钮', disposeType: 'primary', status: '结束处理'};
+                    case 'underway':
+                        this.dispose = {
+                            msg: '尊敬商户如您已联系客户并解决问题,请点击\'结束处理\'按钮',
+                            disposeType: 'primary',
+                            status: '结束处理',
+                            isClose: true
+                        };
                         break;
-                    case 'COMPLETE':
-                        this.dispose = {msg: '争议已处理!', disposeType: 'success', status: '处理完成'};
+                    case 'complete':
+                        this.dispose = {msg: '争议已处理!', isClose: false};
                         break;
                 }
-            }, disputeStatus() {
-                this.loading = true;
-                disputeInfo().then(res => {
-                    let status = res.data.statusValue;
-                    this.currentDisputeStatus = status;
-                    this.disposeDispute(status);
-                }).finally(() => {
-                    this.loading = false;
-                })
             }, updateDispute() {
                 this.loading = true;
-                updateDispute().then(() => {
-                    this.disputeStatus();
+                updateDispute(this.disputeStatusParam).then(() => {
                     this.disputeDetailSearch();
                 }).finally(() => {
                     this.loading = false;

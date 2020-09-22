@@ -368,8 +368,8 @@ export function settleCycle(val) {
 export function disputeStatus(priorityValue) {
     if (isEmpty(priorityValue)) return ''
     switch (priorityValue) {
-        case 'complete':
-            return i18n.t('dispute.complete')
+        case 'untreated':
+            return i18n.t('dispute.untreated')
         case 'underway':
             return i18n.t('dispute.underway')
         case 'complete':

@@ -3366,109 +3366,105 @@ const proxy = {
                 list: [
                     {
                         dispute_no: 'dp_kol15122333',
+                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
-                        order_no: '7600100202334',
+                        trade_id: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        dispute_status: 'underway',
+                        remark: '略',
+                        dispute_type: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        mer_no: 'M70252',
+                        merchant_order_no: '5200191919181838282',
+                        trade_id: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        dispute_status: 'underway',
+                        remark: '略',
+                        dispute_type: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
+                        mer_no: 'M70252',
+                        merchant_order_no: '5200191919181838282',
+                        trade_id: '7600100202334',
                         email: '1506266211@qq.com',
                         created: '2020-09-04 13:00:15',
                         updated: null,
                         status: 'underway',
-                        reason: '货不对版'
+                        remark: '略',
+                        dispute_type: '货不对版'
                     },
                     {
                         dispute_no: 'dp_kol15122333',
+                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
-                        order_no: '7600100202334',
+                        trade_id: '7600100202334',
                         email: '1506266211@qq.com',
                         created: '2020-09-04 13:00:15',
                         updated: null,
-                        status: 'underway',
-                        reason: '货不对版'
+                        dispute_status: 'underway',
+                        remark: '略',
+                        dispute_type: '货不对版'
                     },
                     {
                         dispute_no: 'dp_kol15122333',
+                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
-                        order_no: '7600100202334',
+                        trade_id: '7600100202334',
                         email: '1506266211@qq.com',
                         created: '2020-09-04 13:00:15',
                         updated: null,
-                        status: 'underway',
-                        reason: '货不对版'
+                        dispute_status: 'complete',
+                        remark: '略',
+                        dispute_type: '货不对版'
                     },
                     {
                         dispute_no: 'dp_kol15122333',
+                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
-                        order_no: '7600100202334',
+                        trade_id: '7600100202334',
                         email: '1506266211@qq.com',
                         created: '2020-09-04 13:00:15',
                         updated: null,
-                        status: 'underway',
-                        reason: '货不对版'
+                        dispute_status: 'complete',
+                        remark: '略',
+                        dispute_type: '货不对版'
                     },
                     {
                         dispute_no: 'dp_kol15122333',
+                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
-                        order_no: '7600100202334',
+                        trade_id: '7600100202334',
                         email: '1506266211@qq.com',
                         created: '2020-09-04 13:00:15',
                         updated: null,
-                        status: 'complete',
-                        reason: '货不对版'
+                        dispute_status: 'complete',
+                        remark: '略',
+                        dispute_type: '货不对版'
                     },
                     {
                         dispute_no: 'dp_kol15122333',
+                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
-                        order_no: '7600100202334',
+                        trade_id: '7600100202334',
                         email: '1506266211@qq.com',
                         created: '2020-09-04 13:00:15',
                         updated: null,
-                        status: 'complete',
-                        reason: '货不对版'
-                    },
-                    {
-                        dispute_no: 'dp_kol15122333',
-                        merchant_order_no: '5200191919181838282',
-                        order_no: '7600100202334',
-                        email: '1506266211@qq.com',
-                        created: '2020-09-04 13:00:15',
-                        updated: null,
-                        status: 'complete',
-                        reason: '货不对版'
-                    },
-                    {
-                        dispute_no: 'dp_kol15122333',
-                        merchant_order_no: '5200191919181838282',
-                        order_no: '7600100202334',
-                        email: '1506266211@qq.com',
-                        created: '2020-09-04 13:00:15',
-                        updated: null,
-                        status: 'complete',
-                        reason: '货不对版'
-                    },
-                    {
-                        dispute_no: 'dp_kol15122333',
-                        merchant_order_no: '5200191919181838282',
-                        order_no: '7600100202334',
-                        email: '1506266211@qq.com',
-                        created: '2020-09-04 13:00:15',
-                        updated: null,
-                        status: 'underway',
-                        reason: '货不对版'
-                    },
-                    {
-                        dispute_no: 'dp_kol15122333',
-                        merchant_order_no: '5200191919181838282',
-                        order_no: '7600100202334',
-                        email: '1506266211@qq.com',
-                        created: '2020-09-04 13:00:15',
-                        updated: null,
-                        status: 'complete',
-                        reason: '货不对版'
+                        dispute_status: 'complete',
+                        remark: '略',
+                        dispute_type: '货不对版'
                     },
                 ]
             }
         })
     },
-    'POST /api/v1/dispute/disputeDetail': (req, res) => {
+    'GET /api/v1/dispute/detail/:id': (req, res) => {
         return res.json({
             status: 1,
             message: '',
@@ -3525,24 +3521,14 @@ const proxy = {
             ]
         })
     },
-    'POST /api/v1/dispute/disputeInfo': (req, res) => {
-        return res.json({
-            status: 1,
-            message: '',
-            data: {
-                statusName: '未处理',
-                statusValue: 'UNDERWAY'
-            }
-        })
-    },
-    "POST /api/v1/dispute/updateDispute": (req, res) => {
+    "POST /api/v1/dispute/update": (req, res) => {
         return res.json({
             status: 1,
             message: '状态更新！',
             data: null
         })
     },
-    "POST /api/v1/dispute/appendDispute": (req, res) => {
+    "POST /api/v1/dispute/finish": (req, res) => {
         return res.json({
             status: 1,
             message: '争议已处理完成！',
