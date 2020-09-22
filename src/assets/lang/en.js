@@ -83,6 +83,8 @@ module.exports = {
         "del": "Delete",
         "close": "Close",
         "open": "Open",
+        "reason": "Reason",
+
     },
     "nav": {
         "home": "Home",

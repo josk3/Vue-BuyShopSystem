@@ -83,6 +83,8 @@ module.exports = {
         "del": "删除",
         "close": "关闭",
         "open": "打开",
+        "reason": "原因",
+
     },
     "nav": {
         "home": "主页",
