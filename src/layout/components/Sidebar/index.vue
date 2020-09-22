@@ -1,5 +1,5 @@
 <template>
-    <div id="sidebar-nav">
+    <div id="sidebar-nav" @click="routerClick">
         <el-col>
             <el-menu
                     :default-active="activeMenu"
@@ -8,6 +8,7 @@
                 <div v-for="(route, i)  in menus" :key="i" class="menu-m">
                     <div v-if="!route.hidden">
                         <el-menu-item v-if="!route.have_show_child" :collapse-transition="false"
+                                      :disabled="menu_disabled"
                                       :index="route.path" class="menu-item">
                             <div>
                                 <span slot="title" class="menu-title">
@@ -17,6 +18,7 @@
                             </div>
                         </el-menu-item>
                         <el-submenu v-if="route.have_show_child"
+                                    :disabled="menu_disabled"
                                     :index="route.path" class="menu-item">
                             <template slot="title">
                                 <span class="menu-title">
@@ -27,6 +29,7 @@
                             <div v-for="(children, c)  in route.children" :key="c">
                                 <el-menu-item v-if="!children.hidden"
                                               :index="children.path"
+                                              :disabled="menu_disabled"
                                               class="menu-item">
                                     <div>
                                         <span slot="title" class="sub-menu-title">
@@ -48,6 +51,7 @@
     import {mapState} from 'vuex'
     import configs from "@/configs";
     import user from "@/store/modules/user";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: 'Sidebar',
@@ -76,12 +80,44 @@
                 return !this.sidebar.opened
             }
         },
+        mounted() {
+            this.menu_disabled = false
+            if (!isEmpty(this.user) && !isEmpty(this.user.online)) {
+                if (this.user.online === false) {
+                    this.menu_disabled = true
+                }
+            }
+        },
         data() {
             return {
-                router: true
+                router: true,
+                menu_disabled: false,
+                online_box_show: false,
             }
         },
         methods: {
+            onlyOnlineCanUse() {
+                if (this.menu_disabled === true) {
+                    if (this.online_box_show === false) {
+                        this.$confirm('当前账户状态：未开通，请联系我们开通商户号。', '未开通', {
+                            confirmButtonText: '联系我们',
+                            cancelButtonText: '取消',
+                            type: 'warning',
+                            center: true
+                        }).then(() => {
+                            this.$data.online_box_show = false
+                            location.href = configs.contactUsUrl
+                        }).catch(() => {
+                            this.$data.online_box_show = false
+                        });
+                    }
+                }
+            },
+            routerClick() {
+                if (this.menu_disabled === true) {
+                    this.onlyOnlineCanUse()
+                }
+            },
         }
     }
 </script>

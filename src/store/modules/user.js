@@ -17,6 +17,7 @@ const state = {
         identifier_status: 0,
         name: null,
         mer_no: null,
+        online: true,
         notice_count: 0,
         popup: null,
         monitor_ecm: 0,//实时拒付率-当月(每月清)

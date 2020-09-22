@@ -18,6 +18,7 @@ function demoUserInfo() {
                 status: 1,
                 identifier_status: 0,
                 mer_no: '4008',
+                online: true,
                 role_name: '管理员',
                 notice_count: 12,
                 popup: null,

@@ -139,6 +139,7 @@
     import {getLastAnnounce} from "@/service/noticeSer";
     import {mapState} from "vuex";
     import {hasPermission} from "@/service/userSer";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "home",
@@ -155,6 +156,14 @@
             user() {
                 return user.state.user;
             },
+            ol() {
+              return this.$route.query.ol;
+            },
+        },
+        watch: {
+            ol(){
+                this.onlyOnlineCanUse()
+            },
         },
         data() {
             return {
@@ -167,6 +176,8 @@
                 announceList: [],
                 permReportLastTrade: false,
                 permViewBalance: false,
+                menu_disabled: false,
+                online_box_show: false,
             }
         },
         mounted() {
@@ -175,9 +186,31 @@
             this.permViewBalance = hasPermission(configs.perm.can_view_balance, this.permissions)
             this.getBalances()
             this.getAnnounceList()
-            this.$store.dispatch('user/loadUserInfo')
+            this.$store.dispatch('user/loadUserInfo').then((res) => {
+                if (!isEmpty(res) && !isEmpty(res.user) && !isEmpty(res.user.online)) {
+                    this.$data.menu_disabled = res.user.online === false
+                    this.onlyOnlineCanUse()
+                }
+            })
         },
         methods: {
+            onlyOnlineCanUse() {
+                if (this.menu_disabled === true) {
+                    if (this.online_box_show === false) {
+                        this.$confirm('当前账户状态：未开通，请联系我们开通商户号。', '未开通', {
+                            confirmButtonText: '联系我们',
+                            cancelButtonText: '取消',
+                            type: 'warning',
+                            center: true
+                        }).then(() => {
+                            this.$data.online_box_show = false
+                            location.href = configs.contactUsUrl
+                        }).catch(() => {
+                            this.$data.online_box_show = false
+                        });
+                    }
+                }
+            },
             paneClick(tab) {
                 this.paneName = tab.name
                 this.balanceParams.type = tab.name //搜索对应

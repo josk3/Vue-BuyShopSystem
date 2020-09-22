@@ -9,6 +9,7 @@ import configs from '@/configs'
 import {convertRouters, renderRedirectTo} from "@/router/routerUtils";
 import i18n from "@/service/i18n";
 import {isEmpty} from "@/utils/validate";
+import user from "@/store/modules/user";
 
 NProgress.configure({showSpinner: false}) // NProgress Configuration
 
@@ -35,16 +36,26 @@ router.beforeEach(async (to, from, next) => {
         if (!isEmpty(hasToken) && from.path !== configs.loginPath) {
             Message.success(i18n.t('comm.logout_ok').toString())
         }
-    }else {
+    } else {
         if (hasToken) {
             if (to.path === configs.loginPath || to.path === configs.logoutPath) {
                 //next({ path: configs.homePath })
                 next()
                 NProgress.done()
             } else {
+
                 const hasMenus = store.getters.menus && store.getters.menus.length > 0
                 if (hasMenus) {
-                    next()
+                    if (!isEmpty(user.state) && !isEmpty(user.state.user) && user.state.user.online === false) {
+                        if (to.path === configs.homePath) {
+                            next()
+                        } else {
+                            next({path: configs.homePath, query: {ol: new Date().getMilliseconds()}, hash: to.name}) //只有开通才可以使用
+                        }
+                        NProgress.done()
+                    } else {
+                        next()
+                    }
                 } else {
                     try {
                         // get user info
@@ -64,6 +75,7 @@ router.beforeEach(async (to, from, next) => {
                         NProgress.done()
                     }
                 }
+
             }
         } else {
             /* has no token*/
