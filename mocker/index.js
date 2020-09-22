@@ -3295,7 +3295,12 @@ const proxy = {
                     mer_no: '4008',
                     status: 1,
                     updated: null,
-                }
+                },
+                ecm_rule: [
+                    {amount: 18, condition_ecm_l: null, condition_ecm_r: 0.01, condition_order_count: 3,},
+                    {amount: 40, condition_ecm_l: 0.01, condition_ecm_r: 0.02, condition_order_count: 6,},
+                    {amount: 100, condition_ecm_l: 0.02, condition_ecm_r: 0.03, condition_order_count: 9,},
+                ],
             }
         })
     },

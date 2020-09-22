@@ -319,6 +319,9 @@
             this.userSearch();
         },
         methods: {
+            validMsg(name) {
+                return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
+            },
             pageUserChange(page) {
                 this.searchUserParams.page = page.page_num
                 this.roleSearch()

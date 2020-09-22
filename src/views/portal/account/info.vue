@@ -75,8 +75,40 @@
                             <div class="row"><label class="col-4">拒付率(上个月)</label>
                                 <div class="col-8"><span>{{info.last_monthly_ecm | nullToLine}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">拒付处理费</label>
+                            <div class="row mb-0"><label class="col-4">拒付处理费</label>
                                 <div class="col-8"><span>{{info.chargeback_fees | nullToLine}}美元, 每个自然月1号更新</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-10 pl-1 pr-2 pb-2" v-if="ecmRuleData">
+                                    <el-table class="ecm-list-table"
+                                              :data="ecmRuleData"
+                                              :show-header="false"
+                                              :row-class-name="ecmMatchClass">
+                                        <el-table-column
+                                                prop="amount"
+                                                width="90">
+                                            <template v-slot="scope">
+                                                {{scope.row.amount}}$/笔
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column>
+                                            <template v-slot="scope">
+                                                <span v-if="scope.row.condition_ecm_l">
+                                                    {{scope.row.condition_ecm_l}} <
+                                                </span>
+                                                ECM
+                                                <span v-if="scope.row.condition_ecm_r">
+                                                    ≤ {{scope.row.condition_ecm_r}}
+                                                </span>
+                                                <span v-if="scope.row.condition_order_count">
+                                                    Or
+                                                   月笔数≤
+                                                {{scope.row.condition_order_count}}
+                                                </span>
+                                            </template>
+                                        </el-table-column>
+                                    </el-table>
                                 </div>
                             </div>
                         </div>
@@ -205,6 +237,7 @@
     import {mapState} from "vuex";
     import ShowMoreBtn from "@/components/ShowMoreBtn";
     import {addBank, getMerInfo} from "@/service/merchantSer";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "merchant_info",
@@ -237,7 +270,7 @@
                     bank_card_mobile: [{required: true, trigger: 'blur'},],
                 },
                 //
-
+                ecmRuleData: [],
             }
         },
         mounted() {
@@ -245,12 +278,20 @@
             this.add_bank.name = this.user.full_name
         },
         methods: {
+            ecmMatchClass(row) {
+                if (!isEmpty(row) && !isEmpty(row.row.amount)
+                    && row.row.amount === this.info.chargeback_fees) {
+                    return 'ecm-current-row';
+                }
+                return '';
+            },
             loadMerInfo() {
                 this.loading = true
                 getMerInfo().then(res => {
                     const {data} = res
                     this.$data.info = data.info
                     this.$data.bank = data.bank
+                    this.$data.ecmRuleData = data.ecm_rule
                 }).finally(() => {
                     this.loading = false
                 })
@@ -319,6 +360,22 @@
     }
 </script>
 
-<style scoped>
+<style>
+    .ecm-list-table tr {
+        border: 0;
+    }
+    .ecm-list-table::before{
+        display: none;
+    }
 
+    .ecm-list-table td {
+        border: 0;
+        padding: 2px 0;
+        font-size: 13px;
+    }
+
+    .ecm-list-table .ecm-current-row {
+        font-weight: bold;
+        font-size: 15px;
+    }
 </style>
