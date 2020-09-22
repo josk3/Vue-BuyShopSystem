@@ -26,17 +26,16 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="mer_no"
-                        label="商户号">
+                        prop="email"
+                        label="顾客邮箱" width="180px">
                 </el-table-column>
                 <el-table-column
-                        prop="trade_id"
                         :show-overflow-tooltip="true"
-                        label="订单流水号" width="200">
-                </el-table-column>
-                <el-table-column
-                        prop="merchant_order_no"
-                        label="商户订单号" width="130px">
+                        label="流水号/商户订单号">
+                    <template v-slot="scope">
+                        {{scope.row.trade_id }}<br/>
+                        {{scope.row.merchant_order_no }}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         prop="dispute_status"
@@ -57,12 +56,10 @@
                         label="争议说明">
                 </el-table-column>
                 <el-table-column
-                        prop="email"
-                        label="顾客邮箱">
-                </el-table-column>
-                <el-table-column
-                        prop="created"
                         label="顾客争议日期">
+                    <template v-slot="scope">
+                        {{scope.row.created | toDay}}
+                    </template>
                 </el-table-column>
             </el-table>
             <div class="block mb-3">

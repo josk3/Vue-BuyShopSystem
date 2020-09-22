@@ -215,7 +215,7 @@
                     case 'untreated':
                         this.dispose = {
                             msg: '尊敬商户如您已知悉争议内容,请点击\'处理争议\'按钮',
-                            disposeType: 'info',
+                            disposeType: 'primary',
                             status: '开始处理',
                             isClose: true
                         };

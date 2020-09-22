@@ -2539,7 +2539,7 @@ const proxy = {
         return res.json({
             status: 1,
             message: '工单生成成功',
-            data: {ticket_id: 'tk-888a888s888'}
+            data: {ticket_id: 'tk-888888888'}
         });
     },
     'POST /api/v1/ticket/search': (req, res) => {
@@ -3366,7 +3366,6 @@ const proxy = {
                 list: [
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3378,7 +3377,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3390,7 +3388,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3402,7 +3399,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3414,7 +3410,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3426,7 +3421,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3438,7 +3432,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3450,7 +3443,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
