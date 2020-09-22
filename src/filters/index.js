@@ -111,6 +111,19 @@ export function declinedStatus(isDeclined) {
 }
 
 /**
+ * 拒付类型-》解析成文字
+ */
+export function declineType(type) {
+    if (isEmpty(type)) return ''
+    switch (type) {
+        case 'customerService':
+            return i18n.t('decline.customer_service')
+        case 'fraud':
+            return i18n.t('decline.fraud')
+    }
+}
+
+/**
  * 结算 状态数值-》解析成文字
  */
 export function settleStatus(isSettled) {

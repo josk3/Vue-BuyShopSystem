@@ -290,6 +290,10 @@ module.exports = {
         "hello": "您好",
         "last_login": "最近登录",
     },
+    "decline": {
+        "customer_service": "售后服务",
+        "fraud": "欺诈",
+    },
     "profile": {},
     "ticket": {
         "other": "其他",

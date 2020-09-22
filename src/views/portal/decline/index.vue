@@ -49,9 +49,9 @@
                     <el-table-column
                             prop="declined"
                             :show-overflow-tooltip="true"
-                            label="拒付">
+                            label="拒付类型">
                         <template v-slot="scope">
-                            <span :class="'declined-' + scope.row.declined">{{scope.row.declined | yesOrNo}}</span>
+                            {{scope.row.chargeback.decline_type | declineType}}
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -104,7 +104,7 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.decline_manage', page: 1,
-                    trade_id: '', merchant_order_no: '',
+                    trade_id: '', merchant_order_no: '', decline_type: '',
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认

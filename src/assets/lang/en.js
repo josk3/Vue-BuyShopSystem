@@ -291,6 +291,10 @@ module.exports = {
         "hello": "Hi",
         "last_login": "Last Login",
     },
+    "decline": {
+        "customer_service": "Customer Service",
+        "fraud": "Fraud",
+    },
     "profile": {},
     "ticket": {
         "other": "Other",
