@@ -90,11 +90,8 @@
                                 <div class="item"><span class="label">卡指纹</span>
                                     <span class="value">{{ order.card.fingerprint }}</span>
                                 </div>
-                                <div class="item"><span class="label">手续费</span>
-                                    <span class="value">{{ order.fees }} {{ order.settle_currency }}</span>
-                                </div>
                                 <div class="item"><span class="label">风控费</span>
-                                    <span class="value">{{ order.risk_fees }} {{ order.settle_currency }}</span>
+                                    <span class="value">{{ order.origin_risk_fees }} USD</span>
                                 </div>
                                 <div class="item"><span class="label">订单时间</span><span class="value">{{ order.created_time | toFullTime }}</span>
                                 </div>

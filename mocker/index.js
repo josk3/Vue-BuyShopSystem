@@ -1641,6 +1641,7 @@ const proxy = {
                 "settle_amount": 5018.05,
                 "fees": -250.9,
                 "risk_fees": -2.08,
+                "origin_risk_fees": -0.3,
                 "refund_total": -34,
                 "refunded": 2,
                 "declined": 0,
