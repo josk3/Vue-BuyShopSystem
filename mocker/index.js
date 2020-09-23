@@ -25,6 +25,8 @@ function demoUserInfo() {
                 monitor_ecm: 0.2,//实时拒付率-当月(每月清)
                 total_ecm: 0.3,//商户总拒付率
                 total_declined_num: 5,//总拒付笔数
+                allow_personal: 0, //商户是否允许认证为个人
+
             },
             token: "00e3c2a5d87a9e34ef2e879309cb1a31bf3dc56eb0f77fe4ba",
             menus: [
@@ -3363,6 +3365,7 @@ const proxy = {
                     updated: "2020-08-07 23:53:26",
                     virtual: false,
                     mid_type: 'personal', //company
+                    allow_personal: 0,
                 },
                 bank: {
                     bank_brand: '工商银行',

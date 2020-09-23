@@ -1,6 +1,11 @@
 /**
  * 配置值
  */
+
+function getOffDomain() {
+    return process.env.VUE_APP_WINTOPAY_DOMAIN;
+}
+
 module.exports = {
     title: 'portal.title', //i18n
 
@@ -13,8 +18,8 @@ module.exports = {
     errorLog: 'production',
 
     //
-    aboutUsUrl: 'https://www.wintopay.com/',
-    contactUsUrl: 'https://www.wintopay.com/new/Contact.html',
+    aboutUsUrl: getOffDomain(),
+    contactUsUrl: getOffDomain() + '/contact_us',
     aliImageValidAppKey: 'FFFF0N00000000009051',
 
     anonAuthPages: ['/login', '/logout', '/404', '/401', '/500',
