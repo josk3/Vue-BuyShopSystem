@@ -8,6 +8,7 @@
                     <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
                     <el-tab-pane :label="$t('comm.refund_ing')" name="refund_ing"></el-tab-pane>
                     <el-tab-pane :label="$t('comm.success')" name="success"></el-tab-pane>
+                    <el-tab-pane :label="$t('comm.cancel')" name="cancel"></el-tab-pane>
                     <el-tab-pane :label="$t('comm.fail')" name="fail"></el-tab-pane>
                 </el-tabs>
                 <el-table
@@ -51,7 +52,7 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="refunded"
+                            prop="refund_status"
                             :show-overflow-tooltip="true"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
@@ -66,6 +67,22 @@
                             {{scope.row.apply_time | toDay }}
                         </template>
                     </el-table-column>
+                    <el-table-column width="50" fixed="right">
+                        <template v-slot="scope">
+                            <el-dropdown trigger="click"
+                                         v-if="scope.row.refund_status === 'applyRefund' || scope.row.refund_status === 13"
+                                         @command="handleCommand">
+                                      <span class="el-dropdown-link">
+                                          <i class="el-icon-more"></i>
+                                      </span>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item :command="commandVal('cancel', scope.row, scope.$index)">
+                                        取消退款申请
+                                    </el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </template>
+                    </el-table-column>
                 </el-table>
 
                 <Pagination :page="tabData.page" @change="pageChange"></Pagination>
@@ -76,7 +93,7 @@
 
 <script>
     import configs from '@/configs'
-    import {refundSearch} from "@/service/refundSer";
+    import {cancelApply, refundSearch} from "@/service/refundSer";
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
 
@@ -122,7 +139,25 @@
                 }).finally(() => {
                     this.loading = false
                 })
-            }
+            },
+            commandVal(action, row, index) {
+                return {action: action, row: row, index: index}
+            },
+            handleCommand(command) {
+                let row = command.row
+                switch (command.action) {
+                    case 'cancel':
+                        this.loading = true
+                        cancelApply(row).then(() => {
+                            this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.search()
+                        }).finally(() => {
+                            this.loading = false
+                        })
+                        break;
+                }
+            },
+
         },
     }
 </script>

@@ -218,17 +218,17 @@ export function toFullTime(date) {
 }
 
 export function toDayTime(date) {
-    if (isEmpty(date)) return ''
+    if (isEmpty(date)) return '--'
     return parseTime(new Date(date), '{m}-{d} {h}:{i}:{s}')
 }
 
 export function toDay(date) {
-    if (isEmpty(date)) return ''
+    if (isEmpty(date)) return '--'
     return parseTime(new Date(date), '{y}-{m}-{d}')
 }
 
 export function toSimpleDay(date) {
-    if (isEmpty(date)) return ''
+    if (isEmpty(date)) return '--'
     return parseTime(new Date(date), '{m}-{d}')
 }
 
