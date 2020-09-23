@@ -235,7 +235,7 @@
 
     }
 </script>
-
+<style scoped src="../../../public/static/css/login.css"/>
 <style>
     .register-box label {
         margin-bottom: 0;
@@ -245,4 +245,3 @@
         padding-bottom: 1px;
     }
 </style>
-<style scoped src="../../../public/static/css/login.css"/>

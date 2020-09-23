@@ -95,7 +95,7 @@
                                         <el-table-column>
                                             <template v-slot="scope">
                                                 <span v-if="scope.row.condition_ecm_l">
-                                                    {{scope.row.condition_ecm_l}} <
+                                                    {{scope.row.condition_ecm_l}} &lt;
                                                 </span>
                                                 Rate
                                                 <span v-if="scope.row.condition_ecm_r">
