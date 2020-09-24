@@ -304,7 +304,7 @@
                 ]
             },
             addBankBtn() {
-                if (this.user.identifier_status !== 1) {
+                if (this.user.identity_status !== 1) {
                     this.$alert('请先完成账户激活认证', '', {
                         confirmButtonText: '确定',
                     });

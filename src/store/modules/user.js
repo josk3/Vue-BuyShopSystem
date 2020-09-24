@@ -14,7 +14,7 @@ const state = {
         email: null,
         second_login: null,
         status: null,
-        identifier_status: 0,
+        identity_status: 0,
         name: null,
         mer_no: null,
         online: true,

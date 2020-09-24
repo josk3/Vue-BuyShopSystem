@@ -22,7 +22,7 @@
         </div>
         <div class="col-6">
             <div v-if="is_show">
-                <img class="img-up-once" height="150" :src="img_url">
+                <img class="img-up-once" height="150" :src="img_url" alt="img" />
             </div>
         </div>
     </div>

@@ -16,7 +16,7 @@ function demoUserInfo() {
                 phone: '13818181818',
                 second_login: '2020-01-01 00:00:00',
                 status: 1,
-                identifier_status: 0,
+                identity_status: 0,
                 mer_no: '4008',
                 online: true,
                 role_name: '管理员',
@@ -25,7 +25,7 @@ function demoUserInfo() {
                 monitor_ecm: 0.2,//实时拒付率-当月(每月清)
                 total_ecm: 0.3,//商户总拒付率
                 total_declined_num: 5,//总拒付笔数
-                allow_personal: 0, //商户是否允许认证为个人
+                allow_personal: 1, //商户是否允许认证为个人
 
             },
             token: "00e3c2a5d87a9e34ef2e879309cb1a31bf3dc56eb0f77fe4ba",
@@ -3364,7 +3364,7 @@ const proxy = {
                     trade_limit: null,
                     updated: "2020-08-07 23:53:26",
                     virtual: false,
-                    mid_type: 'personal', //company
+                    mid_type: '', //company
                     allow_personal: 0,
                 },
                 bank: {
@@ -3445,8 +3445,135 @@ const proxy = {
                     "identity_bank_photo_url": "",
                     "company_identity_photo_url": "",
                     "identity_photo_a_url": "/mer/id_img?name=wef"
-                }
+                },
+                "job_type": [
+                    {
+                        "text": "各类专业，技术人员",
+                        "value": "1A"
+                    },
+                    {
+                        "text": "国家机关，党群组织，企事业单位的负责人",
+                        "value": "1B"
+                    },
+                    {
+                        "text": "办事人员和有关人员",
+                        "value": "1C"
+                    },
+                    {
+                        "text": "商业工作人员",
+                        "value": "1D"
+                    },
+                    {
+                        "text": "服务性工作人员",
+                        "value": "1E"
+                    },
+                    {
+                        "text": "农林牧渔劳动者",
+                        "value": "1F"
+                    },
+                    {
+                        "text": "生产工作，运输工作和部分体力劳动者",
+                        "value": "1G"
+                    },
+                    {
+                        "text": "不便分类的其他劳动者",
+                        "value": "1H"
+                    }
+                ],
+                "business_type": [
+                    {
+                        "text": "农、林、牧、渔业",
+                        "value": "A"
+                    },
+                    {
+                        "text": "采矿业",
+                        "value": "B"
+                    },
+                    {
+                        "text": "制造业",
+                        "value": "C"
+                    },
+                    {
+                        "text": "电力、热力、燃气及水生产和供应业",
+                        "value": "D"
+                    },
+                    {
+                        "text": "建筑业",
+                        "value": "E"
+                    },
+                    {
+                        "text": "批发和零售业",
+                        "value": "F"
+                    },
+                    {
+                        "text": "交通运输、仓储和邮政业",
+                        "value": "G"
+                    },
+                    {
+                        "text": "住宿和餐饮业",
+                        "value": "H"
+                    },
+                    {
+                        "text": "信息传输、软件和信息技术服务业",
+                        "value": "I"
+                    },
+                    {
+                        "text": "金融业",
+                        "value": "J"
+                    },
+                    {
+                        "text": "房地产业",
+                        "value": "K"
+                    },
+                    {
+                        "text": "租赁和商务服务业",
+                        "value": "L"
+                    },
+                    {
+                        "text": "科学研究和技术服务业",
+                        "value": "M"
+                    },
+                    {
+                        "text": "水利、环境和公共设施管理业",
+                        "value": "N"
+                    },
+                    {
+                        "text": "居民服务、修理和其他服务业",
+                        "value": "O"
+                    },
+                    {
+                        "text": "教育",
+                        "value": "P"
+                    },
+                    {
+                        "text": "卫生和社会工作",
+                        "value": "Q"
+                    },
+                    {
+                        "text": "文化、体育和娱乐业",
+                        "value": "R"
+                    },
+                    {
+                        "text": "公共管理、社会保障和社会组织",
+                        "value": "S"
+                    },
+                    {
+                        "text": "国际组织",
+                        "value": "T"
+                    },
+                    {
+                        "text": "未知",
+                        "value": "X"
+                    }
+                ],
             }
+        })
+    },
+    'POST /api/v1/merchant/update/identity': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '',
+            data:{},
         })
     },
     'POST /api/v1/dispute/search': (req, res) => {
