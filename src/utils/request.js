@@ -4,7 +4,7 @@ import store from '@/store'
 import {getToken, getTokenKey, setToken} from '@/service/auth/token'
 import configs from '@/configs'
 import qs from "qs";
-import {isEmpty,isObject} from "@/utils/validate";
+import {isEmpty, isObject} from "@/utils/validate";
 import i18n from "@/service/i18n";
 import {getSplitLast, toLower} from "@/utils/strUtils";
 
@@ -26,7 +26,7 @@ service.interceptors.request.use(
         // do something before request is sent
         if (store.getters.token) {
             // 头部加token请求
-            config.headers[getTokenKey()] = getToken()
+            config.headers[getTokenKey()] = store.getters.token
         }
         config.headers['Wp-Lang'] = store.getters.lang
         return config
@@ -164,7 +164,7 @@ export function postArray(url, params) {
     return service({
         method: 'post',
         url: url,
-        data: qs.stringify(params, { arrayFormat: 'brackets' }),
+        data: qs.stringify(params, {arrayFormat: 'brackets'}),
         show_error_msg_dialog: true,
     });
 }

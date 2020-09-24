@@ -17,6 +17,8 @@ module.exports = {
      */
     errorLog: 'production',
 
+    apiBaseUrl: process.env.VUE_APP_BASE_API,
+    imgBaseUrl: process.env.VUE_APP_IMG_URL,
     //
     aboutUsUrl: getOffDomain(),
     contactUsUrl: getOffDomain() + '/contact_us',

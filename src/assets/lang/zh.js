@@ -157,6 +157,7 @@ module.exports = {
         "phone": "手机号",
         "email": "邮箱",
         "company_name": "公司名",
+        "identity_name": "姓名",
         "identity_photo_a": "身份证正面",
         "identity_photo_b": "身份证反面",
         "identity_bank_photo": "手持银行卡照片",

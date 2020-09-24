@@ -38,23 +38,40 @@
         data() {
             return {
                 loading: false,
-                is_show: false,
-                cssType: this.size + '-box-up',
+                is_show: false,//显示图片
+                update_box_show: true,//上传框显示
+                sizeType: this.size + '-box-up',
+                cssType: '',
             }
         },
         watch: {
             img_url(newVal) {
-                if (!isEmpty(newVal) && newVal !== '--') this.is_show = true
-            }
+                this.update_box_show = true
+                this.checkImgUrl(newVal)
+            },
+            update_box_show(newVal){
+                if (newVal === true) {
+                    this.cssType = this.sizeType
+                }else {
+                    this.cssType = this.sizeType + ' hide-box'
+                }
+            },
         },
         mounted() {
+            this.checkImgUrl(this.img_url)
+            this.cssType = this.sizeType
         },
         methods: {
+            checkImgUrl(val) {
+                if (!isEmpty(val) && val !== '--') this.is_show = true
+            },
             changeImgFile(e) {
                 this.is_show = false
                 this.$emit('img', e.raw)
+                this.update_box_show = false //只给上传一张
             },
             removeImgFile() {
+                this.update_box_show = true
                 this.is_show = false
                 this.$emit('img', '')
             },
@@ -76,6 +93,10 @@
     .sm-box-up .el-upload-dragger .el-icon-upload {
         line-height: 30px;
         margin-top: 20px;
+    }
+
+    .hide-box .el-upload-dragger{
+        display: none;
     }
 
     .img-up-once {

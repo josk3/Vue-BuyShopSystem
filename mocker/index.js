@@ -1198,6 +1198,7 @@ const proxy = {
             // '/api/v1/(.*)': 'https://165.wtpdev.com:38013',
             // '/api/v1/(.*)': 'http://192.168.3.182:8013',
             // '/api/v1/(.*)': 'http://127.0.0.1/',
+            // '/images/(.*)': 'http://localhost:8013/',
             // '/api/v1/(.*)': 'http://localhost:8013/',
         },
         changeHost: true,
@@ -3413,6 +3414,7 @@ const proxy = {
                 detail: {
                     "identity_reason": '图片不清楚',
                     "name": "测试26",
+                    "identity_name": "",
                     "identity_photo_a": "wef",
                     "identity_photo_b": null,
                     "identity_bank_photo": null,
@@ -3444,7 +3446,9 @@ const proxy = {
                     "identity_photo_b_url": "",
                     "identity_bank_photo_url": "",
                     "company_identity_photo_url": "",
-                    "identity_photo_a_url": "/mer/id_img?name=wef"
+                    "identity_photo_a_url": "/mer/id_img?name=wef",
+                    "phone":"1333333",
+                    "email":"",
                 },
                 "job_type": [
                     {

@@ -27,7 +27,6 @@
                     <div class="col-8">
                         <el-form ref="detail"
                                  :model="detail"
-                                 status-icon
                                  :disabled="hold_edit"
                                  :rules="rules" label-width="170px" class="pl-1 pr-3 pt-3 pb-0">
                             <el-form-item :label="$t('user.phone')" prop="phone">
@@ -78,8 +77,9 @@
                                 </el-select>
                             </el-form-item>
                             <div class="personal">
-                                <el-form-item :label="$t('user.name')" prop="name">
-                                    <el-input v-model="detail.name"></el-input>
+                                <el-form-item :label="$t('user.identity_name')" prop="identity_name">
+                                    <el-input v-model="detail.identity_name"></el-input>
+                                    <small v-show="detail.mid_type === 'company'">法人信息</small>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.identity_number')" prop="identity_number">
                                     <el-input v-model="detail.identity_number"></el-input>
@@ -104,13 +104,13 @@
                                 <el-form-item :label="$t('user.identity_photo_a')" prop="identity_photo_a">
                                     <UploadImgOnce txt="身份证-正面照片" size="sm"
                                                    :disable="hold_edit"
-                                                   :img_url="detail.identity_photo_a_url"
+                                                   :img_url="fullImgUrl(detail.identity_photo_a_url)"
                                                    @img="updateImg($event, 'identity_photo_a')"></UploadImgOnce>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.identity_photo_b')" prop="identity_photo_b">
                                     <UploadImgOnce txt="身份证-反面照片" size="sm"
                                                    :disable="hold_edit"
-                                                   :img_url="detail.identity_photo_b_url"
+                                                   :img_url="fullImgUrl(detail.identity_photo_b_url)"
                                                    @img="updateImg($event, 'identity_photo_b')"></UploadImgOnce>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.sex')" prop="sex">
@@ -163,7 +163,7 @@
                                 <el-form-item :label="$t('user.company_identity_photo')" prop="company_identity_photo">
                                     <UploadImgOnce txt="营业执照照片" size="sm"
                                                    :disable="hold_edit"
-                                                   :img_url="detail.company_identity_photo_url"
+                                                   :img_url="fullImgUrl(detail.company_identity_photo_url)"
                                                    @img="updateImg($event, 'company_identity_photo')"></UploadImgOnce>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.company_scope')" prop="company_scope">
@@ -223,11 +223,11 @@
                 rulesA: {
                     phone: [{required: true, message: this.validMsg('user.phone'), trigger: 'blur'},],
                     email: [{required: true, type: 'email', message: this.validMsg('user.email'), trigger: 'blur'},],
-                    name: [{required: true, message: this.validMsg('user.name'), trigger: 'blur'},],
+                    identity_name: [{required: true, message: this.validMsg('user.identity_name'), trigger: 'blur'},],
                     company_name: [{required: true, message: this.validMsg('user.company_name'),trigger: 'blur'},],
-                    identity_photo_a: [{required: true, message: this.validMsg('user.identity_photo_a'),trigger: 'blur'},],
-                    identity_photo_b: [{required: true, message: this.validMsg('user.identity_photo_b'),trigger: 'blur'},],
-                    identity_bank_photo: [{required: true, message: this.validMsg('user.identity_bank_photo'),trigger: 'blur'},],
+                    identity_photo_a: [{required: true, message: this.validMsg('user.identity_photo_a'),trigger: 'change'},],
+                    identity_photo_b: [{required: true, message: this.validMsg('user.identity_photo_b'),trigger: 'change'},],
+                    //identity_bank_photo: [{required: true, message: this.validMsg('user.identity_bank_photo'),trigger: 'change'},],
                     identity_number: [{required: true, message: this.validMsg('user.identity_number'),trigger: 'blur'},],
                     identity_start_date: [{required: true, message: this.validMsg('user.identity_start_date'),trigger: 'blur'},],
                     identity_expire_date: [{required: true, message: this.validMsg('user.identity_expire_date'),trigger: 'blur'},],
@@ -237,16 +237,16 @@
                     zip_code: [{required: true, message: this.validMsg('user.zip_code'),trigger: 'blur'},],
                     shop_site: [{required: true, message: this.validMsg('user.shop_site'),trigger: 'blur'},],
                     mid_type: [{required: true, message: this.validMsg('comm.type'),trigger: 'blur'},],
+                    product_info: [{required: true, message: this.validMsg('user.product_info'),trigger: 'blur'},],
                 },
                 rulesB: {
-                    company_identity_photo: [{required: true, message: this.validMsg('user.company_identity_photo'),trigger: 'blur'},],
+                    company_identity_photo: [{required: true, message: this.validMsg('user.company_identity_photo'),trigger: 'change'},],
                     company_identity_id: [{required: true, message: this.validMsg('user.company_identity_id'),trigger: 'blur'},],
                     company_start_date: [{required: true, message: this.validMsg('user.company_start_date'),trigger: 'blur'},],
                     company_expire_date: [{required: true, message: this.validMsg('user.company_expire_date'),trigger: 'blur'},],
                     company_scope: [{required: true, message: this.validMsg('user.company_scope'),trigger: 'blur'},],
                     company_phone: [{required: true, message: this.validMsg('user.company_phone'),trigger: 'blur'},],
                     company_address: [{required: true, message: this.validMsg('user.company_address'),trigger: 'blur'},],
-                    product_info: [{required: true, message: this.validMsg('user.product_info'),trigger: 'blur'},],
                 },
                 typeList: [
                     {value: 'personal', text: this.$i18n.t('user.personal')},
@@ -265,6 +265,9 @@
             this.loadMerData()
         },
         methods: {
+            fullImgUrl(path) {
+                return configs.imgBaseUrl + path;
+            },
             typeChange(){
                 this.detail.profession = ''
                 if (this.detail.mid_type === 'company') {
@@ -308,6 +311,7 @@
                     const {data} = res
                     let detailData = data.detail
                     detailData.mid_type = 'company'//初始值
+                    if (detailData.qq === 'null') detailData.qq = ''
                     this.$data.detail = detailData //赋值
                     this.$data.jobType = data.job_type
                     this.$data.businessType = data.business_type
@@ -358,13 +362,6 @@
                         })
                     }
                 })
-            },
-            changeImgFile(e) {
-                this.detail.identity_photo_a = e.raw
-            },
-            removeImgFile() {
-                //this.$refs.upload_img.uploadFiles //all file list
-                this.detail.identity_photo_a = ''
             },
             updateImg(e, k) {
                 this.detail[k] = e

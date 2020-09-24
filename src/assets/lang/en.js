@@ -157,6 +157,7 @@ module.exports = {
         "phone": "Phone",
         "email": "Email",
         "company_name": "Company",
+        "identity_name": "Name",
         "identity_photo_a": "ID Photo Front",
         "identity_photo_b": "ID Photo Back",
         "identity_bank_photo": "Bank Photo",
