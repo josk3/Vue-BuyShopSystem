@@ -1,24 +1,22 @@
 <template>
     <div class="upload-img-once row" :class="cssType">
-        <div class="col-6">
-            <div v-if="disable === true">
-                --
-            </div>
-            <div v-else>
-                <el-upload
-                        :class="css"
-                        drag
-                        accept="image/*"
-                        action=""
-                        :limit="1"
-                        :on-change="changeImgFile"
-                        :on-remove="removeImgFile"
-                        :auto-upload="false">
-                    <i class="el-icon-upload"></i>
-                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    <div class="el-upload__tip" slot="tip">{{ txt }}</div>
-                </el-upload>
-            </div>
+        <div v-if="disable === true">
+            --
+        </div>
+        <div v-else class="col-6">
+            <el-upload
+                    :class="css"
+                    drag
+                    accept="image/*"
+                    action=""
+                    :limit="1"
+                    :on-change="changeImgFile"
+                    :on-remove="removeImgFile"
+                    :auto-upload="false">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">{{ txt }}</div>
+            </el-upload>
         </div>
         <div class="col-6">
             <div v-if="is_show">
