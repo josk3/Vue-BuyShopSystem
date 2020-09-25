@@ -16,7 +16,7 @@ function demoUserInfo() {
                 phone: '13818181818',
                 second_login: '2020-01-01 00:00:00',
                 status: 1,
-                identity_status: 0,
+                identity_status: 1,
                 mer_no: '4008',
                 online: true,
                 role_name: '管理员',
@@ -3365,10 +3365,11 @@ const proxy = {
                     trade_limit: null,
                     updated: "2020-08-07 23:53:26",
                     virtual: false,
-                    mid_type: '', //company
-                    allow_personal: 0,
+                    mid_type: 'personal', //company, personal
+                    allow_personal: 1,
                 },
-                bank: {
+                bank: null,
+                bank1: {
                     bank_brand: '工商银行',
                     bank_card_mobile: '1333323232',
                     bank_id: 'bank_23r23r',
@@ -3414,7 +3415,7 @@ const proxy = {
                 detail: {
                     "identity_reason": '图片不清楚',
                     "name": "测试26",
-                    "identity_name": "",
+                    "identity_name": "张三",
                     "identity_photo_a": "wef",
                     "identity_photo_b": null,
                     "identity_bank_photo": null,
@@ -3425,7 +3426,7 @@ const proxy = {
                     "address": null,
                     "zip_code": null,
                     "shop_site": null,
-                    "company_name": null,
+                    "company_name": "上生公司",
                     "company_identity_photo": null,
                     "company_identity_id": null,
                     "company_start_date": null,
@@ -3574,6 +3575,13 @@ const proxy = {
         })
     },
     'POST /api/v1/merchant/update/identity': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '',
+            data:{},
+        })
+    },
+    'POST /api/v1/merchant/bank/add': (req, res) => {
         return res.json({
             status: 1,
             message: '',
