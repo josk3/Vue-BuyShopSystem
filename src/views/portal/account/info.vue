@@ -161,6 +161,7 @@
 
         <!--    d    -->
         <el-dialog custom-class="wpy-dialog md-dialog bg-body"
+                   v-loading="loading"
                    top="20px"
                    @close="closeBankDialog"
                    :show-close="false" :close-on-click-modal="false"
@@ -228,7 +229,7 @@
                     </el-form-item>
                 </el-form>
             </div>
-            <div slot="footer" class="dialog-footer" v-loading="loading">
+            <div slot="footer" class="dialog-footer">
                 <el-button size="mini" @click="closeBankDialog()">取消</el-button>
                 <el-button size="mini" type="primary" @click="submitAddBank">确认提交</el-button>
             </div>

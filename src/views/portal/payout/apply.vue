@@ -7,6 +7,11 @@
                     <h5>结算申请</h5>
                     <div class="text-muted p-0">
                         <i class="el-icon-info text-blue"></i> 申请结算必须先上传物流单号
+                        <el-tooltip class="item" effect="dark" content="点击查看帮助" placement="top">
+                            <router-link :to="{name: 'faq', hash: 'order_settle'}">
+                                <i class="el-icon-warning-outline"></i>
+                            </router-link>
+                        </el-tooltip>
                     </div>
                 </el-card>
             </div>

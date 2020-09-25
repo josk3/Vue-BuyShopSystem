@@ -15,8 +15,14 @@
                         </div>
                         <div class="text-left">
                             {{ order.order_currency }} {{ order.order_amount }}
-                            <span class="pay-status" :class="['ps-' + order.pay_status]">
+                            <span v-if="order.refund_total < 0" class="pay-status refund-1">
+                                退款 {{order.refund_total}} {{ order.order_currency }}
+                            </span>
+                            <span v-else class="pay-status" :class="['ps-' + order.pay_status]">
                                 {{order.pay_status | payStatus}}
+                            </span>
+                            <span v-if="order.declined" class="pay-status declined-1">
+                                已拒付
                             </span>
                             <span class="ml-3 tr-id btn clipboard-btn" :data-clipboard-text="order.trade_id"
                                   @click="copy">
@@ -38,7 +44,7 @@
                             <el-timeline-item
                                     v-for="(activity, index) in timeline"
                                     :key="index"
-                                    :type="activity.kind === 'payment_paid' ? 'success' : ''"
+                                    :type="timelineType(activity.kind)"
                                     :timestamp="activity.created_time | toFullTime">
                                 {{ $t('timeline.' + activity.kind) }}
                                 <span v-if="activity.kind === 'refund'">
@@ -279,6 +285,13 @@
             },
             openRefundDialog() {
                 this.$refs.refund_dialog.show(this.order)
+            },
+            timelineType(kind) {
+                if (kind === 'payment_paid') {
+                    return 'success';
+                }else if (kind === 'chargeback') {
+                    return 'danger';
+                }
             },
 
         },

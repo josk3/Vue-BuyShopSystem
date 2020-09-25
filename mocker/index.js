@@ -1477,6 +1477,57 @@ const proxy = {
             }
         });
     },
+    'POST /api/v1/settle/summary': (req, res) => {
+        return res.json({
+            "status": 1,
+            "message": null,
+            "code": null,
+            "i18n": null,
+            "error": {},
+            "data": {
+                "bank": null,
+                "payout": {
+                    "batch_id": "b09251571G6F6d6",
+                    "bank_id": null,
+                    "net_amount": 8398.74,
+                    "guarantee_amount": null,
+                    "sale_amount": 8398.74,
+                    "fee_amount": -494.27,
+                    "fixed_fee_amount": -4.16,
+                    "chargeback_amount": null,
+                    "refund_amount": null,
+                    "misc_amount": 0,
+                    "kind": "trade",
+                    "payout_time": null,
+                    "invoice": null,
+                    "currency": "CNY",
+                    "fees": 0,
+                    "order_count": 2,
+                    "deposit_amount": 988.56,
+                    "settle_day": "20200925",
+                    "mer_no": "70122",
+                    "total": 8398.74,
+                    "kind_str": "交易结算",
+                    "status_str": "已发布",
+                    "settled": false,
+                    "canceled": false,
+                    "released": true
+                },
+                "groups": [{
+                    "kind": "sale",
+                    "currency": "CNY",
+                    "count": 2,
+                    "charge": 8398.74,
+                    "fees": -494.27,
+                    "fixed_fees": -4.16,
+                    "order_settle": 9885.73,
+                    "deposit_charge": -988.56,
+                    "kind_str": "收款"
+                }]
+            },
+            "request_id": "req_H09yBJEoql"
+        });
+    },
     'POST /api/v1/delivery/search': (req, res) => {
         return res.json({
             status: 1,
@@ -3448,8 +3499,8 @@ const proxy = {
                     "identity_bank_photo_url": "",
                     "company_identity_photo_url": "",
                     "identity_photo_a_url": "/mer/id_img?name=wef",
-                    "phone":"1333333",
-                    "email":"",
+                    "phone": "1333333",
+                    "email": "",
                 },
                 "job_type": [
                     {
@@ -3578,14 +3629,14 @@ const proxy = {
         return res.json({
             status: 1,
             message: '',
-            data:{},
+            data: {},
         })
     },
     'POST /api/v1/merchant/bank/add': (req, res) => {
         return res.json({
             status: 1,
             message: '',
-            data:{},
+            data: {},
         })
     },
     'POST /api/v1/dispute/search': (req, res) => {

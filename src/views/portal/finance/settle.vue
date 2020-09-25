@@ -80,7 +80,7 @@
                                 :show-overflow-tooltip="true"
                                 label="划款时间">
                             <template v-slot="scope">
-                                {{scope.row.payout_time | nullToLine }}
+                                {{scope.row.payout_time | toDay }}
                             </template>
                         </el-table-column>
                     </el-table>
@@ -94,12 +94,31 @@
                        top="3vh"
                        :visible.sync="payoutSummaryDialog">
                 <div v-loading="loading">
-                    <h5>批次号：{{summaryBatchId}}</h5>
-                    <el-table
-                              :class="summaryData ? '' : 'wpy-z-table'"
-                              :data="summaryData">
-                        <el-table-column property="batch_id" label="批次号"></el-table-column>
+                    <h6>批次号:<span class="tr-id btn clipboard-btn" :data-clipboard-text="summaryBatchId"
+                              @click="copy">{{ summaryBatchId }} <font-awesome-icon :icon="['far', 'clipboard']"/></span>
+                    </h6>
+                    <el-table v-if="summaryData.groups"
+                              :class="summaryData.groups ? '' : 'wpy-z-table'"
+                              :data="summaryData.groups">
+                        <el-table-column property="kind" label="类型">
+                            <template v-slot="scope">
+                                {{scope.row.kind | payoutKind }}
+                            </template>
+                        </el-table-column>
+                        <el-table-column property="currency" label="币种"></el-table-column>
+                        <el-table-column property="order_settle" label="交易"></el-table-column>
+                        <el-table-column property="fees" label="手续费"></el-table-column>
+                        <el-table-column property="fixed_fees" label="处理费"></el-table-column>
+                        <el-table-column property="deposit_charge" label="保证金"></el-table-column>
+                        <el-table-column property="charge" label="小计"></el-table-column>
                     </el-table>
+                    <div class="row" v-if="summaryData.payout">
+                        <div class="col-4"></div>
+                        <div class="col-8 text-right pr-4">
+                            <p class="p-0">划款手续费: {{summaryData.payout.fees}}</p>
+                            <p class="p-0">总计: <strong>{{summaryData.payout.total}}</strong></p>
+                        </div>
+                    </div>
                     <router-link class="btn-link"
                                  :to="{name: 'finance_search',params:{batch_id: summaryBatchId}}">
                         批次详情
@@ -121,6 +140,7 @@
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
     import {settleDownload, settleSearch, settleSummary} from "@/service/financeSer";
+    import newClipboard from "@/utils/clipboard";
 
     /** 当前vue 要实现结算列表和结算详情明细 */
     export default {
@@ -151,6 +171,9 @@
             this.search();
         },
         methods: {
+            copy() {
+                newClipboard('.clipboard-btn')
+            },
             paneClick(tab) {
                 this.searchParams.page = 1;//重置页码
                 this.paneName = tab.name
@@ -178,7 +201,7 @@
                 this.loading = true
                 settleSummary({batch_id: this.summaryBatchId}).then(res => {
                     const {data} = res
-                    this.$data.tabData = data
+                    this.$data.summaryData = data
                 }).finally(() => {
                     this.loading = false
                 })

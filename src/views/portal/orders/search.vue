@@ -62,6 +62,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="pay_status"
+                            width="50px"
                             label="拒付">
                         <template v-slot="scope">
                             <span :class="'declined-' + scope.row.declined">{{scope.row.declined | yesOrNo}}</span>
