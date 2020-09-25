@@ -81,10 +81,10 @@
                                 <div class="item"><span class="label">退款总金额</span>
                                     <span class="value">{{ order.refund_total }} {{ order.order_currency }}</span>
                                 </div>
-                                <div class="item"><span class="label">物流公司</span><span class="value">{{ order.track_brand }}</span>
+                                <div class="item"><span class="label">处理费</span>
+                                    <span class="value">{{ order.origin_risk_fees }} USD</span>
                                 </div>
-                                <div class="item"><span class="label">物流单号</span><span class="value">{{ order.track_number }}</span>
-                                </div>
+
                             </div>
                             <div class="col-6">
                                 <div class="item"><span class="label">卡种</span>
@@ -96,9 +96,6 @@
                                 <div class="item"><span class="label">卡指纹</span>
                                     <span class="value">{{ order.card.fingerprint }}</span>
                                 </div>
-                                <div class="item"><span class="label">风控费</span>
-                                    <span class="value">{{ order.origin_risk_fees }} USD</span>
-                                </div>
                                 <div class="item"><span class="label">订单时间</span><span class="value">{{ order.created_time | toFullTime }}</span>
                                 </div>
                                 <div class="item"><span class="label">支付时间</span><span class="value">{{ order.payment_time | toFullTime }}</span>
@@ -109,7 +106,9 @@
                                 </div>
                                 <div class="item"><span class="label">交易ip</span><span
                                         class="value">{{ order.ip }}</span></div>
-
+                                <div class="item"><span class="label">物流</span>
+                                    <span class="value">{{ order.track_brand }} {{ order.track_number }}</span>
+                                </div>
                             </div>
                         </div>
                     </el-card>
