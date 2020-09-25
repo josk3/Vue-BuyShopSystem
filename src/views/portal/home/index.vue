@@ -184,7 +184,7 @@
             this.balanceParams.type = this.paneName
             this.permReportLastTrade = hasPermission(configs.perm.home_trade_report, this.permissions)
             this.permViewBalance = hasPermission(configs.perm.can_view_balance, this.permissions)
-            this.getBalances()
+            if (this.permViewBalance) this.getBalances()
             this.getAnnounceList()
             this.$store.dispatch('user/loadUserInfo').then((res) => {
                 if (!isEmpty(res) && !isEmpty(res.user) && !isEmpty(res.user.online)) {
@@ -226,7 +226,7 @@
                     this.balanceLoading = false
                 })
             },
-            getAnnounceList() {
+            getAnnounceList() {//公告
                 this.announceLoading = true
                 getLastAnnounce().then(res => {
                     const {data} = res

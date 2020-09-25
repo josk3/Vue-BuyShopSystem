@@ -30,7 +30,7 @@ export function getBalances(params) {
 
 //-
 export function addBank(params) {
-    return postArray('/merchant/bank/add', params);
+    return upload('/merchant/bank/add', params);
 }
 
 //--

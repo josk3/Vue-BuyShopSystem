@@ -51,7 +51,7 @@
                                 <div class="col-8"><span>{{info.settlement_cycle | settleCycle}}</span></div>
                             </div>
                             <div class="row"><label class="col-4">风控处理率</label>
-                                <div class="col-8"><span>USD{{info.fixed_fees | nullToLine}}</span>
+                                <div class="col-8"><span>{{info.fixed_fees | nullToLine}}USD</span>
                                 </div>
                             </div>
                             <div class="row"><label class="col-4">交易手续率</label>
@@ -141,9 +141,6 @@
                             <div class="row"><label class="col-4">{{$t('bank.bank_card_mobile')}}</label>
                                 <div class="col-8"><span>{{bank.bank_card_mobile}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">{{$t('comm.status')}}</label>
-                                <div class="col-8"><span>{{bank.status | validStatus}}</span></div>
-                            </div>
                             <div class="row"><label class="col-4">{{$t('comm.created')}}</label>
                                 <div class="col-8"><span>{{bank.created | toDay}}</span></div>
                             </div>
@@ -164,15 +161,18 @@
 
         <!--    d    -->
         <el-dialog custom-class="wpy-dialog md-dialog bg-body"
+                   v-loading="loading"
+                   top="20px"
                    @close="closeBankDialog"
                    :show-close="false" :close-on-click-modal="false"
                    :title="$t('bank.add_bank')"
                    :visible.sync="addBankDialogVisible">
             <div>
+                <GroupNav v-show="info.mid_type === 'company'"
+                          :list="bankTypeList" :active="activeName" @nav-click="bankTypeClick($event)"></GroupNav>
                 <el-form ref="add_bank"
                          :model="add_bank"
                          :show-message="false"
-                         status-icon
                          :rules="rules" label-width="140px" class="pl-1 pr-3 pt-3 pb-0">
                     <el-form-item prop="name">
                         <template slot="label">
@@ -205,12 +205,13 @@
                     </el-form-item>
                     <el-form-item :label="$t('bank.card_type')" prop="card_type">
                         <el-select v-model="add_bank.card_type" placeholder="请选择类型"
-                                   filterable clearable>
+                                   filterable >
                             <el-option
                                     v-for="item in cardType"
                                     :key="item.value"
                                     :label="item.text"
-                                    :value="item.value">
+                                    :value="item.value"
+                                    :disabled="item.disabled">
                                 <span style="float: left">{{ item.text }}</span>
                             </el-option>
                         </el-select>
@@ -218,12 +219,17 @@
                     <el-form-item :label="$t('bank.bank_card_mobile')" prop="bank_card_mobile">
                         <el-input v-model="add_bank.bank_card_mobile"></el-input>
                     </el-form-item>
+                    <el-form-item v-show="add_bank.need_authorize"
+                                  :label="$t('bank.authorize_photo')" prop="authorize_photo">
+                        <UploadImgOnce txt="*企业授权书相关说明请联系客服" size="md"
+                                       @img="updateAuthorizePhoto($event)"></UploadImgOnce>
+                    </el-form-item>
                     <el-form-item :label="$t('bank.bank_swift_no_option')" prop="bank_swift_no">
                         <el-input v-model="add_bank.bank_swift_no"></el-input>
                     </el-form-item>
                 </el-form>
             </div>
-            <div slot="footer" class="dialog-footer" v-loading="loading">
+            <div slot="footer" class="dialog-footer">
                 <el-button size="mini" @click="closeBankDialog()">取消</el-button>
                 <el-button size="mini" type="primary" @click="submitAddBank">确认提交</el-button>
             </div>
@@ -236,12 +242,14 @@
     import user from "@/store/modules/user";
     import {mapState} from "vuex";
     import ShowMoreBtn from "@/components/ShowMoreBtn";
-    import {addBank, getMerInfo} from "@/service/merchantSer";
+    import {addBank, getMerIdentity, getMerInfo} from "@/service/merchantSer";
     import {isEmpty} from "@/utils/validate";
+    import GroupNav from "@/components/GroupNav";
+    import UploadImgOnce from "@/components/UploadImgOnce";
 
     export default {
         name: "merchant_info",
-        components: {ShowMoreBtn},
+        components: {UploadImgOnce, GroupNav, ShowMoreBtn},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 menus: state => state.user.menus,
@@ -258,6 +266,7 @@
                 loading: false,
                 info: {},
                 bank: {},
+                detail: {},
                 //-
                 addBankDialogVisible: false,
                 cardType: this.cardTypeList(),
@@ -271,11 +280,15 @@
                 },
                 //
                 ecmRuleData: [],
+                bankTypeList:[
+                    {label: '对公', name: 'company'},
+                    {label: '个人(法人)', name: 'personal'},
+                ],
+                activeName: 'company',
             }
         },
         mounted() {
             this.loadMerInfo();
-            this.add_bank.name = this.user.full_name
         },
         methods: {
             ecmMatchClass(row) {
@@ -292,13 +305,25 @@
                     this.$data.info = data.info
                     this.$data.bank = data.bank
                     this.$data.ecmRuleData = data.ecm_rule
+                    if (isEmpty(data.bank)) {
+                        this.loadIdentity()
+                    }
+                }).finally(() => {
+                    this.loading = false
+                })
+            },
+            loadIdentity(){
+                this.loading = true
+                getMerIdentity().then(res => {
+                    const {data} = res
+                    this.$data.detail = data.detail
                 }).finally(() => {
                     this.loading = false
                 })
             },
             cardTypeList() {
                 return [
-                    {value: "00", text: "借记卡"},
+                    {value: "00", text: "借记卡", disabled: true},
                     {value: "05", text: "基本户"},
                     {value: "06", text: "一般户"},
                 ]
@@ -314,11 +339,42 @@
             },
             openBankDialog(action) {
                 this.initBankForm()
+                this.loadMerInfo()
+                //
+                this.typeChangeUpdateBank(this.info.mid_type)
                 this.add_bank.action = action
                 this.addBankDialogVisible = true
             },
+            typeChangeUpdateBank(name){
+                if (isEmpty(name)) return
+                if (name === 'personal') {
+                    this.add_bank.card_type = '00'
+                    this.add_bank.name = this.detail.identity_name
+                    this.cardType[0].disabled = false
+                    this.cardType[1].disabled = true
+                    this.cardType[2].disabled = true
+                    this.add_bank.need_authorize = this.info.mid_type === 'company'; //认证企业但结算到个人
+                }else {
+                    this.cardType[0].disabled = true
+                    this.cardType[1].disabled = false
+                    this.cardType[2].disabled = false
+                    this.add_bank.card_type = ''
+                    this.add_bank.name = this.detail.company_name
+                    this.add_bank.need_authorize = false
+                }
+                this.add_bank.mid_type = name
+            },
+            bankTypeClick(name){
+                if (isEmpty(name)) return
+                this.typeChangeUpdateBank(name)
+                this.activeName = name
+            },
+            updateAuthorizePhoto(v) {
+                this.add_bank.authorize_photo = v
+            },
             initBankFormObj() {
                 return {
+                    mid_type: '',
                     action: '',
                     name: '',
                     bank_name: '',
@@ -326,7 +382,8 @@
                     card_type: '',
                     bank_card_mobile: '',
                     bank_swift_no: '',
-                    file: ''
+                    authorize_photo: '',
+                    need_authorize: false,
                 }
             },
             initBankForm() {
@@ -342,15 +399,24 @@
                         return false;
                     } else {
                         //
-                        if (this.add_bank.action === 'add') {
-                            this.$data.loading = true
-                            addBank(this.add_bank).then(() => {
-                                this.$message.success(this.$i18n.t('comm.success').toString())
-                                this.loadMerInfo()
-                                this.closeBankDialog()
-                            }).finally(() => {
-                                this.$data.loading = false
-                            })
+                        if (this.add_bank.need_authorize && isEmpty(this.add_bank.authorize_photo)) {
+                            this.$message.error('请上传企业授权书')
+                        }else {
+                            if (this.add_bank.action === 'add') {//暂时不得修改，只能人工修改
+                                this.$data.loading = true
+                                let formData = new FormData();
+                                let params = this.add_bank;
+                                Object.keys(params).forEach((key) => { //把json转成FormData
+                                    formData.append(key, params[key]);
+                                });
+                                addBank(formData).then(() => {
+                                    this.$message.success(this.$i18n.t('comm.success').toString())
+                                    this.loadMerInfo()
+                                    this.closeBankDialog()
+                                }).finally(() => {
+                                    this.$data.loading = false
+                                })
+                            }
                         }
                     }
                 });

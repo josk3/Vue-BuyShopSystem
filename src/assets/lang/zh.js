@@ -173,7 +173,7 @@ module.exports = {
         "company_start_date": "营业执照有效期起始",
         "company_expire_date": "营业执照有效期终止",
         "company_scope": "经营范围",
-        "company_phone": "电话",
+        "company_phone": "公司电话",
         "company_address": "公司地址",
         "product_info": "经营产品",
         "profession": "职业/行业",
@@ -310,6 +310,7 @@ module.exports = {
         "bank_swift_no": "开户行号支行",
         "bank_swift_no_option": "开户行号支行(选填)",
         "bank_photo": "手持银行卡照片",
+        "authorize_photo": "企业授权书",
     },
 
     "home": {

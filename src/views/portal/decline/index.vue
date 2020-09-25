@@ -26,6 +26,12 @@
                     <el-table-column
                             prop="trade_id"
                             :label="$t('comm.trade_id')" width="210px">
+                        <template v-slot="scope">
+                            <router-link :to="{name: 'order_detail',params:{id:scope.row.trade_id}}"
+                                         class="btn-link">
+                                {{scope.row.trade_id }}
+                            </router-link>
+                        </template>
                     </el-table-column>
                     <el-table-column
                             prop="merchant_order_no"
