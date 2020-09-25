@@ -34,7 +34,7 @@
                 <el-card shadow="hover" class="box-card p-3 bg-white"
                          :body-style="{ padding: '0px' }">
                     <div class="home-last-trade-report">
-                        <LastTimeReport></LastTimeReport>
+                        <LastTimeReport :start_load_data="loadingLastTrade"></LastTimeReport>
                     </div>
                 </el-card>
             </div>
@@ -175,6 +175,7 @@
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 announceList: [],
                 permReportLastTrade: false,
+                loadingLastTrade: false,
                 permViewBalance: false,
                 menu_disabled: false,
                 online_box_show: false,
@@ -184,13 +185,14 @@
             this.balanceParams.type = this.paneName
             this.permReportLastTrade = hasPermission(configs.perm.home_trade_report, this.permissions)
             this.permViewBalance = hasPermission(configs.perm.can_view_balance, this.permissions)
-            if (this.permViewBalance) this.getBalances()
-            this.getAnnounceList()
             this.$store.dispatch('user/loadUserInfo').then((res) => {
                 if (!isEmpty(res) && !isEmpty(res.user) && !isEmpty(res.user.online)) {
                     this.$data.menu_disabled = res.user.online === false
                     this.onlyOnlineCanUse()
                 }
+                this.getAnnounceList()
+                if (this.permViewBalance) this.getBalances()
+                this.$data.loadingLastTrade = true
             })
         },
         methods: {
