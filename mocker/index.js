@@ -1126,7 +1126,8 @@ function demoFinanceList(req) {
             kind: 'sale',
             currency: 'USD',
             fees: 2.31,
-            fixed_fees: 0.2,
+            fixed_fees: 3.21,
+            origin_fixed_fees: 0.2,
             charge: 234.32,
             deposit_charge: 0,
             surplus: 454645.45,
@@ -1140,7 +1141,8 @@ function demoFinanceList(req) {
             kind: 'sale',
             currency: 'USD',
             fees: 0,
-            fixed_fees: 0.2,
+            fixed_fees: 3.2,
+            origin_fixed_fees: 0.2,
             charge: 344,
             deposit_charge: 0,
             surplus: 45425.45,
@@ -1526,6 +1528,20 @@ const proxy = {
                 }]
             },
             "request_id": "req_H09yBJEoql"
+        });
+    },
+    'POST /api/v1/settle/view_detail': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: demoFinanceList(req),
+            }
         });
     },
     'POST /api/v1/delivery/search': (req, res) => {
