@@ -71,9 +71,12 @@
                     <el-table-column
                             prop="declined"
                             :show-overflow-tooltip="true"
-                            label="是否拒付">
+                            width="60px"
+                            label="拒付">
                         <template v-slot="scope">
-                            {{scope.row.declined }}
+                            <span :class="'declined-' + scope.row.declined">
+                                {{scope.row.declined | yesOrNo}}
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column

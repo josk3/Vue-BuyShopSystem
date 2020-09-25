@@ -91,15 +91,19 @@
             <el-dialog custom-class="wpy-dialog" @open="getPayoutSummary"
                        :show-close="false" :close-on-click-modal="false"
                        title="结算摘要"
-                       top="5vh"
+                       top="3vh"
                        :visible.sync="payoutSummaryDialog">
                 <div v-loading="loading">
-                    <h4>{{summaryBatchId}}</h4>
+                    <h5>批次号：{{summaryBatchId}}</h5>
                     <el-table
                               :class="summaryData ? '' : 'wpy-z-table'"
                               :data="summaryData">
                         <el-table-column property="batch_id" label="批次号"></el-table-column>
                     </el-table>
+                    <router-link class="btn-link"
+                                 :to="{name: 'finance_search',params:{batch_id: summaryBatchId}}">
+                        批次详情
+                    </router-link>
                 </div>
                 <div slot="footer" class="dialog-footer">
                     <el-button type="primary" @click="payoutSummaryDialog = false">确 定</el-button>

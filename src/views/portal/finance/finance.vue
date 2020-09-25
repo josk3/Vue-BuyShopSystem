@@ -143,6 +143,7 @@
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
     import {financeDownload, financeSearch} from "@/service/financeSer";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "finance",
@@ -164,6 +165,11 @@
             }
         },
         mounted() {
+            if (!isEmpty(this.$route.params)) {
+                if (!isEmpty(this.$route.params.batch_id)) {
+                    this.searchParams.batch_id = this.$route.params.batch_id
+                }
+            }
             this.searchParams.finance_status = this.paneName
             this.search();
         },
