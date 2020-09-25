@@ -51,7 +51,7 @@
                                 <div class="col-8"><span>{{info.settlement_cycle | settleCycle}}</span></div>
                             </div>
                             <div class="row"><label class="col-4">风控处理率</label>
-                                <div class="col-8"><span>USD{{info.fixed_fees | nullToLine}}</span>
+                                <div class="col-8"><span>{{info.fixed_fees | nullToLine}}USD</span>
                                 </div>
                             </div>
                             <div class="row"><label class="col-4">交易手续率</label>
