@@ -141,9 +141,6 @@
                             <div class="row"><label class="col-4">{{$t('bank.bank_card_mobile')}}</label>
                                 <div class="col-8"><span>{{bank.bank_card_mobile}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">{{$t('comm.status')}}</label>
-                                <div class="col-8"><span>{{bank.status | validStatus}}</span></div>
-                            </div>
                             <div class="row"><label class="col-4">{{$t('comm.created')}}</label>
                                 <div class="col-8"><span>{{bank.created | toDay}}</span></div>
                             </div>
