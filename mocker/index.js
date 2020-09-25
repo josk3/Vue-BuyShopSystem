@@ -1533,6 +1533,7 @@ const proxy = {
     'POST /api/v1/settle/view_detail': (req, res) => {
         return res.json({
             status: 1,
+            message: 'xf23',
             data: {
                 page: { //后端方法 _pageSetRes(..)
                     count: 5,

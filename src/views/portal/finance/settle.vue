@@ -24,7 +24,7 @@
                             style="width: 100%">
                         <el-table-column
                                 prop="batch_id"
-                                label="批次号" width="180px">
+                                :label="$t('comm.batch_id')" width="180px">
                             <template v-slot="scope">
                                 <el-button type="text" @click="openSummaryDialog(scope.row.batch_id)">
                                     {{scope.row.batch_id}}
@@ -89,19 +89,19 @@
                 </el-card>
             </div>
             <el-dialog custom-class="wpy-dialog" @open="getPayoutSummary"
-                       :show-close="false" :close-on-click-modal="false"
+                       :close-on-click-modal="false"
                        title="结算摘要"
                        top="3vh"
                        :visible.sync="payoutSummaryDialog">
                 <div v-loading="loading">
-                    <h6>批次号:<span class="tr-id btn clipboard-btn" :data-clipboard-text="summaryBatchId"
+                    <h6>{{$t('comm.batch_id')}}:<span class="tr-id btn clipboard-btn" :data-clipboard-text="summaryBatchId"
                                   @click="copy">{{ summaryBatchId }} <font-awesome-icon
                             :icon="['far', 'clipboard']"/></span>
                     </h6>
                     <el-table v-if="summaryData.groups"
                               :class="summaryData.groups ? '' : 'wpy-z-table'"
                               :data="summaryData.groups">
-                        <el-table-column property="kind" label="类型">
+                        <el-table-column property="kind" :show-overflow-tooltip="true" :label="$t('comm.type')">
                             <template v-slot="scope">
                                 {{scope.row.kind | payoutKind }}
                             </template>
@@ -134,7 +134,7 @@
                              :body-style="{ padding: '0px' }">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item>
-                                <i class="el-icon-arrow-left text-blue"></i> <span class="pointer" @click="toPayoutList">{{$t('nav.settle_search')}}</span>
+                                <i class="el-icon-arrow-left text-blue"></i> <strong class="pointer" @click="toPayoutList">{{$t('nav.settle_search')}}</strong>
                             </el-breadcrumb-item>
                             <el-breadcrumb-item>{{$t('comm.batch_id')}} {{searchViewDetail.batch_id}}</el-breadcrumb-item>
                         </el-breadcrumb>
