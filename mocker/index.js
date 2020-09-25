@@ -2634,13 +2634,6 @@ const proxy = {
             data: {ticket_id: 'tk-888888888'}
         });
     },
-    'GET /api/v1/ticket/preview': (req, res) => {
-        return res.json({
-            status: 1,
-            message: '',
-            data: {}
-        });
-    },
     'POST /api/v1/ticket/search': (req, res) => {
         return res.json({
             status: 1,
@@ -2725,56 +2718,35 @@ const proxy = {
             data: {
                 list: [
                     {
-                        content: '在吗',
-                        attach: null,
-                        created: "2020-09-01 10:00:00",
-                        current_dist: "前一天",
-                        user_name: '商户coco',
-                        operator: null,
-                        is_system: 1
-                    },
-                    {
-                        content: '您好',
-                        attach: null,
-                        created: "2020-09-01 10:00:00",
-                        current_dist: "前一天",
-                        user_name: null,
-                        operator: "管理小孙",
-                        is_system: 0
-                    },
-                    {
-                        content: '交易网站新加上去的审核要多久呀',
-                        attach: "https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg",
-                        created: "2020-09-01 10:00:00",
-                        current_dist: "前一天",
-                        user_name: '商户coco',
-                        operator: null,
-                        is_system: 1
-                    },
-                    {
-                        content: '是新提交上去的是吗',
-                        attach: null,
-                        created: "2020-09-01 10:00:00",
-                        current_dist: "前一天",
-                        user_name: null,
-                        operator: "管理小孙",
-                        is_system: 0
-                    },
-                    {
-                        content: '新提交上去的已经审核通过了',
-                        attach: "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
-                        created: "2020-09-01 10:00:00",
-                        current_dist: "前一天",
-                        user_name: null,
-                        operator: "管理小孙",
-                        is_system: 0
-                    },
-                    {
-                        content: '这边您可以下单测试一下，确保正常',
-                        attach: null,
-                        create_time: "2020-09-01 10:00:00",
+                        content: "一条无关紧要的测试数据",
+                        attach: '/ticket/M70252/gLMFSw09241618.png',
+                        ticket_attach_url: "/api/ticket/attach?name=/ticket/M70252/gLMFSw09241618.png",
+                        created: 1600854270000,
+                        current_dist: "2天前",
+                        user_name: "admin",
+                        operator: "admin",
+                        is_system: 1,
                     }],
-                info: {}
+                info: {
+                    attach: null,
+                    case_type: 3,
+                    content: "sadfsdaf",
+                    created: 1600854270000,
+                    email: "sadfsda@qq.com",
+                    mer_name: "测试6699",
+                    mer_no: "M70252",
+                    operator: "admin",
+                    phone: "1663770785082",
+                    priority: 1,
+                    question_case: "对接接口",
+                    question_value: null,
+                    status: 1,
+                    ticket_status: "待处理",
+                    ticket_value: null,
+                    title: "sadfsda",
+                    tk_id: "tk_1gcQDBBBspEV",
+                    updated: null
+                }
             }
         })
     },
@@ -3469,8 +3441,8 @@ const proxy = {
                     "identity_bank_photo_url": "",
                     "company_identity_photo_url": "",
                     "identity_photo_a_url": "/mer/id_img?name=wef",
-                    "phone":"1333333",
-                    "email":"",
+                    "phone": "1333333",
+                    "email": "",
                 },
                 "job_type": [
                     {
@@ -3599,7 +3571,7 @@ const proxy = {
         return res.json({
             status: 1,
             message: '',
-            data:{},
+            data: {},
         })
     },
     'POST /api/v1/dispute/search': (req, res) => {
@@ -3643,7 +3615,7 @@ const proxy = {
                         email: '1506266211@qq.com',
                         created: '2020-09-04 13:00:15',
                         updated: null,
-                        status: 'underway',
+                        dispute_status: 'underway',
                         remark: '略',
                         dispute_type: '货不对版'
                     },

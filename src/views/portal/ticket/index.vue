@@ -3,23 +3,23 @@
         <!--顶部卡片-->
         <el-card class="box-card mb-1">
             <div slot="header" class="clearfix">
-                <span>技术工单</span>
+                <span>{{$t('nav.support_ticket')}}</span>
             </div>
             <!--工单步骤栏-->
             <el-steps :active="active" finish-status="success">
-                <el-step title="提交问题"></el-step>
-                <el-step title="填写问题内容"></el-step>
-                <el-step title="受理问题单"></el-step>
+                <el-step :title="$t('ticket.submit_a_question')"></el-step>
+                <el-step :title="$t('ticket.fill_in_the_question')"></el-step>
+                <el-step :title="$t('ticket.acceptance_of_question_sheet')"></el-step>
             </el-steps>
 
             <!--选取工单类型-->
             <div id="ticketCaseCard" class="box-card mb-1 mt-3" v-show="active=='1'">
                 <div class="mb-3">
-                    <el-select v-model="ticketFormParams.case_id" placeholder="选择问题">
+                    <el-select v-model="ticketFormParams.case_id" :placeholder="$t('ticket.select_question')">
                         <el-option
                                 v-for="item in options"
                                 :key="item.case_id"
-                                :label="item.label"
+                                :label="$t('ticket.' + item.label)"
                                 :value="item.case_id">
                         </el-option>
                     </el-select>
@@ -27,7 +27,8 @@
                 <div class="mb-2"><strong>订单 、退款 、拒付等相关问题</strong></div>
                 <div class="mb-2"><small class="opacity-65">专项问题由专项人员答疑,快速帮你解决遇到的问题</small></div>
 
-                <el-button type="primary" style="margin-top: 12px;" @click="progressNext">下一步</el-button>
+                <el-button type="primary" style="margin-top: 12px;" @click="progressNext">{{$t('comm.setup_next')}}
+                </el-button>
             </div>
         </el-card>
         <!--工单列表-->
@@ -93,31 +94,32 @@
         </el-card>
         <!--返回上一步-->
         <el-card v-show="active=='2'">
-            <el-page-header @back="goBack" title="上一步"></el-page-header>
+            <el-page-header @back="goBack" :title="$t('comm.go_back')"></el-page-header>
         </el-card>
         <!--提交工单表单-->
         <el-card id="ticketForm" v-show="active=='2'" class="bg-light">
             <div slot="header">
-                <span>填写工单</span>
+                <span>{{$t('ticket.fill_in_the_ticket')}}</span>
             </div>
             <el-form :model="ticketFormParams" ref="ticketFormParams" :rules="rules" label-width="100px"
                      class="demo-ruleForm">
-                <el-form-item label="优先级:" prop="priority" class="col-9">
-                    <el-radio class="ml-2" v-model="ticketFormParams.priority" label="1">一般</el-radio>
-                    <el-radio v-model="ticketFormParams.priority" label="2">紧急</el-radio>
+                <el-form-item :label="$t('ticket.priority')" prop="priority" class="col-9">
+                    <el-radio class="ml-2" v-model="ticketFormParams.priority" label="1">{{$t("ticket.plain")}}
+                    </el-radio>
+                    <el-radio v-model="ticketFormParams.priority" label="2">{{$t("ticket.urgent")}}</el-radio>
                 </el-form-item>
-                <el-form-item label="邮箱:" prop="email" class="col-5">
+                <el-form-item :label="$t('ticket.email')" prop="email" class="col-5">
                     <el-input placeholder="请填写邮箱,为方便后续及时联系到您" v-model="ticketFormParams.email"></el-input>
                 </el-form-item>
-                <el-form-item label="标题:" prop="title" class="col-5">
+                <el-form-item :label="$t('ticket.title')" prop="title" class="col-5">
                     <el-input placeholder="请拟标题" v-model="ticketFormParams.title" maxlength="15"
                               show-word-limit></el-input>
                 </el-form-item>
-                <el-form-item label="问题描述:" prop="content" class="col-9">
+                <el-form-item :label="$t('ticket.content')" prop="content" class="col-9">
                     <el-input type="textarea" placeholder="请输入内容" maxlength="100" show-word-limit :rows="2"
                               v-model="ticketFormParams.content"></el-input>
                 </el-form-item>
-                <el-form-item label="附件:" prop="attach" class="col-9">
+                <el-form-item :label="$t('ticket.attach')" prop="attach" class="col-9">
                     <el-upload
                             :class="{uoloadSty:showBtnImg,disUoloadSty:noneBtnImg}"
                             id="accessory"
@@ -147,9 +149,9 @@
                 </el-form-item>
                 <el-form-item prop="attach" class="col-9">
                     <el-button type="primary" style="margin-top: 12px;"
-                               @click="formSubmit('ticketFormParams')">提交
+                               @click="formSubmit('ticketFormParams')">{{$t('comm.submit')}}
                     </el-button>
-                    <el-button @click="resetForm('ticketFormParams')">重置</el-button>
+                    <el-button @click="resetForm('ticketFormParams')">{{$t('comm.reset')}}</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -248,16 +250,16 @@
                 active: 1,   //控制进度&控制页面内容显隐
                 options: [{
                     case_id: 'OTHER',
-                    label: '订单问题'
+                    label: 'order'
                 }, {
                     case_id: 'ORDER',
-                    label: '对接接口'
+                    label: 'interface'
                 }, {
                     case_id: 'INTERFACE',
-                    label: '财务结算'
+                    label: 'settlement'
                 }, {
                     case_id: 'SETTLEMENT',
-                    label: '其他'
+                    label: 'other'
                 }]
             }
         },

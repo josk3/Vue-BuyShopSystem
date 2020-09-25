@@ -17,10 +17,3 @@ export function ticketDetailInfo(ticket) {
 export function closeTicket(ticket) {
     return post("/ticket/close", ticket);
 }
-
-/**
- * 图片预览
- */
-export function previewImg(path) {
-    return get("/ticket/preview", path);
-}

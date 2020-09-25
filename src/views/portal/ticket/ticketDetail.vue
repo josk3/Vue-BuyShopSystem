@@ -125,8 +125,8 @@
                                                         <el-image
                                                                 style="width:220px;"
                                                                 class="img-fluid rounded"
-                                                                :src="[attachImgViewUrl+'?tkImgUrl='+ detailInfo.attach]"
-                                                                :preview-src-list="[detailInfo.attach]"
+                                                                :src="fullImgUrl(detailInfo.ticket_attach_url)"
+                                                                :preview-src-list="[fullImgUrl(detailInfo.ticket_attach_url)]"
                                                         >
                                                             <div slot="error" style="display: flex;justify-content: center; align-items: center;width: 100%;height: 100%;background: #CCCCCC;
                                                                color: #000000;font-size: 14px;">
@@ -176,8 +176,8 @@
                                                         <el-image
                                                                 style="width:220px;"
                                                                 class="img-fluid rounded"
-                                                                :src="configs.ticketImagePath+detailInfo.attach"
-                                                                :preview-src-list="[detailInfo.attach]"
+                                                                :src="fullImgUrl(detailInfo.ticket_attach_url)"
+                                                                :preview-src-list="[fullImgUrl(detailInfo.ticket_attach_url)]"
                                                         >
                                                             <div slot="error" style="display: flex;justify-content: center; align-items: center;width: 100%;height: 100%;background: #CCCCCC;
                                                                color: #000000;font-size: 14px;">
@@ -253,9 +253,9 @@
                     </el-form-item>
                     <el-form-item prop="attach" class="col-9">
                         <el-button class="ml-2" type="primary" style="margin-top: 12px;"
-                                   @click="formSubmit('ticketFormParams')">提交
+                                   @click="formSubmit('ticketFormParams')">{{$t('comm.submit')}}
                         </el-button>
-                        <el-button @click="resetUploadParams">重置</el-button>
+                        <el-button @click="resetUploadParams">{{$t('comm.reset')}}</el-button>
                     </el-form-item>
                 </el-form>
             </el-card>
@@ -367,8 +367,10 @@
                 this.noneBtnImg = false;
                 this.$refs['ticketFormParams'].resetFields();//重置
                 this.$refs['ticketFormParams'].clearValidate();//重置
-            }
-            ,
+            },
+            fullImgUrl(path) {
+                return configs.imgBaseUrl + path;
+            },
             formSubmit(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
