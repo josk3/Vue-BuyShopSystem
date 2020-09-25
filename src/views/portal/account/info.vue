@@ -95,7 +95,7 @@
                                         <el-table-column>
                                             <template v-slot="scope">
                                                 <span v-if="scope.row.condition_ecm_l">
-                                                    {{scope.row.condition_ecm_l}} <
+                                                    {{scope.row.condition_ecm_l}} &lt;
                                                 </span>
                                                 Rate
                                                 <span v-if="scope.row.condition_ecm_r">
@@ -304,7 +304,7 @@
                 ]
             },
             addBankBtn() {
-                if (this.user.identifier_status !== 1) {
+                if (this.user.identity_status !== 1) {
                     this.$alert('请先完成账户激活认证', '', {
                         confirmButtonText: '确定',
                     });

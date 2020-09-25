@@ -14,7 +14,7 @@ const state = {
         email: null,
         second_login: null,
         status: null,
-        identifier_status: 0,
+        identity_status: 0,
         name: null,
         mer_no: null,
         online: true,
@@ -24,6 +24,8 @@ const state = {
         total_ecm: 0,//商户总拒付率
         last_monthly_ecm: 0,
         total_declined_num: 0,//总拒付笔数
+        allow_personal: 0,
+
     },
     roles: [],
     menus: [],//侧边目录
