@@ -5,18 +5,8 @@
             <div slot="header">
                 <el-page-header @back="goBack()" content="争议邮件详情" title="返回"></el-page-header>
             </div>
-            <el-main class="bg-light ">
+            <el-main class="bg-light" v-if="disputeDetail.list.length > 0">
                 <el-row :gutter="20" class="mb-5">
-                    <!-- <el-col :span="12" :offset="6">
-                         <div class="text-center mb-2" @click="showSpillContent()">
-                             <i class="el-icon-time"></i>
-                             <el-link style="color: rgb(76, 179, 255);">下拉可查看历史消息
-                             </el-link>
-                         </div>
-                         <div class="text-center"><span
-                                 style="border:1px solid #CFD6E0;background-color:#CFD6E0;color:rgba(115,131,137,18);border-radius: 30px;padding:3px 6px;">2020年12月18日 15:56:23</span>
-                         </div>
-                     </el-col>-->
                 </el-row>
                 <div style="overflow-y: scroll;height:800px;"
                      ref="disputeBody">
@@ -61,7 +51,7 @@
         </el-card>
 
         <!--处理按钮-->
-        <el-card ref="disposeCard">
+        <el-card ref="disposeCard" v-if="disputeDetail.list.length > 0">
             <div class="text-center mt-3" v-show="dispose.isClose">
                 <el-button :type="dispose.disposeType" class="mb-3 col-3" @click="open()">{{dispose.status}}
                 </el-button>
@@ -76,9 +66,6 @@
 
         <!--争议关闭及商户解决过程描述-->
         <el-card>
-            <!--<div slot="header" class="clearfix">
-                <strong></strong>
-            </div>-->
             <!--填写争议表单-->
             <el-dialog :visible="refundDialogVisible" title="处理结果描述" :show-close="false" :close-on-click-modal="false">
                 <el-form :model="disputeSubmitParams" :rules="rules" ref="disputeSubmitParams" label-width="100px"
@@ -182,21 +169,20 @@
             disputeDetailSearch() {
                 this.loading = true;
                 disputeDetail(this.dispute).then(res => {
-                    console.log(res);
                     this.disputeDetail = res.data;
                     this.disposeDispute(this.disputeDetail.info.dispute_status);
-                }).catch(() => {
-                    //状态失败提示后回退到列表
-                    this.$router.push({name: 'dispute_manage'});
                 }).finally(() => {
                     this.loading = false;
                 })
-            }, clickSearch(tab) {
+            },
+            clickSearch(tab) {
                 this.searchParams.dispute_status = tab.name;
                 this.search();
-            }, goBack() {
+            },
+            goBack() {
                 this.$router.go(-1)
-            }, submitForm(formName) {
+            },
+            submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.loading = true;
@@ -210,7 +196,8 @@
                         return false;
                     }
                 });
-            }, disposeDispute(disputeStatus) {
+            },
+            disposeDispute(disputeStatus) {
                 switch (disputeStatus) {
                     case 'untreated':
                         this.dispose = {
@@ -232,7 +219,8 @@
                         this.dispose = {msg: '争议已处理!', isClose: false};
                         break;
                 }
-            }, updateDispute() {
+            },
+            updateDispute() {
                 this.loading = true;
                 updateDispute(this.disputeStatusParam).then(() => {
                     this.disputeDetailSearch();

@@ -322,6 +322,12 @@ module.exports = {
     dispute: {
         untreated: 'untreated',
         underway: 'underway',
-        complete: 'complete'
+        complete: 'complete',
+        dispute_no: 'Dispute No',
+        dispute_status: "Dispute Status",
+        dispute_type: "Dispute Type",
+        email: "Customer Email",
+        remark: "Dispute Remark",
+        trade_id_merchant_order_no: "Trade ID / Order No"
     }
 }

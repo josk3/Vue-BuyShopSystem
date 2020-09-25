@@ -5,11 +5,11 @@
         <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
             <!--标签页-->
             <el-tabs v-model="tabName" type="border-card" @tab-click="clickSearch">
-                <el-tab-pane label="全部" name="all">
+                <el-tab-pane :label="$t('comm.all')" name="all">
                 </el-tab-pane>
-                <el-tab-pane label="未处理" name="untreated"></el-tab-pane>
-                <el-tab-pane label="处理中" name="underway"></el-tab-pane>
-                <el-tab-pane label="处理完成" name="complete"></el-tab-pane>
+                <el-tab-pane :label="$t('dispute.untreated')" name="untreated"></el-tab-pane>
+                <el-tab-pane :label="$t('dispute.underway')" name="underway"></el-tab-pane>
+                <el-tab-pane :label="$t('dispute.complete')" name="complete"></el-tab-pane>
             </el-tabs>
             <el-table
                     :data="disputeList.list"
@@ -17,7 +17,7 @@
                     style="width: 100%">
                 <el-table-column
                         prop="dispute_no"
-                        label="争议单号"
+                        :label="$t('dispute.dispute_no')"
                         width="160">
                     <template slot-scope="scope">
                         <router-link :to="{name:'dispute_detail',params:{id:scope.row.dispute_no}}" class="btn-link">
@@ -27,11 +27,11 @@
                 </el-table-column>
                 <el-table-column
                         prop="email"
-                        label="顾客邮箱" width="180px">
+                        :label="$t('dispute.email')" width="180px">
                 </el-table-column>
                 <el-table-column
                         :show-overflow-tooltip="true"
-                        label="流水号/商户订单号">
+                        :label="$t('dispute.trade_id_merchant_order_no')" width="150px">
                     <template v-slot="scope">
                         {{scope.row.trade_id }}<br/>
                         {{scope.row.merchant_order_no }}
@@ -39,7 +39,7 @@
                 </el-table-column>
                 <el-table-column
                         prop="dispute_status"
-                        label="处理状态">
+                        :label="$t('dispute.dispute_status')">
                     <template v-slot="scope">
                             <span>
                                 {{scope.row.dispute_status | disputeStatus}}
@@ -48,15 +48,15 @@
                 </el-table-column>
                 <el-table-column
                         prop="dispute_type"
-                        label="争议类型">
+                        :label="$t('dispute.dispute_type')">
                 </el-table-column>
                 <el-table-column
                         prop="remark"
                         :show-overflow-tooltip="true"
-                        label="争议说明">
+                        :label="$t('dispute.remark')">
                 </el-table-column>
                 <el-table-column
-                        label="顾客争议日期">
+                        :label="$t('comm.created')">
                     <template v-slot="scope">
                         {{scope.row.created | toDay}}
                     </template>

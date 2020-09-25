@@ -42,6 +42,7 @@ module.exports = {
         home_trade_report: 'home_trade_report',
         can_view_balance: 'can_view_balance',
         delivery_download: 'delivery_download',
-    }
-
+    },
+    /*工单图片url*/
+    ticketImagePath: 'http://localhost:8013/v1/preview',
 }

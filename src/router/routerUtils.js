@@ -209,9 +209,15 @@ export function convertRouters(userMenu) {
             hidden: true,
         },
         {
-            path: '/ticketDetail',
+            path: '/ticket/detail/:id',
             component: () => import('@/views/portal/ticket/ticketDetail'),
             name: 'ticket_detail',
+            hidden: true,
+        },
+        {
+            path: '/ticket/preview',
+            component: () => import('@/views/portal/dispute/disputeDetail'),
+            name: 'ticket_preview',
             hidden: true,
         },
         {

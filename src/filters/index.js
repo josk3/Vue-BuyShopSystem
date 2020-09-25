@@ -338,9 +338,9 @@ export function ticketStatus(caseStatus) {
 export function ticketPriority(priorityValue) {
     if (isEmpty(priorityValue)) return ''
     switch (priorityValue) {
-        case '0':
+        case 1:
             return i18n.t('ticket.plain')
-        case '1':
+        case 2:
             return i18n.t('ticket.urgent')
     }
 }

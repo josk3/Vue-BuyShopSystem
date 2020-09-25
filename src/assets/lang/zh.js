@@ -321,6 +321,12 @@ module.exports = {
     dispute: {
         untreated: '未处理',
         underway: '处理中',
-        complete: '处理完成'
+        complete: '处理完成',
+        dispute_no: '争议单号',
+        dispute_status: "争议状态",
+        dispute_type: "争议类型",
+        email: "顾客邮箱",
+        trade_id_merchant_order_no: "流水号/订单号",
+        remark: "争议说明",
     }
 }

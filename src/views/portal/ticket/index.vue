@@ -15,12 +15,12 @@
             <!--选取工单类型-->
             <div id="ticketCaseCard" class="box-card mb-1 mt-3" v-show="active=='1'">
                 <div class="mb-3">
-                    <el-select v-model="ticketFormParams.caseId" placeholder="选择问题">
+                    <el-select v-model="ticketFormParams.case_id" placeholder="选择问题">
                         <el-option
                                 v-for="item in options"
-                                :key="item.caseId"
+                                :key="item.case_id"
                                 :label="item.label"
-                                :value="item.caseId">
+                                :value="item.case_id">
                         </el-option>
                     </el-select>
                 </div>
@@ -40,10 +40,11 @@
                     :data="ticketDataRsp.list">
                 <el-table-column
                         :label="$t('ticket.ticket_no')"
+                        width="160"
                 >
                     <template slot-scope="scope">
-                        <router-link :to="{name:'ticket_detail',params:{id:scope.row.ticket_no}}" class="btn-link">
-                            {{scope.row.ticket_no}}
+                        <router-link :to="{name:'ticket_detail',params:{id:scope.row.tk_id}}" class="btn-link">
+                            {{scope.row.tk_id}}
                         </router-link>
                     </template>
                 </el-table-column>
@@ -56,33 +57,34 @@
                         :label="$t('ticket.email')">
                 </el-table-column>
                 <el-table-column
-                        prop="case_question"
                         :label="$t('ticket.question_type')">
                     <template v-slot="scope">
-                        {{scope.row.case_question | ticketQuestionStatus }}
+                        {{scope.row.question_value | ticketQuestionStatus }}
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="ticket_status"
                         :label="$t('ticket.status')">
                     <template v-slot="scope">
-                        {{scope.row.ticket_status | ticketStatus }}
+                        {{scope.row.ticket_value | ticketStatus }}
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="priority"
                         :label="$t('ticket.priority')">
                     <template v-slot="scope">
                         {{scope.row.priority | ticketPriority }}
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="create_time"
-                        :label="$t('ticket.create_time')">
+                        :label="$t('comm.created')">
+                    <template v-slot="scope">
+                        {{scope.row.created | toDay}}
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="update_time"
-                        :label="$t('ticket.update_tIme')">
+                        :label="$t('comm.updated')">
+                    <template v-slot="scope">
+                        {{scope.row.updated | toDay}}
+                    </template>
                 </el-table-column>
             </el-table>
             <div class="block">
@@ -161,8 +163,9 @@
                                  style="border:1px solid mediumseagreen;border-radius:50%;color:mediumseagreen;"></el-icon>
                         <span class="ml-1">提交成功！</span></p>
                     <small>您提交的问题已经受理.
-                        <router-link target="_blank" :to="{path:'/ticket/detail',query:{tk_id:ticket_id}}">查看详情&nbsp;<i
-                                class="el-icon-right"></i></router-link>
+                        <router-link :to="{name:'ticket_detail',params:{id:ticket_id}}" class="btn-link">
+                            查看详情&nbsp;<i class="el-icon-right"></i>
+                        </router-link>
                     </small>
                 </div>
             </div>
@@ -226,7 +229,7 @@
                     email: '',
                     title: '',
                     content: '',
-                    caseId: '',
+                    case_id: '',
                     attach: ''
                 },
                 subParam: '', //工单提交参数
@@ -244,16 +247,16 @@
                 },
                 active: 1,   //控制进度&控制页面内容显隐
                 options: [{
-                    caseId: 'OTHER',
+                    case_id: 'OTHER',
                     label: '订单问题'
                 }, {
-                    caseId: 'ORDER',
+                    case_id: 'ORDER',
                     label: '对接接口'
                 }, {
-                    caseId: 'INTERFACE',
+                    case_id: 'INTERFACE',
                     label: '财务结算'
                 }, {
-                    caseId: 'SETTLEMENT',
+                    case_id: 'SETTLEMENT',
                     label: '其他'
                 }]
             }
@@ -265,7 +268,7 @@
             /*进入下一步骤*/
             progressNext() {
                 //判断是否选择问题类型
-                if (this.ticketFormParams.caseId == undefined || this.ticketFormParams.caseId == null || this.ticketFormParams.caseId == '') {
+                if (this.ticketFormParams.case_id == undefined || this.ticketFormParams.case_id == null || this.ticketFormParams.case_id == '') {
                     this.$message.error('请选择要咨询的问题类型!');
                     return false;
                 }
@@ -318,13 +321,7 @@
                 this.$message.error(`超过图片限制,最多只可上传 1 张图片!`);
             },
             httpRequest(param) {
-                this.subParam = new FormData();
                 this.fileList.push(param.file);
-                let images = [...this.fileList];
-                //遍历图片集合
-                images.forEach((img, index) => {
-                    this.subParam.append(`ticket_${index}`, img) // 把单个图片重命名，存储起来（给后台）
-                })
             },
             /*工单表单重置*/
             resetForm(formName) {
@@ -346,13 +343,16 @@
                         //加载等待
                         this.loading = true;
                         let _this = this.ticketFormParams;
-                        if (this.subParam == undefined || this.subParam == '' || this.subParam == null) {
-                            this.subParam = new FormData();
-                        }
+                        this.subParam = new FormData();
+                        let images = [...this.fileList];
+                        //遍历图片集合
+                        images.forEach((img) => {
+                            this.subParam.append(`file`, img) // 把单个图片重命名，存储起来（给后台）
+                        })
                         this.subParam.append('email', _this.email);
                         this.subParam.append('content', _this.content);
                         this.subParam.append('title', _this.title);
-                        this.subParam.append('caseId', _this.caseId);
+                        this.subParam.append('case_id', _this.case_id);
                         this.subParam.append('priority', _this.priority);
                         ticketCreate(this.subParam, this.progressCallback).then(res => {
                             this.ticket_id = res.data.ticket_id;
