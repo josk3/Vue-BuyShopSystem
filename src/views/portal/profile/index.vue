@@ -126,7 +126,7 @@
                 //-email
                 onlyShowUpdateEmailCard: false,//只显示填写邮箱卡片,一般是在用户没有填写过邮箱按提示入口过来的.
                 canChangeEmail: false,//用户还没填写邮箱地址，或还没认证
-                update_email: {email: '', action: ''},
+                update_email: {uid: '', email: '', action: ''},
                 updateEmailData: '',
                 wait_valid_email: false,
                 rulesEmail: {
@@ -180,12 +180,13 @@
                 })
             },
             submitUpdateEmail() {
+                this.update_email.uid = this.user.uid
+                let newEmail = this.update_email.email
                 this.$refs['update_email'].validate((valid) => {
                     if (!valid) {
                         return false;
                     } else {
                         this.$data.loading = true
-                        let newEmail = this.update_email.email
                         updateEmail(this.update_email).then(res => {
                             this.$data.wait_valid_email = true
                             const {data} = res

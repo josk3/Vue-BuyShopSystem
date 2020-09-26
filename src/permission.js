@@ -38,7 +38,7 @@ router.beforeEach(async (to, from, next) => {
         }
     } else {
         if (hasToken) {
-            if (to.path === configs.loginPath || to.path === configs.logoutPath) {
+            if (anonAuthPages.indexOf(to.path) !== -1) {
                 //next({ path: configs.homePath })
                 next()
                 NProgress.done()
