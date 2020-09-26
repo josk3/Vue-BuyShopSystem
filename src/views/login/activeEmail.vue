@@ -18,7 +18,13 @@
                 </div>
             </div>
             <div class="mt-3">
-                <router-link :to="configs.loginPath"
+                <router-link v-if="currentToken" 
+                             :to="configs.homePath"
+                             class="btn btn-sm p-2 btn-link wpy-btn">
+                    {{ $t('nav.home') }}
+                </router-link>
+                <router-link v-else
+                             :to="configs.loginPath"
                              class="btn btn-sm p-2 btn-link wpy-btn">
                     {{ $t('comm.login') }}
                 </router-link>
@@ -31,6 +37,7 @@
     import configs from "@/configs";
     import {mapState} from "vuex";
     import {activeEmail} from "@/service/userSer";
+    import {getToken} from "@/service/auth/token";
 
     export default {
         name: "activeEmail",
@@ -49,13 +56,15 @@
                 loading: false,
                 ok: false,
                 merNo: '',
-                form: {uid: '', code: ''}
+                form: {uid: '', code: ''},
+                currentToken: '',
             }
         },
         mounted() {
             this.form.code = this.$route.query.code
             this.form.uid = this.$route.query.uid
             this.submitActiveEmail();
+            this.currentToken = getToken();
         },
         methods: {
             submitActiveEmail() {
