@@ -72,7 +72,7 @@
 
 
     export default {
-        name: "UserValidEmailPhone",
+        name: "UserValidEmailPhone", //用户验证邮箱或手机验证码
         components: {AliValidCode},
         props: ['user_info'],
         computed: { //watch跟踪数据变化, 重点user, configs

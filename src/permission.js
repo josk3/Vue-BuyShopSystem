@@ -47,7 +47,7 @@ router.beforeEach(async (to, from, next) => {
                 const hasMenus = store.getters.menus && store.getters.menus.length > 0
                 if (hasMenus) {
                     if (!isEmpty(user.state) && !isEmpty(user.state.user) && user.state.user.online === false) {
-                        if (to.path === configs.homePath) {
+                        if (to.path === configs.homePath || to.path === configs.profilePath) {
                             next()
                         } else {
                             next({path: configs.homePath, query: {ol: new Date().getMilliseconds()}, hash: to.name}) //只有开通才可以使用

@@ -128,6 +128,7 @@
             </div>
 
         </div>
+    
     </div>
 </template>
 
@@ -140,10 +141,12 @@
     import {mapState} from "vuex";
     import {hasPermission} from "@/service/userSer";
     import {isEmpty} from "@/utils/validate";
+    import {alertUnOnlineStatus} from "@/service/CommSer";
+    import UserValidEmailPhone from "@/components/UserValidEmailPhone";
 
     export default {
         name: "home",
-        components: {LastTimeReport},
+        components: {UserValidEmailPhone, LastTimeReport},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 sidebar: state => state.app.sidebar,
@@ -157,11 +160,11 @@
                 return user.state.user;
             },
             ol() {
-              return this.$route.query.ol;
+                return this.$route.query.ol;
             },
         },
         watch: {
-            ol(){
+            ol() {
                 this.onlyOnlineCanUse()
             },
         },
@@ -178,7 +181,7 @@
                 loadingLastTrade: false,
                 permViewBalance: false,
                 menu_disabled: false,
-                online_box_show: false,
+                //-
             }
         },
         mounted() {
@@ -198,19 +201,7 @@
         methods: {
             onlyOnlineCanUse() {
                 if (this.menu_disabled === true) {
-                    if (this.online_box_show === false) {
-                        this.$confirm('当前账户状态：未开通，请联系我们开通商户号。', '未开通', {
-                            confirmButtonText: '联系我们',
-                            cancelButtonText: '取消',
-                            type: 'warning',
-                            center: true
-                        }).then(() => {
-                            this.$data.online_box_show = false
-                            location.href = configs.contactUsUrl
-                        }).catch(() => {
-                            this.$data.online_box_show = false
-                        });
-                    }
+                    alertUnOnlineStatus()
                 }
             },
             paneClick(tab) {
@@ -240,6 +231,7 @@
             goAnnounceDetail(row) {
                 this.$router.push({name: 'announce_detail', params: {id: row.nid}})
             },
+
         },
     }
 </script>

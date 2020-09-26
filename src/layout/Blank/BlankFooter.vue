@@ -39,7 +39,7 @@
         methods: {
         },
         mounted() {
-            //
+            // 推荐码
             if (!isEmpty(this.$route.query)) {
                 let rf = this.$route.query.rf;
                 if (!isEmpty(rf)) {
