@@ -84,6 +84,7 @@ module.exports = {
         "close": "Close",
         "open": "Open",
         "reason": "Reason",
+        "save": "Save",
 
     },
     "nav": {
@@ -178,6 +179,12 @@ module.exports = {
         "product_info": "Shop product",
         "profession": "Profession",
         "sex": "Sex",
+
+        "profile_info": "User",
+        "update_password": "Update Password",
+        //email
+        "complete_input_email": "Complete your email address",
+        "input_often_email_to_receive_notice": "Please use often email address to receive notices",
 
     },
     "valid": {

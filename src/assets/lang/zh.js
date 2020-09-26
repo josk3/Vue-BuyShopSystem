@@ -84,6 +84,7 @@ module.exports = {
         "close": "关闭",
         "open": "打开",
         "reason": "原因",
+        "save": "保存",
 
     },
     "nav": {
@@ -121,7 +122,7 @@ module.exports = {
         "logout": "退出",
         "forget_pwd": "找回密码",
         "reset_pwd": "重置密码",
-        "active_email": "激活邮件",
+        "active_email": "认证邮件",
         "decline_manage": "拒付管理",
         "ticket_detail": "工单详情",
         "announce_detail": "公告详情",
@@ -179,6 +180,12 @@ module.exports = {
         "profession": "职业/行业",
         "sex": "性别",
 
+        "profile_info": "个人信息",
+        "update_password": "修改密码",
+        //email
+        "complete_input_email": "请完善邮箱信息",
+        "input_often_email_to_receive_notice": "请填写常用的邮箱, 便于接收通知",
+
     },
     "register_form": {
         "email_or_phone": "手机号", //字面上优化让用户使用手机号,英文使用email
@@ -222,7 +229,7 @@ module.exports = {
         "register_right_now": "立即创建您的账号",
         "reg_terms": ["我已阅读同意", "服务条款"],
         "remember_you_merchant_no": "请记下您的商户号，登录时使用",
-        "has_send_active_email": "已发送一封激活邮件",
+        "has_send_active_email": "已发送一封认证邮件",
         "sms_valid_code": "短信验证码",
     },
     "status": {

@@ -9,8 +9,12 @@
         <div v-if="useEmail">
             <div>
                 <div class="mb-4 font-weight-bold">{{$t('user.mer_no')}} {{ userData.mer_no }}</div>
-                <p class="mb-3 text-green"><i class="el-icon-circle-check"></i>
-                    {{$t('login.has_send_active_email')}}</p>
+                <p class="mb-1">
+                    <small><i class="el-icon-circle-check"></i>{{$t('login.has_send_active_email')}}</small>
+                </p>
+                <p class="mb-2">
+                    <i class="el-icon-info text-yellow"></i>请登录邮箱打开邮件点击认证链接完成认证。
+                </p>
                 <p class="mb-3">
                     {{ userData.email }}
                 </p>
@@ -64,7 +68,7 @@
 </template>
 
 <script>
-    import {activePhone, resendRegisterEmail, resendRegisterPhone} from "@/service/userSer";
+    import {activePhone, resendVerifyCodeEmail, resendVerifyCodePhone} from "@/service/userSer";
     import {mapState} from "vuex";
     import configs from "@/configs";
     import AliValidCode from "@/components/AliValidCode";
@@ -74,7 +78,8 @@
     export default {
         name: "UserValidEmailPhone", //用户验证邮箱或手机验证码
         components: {AliValidCode},
-        props: ['user_info'],
+        //user_info 的数据为 data.user.email ...
+        props: ['user_info', 'kind'],
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 lang: state => state.app.lang,//多语言
@@ -146,7 +151,7 @@
                 this.loading = true
                 this.errorMsg = ''
                 this.confirmResendDialog = false
-                resendRegisterPhone(this.userData).then(() => {
+                resendVerifyCodePhone(this.convertReqData()).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
                     this.getCoded()
                 }).catch((res) => {
@@ -189,7 +194,7 @@
                 this.loading = true
                 this.errorMsg = ''
                 this.confirmResendDialog = false
-                resendRegisterEmail(this.userData).then(() => {
+                resendVerifyCodeEmail(this.convertReqData()).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
                     this.getCoded()
                 }).catch((res) => {
@@ -202,6 +207,9 @@
                 }).finally(() => {
                     this.loading = false
                 })
+            },
+            convertReqData() {
+                return  {kind: this.kind, uid: this.userData.uid, valid_sig: this.userData.valid_sig}
             },
 
             //---

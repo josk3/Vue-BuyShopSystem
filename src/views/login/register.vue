@@ -50,7 +50,7 @@
                         </el-form>
                     </div>
                     <div v-if="submitOk" class="text-center">
-                        <UserValidEmailPhone :user_info="res" @success="validStatueOk"></UserValidEmailPhone>
+                        <UserValidEmailPhone :user_info="res" kind="register" @success="validStatueOk"></UserValidEmailPhone>
                     </div>
                 </div>
                 <div v-if="regSuccess" class="text-center">

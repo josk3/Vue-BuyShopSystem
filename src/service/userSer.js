@@ -32,12 +32,12 @@ export function registerMer(data) {
     return postHandleError('/register', data, 10000);//10s
 }
 
-export function resendRegisterEmail(data) {
-    return postHandleError('/register/resend_email', data);
+export function resendVerifyCodeEmail(data) {
+    return postHandleError('/verify_code/resend_email', data);
 }
 
-export function resendRegisterPhone(data) {
-    return postHandleError('/register/resend_phone', data);
+export function resendVerifyCodePhone(data) {
+    return postHandleError('/verify_code/resend_phone', data);
 }
 
 export function activePhone(data) {
@@ -67,4 +67,8 @@ export function forgetValidEmailCode(data) {
 //-
 export function updatePwd(data) {
     return post('/password/update', data);
+}
+
+export function updateEmail(data) {
+    return post('/email/update', data);
 }

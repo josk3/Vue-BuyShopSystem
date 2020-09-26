@@ -55,7 +55,7 @@
             </div>
             <div v-else>
                 <div class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" style="max-width:330px;">
-                    <UserValidEmailPhone :user_info="res" @success="validStatueOk"></UserValidEmailPhone>
+                    <UserValidEmailPhone :user_info="res" kind="login_recheck" @success="validStatueOk"></UserValidEmailPhone>
                     <div class="mt-4 text-center">
                         <span class="small text-muted">{{$t('comm.has_a_account')}}</span>
                         <el-button @click="loadPage" type="text">{{ $t('comm.login') }}</el-button>
@@ -142,7 +142,7 @@
                                     this.validCodeVisible = true
                                 }else if (res.code === configs.apiCode.needValidStatus) {
                                     //状态
-                                    this.$data.nextCheckStatus = true
+                                    this.$data.nextCheckStatus = true //登录时发现用户还没验证邮箱或手机号
                                     this.$data.res = res.data
                                 }
                             }).finally(() => {

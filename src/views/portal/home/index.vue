@@ -128,7 +128,7 @@
             </div>
 
         </div>
-    
+
     </div>
 </template>
 
@@ -200,8 +200,13 @@
         },
         methods: {
             onlyOnlineCanUse() {
-                if (this.menu_disabled === true) {
-                    alertUnOnlineStatus()
+                if (isEmpty(this.user.email)) {
+                    //引导用户填写邮箱
+                    this.$router.push({name: 'profile', params: {user_init_email: 1}})
+                }else {
+                    if (this.menu_disabled === true) {
+                        alertUnOnlineStatus()
+                    }
                 }
             },
             paneClick(tab) {
