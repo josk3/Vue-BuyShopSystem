@@ -27,7 +27,7 @@ export function alertUnOnlineStatus(callback) {
             dangerouslyUseHTMLString: true,
         }).then(() => {
             if (!isEmpty(callback)) callback(true)
-            location.href = configs.contactUsUrl
+            location.href = configs.contactUsUrl + (isEmpty(merNo) ? '' : '?mer_no=' + merNo)
         }).catch(() => {
             if (!isEmpty(callback)) callback(false)
         }).finally(() => {
