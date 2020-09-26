@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="mt-3">
-                <router-link v-if="currentToken" 
+                <router-link v-if="currentToken"
                              :to="configs.homePath"
                              class="btn btn-sm p-2 btn-link wpy-btn">
                     {{ $t('nav.home') }}

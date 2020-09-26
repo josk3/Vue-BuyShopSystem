@@ -142,11 +142,10 @@
     import {hasPermission} from "@/service/userSer";
     import {isEmpty} from "@/utils/validate";
     import {alertUnOnlineStatus} from "@/service/CommSer";
-    import UserValidEmailPhone from "@/components/UserValidEmailPhone";
 
     export default {
         name: "home",
-        components: {UserValidEmailPhone, LastTimeReport},
+        components: {LastTimeReport},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 sidebar: state => state.app.sidebar,
@@ -203,7 +202,7 @@
                 if (isEmpty(this.user.email)) {
                     //引导用户填写邮箱
                     this.$router.push({name: 'profile', params: {user_init_email: 1}})
-                }else {
+                } else {
                     if (this.menu_disabled === true) {
                         alertUnOnlineStatus()
                     }

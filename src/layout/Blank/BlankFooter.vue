@@ -36,8 +36,7 @@
                 return configs;
             },
         },
-        methods: {
-        },
+        methods: {},
         mounted() {
             // 推荐码
             if (!isEmpty(this.$route.query)) {

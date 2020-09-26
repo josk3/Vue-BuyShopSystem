@@ -5,6 +5,7 @@
                      class="box-card wpy-card mb-2" shadow="always" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
                     <span>{{$t('comm.email')}}</span>
+                    <span v-if="onlyShowUpdateEmailCard">( {{$t('user.mer_no')}}: <strong>{{user.mer_no}}</strong> )</span>
                 </div>
                 <div class="row pl-5 pt-2" v-if="wait_valid_email">
                     <UserValidEmailPhone :user_info="updateEmailData" kind="update_email"
