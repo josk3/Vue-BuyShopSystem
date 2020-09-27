@@ -99,7 +99,8 @@
                                             type="date"
                                             placeholder="选择身份证有效期过期">
                                     </el-date-picker>
-                                    <el-button size="mini" @click="identityExpireForever" type="text" plain>长期有效</el-button>
+                                    <el-button size="mini" @click="identityExpireForever" type="text" plain>长期有效
+                                    </el-button>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.identity_photo_a')" prop="identity_photo_a">
                                     <UploadImgOnce txt="身份证-正面照片" size="sm"
@@ -158,7 +159,8 @@
                                             type="date"
                                             placeholder="选择营业执照有效期过期">
                                     </el-date-picker>
-                                    <el-button size="mini" @click="companyExpireForever" type="text" plain>长期有效</el-button>
+                                    <el-button size="mini" @click="companyExpireForever" type="text" plain>长期有效
+                                    </el-button>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.company_identity_photo')" prop="company_identity_photo">
                                     <UploadImgOnce txt="营业执照照片" size="sm"
@@ -179,7 +181,9 @@
                                 </el-form-item>
                             </div>
                             <el-form-item>
-                                <el-button size="mini" type="primary" @click="submitDetail">{{$t('comm.confirm_submit')}}</el-button>
+                                <el-button size="mini" type="primary" @click="submitDetail">
+                                    {{$t('comm.confirm_submit')}}
+                                </el-button>
                             </el-form-item>
                         </el-form>
                     </div>
@@ -224,29 +228,69 @@
                     phone: [{required: true, message: this.validMsg('user.phone'), trigger: 'blur'},],
                     email: [{required: true, type: 'email', message: this.validMsg('user.email'), trigger: 'blur'},],
                     identity_name: [{required: true, message: this.validMsg('user.identity_name'), trigger: 'blur'},],
-                    company_name: [{required: true, message: this.validMsg('user.company_name'),trigger: 'blur'},],
-                    identity_photo_a: [{required: true, message: this.validMsg('user.identity_photo_a'),trigger: 'change'},],
-                    identity_photo_b: [{required: true, message: this.validMsg('user.identity_photo_b'),trigger: 'change'},],
+                    company_name: [{required: true, message: this.validMsg('user.company_name'), trigger: 'blur'},],
+                    identity_photo_a: [{
+                        required: true,
+                        message: this.validMsg('user.identity_photo_a'),
+                        trigger: 'change'
+                    },],
+                    identity_photo_b: [{
+                        required: true,
+                        message: this.validMsg('user.identity_photo_b'),
+                        trigger: 'change'
+                    },],
                     //identity_bank_photo: [{required: true, message: this.validMsg('user.identity_bank_photo'),trigger: 'change'},],
-                    identity_number: [{required: true, message: this.validMsg('user.identity_number'),trigger: 'blur'},],
-                    identity_start_date: [{required: true, message: this.validMsg('user.identity_start_date'),trigger: 'blur'},],
-                    identity_expire_date: [{required: true, message: this.validMsg('user.identity_expire_date'),trigger: 'blur'},],
-                    address: [{required: true, message: this.validMsg('user.address'),trigger: 'blur'},],
-                    profession: [{required: true, message: this.validMsg('user.profession'),trigger: 'blur'},],
-                    sex: [{required: true, message: this.validMsg('user.sex'),trigger: 'change'},],
-                    zip_code: [{required: true, message: this.validMsg('user.zip_code'),trigger: 'blur'},],
-                    shop_site: [{required: true, message: this.validMsg('user.shop_site'),trigger: 'blur'},],
-                    mid_type: [{required: true, message: this.validMsg('comm.type'),trigger: 'blur'},],
-                    product_info: [{required: true, message: this.validMsg('user.product_info'),trigger: 'blur'},],
+                    identity_number: [{
+                        required: true,
+                        message: this.validMsg('user.identity_number'),
+                        trigger: 'blur'
+                    },],
+                    identity_start_date: [{
+                        required: true,
+                        message: this.validMsg('user.identity_start_date'),
+                        trigger: 'blur'
+                    },],
+                    identity_expire_date: [{
+                        required: true,
+                        message: this.validMsg('user.identity_expire_date'),
+                        trigger: 'blur'
+                    },],
+                    address: [{required: true, message: this.validMsg('user.address'), trigger: 'blur'},],
+                    profession: [{required: true, message: this.validMsg('user.profession'), trigger: 'blur'},],
+                    sex: [{required: true, message: this.validMsg('user.sex'), trigger: 'change'},],
+                    zip_code: [{required: true, message: this.validMsg('user.zip_code'), trigger: 'blur'},],
+                    shop_site: [{required: true, message: this.validMsg('user.shop_site'), trigger: 'blur'},],
+                    mid_type: [{required: true, message: this.validMsg('comm.type'), trigger: 'blur'},],
+                    product_info: [{required: true, message: this.validMsg('user.product_info'), trigger: 'blur'},],
                 },
                 rulesB: {
-                    company_identity_photo: [{required: true, message: this.validMsg('user.company_identity_photo'),trigger: 'change'},],
-                    company_identity_id: [{required: true, message: this.validMsg('user.company_identity_id'),trigger: 'blur'},],
-                    company_start_date: [{required: true, message: this.validMsg('user.company_start_date'),trigger: 'blur'},],
-                    company_expire_date: [{required: true, message: this.validMsg('user.company_expire_date'),trigger: 'blur'},],
-                    company_scope: [{required: true, message: this.validMsg('user.company_scope'),trigger: 'blur'},],
-                    company_phone: [{required: true, message: this.validMsg('user.company_phone'),trigger: 'blur'},],
-                    company_address: [{required: true, message: this.validMsg('user.company_address'),trigger: 'blur'},],
+                    company_identity_photo: [{
+                        required: true,
+                        message: this.validMsg('user.company_identity_photo'),
+                        trigger: 'change'
+                    },],
+                    company_identity_id: [{
+                        required: true,
+                        message: this.validMsg('user.company_identity_id'),
+                        trigger: 'blur'
+                    },],
+                    company_start_date: [{
+                        required: true,
+                        message: this.validMsg('user.company_start_date'),
+                        trigger: 'blur'
+                    },],
+                    company_expire_date: [{
+                        required: true,
+                        message: this.validMsg('user.company_expire_date'),
+                        trigger: 'blur'
+                    },],
+                    company_scope: [{required: true, message: this.validMsg('user.company_scope'), trigger: 'blur'},],
+                    company_phone: [{required: true, message: this.validMsg('user.company_phone'), trigger: 'blur'},],
+                    company_address: [{
+                        required: true,
+                        message: this.validMsg('user.company_address'),
+                        trigger: 'blur'
+                    },],
                 },
                 typeList: [
                     {value: 'personal', text: this.$i18n.t('user.personal')},
@@ -268,11 +312,11 @@
             fullImgUrl(path) {
                 return configs.imgBaseUrl + path;
             },
-            typeChange(){
+            typeChange() {
                 this.detail.profession = ''
                 if (this.detail.mid_type === 'company') {
                     this.professionList = this.businessType
-                }else {
+                } else {
                     this.professionList = this.jobType
                 }
             },
@@ -285,11 +329,11 @@
                     if (detail.mid_type === 'company') {
                         this.rules = Object.assign(this.rulesB, this.rulesA);
                         this.professionList = this.businessType
-                    }else {
+                    } else {
                         this.rules = this.rulesA;
                         this.professionList = this.jobType
                     }
-                }else {
+                } else {
                     this.professionList = this.jobType
                     this.rules = this.rulesA;
                 }
@@ -321,11 +365,11 @@
                         if (!isEmpty(this.$data.info.mid_type)) {//type数据在info
                             if (this.$data.info.mid_type === 'company') {
                                 this.$data.detail.mid_type = 'company'
-                            }else {
+                            } else {
                                 this.$data.detail.mid_type = 'personal'
                             }
                         }
-                    }else {
+                    } else {
                         this.$data.detail.mid_type = 'company' //默认只能认证为公司,要个人得人工申请
                         this.$data.allowPersonal = false
                     }
@@ -336,10 +380,10 @@
                 })
 
             },
-            identityExpireForever(){
+            identityExpireForever() {
                 this.detail.identity_expire_date = '9999-12-31'
             },
-            companyExpireForever(){
+            companyExpireForever() {
                 this.detail.company_expire_date = '9999-12-31'
             },
             submitDetail() {

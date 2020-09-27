@@ -102,7 +102,7 @@
                        :visible.sync="blacklistDialogVisible">
                 <div>
                     <el-tabs v-model="paneName" @tab-click="paneClick">
-                        <el-tab-pane label=" 根据某个订单流水号" name="byTradeId">
+                        <el-tab-pane label=" 根据某个流水号" name="byTradeId">
                             <el-card shadow="hover" class="box-card p-3 mb-3"
                                      :body-style="{ padding: '0px' }">
                                 <div class="text-muted p-0">
@@ -311,7 +311,7 @@
                 let formData;
                 if (this.paneName === 'byTradeId') {
                     if (isEmpty(this.formByTradeId.trade_id)) {
-                        this.$message.error('请填写订单流水号')
+                        this.$message.error('请填写流水号')
                         return false;
                     }
                     formData = this.formByTradeId
