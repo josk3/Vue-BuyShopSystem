@@ -24,7 +24,7 @@
                             style="width: 100%">
                         <el-table-column
                                 prop="batch_id"
-                                label="批次号" width="180px">
+                                :label="$t('comm.batch_id')" width="180px">
                             <template v-slot="scope">
                                 <el-button type="text" @click="openSummaryDialog(scope.row.batch_id)">
                                     {{scope.row.batch_id}}
@@ -89,18 +89,19 @@
                 </el-card>
             </div>
             <el-dialog custom-class="wpy-dialog" @open="getPayoutSummary"
-                       :show-close="false" :close-on-click-modal="false"
+                       :close-on-click-modal="false"
                        title="结算摘要"
                        top="3vh"
                        :visible.sync="payoutSummaryDialog">
                 <div v-loading="loading">
-                    <h6>批次号:<span class="tr-id btn clipboard-btn" :data-clipboard-text="summaryBatchId"
-                              @click="copy">{{ summaryBatchId }} <font-awesome-icon :icon="['far', 'clipboard']"/></span>
+                    <h6>{{$t('comm.batch_id')}}:<span class="tr-id btn clipboard-btn" :data-clipboard-text="summaryBatchId"
+                                  @click="copy">{{ summaryBatchId }} <font-awesome-icon
+                            :icon="['far', 'clipboard']"/></span>
                     </h6>
                     <el-table v-if="summaryData.groups"
                               :class="summaryData.groups ? '' : 'wpy-z-table'"
                               :data="summaryData.groups">
-                        <el-table-column property="kind" label="类型">
+                        <el-table-column property="kind" :show-overflow-tooltip="true" :label="$t('comm.type')">
                             <template v-slot="scope">
                                 {{scope.row.kind | payoutKind }}
                             </template>
@@ -119,18 +120,30 @@
                             <p class="p-0">总计: <strong>{{summaryData.payout.total}}</strong></p>
                         </div>
                     </div>
-                    <router-link class="btn-link"
-                                 :to="{name: 'finance_search',params:{batch_id: summaryBatchId}}">
-                        批次详情
-                    </router-link>
                 </div>
                 <div slot="footer" class="dialog-footer">
+                    <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">批次详情</el-button>
                     <el-button type="primary" @click="payoutSummaryDialog = false">确 定</el-button>
                 </div>
             </el-dialog>
         </div>
         <div v-else class="payout-detail">
-
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <el-card shadow="always" class="box-card p-3"
+                             :body-style="{ padding: '0px' }">
+                        <el-breadcrumb separator="/">
+                            <el-breadcrumb-item>
+                                <i class="el-icon-arrow-left text-blue"></i> <strong class="pointer" @click="toPayoutList">{{$t('nav.settle_search')}}</strong>
+                            </el-breadcrumb-item>
+                            <el-breadcrumb-item>{{$t('comm.batch_id')}} {{searchViewDetail.batch_id}}</el-breadcrumb-item>
+                        </el-breadcrumb>
+                    </el-card>
+                </div>
+            </div>
+            <el-card class="box-card pb-3" shadow="never" :body-style="{ padding: '0px' }">
+                <FinanceTable :tab_data="viewDetailData" @page_change="viewPageChange($event)"></FinanceTable>
+            </el-card>
         </div>
     </div>
 </template>
@@ -139,13 +152,15 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {settleDownload, settleSearch, settleSummary} from "@/service/financeSer";
+    import {settleDownload, settleSearch, settleSummary, settleViewDetail} from "@/service/financeSer";
     import newClipboard from "@/utils/clipboard";
+    import {isEmpty} from "@/utils/validate";
+    import FinanceTable from "@/components/FinanceTable";
 
     /** 当前vue 要实现结算列表和结算详情明细 */
     export default {
         name: "settle",
-        components: {SearchBox, Pagination},
+        components: {FinanceTable, SearchBox, Pagination},
         computed: { //watch跟踪数据变化, 重点user, configs
             configs() {
                 return configs;
@@ -154,7 +169,6 @@
         data() {
             return {
                 loading: false,
-                isPayoutList: true,
                 payoutSummaryDialog: false,
                 summaryBatchId: '',
                 summaryData: [],
@@ -164,6 +178,11 @@
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认
+                //
+                isPayoutList: true,
+                viewDetailData: '',
+                searchViewDetail: {page: 1, batch_id: ''}
+
             }
         },
         mounted() {
@@ -214,6 +233,27 @@
                     this.loading = false
                 })
             },
+            viewDetail(batchId) {
+                this.loading = true
+                if (!isEmpty(batchId)) this.searchViewDetail.batch_id = batchId
+                settleViewDetail(this.searchViewDetail).then((res) => {
+                    const {data} = res
+                    this.$data.viewDetailData = data
+                    this.$data.isPayoutList = false
+                    this.$data.payoutSummaryDialog = false
+                }).finally(() => {
+                    this.loading = false
+                })
+            },
+            viewPageChange(page) {
+                this.searchViewDetail.page = page.page_num
+                this.viewDetail()
+            },
+            toPayoutList() {
+                console.log("toList")
+                this.isPayoutList = true
+            },
+
         },
     }
 </script>

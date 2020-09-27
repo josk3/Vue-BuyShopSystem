@@ -26,9 +26,10 @@
         components: {
             LineChart
         },
+        //start_load_data不定义可正常使用
+        props: ['start_load_data'],
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
-                sidebar: state => state.app.sidebar,
                 permissions: state => state.user.permissions,
                 lang: state => state.app.lang,
             }),
@@ -42,6 +43,18 @@
                     position: 'relative'
                 }
             },
+        },
+        watch: {
+            start_load_data(val){
+                if (isEmpty(val) || val === true) {
+                    this.fillData()
+                }
+            },
+        },
+        mounted() {
+            if (isEmpty(this.start_load_data) || this.start_load_data === true) {
+                this.fillData()
+            }
         },
         data() {
             return {
@@ -133,9 +146,6 @@
                 dataLabels: [],
                 dataList: [],
             }
-        },
-        mounted() {
-            this.fillData()
         },
         methods: {
             rangeChange() {

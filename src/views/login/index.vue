@@ -2,7 +2,7 @@
     <div class="d-flex flex-column h-100" v-loading="loading">
 
         <div class="text-center login-box">
-            <div v-if="!nextCheckStatus" >
+            <div v-if="!nextCheckStatus">
                 <form class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" action="" method="post"
                       @submit.prevent="submitLogin">
                     <h1 class="h3 mb-3 font-weight-normal">
@@ -55,7 +55,8 @@
             </div>
             <div v-else>
                 <div class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" style="max-width:330px;">
-                    <UserValidEmailPhone :user_info="res" @success="validStatueOk"></UserValidEmailPhone>
+                    <UserValidEmailPhone :user_info="res" kind="login_recheck"
+                                         @success="validStatueOk"></UserValidEmailPhone>
                     <div class="mt-4 text-center">
                         <span class="small text-muted">{{$t('comm.has_a_account')}}</span>
                         <el-button @click="loadPage" type="text">{{ $t('comm.login') }}</el-button>
@@ -74,6 +75,7 @@
     import {isEmpty} from "@/utils/validate";
     import AliValidCode from "@/components/AliValidCode";
     import UserValidEmailPhone from "@/components/UserValidEmailPhone";
+    import {getToken} from "@/service/auth/token";
 
     export default {
         name: "login",
@@ -86,6 +88,32 @@
             }),
             configs() {
                 return configs;
+            },
+        },
+        mounted() {
+            if (!isEmpty(getToken())) { //在登录页面，如果已经是登录状态直接跳转到首页
+                this.loading = true
+                this.$store.dispatch('user/loadUserInfo').then((res) => {
+                    if (!isEmpty(res) && !isEmpty(res.user)) {
+                        location.href = configs.homePath
+                        //this.$router.push({path: configs.homePath})
+                    }
+                }).catch(() => {
+                    this.$store.dispatch('user/resetToken').then()
+                }).finally(() => {
+                    this.loading = false
+                })
+            }
+        },
+        watch: {
+            $route: {
+                handler: function (route) {
+                    const query = route.query
+                    if (!isEmpty(query) && !isEmpty(query.redirect)) {
+                        this.redirect = query.redirect
+                    }
+                },
+                immediate: true
             },
         },
         data() {
@@ -140,9 +168,9 @@
                                 if (res.code === configs.apiCode.needValidCode) {
                                     //验证码
                                     this.validCodeVisible = true
-                                }else if (res.code === configs.apiCode.needValidStatus) {
+                                } else if (res.code === configs.apiCode.needValidStatus) {
                                     //状态
-                                    this.$data.nextCheckStatus = true
+                                    this.$data.nextCheckStatus = true //登录时发现用户还没验证邮箱或手机号
                                     this.$data.res = res.data
                                 }
                             }).finally(() => {
@@ -161,7 +189,7 @@
                 this.$router.push({name: 'login', params: {v: '1'}})
                 //location.reload()
             },
-            loadPage(){
+            loadPage() {
                 this.nextCheckStatus = false
                 this.errorMsg = ''
             },
@@ -170,22 +198,12 @@
                 this.userLogin.valid_sig = jsonData
                 this.submitLogin()
             },
-            validCodeClose(){
+            validCodeClose() {
                 this.validCodeVisible = false
             },
 
         },
-        watch: {
-            $route: {
-                handler: function (route) {
-                    const query = route.query
-                    if (query) {
-                        this.redirect = query.redirect
-                    }
-                },
-                immediate: true
-            }
-        },
+
 
     }
 </script>

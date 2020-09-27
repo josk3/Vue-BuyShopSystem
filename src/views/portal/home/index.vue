@@ -34,7 +34,7 @@
                 <el-card shadow="hover" class="box-card p-3 bg-white"
                          :body-style="{ padding: '0px' }">
                     <div class="home-last-trade-report">
-                        <LastTimeReport></LastTimeReport>
+                        <LastTimeReport :start_load_data="loadingLastTrade"></LastTimeReport>
                     </div>
                 </el-card>
             </div>
@@ -128,6 +128,7 @@
             </div>
 
         </div>
+
     </div>
 </template>
 
@@ -140,6 +141,7 @@
     import {mapState} from "vuex";
     import {hasPermission} from "@/service/userSer";
     import {isEmpty} from "@/utils/validate";
+    import {alertUnOnlineStatus} from "@/service/CommSer";
 
     export default {
         name: "home",
@@ -157,11 +159,11 @@
                 return user.state.user;
             },
             ol() {
-              return this.$route.query.ol;
+                return this.$route.query.ol;
             },
         },
         watch: {
-            ol(){
+            ol() {
                 this.onlyOnlineCanUse()
             },
         },
@@ -175,39 +177,34 @@
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 announceList: [],
                 permReportLastTrade: false,
+                loadingLastTrade: false,
                 permViewBalance: false,
                 menu_disabled: false,
-                online_box_show: false,
+                //-
             }
         },
         mounted() {
             this.balanceParams.type = this.paneName
             this.permReportLastTrade = hasPermission(configs.perm.home_trade_report, this.permissions)
             this.permViewBalance = hasPermission(configs.perm.can_view_balance, this.permissions)
-            if (this.permViewBalance) this.getBalances()
-            this.getAnnounceList()
             this.$store.dispatch('user/loadUserInfo').then((res) => {
                 if (!isEmpty(res) && !isEmpty(res.user) && !isEmpty(res.user.online)) {
                     this.$data.menu_disabled = res.user.online === false
                     this.onlyOnlineCanUse()
                 }
+                this.getAnnounceList()
+                if (this.permViewBalance) this.getBalances()
+                this.$data.loadingLastTrade = true
             })
         },
         methods: {
             onlyOnlineCanUse() {
-                if (this.menu_disabled === true) {
-                    if (this.online_box_show === false) {
-                        this.$confirm('当前账户状态：未开通，请联系我们开通商户号。', '未开通', {
-                            confirmButtonText: '联系我们',
-                            cancelButtonText: '取消',
-                            type: 'warning',
-                            center: true
-                        }).then(() => {
-                            this.$data.online_box_show = false
-                            location.href = configs.contactUsUrl
-                        }).catch(() => {
-                            this.$data.online_box_show = false
-                        });
+                if (isEmpty(this.user.email)) {
+                    //引导用户填写邮箱
+                    this.$router.push({name: 'profile', params: {user_init_email: 1}})
+                } else {
+                    if (this.menu_disabled === true) {
+                        alertUnOnlineStatus()
                     }
                 }
             },
@@ -238,6 +235,7 @@
             goAnnounceDetail(row) {
                 this.$router.push({name: 'announce_detail', params: {id: row.nid}})
             },
+
         },
     }
 </script>

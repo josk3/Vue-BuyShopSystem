@@ -169,7 +169,7 @@ export function convertRouters(userMenu) {
         {
             path: '/home',
             component: () => import('@/views/portal/home'),
-            name: 'homePage1',
+            name: 'dashboard',
             meta: {title: 'Dashboard', icon: 'dashboard', affix: true}
         },
         {

@@ -45,6 +45,9 @@ const mutations = {
     SET_USER: (state, user) => {
         state.user = user
     },
+    GET_USER: (state) => {
+        return state.user
+    },
 }
 
 const actions = {
@@ -139,6 +142,15 @@ const actions = {
             resolve()
         })
     },
+
+    getMerNo({commit}) {
+        let user = commit('GET_USER')
+        if (!isEmpty(user)) {
+            return user.mer_no;
+        }else {
+            return ''
+        }
+    }
 
 }
 

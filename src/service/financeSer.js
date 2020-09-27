@@ -19,6 +19,10 @@ export function settleSummary(params) {
     return post('/settle/summary', params);
 }
 
+export function settleViewDetail(params) {
+    return post('/settle/view_detail', params);
+}
+
 export function settleDownload(params) {
     return download('/settle/download', params);
 }

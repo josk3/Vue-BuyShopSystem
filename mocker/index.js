@@ -13,12 +13,13 @@ function demoUserInfo() {
                 full_name: '张三',
                 is_master: true,
                 email: '',
+                email_valid: false,
                 phone: '13818181818',
                 second_login: '2020-01-01 00:00:00',
                 status: 1,
                 identity_status: 0,
                 mer_no: '4008',
-                online: true,
+                online: false,
                 role_name: '管理员',
                 notice_count: 12,
                 popup: null,
@@ -1126,7 +1127,7 @@ function demoFinanceList(req) {
             kind: 'sale',
             currency: 'USD',
             fees: 2.31,
-            fixed_fees: 0.2,
+            fixed_fees: 3.21,
             charge: 234.32,
             deposit_charge: 0,
             surplus: 454645.45,
@@ -1140,7 +1141,7 @@ function demoFinanceList(req) {
             kind: 'sale',
             currency: 'USD',
             fees: 0,
-            fixed_fees: 0.2,
+            fixed_fees: 3.2,
             charge: 344,
             deposit_charge: 0,
             surplus: 45425.45,
@@ -1285,7 +1286,7 @@ const proxy = {
             i18n: 'success',
         });
     },
-    'POST /api/v1/register/resend_email': (req, res) => {
+    'POST /api/v1/verify_code/resend_email': (req, res) => {
         return res.json({
             status: 1,
             message: '发送成功',
@@ -1348,7 +1349,10 @@ const proxy = {
             data: {}
         });
     },
-    'POST /api/v1/register/resend_phone': (req, res) => {
+    'POST /api/v1/email/update': (req, res) => {
+        return res.json(demoUserInfo());
+    },
+    'POST /api/v1/verify_code/resend_phone': (req, res) => {
         const {uid} = req.body;
         return res.json({
             status: uid ? 1 : 0,
@@ -1474,6 +1478,72 @@ const proxy = {
                     total: 50,
                 },
                 list: demoSettleList(req),
+            }
+        });
+    },
+    'POST /api/v1/settle/summary': (req, res) => {
+        return res.json({
+            "status": 1,
+            "message": null,
+            "code": null,
+            "i18n": null,
+            "error": {},
+            "data": {
+                "bank": null,
+                "payout": {
+                    "batch_id": "b09251571G6F6d6",
+                    "bank_id": null,
+                    "net_amount": 8398.74,
+                    "guarantee_amount": null,
+                    "sale_amount": 8398.74,
+                    "fee_amount": -494.27,
+                    "fixed_fee_amount": -4.16,
+                    "chargeback_amount": null,
+                    "refund_amount": null,
+                    "misc_amount": 0,
+                    "kind": "trade",
+                    "payout_time": null,
+                    "invoice": null,
+                    "currency": "CNY",
+                    "fees": 0,
+                    "order_count": 2,
+                    "deposit_amount": 988.56,
+                    "settle_day": "20200925",
+                    "mer_no": "70122",
+                    "total": 8398.74,
+                    "kind_str": "交易结算",
+                    "status_str": "已发布",
+                    "settled": false,
+                    "canceled": false,
+                    "released": true
+                },
+                "groups": [{
+                    "kind": "sale",
+                    "currency": "CNY",
+                    "count": 2,
+                    "charge": 8398.74,
+                    "fees": -494.27,
+                    "fixed_fees": -4.16,
+                    "order_settle": 9885.73,
+                    "deposit_charge": -988.56,
+                    "kind_str": "收款"
+                }]
+            },
+            "request_id": "req_H09yBJEoql"
+        });
+    },
+    'POST /api/v1/settle/view_detail': (req, res) => {
+        return res.json({
+            status: 1,
+            message: 'xf23',
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: demoFinanceList(req),
             }
         });
     },
