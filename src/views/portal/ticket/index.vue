@@ -55,6 +55,7 @@
                 </el-table-column>
                 <el-table-column
                         prop="email"
+                        :show-overflow-tooltip="true"
                         :label="$t('ticket.email')">
                 </el-table-column>
                 <el-table-column
@@ -109,14 +110,14 @@
                     <el-radio v-model="ticketFormParams.priority" label="2">{{$t("ticket.urgent")}}</el-radio>
                 </el-form-item>
                 <el-form-item :label="$t('ticket.email')" prop="email" class="col-5">
-                    <el-input placeholder="请填写邮箱,为方便后续及时联系到您" v-model="ticketFormParams.email"></el-input>
+                    <el-input placeholder="请填写邮箱,为方便后续及时联系到您" disabled v-model="ticketFormParams.email"></el-input>
                 </el-form-item>
                 <el-form-item :label="$t('ticket.title')" prop="title" class="col-5">
                     <el-input placeholder="请拟标题" v-model="ticketFormParams.title" maxlength="15"
                               show-word-limit></el-input>
                 </el-form-item>
                 <el-form-item :label="$t('ticket.content')" prop="content" class="col-9">
-                    <el-input type="textarea" placeholder="请输入内容" maxlength="100" show-word-limit :rows="2"
+                    <el-input type="textarea" placeholder="请输入内容" maxlength="100" show-word-limit :rows="4"
                               v-model="ticketFormParams.content"></el-input>
                 </el-form-item>
                 <el-form-item :label="$t('ticket.attach')" prop="attach" class="col-9">
@@ -141,13 +142,11 @@
                     <el-dialog :visible.sync="dialogVisible">
                         <img width="100%" :src="dialogImageUrl" alt="附件">
                     </el-dialog>
-                    <p class="col-9 ">
-                        可上传<span> 1 </span>个附件<br/>
-                        每个附件大小不得超过<span> 5 </span>MB,<br/>
-                        附件支持的格式有:<span>'JPG','BMP','PNG','GIF','TIF'</span>
+                    <p class="col-9 ml-n3">
+                        暂仅支持图片上传
                     </p>
                 </el-form-item>
-                <el-form-item prop="attach" class="col-9">
+                <el-form-item prop="attach" class="col-9 mt-n4">
                     <el-button type="primary" style="margin-top: 12px;"
                                @click="formSubmit('ticketFormParams')">{{$t('comm.submit')}}
                     </el-button>
@@ -181,6 +180,7 @@
     import {search} from '@/service/ticketSer';
     import Pagination from "@/components/Pagination";
     import {ticketCreate} from '@/service/ticketSer';
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "ticket",
@@ -264,6 +264,7 @@
             }
         },
         mounted() {
+            this.buildFormEmail();
             this.ticketSearch();
         },
         methods: {
@@ -328,10 +329,19 @@
             /*工单表单重置*/
             resetForm(formName) {
                 this.$refs[formName].resetFields();
+                this.buildFormEmail();
             },
             /*回退到上一步骤*/
             goBack() {
                 this.active = this.active - 1;
+            },
+            /*绑定表单邮箱*/
+            buildFormEmail() {
+                if (!isEmpty(this.user.email)) {
+                    this.ticketFormParams.email = this.user.email;
+                } else {
+                    this.$message.error(this.$i18n.t('comm.fail').toString())
+                }
             },
             /*上传图片回调进度*/
             progressCallback(n) {
