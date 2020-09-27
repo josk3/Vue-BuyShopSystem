@@ -17,7 +17,7 @@ import {getSplitLast, toLower} from "@/utils/strUtils";
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
     // withCredentials: true, // send cookies when cross-domain requests
-    timeout: 5000 // request timeout 5s
+    timeout: 7000 // request timeout 7s
 })
 
 // request interceptor
@@ -69,7 +69,7 @@ service.interceptors.response.use(
         const res = response.data
         if (res.status !== 1) {
             if (res.code === configs.apiCode.needLogin) {
-                tryReLogin()
+                tryReLogin(res)
             } else {
                 if (!isEmpty(response.config.show_error_msg_dialog) &&
                     response.config.show_error_msg_dialog === true) {
@@ -101,7 +101,7 @@ service.interceptors.response.use(
                 let res = error.response.data;
                 if (!isEmpty(res)) {
                     if (res.code === configs.apiCode.needLogin) {
-                        tryReLogin()
+                        tryReLogin(res)
                         return Promise.reject(error)
                     }
                 }
@@ -116,9 +116,13 @@ service.interceptors.response.use(
     }
 )
 
-function tryReLogin() {
-    MessageBox.confirm(i18n.t('comm.login_timeout').toString(),
-        i18n.t('comm.logout').toString(), {
+function tryReLogin(res) {
+    let msg = i18n.t('comm.login_timeout').toString()
+    if (!isEmpty(res) && !isEmpty(res.message)) {
+        msg = res.message
+    }
+    MessageBox.confirm(msg,
+        i18n.t('comm.login').toString(), {
             confirmButtonText: i18n.t('comm.re_login'),
             cancelButtonText: i18n.t('comm.cancel'),
             type: 'warning'
