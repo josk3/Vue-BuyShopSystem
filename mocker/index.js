@@ -17,7 +17,7 @@ function demoUserInfo() {
                 phone: '13818181818',
                 second_login: '2020-01-01 00:00:00',
                 status: 1,
-                identity_status: 1,
+                identity_status: 0,
                 mer_no: '4008',
                 online: false,
                 role_name: '管理员',
@@ -2701,7 +2701,7 @@ const proxy = {
         return res.json({
             status: 1,
             message: '工单生成成功',
-            data: {ticket_id: 'tk-888a888s888'}
+            data: {ticket_id: 'tk-888888888'}
         });
     },
     'POST /api/v1/ticket/search': (req, res) => {
@@ -2717,44 +2717,51 @@ const proxy = {
                 },
                 list: [
                     {
-                        ticket_no: 'tk-888a888s888',
+                        tk_id: 'tk-888a888s888',
                         title: "活法",
                         email: "12512123123@1qq.com",
-                        case_question: "ORDER",
-                        ticket_status: 'PENDING',
-                        priority: "0",
-                        create_time: "2020-09-01 10:00:00",
-                        update_time: "2020-08-29 20:49:19",
+                        question_value: "ORDER",
+                        ticket_value: 'PENDING',
+                        priority: 0,
+                        created: "2020-09-01 10:00:00",
+                        updated: "2020-08-29 20:49:19",
                     },
                     {
-                        ticket_no: 'tk-666a666s665',
-                        title: "结算周期",
-                        email: "1507827723123@1qq.com",
-                        case_question: "INTERFACE",
-                        ticket_status: 'PENDING',
-                        priority: "1",
-                        create_time: "2020-09-01 10:00:00",
-                        update_time: "2020-08-29 20:49:19",
-                    },
-                    {
-                        ticket_no: 'tk-444s44444444',
-                        title: "测试咨询问题1",
-                        email: "1507827723123@1qq.com",
-                        case_question: "INTERFACE",
-                        ticket_status: 'PENDING',
-                        priority: "1",
-                        create_time: "2020-09-01 10:00:00",
-                        update_time: "2020-08-29 20:49:19",
-                    },
-                    {
-                        ticket_no: 'tk-23314111111',
-                        title: "测试咨询问题2",
-                        email: "1507827723123@1qq.com",
-                        case_question: "INTERFACE",
-                        ticket_status: 'PENDING',
-                        priority: "1",
-                        create_time: "2020-09-01 10:00:00",
-                        update_time: "2020-08-29 20:49:19",
+                        tk_id: 'tk-888a888s888',
+                        title: "活法",
+                        email: "12512123123@1qq.com",
+                        question_value: "ORDER",
+                        ticket_value: 'PENDING',
+                        priority: 0,
+                        created: "2020-09-01 10:00:00",
+                        updated: "2020-08-29 20:49:19",
+                    }, {
+                        tk_id: 'tk-888a888s888',
+                        title: "活法",
+                        email: "12512123123@1qq.com",
+                        question_value: "ORDER",
+                        ticket_value: 'PENDING',
+                        priority: 0,
+                        created: "2020-09-01 10:00:00",
+                        updated: "2020-08-29 20:49:19",
+                    }, {
+                        tk_id: 'tk-888a888s888',
+                        title: "活法",
+                        email: "12512123123@1qq.com",
+                        question_value: "ORDER",
+                        ticket_value: 'PENDING',
+                        priority: 0,
+                        created: "2020-09-01 10:00:00",
+                        updated: "2020-08-29 20:49:19",
+                    }, {
+                        tk_id: 'tk-888a888s888',
+                        title: "活法",
+                        email: "12512123123@1qq.com",
+                        question_value: "ORDER",
+                        ticket_value: 'PENDING',
+                        priority: 0,
+                        created: "2020-09-01 10:00:00",
+                        updated: "2020-08-29 20:49:19",
                     },
                 ]
             }
@@ -2767,62 +2774,49 @@ const proxy = {
             data: {}
         });
     },
-    'GET /api/v1/ticket/detailInfo': (req, res) => {
+    'POST /api/v1/ticket/close': (req, res) => {
         return res.json({
             status: 1,
-            message: '测试test',
+            message: '工单已关闭',
+            data: {}
+        });
+    },
+    'GET /api/v1/ticket/detail/:id': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '',
             data: {
                 list: [
                     {
-                        content: '在吗',
-                        attach: null,
-                        create_time: "2020-09-01 10:00:00",
-                        current_dist: "前一天",
-                        user_name: '商户coco',
-                        operator: null,
-                        is_system: 1
-                    },
-                    {
-                        content: '您好',
-                        attach: null,
-                        create_time: "2020-09-01 10:00:00",
-                        current_dist: "前一天",
-                        user_name: null,
-                        operator: "管理小孙",
-                        is_system: 0
-                    },
-                    {
-                        content: '交易网站新加上去的审核要多久呀',
-                        attach: "https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg",
-                        create_time: "2020-09-01 10:00:00",
-                        current_dist: "前一天",
-                        user_name: '商户coco',
-                        operator: null,
-                        is_system: 1
-                    },
-                    {
-                        content: '是新提交上去的是吗',
-                        attach: null,
-                        create_time: "2020-09-01 10:00:00",
-                        current_dist: "前一天",
-                        user_name: null,
-                        operator: "管理小孙",
-                        is_system: 0
-                    },
-                    {
-                        content: '新提交上去的已经审核通过了',
-                        attach: "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
-                        create_time: "2020-09-01 10:00:00",
-                        current_dist: "前一天",
-                        user_name: null,
-                        operator: "管理小孙",
-                        is_system: 0
-                    },
-                    {
-                        content: '这边您可以下单测试一下，确保正常',
-                        attach: null,
-                        create_time: "2020-09-01 10:00:00",
-                    }]
+                        content: "一条无关紧要的测试数据",
+                        attach: '/ticket/M70252/gLMFSw09241618.png',
+                        ticket_attach_url: "/api/ticket/attach?name=/ticket/M70252/gLMFSw09241618.png",
+                        created: 1600854270000,
+                        current_dist: "2天前",
+                        user_name: "admin",
+                        operator: "admin",
+                        is_system: 1,
+                    }],
+                info: {
+                    attach: null,
+                    case_type: 3,
+                    content: "sadfsdaf",
+                    created: 1600854270000,
+                    email: "sadfsda@qq.com",
+                    mer_name: "测试6699",
+                    mer_no: "M70252",
+                    operator: "admin",
+                    phone: "1663770785082",
+                    priority: 1,
+                    question_case: "对接接口",
+                    question_value: null,
+                    status: 1,
+                    ticket_status: "待处理",
+                    ticket_value: null,
+                    title: "sadfsda",
+                    tk_id: "tk_1gcQDBBBspEV",
+                    updated: null
+                }
             }
         })
     },
@@ -3435,11 +3429,10 @@ const proxy = {
                     trade_limit: null,
                     updated: "2020-08-07 23:53:26",
                     virtual: false,
-                    mid_type: 'personal', //company, personal
-                    allow_personal: 1,
+                    mid_type: '', //company
+                    allow_personal: 0,
                 },
-                bank: null,
-                bank1: {
+                bank: {
                     bank_brand: '工商银行',
                     bank_card_mobile: '1333323232',
                     bank_id: 'bank_23r23r',
@@ -3485,7 +3478,7 @@ const proxy = {
                 detail: {
                     "identity_reason": '图片不清楚',
                     "name": "测试26",
-                    "identity_name": "张三",
+                    "identity_name": "",
                     "identity_photo_a": "wef",
                     "identity_photo_b": null,
                     "identity_bank_photo": null,
@@ -3496,7 +3489,7 @@ const proxy = {
                     "address": null,
                     "zip_code": null,
                     "shop_site": null,
-                    "company_name": "上生公司",
+                    "company_name": null,
                     "company_identity_photo": null,
                     "company_identity_id": null,
                     "company_start_date": null,
@@ -3651,13 +3644,6 @@ const proxy = {
             data: {},
         })
     },
-    'POST /api/v1/merchant/bank/add': (req, res) => {
-        return res.json({
-            status: 1,
-            message: '',
-            data: {},
-        })
-    },
     'POST /api/v1/dispute/search': (req, res) => {
         return res.json({
             status: 1,
@@ -3672,7 +3658,6 @@ const proxy = {
                 list: [
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3684,7 +3669,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3696,19 +3680,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
-                        merchant_order_no: '5200191919181838282',
-                        trade_id: '7600100202334',
-                        email: '1506266211@qq.com',
-                        created: '2020-09-04 13:00:15',
-                        updated: null,
-                        status: 'underway',
-                        remark: '略',
-                        dispute_type: '货不对版'
-                    },
-                    {
-                        dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3720,7 +3691,17 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
+                        merchant_order_no: '5200191919181838282',
+                        trade_id: '7600100202334',
+                        email: '1506266211@qq.com',
+                        created: '2020-09-04 13:00:15',
+                        updated: null,
+                        dispute_status: 'underway',
+                        remark: '略',
+                        dispute_type: '货不对版'
+                    },
+                    {
+                        dispute_no: 'dp_kol15122333',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3732,7 +3713,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3744,7 +3724,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3756,7 +3735,6 @@ const proxy = {
                     },
                     {
                         dispute_no: 'dp_kol15122333',
-                        mer_no: 'M70252',
                         merchant_order_no: '5200191919181838282',
                         trade_id: '7600100202334',
                         email: '1506266211@qq.com',
@@ -3774,57 +3752,69 @@ const proxy = {
         return res.json({
             status: 1,
             message: '',
-            data: [
-                {
-                    email: '1506266211@qq.com',
-                    complaint_content: '这批货不对啊,airPod重量不达标,官网标准41g,实际量37.2g,不行这批货不要',
-                    is_system: '0',
-                    created: '2020-09-14 17:11:01',
-                    operator: 'fan'
-                },
-                {
-                    email: '1506266211@qq.com',
-                    complaint_content: '收到后请尽快处理,不然就直接走拒付了',
-                    is_system: '0',
-                    created: '2020-09-14 17:11:01',
-                    operator: 'fan'
-                },
-                {
-                    email: '1506266211@qq.com',
-                    complaint_content: '收到后请尽快处理,不然就直接走拒付了',
-                    is_system: '0',
-                    created: '2020-09-14 17:11:02',
-                    operator: 'fan'
-                },
-                {
-                    email: '1506266211@qq.com',
-                    complaint_content: '收到后请尽快处理,不然就直接走拒付了',
-                    is_system: '0',
-                    created: '2020-09-14 17:11:03',
-                    operator: 'fan'
-                },
-                {
-                    email: '1506266211@qq.com',
-                    complaint_content: '收到后请尽快处理,不然就直接走拒付了',
-                    is_system: '0',
-                    created: '2020-09-14 17:11:04',
-                    operator: 'fan'
-                },
-                {
-                    email: '1506266211@qq.com',
-                    complaint_content: '收到后请尽快处理,不然就直接走拒付了',
-                    is_system: '0',
-                    created: '2020-09-14 17:11:05',
-                    operator: 'fan'
-                },
-                {
-                    email: '1584300100@qq.com',
-                    complaint_content: '已与客户沟通调解,将货物回收,回来邮费自费,在三个工作日内会将款项原路返回',
-                    is_system: '1',
-                    created: '2020-09-14 17:11:01',
-                    operator: 'fan'
+            data: {
+                list: [
+                    {
+                        email: '1506266211@qq.com',
+                        complaint_content: '这批货不对啊,airPod重量不达标,官网标准41g,实际量37.2g,不行这批货不要',
+                        is_system: '0',
+                        created: '2020-09-14 17:11:01',
+                        operator: 'fan'
+                    },
+                    {
+                        email: '1506266211@qq.com',
+                        complaint_content: '收到后请尽快处理,不然就直接走拒付了',
+                        is_system: '0',
+                        created: '2020-09-14 17:11:01',
+                        operator: 'fan'
+                    },
+                    {
+                        email: '1506266211@qq.com',
+                        complaint_content: '收到后请尽快处理,不然就直接走拒付了',
+                        is_system: '0',
+                        created: '2020-09-14 17:11:02',
+                        operator: 'fan'
+                    },
+                    {
+                        email: '1506266211@qq.com',
+                        complaint_content: '收到后请尽快处理,不然就直接走拒付了',
+                        is_system: '0',
+                        created: '2020-09-14 17:11:03',
+                        operator: 'fan'
+                    },
+                    {
+                        email: '1506266211@qq.com',
+                        complaint_content: '收到后请尽快处理,不然就直接走拒付了',
+                        is_system: '0',
+                        created: '2020-09-14 17:11:04',
+                        operator: 'fan'
+                    },
+                    {
+                        email: '1506266211@qq.com',
+                        complaint_content: '收到后请尽快处理,不然就直接走拒付了',
+                        is_system: '0',
+                        created: '2020-09-14 17:11:05',
+                        operator: 'fan'
+                    },
+                    {
+                        email: '1584300100@qq.com',
+                        complaint_content: '已与客户沟通调解,将货物回收,回来邮费自费,在三个工作日内会将款项原路返回',
+                        is_system: '1',
+                        created: '2020-09-14 17:11:01',
+                        operator: 'fan'
+                    },
+                ],
+                info: {
+                    created: "2020-09-21 15:24:47",
+                    dispute_no: "dp_TkHzv1Q7BAoY",
+                    dispute_status: "untreated",
+                    dispute_type: "REFUND",
+                    email: "1506266211@qq.com",
+                    merchant_order_no: "test1597030507",
+                    remark: "顶顶顶顶",
+                    trade_id: "tr_M112670810s727c108G0",
                 }
-            ]
+            }
         })
     },
     "POST /api/v1/dispute/update": (req, res) => {

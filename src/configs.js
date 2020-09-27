@@ -49,6 +49,5 @@ module.exports = {
         home_trade_report: 'home_trade_report',
         can_view_balance: 'can_view_balance',
         delivery_download: 'delivery_download',
-    }
-
+    },
 }

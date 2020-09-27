@@ -152,8 +152,8 @@ module.exports = {
         "add_user": "Add User",
         "add_role": "Add Role",
         "identity_info": "Identity",
-        "personal":"Personal",
-        "company":"Company",
+        "personal": "Personal",
+        "company": "Company",
 
         "phone": "Phone",
         "email": "Email",
@@ -353,11 +353,23 @@ module.exports = {
         "status": "Status",
         "priority": "Priority",
         "create_time": "Time",
-        "update_tIme": "Update"
+        "update_tIme": "Update",
+        "submit_a_question": "Submit a question",
+        "fill_in_the_question": "Fill in the question",
+        "acceptance_of_question_sheet": "Acceptance of question sheet",
+        "select_question": "Please select the question",
+        "fill_in_the_ticket": "Fill in the ticket",
+        'attach': 'attach',
     },
-    dispute: {
-        untreated: 'untreated',
-        underway: 'underway',
-        complete: 'complete'
+    "dispute": {
+        "untreated": "untreated",
+        "underway": "underway",
+        "complete": "complete",
+        "dispute_no": "Dispute No",
+        "dispute_status": "Dispute Status",
+        "dispute_type": "Dispute Type",
+        "email": "Customer Email",
+        "remark": "Dispute Remark",
+        "trade_id_merchant_order_no": "Trade ID / Order No"
     }
 }

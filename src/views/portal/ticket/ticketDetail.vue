@@ -6,7 +6,7 @@
             <div slot="header" class="clearfix">
                 <el-page-header @back="goBack()" content="工单详情" title="返回"></el-page-header>
             </div>
-            <div class="card-header" v-if="ticketDetailRsp">
+            <div class="card-header" v-if="ticketDetailRsp.list">
                 <!--聊天框头部-->
                 <div class="chat-header border-bottom py-4 py-lg-6 px-lg-8 mb-3">
                     <div class="container-xxl">
@@ -27,10 +27,10 @@
                                     </div>
 
                                     <div class="media-body align-self-center text-truncate">
-                                        <h6 class="text-truncate">商户4008</h6>
-                                        <small class="text-muted">4008</small>
+                                        <h6 class="text-truncate">{{ticketDetailRsp.info.mer_name}}</h6>
+                                        <small class="text-muted">{{ticketDetailRsp.info.mer_no}}</small>
                                         <small class="text-muted mx-2"> • </small>
-                                        <small class="text-muted">结算问题</small>
+                                        <small class="text-muted">{{ticketDetailRsp.info.question_case}}</small>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <!--聊天框主体-->
-                <div class="py-6 py-lg-10 mb-3" v-for="(detailInfo,index) in ticketDetailRsp" :key="index">
+                <div class="py-6 py-lg-10 mb-3" v-for="(detailInfo,index) in ticketDetailRsp.list" :key="index">
                     <div class="d-flex align-items-start justify-content-start" v-if="detailInfo.is_system === 0 ">
                         <div class="group text-center mr-1 mr-lg-4">
                             <div class="mb-n1" style="width: 50px; height: 50px;"><i
@@ -109,7 +109,7 @@
                                             <div class="text-bold">{{detailInfo.content}}
                                             </div>
                                             <div class="mt-1">
-                                                <small class="opacity-65">{{detailInfo.create_time}}</small>
+                                                <small class="opacity-65">{{detailInfo.created | toDay}}</small>
                                             </div>
                                             <div class="mt-1">
                                                 <small class="opacity-65">{{detailInfo.current_dist}}</small>
@@ -125,8 +125,8 @@
                                                         <el-image
                                                                 style="width:220px;"
                                                                 class="img-fluid rounded"
-                                                                :src="detailInfo.attach"
-                                                                :preview-src-list="[detailInfo.attach]"
+                                                                :src="fullImgUrl(detailInfo.ticket_attach_url)"
+                                                                :preview-src-list="[fullImgUrl(detailInfo.ticket_attach_url)]"
                                                         >
                                                             <div slot="error" style="display: flex;justify-content: center; align-items: center;width: 100%;height: 100%;background: #CCCCCC;
                                                                color: #000000;font-size: 14px;">
@@ -160,7 +160,7 @@
                                             <div>{{detailInfo.content}}
                                             </div>
                                             <div class="mt-1">
-                                                <small class="opacity-65">{{detailInfo.create_time}}</small>
+                                                <small class="opacity-65">{{detailInfo.created | toDay}}</small>
                                             </div>
                                             <div class="mt-1">
                                                 <small class="opacity-65">{{detailInfo.current_dist}}</small>
@@ -176,8 +176,8 @@
                                                         <el-image
                                                                 style="width:220px;"
                                                                 class="img-fluid rounded"
-                                                                :src="detailInfo.attach"
-                                                                :preview-src-list="[detailInfo.attach]"
+                                                                :src="fullImgUrl(detailInfo.ticket_attach_url)"
+                                                                :preview-src-list="[fullImgUrl(detailInfo.ticket_attach_url)]"
                                                         >
                                                             <div slot="error" style="display: flex;justify-content: center; align-items: center;width: 100%;height: 100%;background: #CCCCCC;
                                                                color: #000000;font-size: 14px;">
@@ -253,9 +253,9 @@
                     </el-form-item>
                     <el-form-item prop="attach" class="col-9">
                         <el-button class="ml-2" type="primary" style="margin-top: 12px;"
-                                   @click="formSubmit('ticketFormParams')">提交
+                                   @click="formSubmit('ticketFormParams')">{{$t('comm.submit')}}
                         </el-button>
-                        <el-button @click="resetUploadParams">重置</el-button>
+                        <el-button @click="resetUploadParams">{{$t('comm.reset')}}</el-button>
                     </el-form-item>
                 </el-form>
             </el-card>
@@ -264,13 +264,20 @@
 </template>
 
 <script>
-    import {ticketReply, ticketDetailInfo} from '@/service/ticketDetailSer';
+    import configs from "@/configs";
+    import {ticketDetailInfo, ticketReply, closeTicket} from '@/service/ticketDetailSer';
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "ticket_detail",
+        computed: {
+            configs() {
+                return configs;
+            }
+        },
         data() {
             return {
-                ticket_id: this.$route.query.id,
+                ticket: '',
                 showBtnImg: true,
                 noneBtnImg: false,
                 limitCountImg: 1,   //上传图片的最大数量
@@ -292,19 +299,27 @@
                     content: '',
                     attach: ''
                 },
-                ticketDetailRsp: []
+                ticketDetailRsp: [],
+                ticketStatusParam: {ticket: ''},
             }
         },
         mounted() {
-            this.getTicketDetail();
+            if (!isEmpty(this.$route.params)) {
+                this.ticket = this.$route.params.id;
+                this.ticketStatusParam.ticket = this.$route.params.id;
+                this.getTicketDetail();
+            } else {
+                this.$message.error(this.$i18n.t('comm.fail').toString())
+            }
         },
         methods: {
             /*工单详情信息*/
             getTicketDetail() {
-                ticketDetailInfo(this.ticket_id).then(res => {
+                this.loading = true;
+                ticketDetailInfo(this.ticket).then(res => {
                     const {data} = res;
-                    console.log(data);
-                    this.ticketDetailRsp = data.list;
+                    this.ticketDetailRsp = data;
+                    this.isCloseTicket = !(this.ticketDetailRsp.info.status === 4);
                 }).finally(() => {
                     this.loading = false;
                 })
@@ -339,13 +354,7 @@
                 this.$message.error(`超过图片限制,最多只可上传 1 张图片!`);
             },
             httpRequest(param) {
-                this.subParam = new FormData();
                 this.fileList.push(param.file);
-                let images = [...this.fileList];
-                //遍历图片集合
-                images.forEach((img, index) => {
-                    this.subParam.append(`ticket_reply_${index}`, img) // 把单个图片重命名，存储起来（给后台）
-                })
             },
             /*上传图片回调进度*/
             progressCallback(n) {
@@ -354,19 +363,28 @@
             /*重置上传信息*/
             resetUploadParams() {
                 this.$refs.upload.clearFiles();
-                this.showBtnImg = true,
-                    this.noneBtnImg = false,
-                    this.$refs['ticketFormParams'].resetFields();//重置
+                this.showBtnImg = true;
+                this.noneBtnImg = false;
+                this.$refs['ticketFormParams'].resetFields();//重置
                 this.$refs['ticketFormParams'].clearValidate();//重置
-            }
-            ,
+            },
+            fullImgUrl(path) {
+                return configs.imgBaseUrl + path;
+            },
             formSubmit(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.loading = true;
-                        if (this.subParam == undefined || this.subParam == '' || this.subParam == null) {
-                            this.subParam = new FormData();
+                        this.subParam = new FormData();
+                        //是否有上传附件
+                        if (this.fileList.length > 0) {
+                            let images = [...this.fileList];
+                            //遍历图片集合
+                            images.forEach((img) => {
+                                this.subParam.append(`file`, img) // 把单个图片重命名，存储起来（给后台）
+                            })
                         }
+                        this.subParam.append('ticket', this.ticket);
                         this.subParam.append('content', this.ticketFormParams.content);
                         ticketReply(this.subParam, this.progressCallback).then(() => {
                             this.resetUploadParams();
@@ -381,8 +399,12 @@
                     }
                 });
             }, closeTicket() {
-                this.isCloseTicket = false; //已关闭回复表单
-                this.$message.success(`工单已成功关闭!`);
+                this.loading = true;
+                closeTicket(this.ticketStatusParam).then(() => {
+                    this.isCloseTicket = false; //已关闭回复表单
+                }).finally(() => {
+                    this.loading = false;
+                })
             },
             goBack() {
                 this.$router.go(-1)

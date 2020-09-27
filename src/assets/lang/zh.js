@@ -152,8 +152,8 @@ module.exports = {
         "add_user": "添加子用户",
         "add_role": "添加用户组",
         "identity_info": "认证信息",
-        "personal":"个人",
-        "company":"企业",
+        "personal": "个人",
+        "company": "企业",
 
         "phone": "手机号",
         "email": "邮箱",
@@ -352,11 +352,24 @@ module.exports = {
         "status": "工单状态",
         "priority": "优先级",
         "create_time": "创建时间",
-        "update_tIme": "修改时间"
+        "update_tIme": "修改时间",
+        "submit_a_question": "提交问题",
+        "fill_in_the_question": "填写问题内容",
+        "acceptance_of_question_sheet": "受理问题单",
+        "select_question": "选择问题",
+        "fill_in_the_ticket": "填写工单",
+        'attach': '附件',
+
     },
-    dispute: {
-        untreated: '未处理',
-        underway: '处理中',
-        complete: '处理完成'
+    "dispute": {
+        "untreated": "未处理",
+        "underway": "处理中",
+        "complete": "处理完成",
+        "dispute_no": "争议单号",
+        "dispute_status": "争议状态",
+        "dispute_type": "争议类型",
+        "email": "顾客邮箱",
+        "trade_id_merchant_order_no": "流水号/订单号",
+        "remark": "争议说明",
     }
 }
