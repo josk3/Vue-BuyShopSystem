@@ -218,7 +218,7 @@
                     </el-form-item>
                     <el-form-item label="内容:" prop="content" class="col-9">
                         <el-input class="ml-2" type="textarea" placeholder="请输入内容" maxlength="100" show-word-limit
-                                  :rows="2"
+                                  :rows="4"
                                   v-model="ticketFormParams.content"></el-input>
                     </el-form-item>
                     <el-divider></el-divider>
@@ -245,13 +245,11 @@
                         <el-dialog :visible.sync="dialogVisible">
                             <img width="100%" :src="dialogImageUrl" alt="附件">
                         </el-dialog>
-                        <p class="col-9 ">
-                            可上传<span> 1 </span>个附件<br/>
-                            每个附件大小不得超过<span> 5 </span>MB,<br/>
-                            附件支持的格式有:<span>'JPG','BMP','PNG','GIF','TIF'</span>
+                        <p class="col-9 ml-n1">
+                            暂仅支持图片上传
                         </p>
                     </el-form-item>
-                    <el-form-item prop="attach" class="col-9">
+                    <el-form-item prop="attach" class="col-9 mt-n4">
                         <el-button class="ml-2" type="primary" style="margin-top: 12px;"
                                    @click="formSubmit('ticketFormParams')">{{$t('comm.submit')}}
                         </el-button>
