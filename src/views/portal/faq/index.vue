@@ -8,7 +8,7 @@
                                   :name="item.name"
                                   :class="hashName === item.name ? 'active-hash' : ''"
                                   :title="item.title">
-                    <div v-html="item.html"></div>
+                    <div class="html-content-detail" v-html="item.html"></div>
                 </el-collapse-item>
 
             </el-collapse>

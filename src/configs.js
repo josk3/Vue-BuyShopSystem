@@ -2,11 +2,13 @@
  * 配置值
  */
 
+
 function getOffDomain() {
     return process.env.VUE_APP_WINTOPAY_DOMAIN;
 }
 
 module.exports = {
+    isProEnv: (process.env.VUE_APP_ENV !== undefined && process.env.VUE_APP_ENV === 'pro'),
     title: 'portal.title', //i18n
 
     /**

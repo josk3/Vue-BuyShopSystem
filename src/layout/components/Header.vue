@@ -9,8 +9,9 @@
                         </router-link>
                     </h5>
                 </div>
-                <div class="col-10">
+                <div class="col-10 pl-0">
                     <div class="float-left">
+                        <span v-if="!configs.isProEnv" class="test-env-info mr-2">{{$t('comm.test')}}</span>
                         <small class="mt-1" style="font-size: 8px;color:#9e9e9e;">{{user.mer_no}}</small>
                     </div>
                     <nav class="my-2 my-md-0 mr-md-3 float-right">
@@ -102,7 +103,7 @@
                        :visible.sync="popupDialogVisible">
                 <div class="p-1 mb-2">
                     <div>
-                        <div v-html="popupData.message"></div>
+                        <div class="html-content-detail" v-html="popupData.message"></div>
                     </div>
                 </div>
                 <div slot="footer" class="dialog-footer text-center" v-loading="popupLoading">

@@ -310,6 +310,7 @@
         },
         methods: {
             fullImgUrl(path) {
+                if (isEmpty(path)) return null;
                 return configs.imgBaseUrl + path;
             },
             typeChange() {

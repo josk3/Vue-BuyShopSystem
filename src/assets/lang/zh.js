@@ -85,6 +85,7 @@ module.exports = {
         "open": "打开",
         "reason": "原因",
         "save": "保存",
+        "test": "测试",
 
     },
     "nav": {
@@ -196,7 +197,7 @@ module.exports = {
             "username_or_password": "用户名或密码错误",
             "only_en_number_email": "英文字母数字或邮箱",
             "min_length_7": "长度不能少于7位",
-            "length_5_20": "长度在 5 到 20 个字符",
+            "length_4_20": "长度在 4 到 20 个字符",
             "input_valid_email_or_phone": "请填写正确的手机号或邮箱",
         },
         "fail": {

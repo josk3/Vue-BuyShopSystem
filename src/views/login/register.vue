@@ -158,7 +158,7 @@
                     ],
                     username: [
                         {required: true, message: this.validMsg('user.username'), trigger: 'blur'},
-                        {min: 5, max: 20, message: this.$i18n.t('valid.bad.length_5_20'), trigger: 'blur'},
+                        {min: 4, max: 20, message: this.$i18n.t('valid.bad.length_4_20'), trigger: 'blur'},
                         {
                             type: 'string', pattern: /^[a-zA-Z0-9@_\-.]+$/,
                             message: this.$i18n.t('valid.bad.only_en_number_email'), trigger: 'change'
@@ -192,7 +192,6 @@
                         this.$data.showLoginByError = false
                         this.$data.loading = true
                         registerMer(this.$data.register).then(res => {
-                            //this.$message.success(this.$i18n.t('comm.success').toString())
                             this.$data.res = res.data
                             this.$data.submitOk = true
                         }).catch((res) => {
@@ -204,7 +203,11 @@
                                     this.$data.showLoginByError = true
                                 }
                                 this.$data.errorMsg = res.message
-                                this.$message.error(this.$data.errorMsg)
+                                this.$notify.error({
+                                    message: this.$data.errorMsg,
+                                    offset: 100
+                                });
+                                //this.$message.error(this.$data.errorMsg)
                             }
                         }).finally(() => {
                             this.$data.loading = false

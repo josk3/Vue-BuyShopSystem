@@ -85,6 +85,7 @@ module.exports = {
         "open": "Open",
         "reason": "Reason",
         "save": "Save",
+        "test": "Test",
 
     },
     "nav": {
@@ -193,7 +194,7 @@ module.exports = {
             "username_or_password": "Username or password fail",
             "only_en_number_email": "A-z,Number,Email",
             "min_length_7": "Min length 7",
-            "length_5_20": "Length 5-20",
+            "length_4_20": "Length 4-20",
             "input_valid_email_or_phone": "Invalid email",
         },
         "fail": {

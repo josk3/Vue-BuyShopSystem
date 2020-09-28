@@ -10,6 +10,7 @@
                     <li class="nav-item active">
                         <router-link :to="configs.homePath">
                             <svg-icon icon-class="wintopay_word_black" class-name="home-logo mt-1"/>
+                            <span v-if="!configs.isProEnv" class="test-env-info mr-2">{{$t('comm.test')}}</span>
                         </router-link>
                     </li>
                 </ul>
@@ -71,5 +72,8 @@
 </script>
 
 <style scoped>
-
+    .test-env-info{
+        float: right;
+        margin-top: 3px;
+    }
 </style>

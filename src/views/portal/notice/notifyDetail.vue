@@ -11,7 +11,7 @@
                     <div>
                         <div class="d-block text-right p-2">{{ detail.created | toFullTime }}</div>
                         <div class="p-4">
-                            <div v-html="detail.message"></div>
+                            <div class="html-content-detail" v-html="detail.message"></div>
                         </div>
                         <div class="mt-5 mb-3">
                             <el-button class="ml-4 pl-3 pr-4" @click="goMsgCenter">
