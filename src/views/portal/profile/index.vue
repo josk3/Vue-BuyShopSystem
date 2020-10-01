@@ -17,7 +17,7 @@
                     </div>
                     <el-form ref="update_email"
                              :model="update_email"
-                             :rules="rulesEmail" label-width="140px" class="pl-1 pr-3 pt-3 pb-0">
+                             :rules="rulesEmail" label-width="140px" class="pl-1 pr-3 pt-3 pb-0" @submit.native.prevent="submitUpdateEmail">
                         <el-form-item :label="$t('comm.email')" prop="email">
                             <el-input v-model="update_email.email" type="email"></el-input>
                             <div class="text-muted p-0">

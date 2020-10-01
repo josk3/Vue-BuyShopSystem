@@ -41,7 +41,7 @@
         <div v-else>
             <div class="mb-4 mt-2">
                 <div class="mb-4 font-weight-bold">{{$t('user.mer_no')}} {{ userData.mer_no }}</div>
-                <el-form :inline="true">
+                <el-form :inline="true" @submit.native.prevent="activePhoneBtn">
                     <el-form-item :label="$t('login.sms_valid_code')">
                         <el-input type="phone" v-model="phoneCode"
                                   :placeholder="$t('login.sms_valid_code')"></el-input>

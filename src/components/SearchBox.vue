@@ -4,19 +4,22 @@
             <div slot="header" class="clearfix">
                 <span>{{ $t(searchForm.title) }}</span>
             </div>
-            <el-form :model="searchForm" :inline="true" class="form form-inline" ref="searchForm">
+            <el-form :model="searchForm" :inline="true" class="form form-inline" ref="searchForm" @submit.native.prevent="submitSearch">
                 <!-- 日期表组建 -->
                 <div class="p-3 pb-0">
                     <el-form-item v-if="searchForm.trade_id !== undefined" prop="trade_id">
                         <el-input size="mini" v-model="searchForm.trade_id" :placeholder="$t('comm.trade_id')"
+                                  @keyup.native.enter="submitSearch"
                                   clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.batch_id !== undefined" prop="batch_id">
                         <el-input size="mini" v-model="searchForm.batch_id" :placeholder="$t('comm.batch_id')"
+                                  @keyup.native.enter="submitSearch"
                                   clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.merchant_order_no !== undefined" prop="merchant_order_no">
                         <el-input size="mini" v-model="searchForm.merchant_order_no"
+                                  @keyup.native.enter="submitSearch"
                                   :placeholder="$t('comm.merchant_order_no')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.pay_status !== undefined" prop="pay_status">
@@ -31,10 +34,12 @@
                     </el-form-item>
                     <el-form-item v-if="searchForm.country_name !== undefined" prop="country_name">
                         <el-input size="mini" v-model="searchForm.country_name"
+                                  @keyup.native.enter="submitSearch"
                                   :placeholder="$t('comm.country_name')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.blacklist_value !== undefined" prop="blacklist_value">
                         <el-input size="mini" v-model="searchForm.blacklist_value"
+                                  @keyup.native.enter="submitSearch"
                                   :placeholder="$t('comm.blacklist_value')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.blacklist_type !== undefined" prop="blacklist_type">
@@ -49,10 +54,12 @@
                     </el-form-item>
                     <el-form-item v-if="searchForm.email !== undefined" prop="email">
                         <el-input type="email" size="mini" v-model="searchForm.email" :placeholder="$t('comm.email')"
+                                  @keyup.native.enter="submitSearch"
                                   clearable=""></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.site_url !== undefined" prop="site_url">
                         <el-input size="mini" v-model="searchForm.site_url"
+                                  @keyup.native.enter="submitSearch"
                                   :placeholder="$t('comm.site_url')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.decline_type !== undefined" prop="decline_type">
