@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:dev": "vue-cli-service build --mode development",
+    "build:stage": "vue-cli-service build --mode stage",
     "lint": "vue-cli-service lint",
     "mockerRunApi": "mocker ./mocker",
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml"
