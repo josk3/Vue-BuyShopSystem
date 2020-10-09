@@ -43,6 +43,8 @@ module.exports = {
         "batch_upload": "批量上传",
         "update": "修改",
         "upload": "上传",
+        "sure": "确定",
+        "chick_show": "点击显示",
 
         //
         "trade_id": "流水号",
@@ -93,6 +95,7 @@ module.exports = {
         "save": "保存",
         "test": "测试",
         "upload_file_drag_click": ["将文件拖到此处，或", "点击上传"],
+        "mark_all_read": "标记全部为已读",
 
     },
     "nav": {
@@ -272,6 +275,31 @@ module.exports = {
         "deposit": "保证金结算",
         "annualFee": "年费",
         "chargeback": "拒付",
+    },
+    "account": {
+        "need_valid_identity_before": "请先完成账户激活认证",
+        "base_info": "基础信息",
+        "name_and_company": "姓名/企业",
+        "register_time": "注册时间",
+        "online_time": "开通时间",
+        "expire_time": "过期时间",
+        "settle_cycle": "结算日",
+        "ecm_current_month": "拒付率(当前月份)",
+        "chargeback_count_current_month": "当月拒付笔数",
+        "ecm_account": "拒付率(总交易)",
+        "chargeback_count_account": "总拒付笔数",
+        "ecm_last_month": "拒付率(上个月)",
+        "chargeback_fees": "拒付处理费",
+        "chargeback_fees_info": "美元, 每个自然月1号更新",
+        "per_order": "笔",
+        "ecm_condition_info": ["拒付率", "月笔数"],
+        "notice_setup_info": ["如有特殊情况要关闭邮件通知请联系客服", "或发起", "服务工单"],
+        "notice_setup": "通知设置",
+        "notice_paid_to_customer": "付款成功给持卡人发邮件",
+        "notice_paid_to_merchant": "付款成功给商户发邮件",
+        "notice_dispute_to_merchant": "有争议时邮件通知商户",
+        "notice_chargeback_to_merchant": "有拒付时邮件通知商户",
+
     },
     "risk": {
         "fingerprint": "卡ID",

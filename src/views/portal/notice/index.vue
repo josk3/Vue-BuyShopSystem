@@ -14,7 +14,7 @@
                     <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                         <div class="mr-5 mt-1">
                             <el-button type="text" size="mini"
-                                       @click="markAllRead" plain>标记全部为已读
+                                       @click="markAllRead" plain>{{$t('comm.mark_all_read')}}
                             </el-button>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                     <el-table-column
                             prop="created"
                             class="text-right"
-                            label="时间">
+                            :label="$t('comm.created')">
                         <template v-slot="scope">
                             {{scope.row.created | toDay }}
                         </template>

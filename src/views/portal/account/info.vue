@@ -13,13 +13,13 @@
         <div class="wrap-tab p-0">
             <el-card class="box-card wpy-card mb-2" shadow="never" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
-                    <span>基础信息</span>
+                    <span>{{$t('account.base_info')}}</span>
                 </div>
                 <div>
                     <div v-if="info" class="row info-control-list">
                         <div class="col-6">
                             <div class="row">
-                                <label class="col-4">姓名/企业</label>
+                                <label class="col-4">{{$t('account.name_and_company')}}</label>
                                 <div class="col-8"><span>{{info.name}}</span></div>
                             </div>
                             <div class="row">
@@ -37,46 +37,46 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <label class="col-4">注册时间</label>
+                                <label class="col-4">{{$t('account.register_time')}}</label>
                                 <div class="col-8"><span>{{info.created | toDay}}</span></div>
                             </div>
                             <div class="row">
-                                <label class="col-4">开通时间</label>
+                                <label class="col-4">{{$t('account.online_time')}}</label>
                                 <div class="col-8"><span>{{info.online_date | toDay }}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">过期时间</label>
+                            <div class="row"><label class="col-4">{{$t('account.expire_time')}}</label>
                                 <div class="col-8"><span>{{info.expire_date | toDay}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">结算日</label>
+                            <div class="row"><label class="col-4">{{$t('account.settle_cycle')}}</label>
                                 <div class="col-8"><span>{{info.settlement_cycle | settleCycle}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">风控处理率</label>
+                            <div class="row"><label class="col-4">{{$t('comm.processing_fees')}}</label>
                                 <div class="col-8"><span>{{info.fixed_fees | nullToLine}}USD</span>
                                 </div>
                             </div>
-                            <div class="row"><label class="col-4">交易手续率</label>
+                            <div class="row"><label class="col-4">{{$t('comm.fees')}}</label>
                                 <div class="col-8"><span>{{info.fees_rate | tradeFeeStr}}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="row"><label class="col-4">拒付率(当前月份)</label>
+                            <div class="row"><label class="col-4">{{$t('account.ecm_current_month')}}</label>
                                 <div class="col-8"><span>{{info.monitor_ecm | nullToLine}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">当月拒付笔数</label>
+                            <div class="row"><label class="col-4">{{$t('account.chargeback_count_current_month')}}</label>
                                 <div class="col-8"><span>{{info.total_declined_num | nullToLine}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">拒付率(总交易)</label>
+                            <div class="row"><label class="col-4">{{$t('account.ecm_account')}}</label>
                                 <div class="col-8"><span>{{info.total_ecm | nullToLine}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">总拒付笔数</label>
+                            <div class="row"><label class="col-4">{{$t('account.chargeback_count_account')}}</label>
                                 <div class="col-8"><span>{{info.declined_num | nullToLine}}</span></div>
                             </div>
-                            <div class="row"><label class="col-4">拒付率(上个月)</label>
+                            <div class="row"><label class="col-4">{{$t('account.ecm_last_month')}}</label>
                                 <div class="col-8"><span>{{info.last_monthly_ecm | nullToLine}}</span></div>
                             </div>
-                            <div class="row mb-0"><label class="col-4">拒付处理费</label>
-                                <div class="col-8"><span>{{info.chargeback_fees | nullToLine}}美元, 每个自然月1号更新</span>
+                            <div class="row mb-0"><label class="col-4">{{$t('account.chargeback_fees')}}</label>
+                                <div class="col-8"><span>{{info.chargeback_fees | nullToLine}}{{$t('account.chargeback_fees_info')}}</span>
                                 </div>
                             </div>
                             <div class="row">
@@ -89,7 +89,7 @@
                                                 prop="amount"
                                                 width="90">
                                             <template v-slot="scope">
-                                                {{scope.row.amount}}$/笔
+                                                {{scope.row.amount}}$/{{$t('account.per_order')}}
                                             </template>
                                         </el-table-column>
                                         <el-table-column>
@@ -97,13 +97,13 @@
                                                 <span v-if="scope.row.condition_ecm_l">
                                                     {{scope.row.condition_ecm_l}} &lt;
                                                 </span>
-                                                Rate
+                                                {{$t('account.ecm_condition_info[0]')}}
                                                 <span v-if="scope.row.condition_ecm_r">
                                                     ≤ {{scope.row.condition_ecm_r}}
                                                 </span>
                                                 <span v-if="scope.row.condition_order_count">
                                                     Or
-                                                   月笔数≤
+                                                   {{$t('account.ecm_condition_info[1]')}}≤
                                                 {{scope.row.condition_order_count}}
                                                 </span>
                                             </template>
@@ -231,7 +231,7 @@
             </div>
             <div slot="footer" class="dialog-footer">
                 <el-button size="mini" @click="closeBankDialog()">{{$t('comm.cancel')}}</el-button>
-                <el-button size="mini" type="primary" @click="submitAddBank">确认提交</el-button>
+                <el-button size="mini" type="primary" @click="submitAddBank">{{$t('comm.confirm_submit')}}</el-button>
             </div>
         </el-dialog>
     </div>
@@ -330,8 +330,8 @@
             },
             addBankBtn() {
                 if (this.user.identity_status !== 1) {
-                    this.$alert('请先完成账户激活认证', '', {
-                        confirmButtonText: '确定',
+                    this.$alert( this.$i18n.t('account.need_valid_identity_before').toString(), '', {
+                        confirmButtonText: this.$i18n.t('comm.sure').toString(),
                     });
                 } else {
                     this.openBankDialog('add', null)

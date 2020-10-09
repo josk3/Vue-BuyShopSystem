@@ -2,7 +2,7 @@
     <div class="show-more">
         <div v-if="!is_show">
             {{ getHalf() }}
-            <el-button v-show="!is_show" size="mini" @click="show" plain>点击显示</el-button>
+            <el-button v-show="!is_show" size="mini" @click="show" plain>{{$t('comm.chick_show')}}</el-button>
         </div>
         <div v-else>
             {{ txt }}
