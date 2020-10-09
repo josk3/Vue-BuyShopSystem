@@ -535,5 +535,13 @@ button:focus{outline:0;}
 .html-content-detail{
   white-space: pre-wrap;
 }
+.lang_en .el-table thead{
+  font-weight: normal;
+  font-size: 12px;
+}
+.lang_en .el-table .cell{
+  padding-left: 5px;
+  padding-right: 3px;
+}
 //-
 

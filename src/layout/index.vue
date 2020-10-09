@@ -34,6 +34,7 @@
             ...mapState({
                 sidebar: state => state.app.sidebar,
                 device: state => state.app.device,
+                lang: state => state.app.lang,
             }),
             configs() {
                 return configs;
@@ -43,7 +44,8 @@
                     hideSidebar: !this.sidebar.opened,
                     openSidebar: this.sidebar.opened,
                     withoutAnimation: this.sidebar.withoutAnimation,
-                    mobile: this.device === 'mobile'
+                    mobile: this.device === 'mobile',
+                    lang_en: this.lang === 'en',
                 }
             }
         },
