@@ -99,6 +99,8 @@ module.exports = {
         "mark_all_read": "Mark all read",
         "click_to_help": "Click to get help",
         "track_number": "Track Number",
+        "i_known": "I known",
+        "please_select": "Select",
 
     },
     "nav": {
@@ -303,6 +305,7 @@ module.exports = {
         "notice_dispute_to_merchant": "Receive a notification if a payment is disputed.",
         "notice_chargeback_to_merchant": "Receive a notification if a payment is chargeback.",
         "pwd_will_send_this_email": "Password will be sent to this email.",
+        "login_mail_and_click_valid_link": "Please log in your mailbox to open the email to complete the authentication",
 
     },
     "risk": {
@@ -404,6 +407,8 @@ module.exports = {
         "product_quantity": "Quantity",
         "not_date": "No data",
         "no_find_order_info": "No find order",
+        "confirm_apply_refund": "Confirm refund apply",
+        "submit_refund": "Submit refund",
     },
     "payout": {
         "delivery_reject": "Delivery aberrant",

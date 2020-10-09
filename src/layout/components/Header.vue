@@ -107,8 +107,8 @@
                     </div>
                 </div>
                 <div slot="footer" class="dialog-footer text-center" v-loading="popupLoading">
-                    <el-button size="mini" @click="popupDialogVisible = false">关闭</el-button>
-                    <el-button size="mini" type="primary" @click="readPopupDialog">已查看</el-button>
+                    <el-button size="mini" @click="popupDialogVisible = false">{{$t('comm.close')}}</el-button>
+                    <el-button size="mini" type="primary" @click="readPopupDialog">{{$t('comm.i_known')}}</el-button>
                 </div>
             </el-dialog>
         </div>

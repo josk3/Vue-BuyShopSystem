@@ -3,22 +3,22 @@
         <!--    d    -->
         <el-dialog custom-class="wpy-dialog sm-dialog"
                    :show-close="false" :close-on-click-modal="false"
-                   title="退款"
+                   :title="$t('kind.refund')"
                    :visible.sync="refundDialogVisible">
             <div>
                 <el-form ref="refund"
                          :model="refund"
                          :rules="rules" label-width="80px">
-                    <el-form-item label="流水号">
+                    <el-form-item :label="$t('comm.trade_id')">
                         <el-input :value="refund.trade_id" :disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="订单金额">
+                    <el-form-item :label="$t('comm.order_amount')">
                         <el-input :value="refund.order_amount" :disabled="true">
                             <template slot="append">{{ refund.order_currency }}</template>
                         </el-input>
                     </el-form-item>
-                    <el-form-item label="退款金额" prop="refund_amount">
-                        <el-input v-model="refund.refund_amount" placeholder="请输入退款金额">
+                    <el-form-item :label="$t('comm.refund_amount')" prop="refund_amount">
+                        <el-input v-model="refund.refund_amount" :placeholder="$t('comm.refund_amount')">
                             <template slot="append">{{ refund.order_currency }}</template>
                         </el-input>
                     </el-form-item>
@@ -26,8 +26,8 @@
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
                 <el-button size="mini" @click="closeDialog('refund_form')">{{$t('comm.cancel')}}</el-button>
-                <el-popconfirm title="确实提交退款操作" @onConfirm="submitRefund" :hideIcon="true">
-                    <el-button slot="reference" size="mini" type="primary" class="ml-3" >提交退款</el-button>
+                <el-popconfirm :title="$t('order.confirm_apply_refund')" @onConfirm="submitRefund" :hideIcon="true">
+                    <el-button slot="reference" size="mini" type="primary" class="ml-3" >{{$t('order.submit_refund')}}</el-button>
                 </el-popconfirm>
             </div>
         </el-dialog>
@@ -49,7 +49,7 @@
                 refundDialogVisible: false,
                 rules: {
                     refund_amount: [
-                        {required: true, message: '请输入退款金额', trigger: 'blur'},
+                        {required: true, message: this.validMsg('comm.refund_amount'), trigger: 'blur'},
                     ]
                 },
             }
@@ -58,6 +58,9 @@
         mounted() {
         },
         methods: {
+            validMsg(name) {
+                return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
+            },
             initFormObj() {
                 return {trade_id: '', order_amount: '', order_currency: '', refund_amount: ''};
             },

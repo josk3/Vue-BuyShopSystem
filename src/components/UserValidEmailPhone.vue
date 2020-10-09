@@ -13,7 +13,7 @@
                     <small><i class="el-icon-circle-check"></i>{{$t('login.has_send_active_email')}}</small>
                 </p>
                 <p class="mb-2">
-                    <i class="el-icon-info text-yellow"></i>请登录邮箱打开邮件点击认证链接完成认证。
+                    <i class="el-icon-info text-yellow"></i>{{$t('account.login_mail_and_click_valid_link')}}
                 </p>
                 <p class="mb-3">
                     {{ userData.email }}

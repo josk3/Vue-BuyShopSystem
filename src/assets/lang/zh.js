@@ -99,6 +99,8 @@ module.exports = {
         "mark_all_read": "标记全部为已读",
         "click_to_help": "点击查看帮助",
         "track_number": "物流单号",
+        "i_known": "我知道了",
+        "please_select": "请选择",
 
     },
     "nav": {
@@ -302,6 +304,7 @@ module.exports = {
         "notice_dispute_to_merchant": "有争议时邮件通知商户",
         "notice_chargeback_to_merchant": "有拒付时邮件通知商户",
         "pwd_will_send_this_email": "密码将发送至该邮箱",
+        "login_mail_and_click_valid_link": "请登录邮箱打开邮件点击认证链接完成认证",
 
     },
     "risk": {
@@ -402,6 +405,8 @@ module.exports = {
         "product_quantity": "数量",
         "not_date": "无",
         "no_find_order_info": "找不到订单信息",
+        "confirm_apply_refund": "确实提交退款操作",
+        "submit_refund": "提交退款",
     },
     "payout": {
         "delivery_reject": "问题单",

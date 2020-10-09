@@ -1,7 +1,7 @@
 <template>
     <div v-loading="loading">
         <div class="d-block">
-            <el-select v-model="range" placeholder="请选择" @change="rangeChange" size="mini">
+            <el-select v-model="range" :placeholder="$t('comm.please_select')" @change="rangeChange" size="mini">
                 <el-option
                         v-for="item in reportRange"
                         :key="item.value"
@@ -22,6 +22,7 @@
     import configs from "@/configs";
     import {hasPermission} from "@/service/userSer";
 
+    //图表
     export default {
         components: {
             LineChart
