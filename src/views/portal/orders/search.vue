@@ -18,7 +18,7 @@
                         style="width: 100%">
                     <el-table-column
                             prop="trade_id,merchant_order_no"
-                            label="流水号/订单号" width="210px">
+                            :label="$t('order.trade_id_and_order_no')" width="210px">
                         <template v-slot="scope">
                             <router-link :to="{name: 'order_detail',params:{id:scope.row.trade_id}}"
                                          class="btn-link">
@@ -30,21 +30,21 @@
                     </el-table-column>
                     <el-table-column
                             :show-overflow-tooltip="true"
-                            label="卡号/邮箱">
+                            :label="$t('order.card_and_email')">
                         <template v-slot="scope">
                             {{scope.row.card.card64 }}<br/>
                             {{scope.row.customer.email }}
                         </template>
                     </el-table-column>
                     <el-table-column
-                            label="订单/结算金额">
+                            :label="$t('order.order_amount_settle_amount')">
                         <template v-slot="scope">
                             {{scope.row.order_amount}} {{scope.row.order_currency}}<br/>
                             {{scope.row.settle_amount}} {{scope.row.settle_currency}}
                         </template>
                     </el-table-column>
                     <el-table-column
-                            label="卡种" width="60px">
+                            :label="$t('order.card_brand')" width="60px">
                         <template v-slot="scope">
                             <span class="card-brand" :class="['cb-' + scope.row.card.brand]">
                             </span>
@@ -63,7 +63,7 @@
                     <el-table-column
                             prop="pay_status"
                             width="50px"
-                            label="拒付">
+                            :label="$t('kind.chargeback')">
                         <template v-slot="scope">
                             <span :class="'declined-' + scope.row.declined">{{scope.row.declined | yesOrNo}}</span>
                         </template>
@@ -71,14 +71,14 @@
                     <el-table-column
                             prop="site_url,ip"
                             :show-overflow-tooltip="true"
-                            label="网址/IP">
+                            :label="$t('url_and_ip')">
                         <template v-slot="scope">
                             {{scope.row.site_url}}<br/>
                             {{scope.row.ip}}
                         </template>
                     </el-table-column>
                     <el-table-column
-                            label="创建/更新">
+                            :label="$t('order.create_time_payment_time')">
                         <template v-slot="scope">
                             {{scope.row.created_time | toDayTime}}<br/>
                             {{scope.row.payment_time | toDayTime}}
@@ -93,10 +93,10 @@
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item v-if="scope.row.refunded !== 1 && scope.row.pay_status === 'paid'"
                                                       :command="commandVal('refund', scope.row, scope.$index)">
-                                        退款
+                                        {{$t('kind.refund')}}
                                     </el-dropdown-item>
                                     <el-dropdown-item :command="commandVal('detail', scope.row, scope.$index)">
-                                        查看详情
+                                        {{$t('comm.view_detail')}}
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>

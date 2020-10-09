@@ -39,6 +39,7 @@ module.exports = {
         "review_reject": "审核没有通过",
         "submit": "提交",
         "type": "类型",
+        "view_detail": "查看详情",
 
         //
         "trade_id": "流水号",
@@ -137,6 +138,8 @@ module.exports = {
         "404": "404",
         "401": "401",
         "terms": "条款",
+        "chick_to_help": "点击查看帮助",
+        "track_number": "物流单号",
 
     },
     "user": { //跟用户相关
@@ -291,8 +294,21 @@ module.exports = {
         "settle": "Settlement",
         "chargeback": "Chargeback",
     },
+    "order":{
+        "trade_id_and_order_no": "流水号/订单号",
+        "card_and_email": "卡号/邮箱",
+        "order_amount_settle_amount": "订单/结算金额",
+        "card_brand": "卡种",
+        "url_and_ip": "网址/IP",
+        "create_time_payment_time": "创建/更新",
+    },
     "payout": {
         "delivery_reject": "问题单",
+        "payout_apply": "结算申请",
+        "payout_apply_help_info": "申请结算必须先上传物流单号",
+        "please_select_order": "请先勾选要申请的订单",
+        "submit_apply": "提交申请",
+        "refund": "是否退款",
     },
     "label": {
         "last24Hours": "最近24小时",

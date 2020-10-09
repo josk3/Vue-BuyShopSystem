@@ -39,6 +39,7 @@ module.exports = {
         "review_reject": "Review reject",
         "submit": "Submit",
         "type": "Type",
+        "view_detail": "View Detail",
 
         //
         "trade_id": "Trade ID",
@@ -93,7 +94,7 @@ module.exports = {
         "dashboard": "Dashboard",
         "profile": "Profile",
         "active_account": "Active Account",
-        "trade_manage": "Trade Search",
+        "trade_manage": "Transactions",
         "order_detail": "Order Detail",
         "payout_select": "Settle Search",
         "payout_apply": "Settle Apply",
@@ -137,6 +138,8 @@ module.exports = {
         "404": "404",
         "401": "401",
         "terms": "Terms",
+        "chick_to_help": "Chick to get help",
+        "track_number": "Track Number",
 
     },
     "user": { //跟用户相关
@@ -292,8 +295,21 @@ module.exports = {
         "settle": "Settlement",
         "chargeback": "Chargeback",
     },
+    "order":{
+        "trade_id_and_order_no": "TradeId/OrderNo",
+        "card_and_email": "Card/Email",
+        "order_amount_settle_amount": "Order/Settle Amount",
+        "card_brand": "Card",
+        "url_and_ip": "Url/IP",
+        "create_time_payment_time": "Create/Payment",
+    },
     "payout": {
         "delivery_reject": "Delivery aberrant",
+        "payout_apply": "Settlement Apply",
+        "payout_apply_help_info": "To apply for settlement, the logistics order number must be uploaded first",
+        "please_select_order": "Please check the order you want to apply for",
+        "submit_apply": "Submit apply",
+        "refund": "Refund",
     },
     "label": {
         "last24Hours": "Last 24 Hour",

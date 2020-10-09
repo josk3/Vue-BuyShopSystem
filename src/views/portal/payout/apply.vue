@@ -4,11 +4,11 @@
             <div class="col-12 mb-2">
                 <el-card shadow="always" class="box-card p-3"
                          :body-style="{ padding: '0px' }">
-                    <h5>结算申请</h5>
+                    <h5>{{$t('payout.payout_apply')}}</h5>
                     <div class="text-muted p-0">
-                        <el-tooltip class="item" effect="dark" content="点击查看帮助" placement="top">
+                        <el-tooltip class="item" effect="dark" :content="$t('comm.chick_to_help')" placement="top">
                             <router-link :to="{name: 'faq', hash: '#order_settle'}">
-                                <i class="el-icon-info text-blue"></i> 申请结算必须先上传物流单号 <i class="el-icon-warning-outline"></i>
+                                <i class="el-icon-info text-blue"></i> {{$t('payout.payout_apply_help_info')}} <i class="el-icon-warning-outline"></i>
                             </router-link>
                         </el-tooltip>
                     </div>
@@ -18,7 +18,7 @@
         <div class="wrap-tab p-0">
             <div class="p-2 text-right">
                 <el-button icon="el-icon-folder-checked" size="small"
-                           @click="submitApply" type="primary" plain>提交申请
+                           @click="submitApply" type="primary" plain>{{$t('payout.submit_apply')}}
                 </el-button>
             </div>
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
@@ -67,7 +67,7 @@
                     <el-table-column
                             prop="refunded"
                             :show-overflow-tooltip="true"
-                            label="是否退款">
+                            :label="$t('payout.refund')">
                         <template v-slot="scope">
                             {{scope.row.refunded | refundStatus }}
                         </template>
@@ -76,7 +76,7 @@
                             prop="declined"
                             :show-overflow-tooltip="true"
                             width="60px"
-                            label="拒付">
+                            :label="$t('kind.chargeback')">
                         <template v-slot="scope">
                             <span :class="'declined-' + scope.row.declined">
                                 {{scope.row.declined | yesOrNo}}
@@ -86,7 +86,7 @@
                     <el-table-column
                             prop="track_number"
                             :show-overflow-tooltip="true"
-                            label="物流单号">
+                            :label="$t('comm.track_number')">
                         <template v-slot="scope">
                             {{scope.row.track_number }}
                         </template>
@@ -130,11 +130,11 @@
         methods: {
             submitApply() {
                 if (isEmpty(this.selected) || this.selected.length <= 0) {
-                    this.$message.error('请先勾选要申请的订单')
+                    this.$message.error(this.$i18n.t('payout.please_select_order').toString())
                 } else {
                     this.$data.loading = true
                     payoutApply({'tradeIds': this.selected}).then(() => {
-                        this.$message.success('提交成功')
+                        this.$message.success(this.$i18n.t('comm.success').toString())
                         this.selected = []
                         this.search()
                     }).catch((e) => {
