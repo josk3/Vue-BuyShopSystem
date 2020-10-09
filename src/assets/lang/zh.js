@@ -157,7 +157,8 @@ module.exports = {
         "password": "密码",
         "full_name": "名称",
         "mer_no": "商户号",
-        "role_name": "用户组",
+        "user_role": "用户组",
+        "role_name": "组名",
         "role_menu": "权限",
         "old_password": "老密码",
         "new_password": "新密码",
@@ -299,6 +300,7 @@ module.exports = {
         "notice_paid_to_merchant": "付款成功给商户发邮件",
         "notice_dispute_to_merchant": "有争议时邮件通知商户",
         "notice_chargeback_to_merchant": "有拒付时邮件通知商户",
+        "pwd_will_send_this_email": "密码将发送至该邮箱",
 
     },
     "risk": {
@@ -386,7 +388,8 @@ module.exports = {
         "site_url": "网址",
         "return_url": "返回网址",
         "site_system": "网站系统",
-        "is_virtual": "虚拟产品",
+        "is_virtual": "是否虚拟产品",
+        "is_a_virtual": "虚拟产品",
         "add_site": "增加网站",
         "protocol": "协议",
         "http_protocol": "http协议",

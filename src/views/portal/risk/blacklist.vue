@@ -122,7 +122,7 @@
                                     </el-form>
                                 </div>
                             </el-card>
-                            <el-form v-if="formByTradeId.email" :model="formByTradeId" label-width="90px"
+                            <el-form v-if="formByTradeId.email" :model="formByTradeId" label-width="110px"
                                      class="pr-4 clear-mb-form">
                                 <el-form-item :label="$t('risk.email')">
                                     <el-input v-model="formByTradeId.email" :disabled="true"></el-input>
@@ -156,7 +156,7 @@
                             </el-card>
                             <el-form ref="by_data_form"
                                      :model="formByData"
-                                     :rules="rules" label-width="90px" class="pr-4 clear-mb-form">
+                                     :rules="rules" label-width="110px" class="pr-4 clear-mb-form">
                                 <el-form-item :label="$t('risk.email')">
                                     <el-input v-model="formByData.email"></el-input>
                                 </el-form-item>

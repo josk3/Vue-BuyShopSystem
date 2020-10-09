@@ -3,7 +3,7 @@
         <div class="wrap-tab p-0">
             <el-card class="box-card" shadow="hover" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
-                    <strong>{{$t('user.role_name')}}</strong>
+                    <strong>{{$t('user.user_role')}}</strong>
                     <el-button style="float: right; padding: 3px 0" type="text" @click="addRoleBtn">{{$t('user.add_role')}}</el-button>
                 </div>
                 <el-table
@@ -22,6 +22,7 @@
                         </template>
                     </el-table-column>
                     <el-table-column type="expand" prop="role_menu"
+                                     width="100px"
                                      min-width="100px"
                                      :label="$t('user.role_menu')">
                         <template slot-scope="props">
@@ -37,7 +38,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="status"
-                            :show-overflow-tooltip="true"
+                            width="80px"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
                             {{scope.row.status | numberStatus }}
@@ -109,7 +110,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="role_name"
-                            :label="$t('user.role_name')">
+                            :label="$t('user.user_role')">
                     </el-table-column>
                     <el-table-column
                             prop="phone"
@@ -176,7 +177,7 @@
             <div>
                 <el-form ref="add_role"
                          :model="add_role"
-                         :rules="rules" label-width="80px" class="p-1 pt-3 pb-0">
+                         :rules="rules" label-width="100px" class="p-1 pt-3 pb-0">
                     <el-form-item :label="$t('user.role_name')" prop="role_name">
                         <el-input v-model="add_role.role_name"></el-input>
                     </el-form-item>
@@ -215,16 +216,16 @@
             <div>
                 <el-form ref="add_user"
                          :model="add_user"
-                         :rules="rules" label-width="80px">
+                         :rules="rules" label-width="100px">
                     <el-form-item :label="$t('user.username')" prop="username">
                         <el-input v-model="add_user.username" :disabled="add_user.action === 'edit'"></el-input>
                     </el-form-item>
                     <el-form-item :label="$t('comm.email')" prop="email">
                         <el-input v-model="add_user.email" :disabled="add_user.action === 'edit'"></el-input>
-                        <p v-show="add_user.action === 'add'" class="text-muted p-0 m-0">*密码将发送至该邮箱</p>
+                        <p v-show="add_user.action === 'add'" class="text-muted p-0 m-0">*{{$t('account.pwd_will_send_this_email')}}</p>
                     </el-form-item>
-                    <el-form-item :label="$t('user.role_name')" prop="role_uid">
-                        <el-select v-model="add_user.role_uid" placeholder="请选择用户组"
+                    <el-form-item :label="$t('user.user_role')" prop="role_uid">
+                        <el-select v-model="add_user.role_uid" :placeholder="$t('user.user_role')"
                                    filterable>
                             <el-option
                                     v-for="item in role_list"
@@ -294,20 +295,20 @@
 
                 rules: {
                     role_name: [
-                        {required: true, message: '请输入名称', trigger: 'blur'},
+                        {required: true, message: this.validMsg('user.role_name'), trigger: 'blur'},
                     ],
                     role_perm: [
-                        {type: 'array', required: true, message: '请至少选择一个权限', trigger: 'blur'}
+                        {type: 'array', required: true, message: this.validMsg('user.role_name'), trigger: 'blur'}
                     ],
                     role_uid: [
-                        {required: true, message: '请选择用户组', trigger: 'blur'},
+                        {required: true, message: this.validMsg('user.user_role'), trigger: 'blur'},
                     ],
                     username: [
                         {required: true, message: this.validMsg('user.username'), trigger: 'blur'},
                         {min: 5, max: 20, message: this.$i18n.t('valid.bad.length_4_20'), trigger: 'blur'},
                     ],
                     email: [
-                        {required: true, message: '请输入邮箱', trigger: 'blur'},
+                        {required: true, message: this.validMsg('user.email'), trigger: 'blur'},
                     ],
                 },
 

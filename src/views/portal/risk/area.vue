@@ -8,7 +8,7 @@
                         <div class="col-12 text-left p-0" style="background-color: #F5F7FA">
                             <div class="ml-5 mt-1 mb-1">
                                 <el-button icon="el-icon-plus" size="small"
-                                           @click="addRiskAreaDialog" plain>{{$t('riks.add_risk_area')}}
+                                           @click="addRiskAreaDialog" plain>{{$t('risk.add_risk_area')}}
                                 </el-button>
                             </div>
                         </div>
@@ -102,8 +102,8 @@
                         <el-form ref="risk_area_form"
                                  :model="risk_area_form"
                                  :rules="rules" label-width="90px" class="pr-4">
-                            <el-form-item :label="$t('comm.country')" prop="select_country">
-                                <el-select v-model="risk_area_form.select_country" :placeholder="$t('comm.country')"
+                            <el-form-item :label="$t('comm.country_name')" prop="select_country">
+                                <el-select v-model="risk_area_form.select_country" :placeholder="$t('comm.country_name')"
                                            value-key="iso2"
                                            @change="selectCountry" filterable clearable>
                                     <el-option
@@ -179,7 +179,7 @@
                 area_states_list: {},//对应国家所有洲省数据
                 rules: {
                     select_country: [
-                        {required: true, message: this.validMsg('comm.country'), trigger: 'blur'},
+                        {required: true, message: this.validMsg('comm.country_name'), trigger: 'blur'},
                     ],
                 },
                 searchParams: {

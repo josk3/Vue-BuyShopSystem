@@ -18,7 +18,7 @@
                     <span>{{$t('account.notice_setup')}}</span>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div :class="lang === 'zh' ? 'col-4' : 'col-6'">
                         <div class="info-control-list">
                             <div class="row">
                                 <label class="col-sm-9">{{$t('account.notice_paid_to_customer')}}</label>
@@ -64,6 +64,7 @@
         components: {},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
+                lang: state => state.app.lang,//多语言
                 menus: state => state.user.menus,
             }),
             configs() {

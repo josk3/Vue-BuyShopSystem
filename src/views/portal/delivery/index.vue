@@ -111,7 +111,8 @@
                 <div>
                     <el-form ref="track_form"
                              :model="track_form"
-                             :rules="rules" label-width="80px">
+                             :rules="rules"
+                             :label-width="lang === 'zh' ? '80px' : '130px'">
                         <el-form-item :label="$t('comm.trade_id')">
                             <el-input :value="track_form.trade_id" :disabled="true"></el-input>
                         </el-form-item>
@@ -161,7 +162,7 @@
                                     :on-remove="removeTrackExcelFile"
                                     :auto-upload="false">
                                 <i class="el-icon-upload"></i>
-                                <div class="el-upload__text">{{$t('comm.upload_file_drag_click[0]')}}<em>{{$t('comm.upload_file_drag_click[1]')}}</em>
+                                <div class="el-upload__text">{{$t('comm.upload_file_drag_click[0]')}} <em>{{$t('comm.upload_file_drag_click[1]')}}</em>
                                 </div>
                                 <div class="el-upload__tip" slot="tip">{{$t('shipment.upload_excel_max_500')}}</div>
                             </el-upload>
@@ -184,11 +185,15 @@
     import Pagination from "@/components/Pagination";
     import {deliveryAdd, deliveryDownload, deliverySearch, deliveryUpload, getTrackBrands} from "@/service/deliverySer";
     import {isEmpty} from "@/utils/validate";
+    import {mapState} from "vuex";
 
     export default {
         name: "delivery",
         components: {SearchBox, Pagination},
         computed: { //watch跟踪数据变化, 重点user, configs
+            ...mapState({
+                lang: state => state.app.lang,//多语言
+            }),
             configs() {
                 return configs;
             },
@@ -201,10 +206,10 @@
                 track_brand_all: [],
                 rules: {
                     track_number: [
-                        {required: true, message: '请输入物流单号', trigger: 'blur'},
+                        {required: true, message: this.validMsg('shipment.track_number'), trigger: 'blur'},
                     ],
                     track_brand: [
-                        {required: true, message: '请选择物流公司', trigger: 'blur'},
+                        {required: true, message: this.validMsg('shipment.track_brand'), trigger: 'blur'},
                     ],
                 },
                 searchParams: {
@@ -222,6 +227,9 @@
             this.search();
         },
         methods: {
+            validMsg(name) {
+                return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
+            },
             closeUploadExcelDialog() {
                 this.trackExcelFile = null
                 this.trackExcelUploadEnable = true

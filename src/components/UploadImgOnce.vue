@@ -14,7 +14,7 @@
                     :on-remove="removeImgFile"
                     :auto-upload="false">
                 <i class="el-icon-upload"></i>
-                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__text">{{$t('comm.upload_file_drag_click[0]')}} <em> {{$t('comm.upload_file_drag_click[1]')}}</em></div>
                 <div class="el-upload__tip" slot="tip">{{ txt }}</div>
             </el-upload>
         </div>

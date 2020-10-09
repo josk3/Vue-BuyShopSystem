@@ -29,7 +29,7 @@
                         style="width: 100%">
                     <el-table-column
                             prop="url_protocol"
-                            width="60px"
+                            width="80px"
                             :label="$t('shop.protocol')">
                     </el-table-column>
                     <el-table-column
@@ -38,6 +38,8 @@
                     </el-table-column>
                     <el-table-column
                             prop="site_system"
+                            width="90px"
+                            :show-overflow-tooltip="true"
                             :label="$t('shop.site_system')">
                     </el-table-column>
                     <el-table-column
@@ -47,7 +49,6 @@
                     </el-table-column>
                     <el-table-column
                             prop="status"
-                            :show-overflow-tooltip="true"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
                             <span v-if="scope.row.status === 3">
@@ -71,7 +72,8 @@
                     </el-table-column>
                     <el-table-column
                             prop="is_virtual"
-                            :label="$t('shop.is_virtual')">
+                            width="80px"
+                            :label="$t('shop.is_a_virtual')">
                         <template v-slot="scope">
                             {{scope.row.is_virtual | yesOrNo }}
                         </template>
@@ -118,12 +120,12 @@
             <div>
                 <el-form ref="add_shop"
                          :model="add_shop"
-                         :rules="rules" label-width="100px" class="p-1 pt-3 pb-0">
+                         :rules="rules" label-width="110px" class="p-1 pt-3 pb-0">
                     <el-form-item prop="site_url">
                         <template slot="label">
                             <el-popover
                                     placement="top-start"
-                                    width="240"
+                                    width="260"
                                     trigger="hover"
                                     :content="$t('shop.choose_http_or_https')">
                                 <span slot="reference">{{ $t('shop.site_url') }}
@@ -158,7 +160,7 @@
                         <template slot="label">
                             <el-popover
                                     placement="top-start"
-                                    width="240"
+                                    width="260"
                                     trigger="hover"
                                     :content="$t('shop.callback_url_info')">
                                 <span slot="reference">{{ $t('shop.return_url') }}
@@ -389,5 +391,9 @@
 
     .input-with-select .el-input-group__prepend {
         background-color: #fff;
+    }
+
+    .el-popover--plain {
+        word-break: keep-all;
     }
 </style>

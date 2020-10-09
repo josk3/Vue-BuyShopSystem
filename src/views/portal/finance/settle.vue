@@ -56,6 +56,7 @@
                         </el-table-column>
                         <el-table-column
                                 prop="fee_amount"
+                                width="60px"
                                 :label="$t('comm.fees')">
                             <template v-slot="scope">
                                 {{scope.row.fee_amount}}
