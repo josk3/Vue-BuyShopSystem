@@ -53,7 +53,7 @@
             <el-table-column
                     prop="fees"
                     width="70px"
-                    label="手续费">
+                    :label="$t('finance.fees')">
                 <template v-slot="scope">
                     {{scope.row.fees | nullToLine}}
                 </template>
@@ -61,7 +61,7 @@
             <el-table-column
                     prop="fixed_fees"
                     width="70px"
-                    label="处理费">
+                    :label="$t('finance.fixed_fees')">
                 <template v-slot="scope">
                     {{scope.row.fixed_fees | nullToLine}}
                 </template>
@@ -74,8 +74,8 @@
                             placement="top-start"
                             width="200"
                             trigger="hover"
-                            content="包含了手续费">
-                        <span slot="reference">余额变动 <i class="el-icon-warning-outline"></i></span>
+                            :content="$t('finance.include_fees')">
+                        <span slot="reference">{{$t('finance.balance_charge')}} <i class="el-icon-warning-outline"></i></span>
                     </el-popover>
                 </template>
                 <template v-slot="scope">
@@ -86,7 +86,7 @@
             </el-table-column>
             <el-table-column
                     prop="deposit_charge"
-                    label="保证金变动">
+                    :label="$t('finance.deposit_charge')">
                 <template v-slot="scope">
                             <span :class="scope.row.deposit_charge === 0 ? '' : (scope.row.deposit_charge > 0 ? 'c-income' : 'c-outlay')">
                                 {{scope.row.deposit_charge | chargeAmount}}
@@ -95,14 +95,14 @@
             </el-table-column>
             <el-table-column
                     prop="surplus"
-                    label="余额">
+                    :label="$t('comm.balance')">
                 <template v-slot="scope">
                     {{scope.row.surplus}}
                 </template>
             </el-table-column>
             <el-table-column
                     prop="deposit_surplus"
-                    label="保证金余额">
+                    :label="$t('finance.deposit_balance')">
                 <template v-slot="scope">
                     {{scope.row.deposit_surplus}}
                 </template>

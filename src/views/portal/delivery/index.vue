@@ -12,7 +12,7 @@
                         <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                             <div class="mr-5 mt-1 mb-1">
                                 <el-button icon="el-icon-upload2" size="mini" class="mr-3"
-                                           @click="uploadTrackDialogVisible = true" plain>批量上传
+                                           @click="uploadTrackDialogVisible = true" plain>{{$t('comm.batch_upload')}}
                                 </el-button>
                                 <el-button icon="el-icon-download" size="mini"
                                            @click="downDelivery" plain>{{ $t('comm.download') }}
@@ -58,14 +58,14 @@
                         <el-table-column
                                 prop="track_number"
                                 :show-overflow-tooltip="true"
-                                label="物流单号">
+                                :label="$t('comm.track_number')">
                             <template v-slot="scope">
                                 <div v-if="scope.row.track_number">
                                     {{scope.row.track_number }}
                                 </div>
                                 <div v-else>
                                     <el-button type="text" @click="addTrackDialog(scope.$index, scope.row)">
-                                        添加物流
+                                        {{$t('shipment.add_shop')}}
                                     </el-button>
                                 </div>
                             </template>
@@ -80,13 +80,13 @@
                                         <el-dropdown-item v-if="scope.row.track_number">
                                             <el-button type="text"
                                                        @click="editTrackDialog(scope.$index, scope.row)">
-                                                修改 {{scope.row.track_number}}
+                                                {{$t('comm.update')}} {{scope.row.track_number}}
                                             </el-button>
                                         </el-dropdown-item>
                                         <el-dropdown-item v-if="!scope.row.track_number">
                                             <el-button type="text"
                                                        @click="addTrackDialog(scope.$index, scope.row)">
-                                                添加物流
+                                                {{$t('shipment.add_shop')}}
                                             </el-button>
                                         </el-dropdown-item>
                                     </el-dropdown-menu>
@@ -105,43 +105,43 @@
             </div>
             <el-dialog custom-class="wpy-dialog sm-dialog"
                        :show-close="false" :close-on-click-modal="false"
-                       title="上传物流单号"
+                       :title="$t('shipment.add_track_info')"
                        @close="closeDialog"
                        :visible.sync="trackNumberDialogVisible">
                 <div>
                     <el-form ref="track_form"
                              :model="track_form"
                              :rules="rules" label-width="80px">
-                        <el-form-item label="流水号">
+                        <el-form-item :label="$t('comm.trade_id')">
                             <el-input :value="track_form.trade_id" :disabled="true"></el-input>
                         </el-form-item>
-                        <el-form-item label="物流公司" prop="track_brand">
-                            <el-select v-model="track_form.track_brand" placeholder="请选择物流公司" filterable>
+                        <el-form-item :label="$t('shipment.track_brand')" prop="track_brand">
+                            <el-select v-model="track_form.track_brand" ：placeholder="$t('shipment.track_brand')" filterable>
                                 <el-option v-for="brand in track_brand_all" :key="brand.value"
                                            :label="brand.text" :value="brand.value"></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="物流单号" prop="track_number">
+                        <el-form-item :label="$t('shipment.track_number')" prop="track_number">
                             <el-input v-model="track_form.track_number"></el-input>
                         </el-form-item>
                     </el-form>
                 </div>
                 <div slot="footer" class="dialog-footer" v-loading="loading">
-                    <el-button size="mini" @click="closeDialog">取消</el-button>
-                    <el-button size="mini" type="primary" @click="submitTrackNumber">提交</el-button>
+                    <el-button size="mini" @click="closeDialog">{{$t('comm.cancel')}}</el-button>
+                    <el-button size="mini" type="primary" @click="submitTrackNumber">{{$t('comm.submit')}}</el-button>
                 </div>
             </el-dialog>
 
             <el-dialog custom-class="wpy-dialog sm-dialog bg-body"
                        :show-close="false" :close-on-click-modal="false"
-                       title="批量上传物流信息"
+                       :title="$t('shipment.batch_upload_track_info')"
                        @close="closeUploadExcelDialog"
                        :visible.sync="uploadTrackDialogVisible">
                 <div>
                     <el-card shadow="hover" class="box-card p-3 mb-3"
                              :body-style="{ padding: '0px' }">
                         <div class="text-muted p-0">
-                            <i class="el-icon-info text-blue"></i> 上传相对应的Excel表格文件
+                            <i class="el-icon-info text-blue"></i> {{$t('shipment.upload_excel_file_info')}}
                         </div>
                     </el-card>
                     <div class="text-center">
@@ -160,16 +160,16 @@
                                     :on-remove="removeTrackExcelFile"
                                     :auto-upload="false">
                                 <i class="el-icon-upload"></i>
-                                <div class="el-upload__text" >将文件拖到此处，或<em>点击上传</em></div>
-                                <div class="el-upload__tip" slot="tip">上传Excel表格文件，且一次不超过500行记录</div>
+                                <div class="el-upload__text" >{{$t('comm.upload_file_drag_click[0]')}}<em>{{$t('comm.upload_file_drag_click[1]')}}</em></div>
+                                <div class="el-upload__tip" slot="tip">{{$t('shipment.upload_excel_max_500')}}</div>
                             </el-upload>
                         </el-form>
                         <el-progress v-if="percentage >= 0" :percentage="percentage" status="success"></el-progress>
                     </div>
                 </div>
                 <div slot="footer" class="dialog-footer" v-loading="loading">
-                    <el-button size="mini" @click="closeUploadExcelDialog">取消</el-button>
-                    <el-button size="mini" type="primary" @click="uploadTrackFile">上传</el-button>
+                    <el-button size="mini" @click="closeUploadExcelDialog">{{$t('comm.cancel')}}</el-button>
+                    <el-button size="mini" type="primary" @click="uploadTrackFile">{{$t('comm.upload')}}</el-button>
                 </div>
             </el-dialog>
         </div>

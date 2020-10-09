@@ -7,12 +7,12 @@
                     <div class="col-8 pr-0">
                         <el-tabs v-model="paneName" type="border-card"
                                  @tab-click="paneClick">
-                            <el-tab-pane label="余额" name="all"></el-tab-pane>
-                            <el-tab-pane label="收款" name="sale"></el-tab-pane>
-                            <el-tab-pane label="结算" name="settle"></el-tab-pane>
-                            <el-tab-pane label="退款" name="refund"></el-tab-pane>
-                            <el-tab-pane label="拒付" name="chargeback"></el-tab-pane>
-                            <el-tab-pane label="保证金返还" name="depositSettle"></el-tab-pane>
+                            <el-tab-pane :label="$t('comm.balance')" name="all"></el-tab-pane>
+                            <el-tab-pane :label="$t('kind.sale')" name="sale"></el-tab-pane>
+                            <el-tab-pane :label="$t('kind.settle')" name="settle"></el-tab-pane>
+                            <el-tab-pane :label="$t('kind.refund')" name="refund"></el-tab-pane>
+                            <el-tab-pane :label="$t('kind.chargeback')" name="chargeback"></el-tab-pane>
+                            <el-tab-pane :label="$t('kind.deposit')" name="depositSettle"></el-tab-pane>
                         </el-tabs>
                     </div>
                     <div class="col-4 text-right p-0" style="background-color: #F5F7FA">

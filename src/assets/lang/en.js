@@ -40,6 +40,9 @@ module.exports = {
         "submit": "Submit",
         "type": "Type",
         "view_detail": "View Detail",
+        "batch_upload": "Batch upload",
+        "update": "Update",
+        "upload": "Upload",
 
         //
         "trade_id": "Trade ID",
@@ -87,6 +90,7 @@ module.exports = {
         "reason": "Reason",
         "save": "Save",
         "test": "Test",
+        "upload_file_drag_click": ["Drag files here，or", "chick upload"],
 
     },
     "nav": {
@@ -286,14 +290,30 @@ module.exports = {
         "payment_paid": "Order payment success",
         "payment_canceled": "Order payment cancelled",
         "smart_router": "Smart channel router",
-        "sys_remark": "Sys add remark",
         "merchant_remark": "Merchant add remark",
-        "sys_label": "Sys add label",
         "mark_risk": "Mark risk order",
-        "shipment_info": "Shipment Info",
+        "shipment_info": "Track number",
         "refund": "Refund",
         "settle": "Settlement",
         "chargeback": "Chargeback",
+    },
+    "shipment":{
+        "add_ship": "Add track",
+        "add_track_info": "Add track number",
+        "track_brand": "Track company",
+        "track_number": "Track number",
+        "batch_upload_track_info": "Batch upload track data",
+        "upload_excel_file_info": "Upload excel file",
+        "upload_excel_max_500": "Excel file no more than 500 records at a time",
+    },
+    "finance": {
+        "fees":"Fee",
+        "fixed_fees":"Processing fees",
+        "balance_charge":"Charge",
+        "include_fees":"Include fees",
+        "deposit_charge":"Deposit charge",
+        "deposit_balance": "Deposit balance",
+
     },
     "order":{
         "trade_id_and_order_no": "TradeId/OrderNo",

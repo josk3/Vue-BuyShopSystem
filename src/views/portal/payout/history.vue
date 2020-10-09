@@ -48,7 +48,7 @@
                     <el-table-column
                             prop="declined"
                             :show-overflow-tooltip="true"
-                            label="拒付">
+                            :label="$t('kind.chargeback')">
                         <template v-slot="scope">
                             {{scope.row.declined | declinedStatus }}
                         </template>
@@ -64,7 +64,7 @@
                     <el-table-column
                             prop="track_number"
                             :show-overflow-tooltip="true"
-                            label="物流单号">
+                            :label="$t('comm.track_number')">
                         <template v-slot="scope">
                             {{scope.row.track_number }}
                         </template>
@@ -72,7 +72,7 @@
                     <el-table-column
                             prop="shipment_reason"
                             :show-overflow-tooltip="true"
-                            label="备注">
+                            :label="$t('comm.remark')">
                         <template v-slot="scope">
                             {{scope.row.shipment_reason}}
                         </template>
