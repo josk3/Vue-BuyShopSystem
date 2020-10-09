@@ -34,7 +34,7 @@
                         <el-table-column
                                 prop="kind"
                                 :show-overflow-tooltip="true"
-                                label="类型">
+                                :label="$t('comm.type')">
                             <template v-slot="scope">
                                 {{scope.row.kind | payoutKind }}
                             </template>
@@ -42,35 +42,35 @@
                         <el-table-column
                                 prop="created"
                                 :show-overflow-tooltip="true"
-                                label="生成时间">
+                                :label="$t('settle.create_time')">
                             <template v-slot="scope">
                                 {{scope.row.created | toDay }}
                             </template>
                         </el-table-column>
                         <el-table-column
                                 prop="currency"
-                                label="币种">
+                                :label="$t('comm.currency')">
                             <template v-slot="scope">
                                 {{scope.row.currency}}
                             </template>
                         </el-table-column>
                         <el-table-column
                                 prop="fee_amount"
-                                label="手续费">
+                                :label="$t('comm.fees')">
                             <template v-slot="scope">
                                 {{scope.row.fee_amount}}
                             </template>
                         </el-table-column>
                         <el-table-column
                                 prop="net_amount"
-                                label="净结算">
+                                :label="$t('settle.net_amount')">
                             <template v-slot="scope">
                                 {{scope.row.net_amount}}
                             </template>
                         </el-table-column>
                         <el-table-column
                                 prop="status"
-                                label="状态">
+                                :label="$t('comm.status')">
                             <template v-slot="scope">
                                 {{scope.row.status | payoutStatus }}
                             </template>
@@ -78,7 +78,7 @@
                         <el-table-column
                                 prop="payout_time"
                                 :show-overflow-tooltip="true"
-                                label="划款时间">
+                                :label="$t('settle.settle_time')">
                             <template v-slot="scope">
                                 {{scope.row.payout_time | toDay }}
                             </template>
@@ -90,7 +90,7 @@
             </div>
             <el-dialog custom-class="wpy-dialog" @open="getPayoutSummary"
                        :close-on-click-modal="false"
-                       title="结算摘要"
+                       :title="$t('settle.settle_summary')"
                        top="3vh"
                        :visible.sync="payoutSummaryDialog">
                 <div v-loading="loading">
@@ -106,24 +106,24 @@
                                 {{scope.row.kind | payoutKind }}
                             </template>
                         </el-table-column>
-                        <el-table-column property="currency" label="币种"></el-table-column>
-                        <el-table-column property="order_settle" label="交易"></el-table-column>
-                        <el-table-column property="fees" label="手续费"></el-table-column>
-                        <el-table-column property="fixed_fees" label="处理费"></el-table-column>
+                        <el-table-column property="currency" :label="$t('comm.currency')"></el-table-column>
+                        <el-table-column property="order_settle" :label="$t('settle.order_settle')"></el-table-column>
+                        <el-table-column property="fees" :label="$t('comm.fees')"></el-table-column>
+                        <el-table-column property="fixed_fees" :label="$t('comm.processing_fees')"></el-table-column>
                         <el-table-column property="deposit_charge" label="保证金"></el-table-column>
                         <el-table-column property="charge" label="小计"></el-table-column>
                     </el-table>
                     <div class="row" v-if="summaryData.payout">
                         <div class="col-4"></div>
                         <div class="col-8 text-right pr-4">
-                            <p class="p-0">划款手续费: {{summaryData.payout.fees}}</p>
-                            <p class="p-0">总计: <strong>{{summaryData.payout.total}}</strong></p>
+                            <p class="p-0">{{$t('settle.payout_fees')}}: {{summaryData.payout.fees}}</p>
+                            <p class="p-0">{{$t('settle.payout_total')}}: <strong>{{summaryData.payout.total}}</strong></p>
                         </div>
                     </div>
                 </div>
                 <div slot="footer" class="dialog-footer">
-                    <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">批次详情</el-button>
-                    <el-button type="primary" @click="payoutSummaryDialog = false">确 定</el-button>
+                    <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">{{$t('settle.batch_id_detail')}}</el-button>
+                    <el-button type="primary" @click="payoutSummaryDialog = false">{{$t('settle.sure')}}</el-button>
                 </div>
             </el-dialog>
         </div>

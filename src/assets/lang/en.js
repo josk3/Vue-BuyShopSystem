@@ -66,6 +66,8 @@ module.exports = {
         "settle_amount": "Settle Amount",
         "month_two_timer": "Twice a month",
         "month_four_timer": "Four times a month",
+        "fees": "Fee",
+        "processing_fees": "Processing fees",
 
         "trade_balance": "Order Income Balance",
         "deposit_balance": "Deposit Balance",
@@ -280,6 +282,13 @@ module.exports = {
         "full_name": "Full Name",
         "phone": "Phone",
         "card_no": "Card Number",
+        "add_blacklist": "Add blacklist",
+        "add_black_by_trade_id": "Blacklist for trade id",
+        "add_black_by_data": "Blacklist for customer data",
+        "support_input_one_or_more": "Support to fill in one or more",
+        "state_name": "State",
+        "add_risk_area": "Add risk area",
+        "risk_area_order_will_block": "Set the risk area transactions will be blocked",
     },
     "timeline": {
         "order_canceled": "Order cancel",
@@ -297,7 +306,7 @@ module.exports = {
         "settle": "Settlement",
         "chargeback": "Chargeback",
     },
-    "shipment":{
+    "shipment": {
         "add_ship": "Add track",
         "add_track_info": "Add track number",
         "track_brand": "Track company",
@@ -307,15 +316,26 @@ module.exports = {
         "upload_excel_max_500": "Excel file no more than 500 records at a time",
     },
     "finance": {
-        "fees":"Fee",
-        "fixed_fees":"Processing fees",
-        "balance_charge":"Charge",
-        "include_fees":"Include fees",
-        "deposit_charge":"Deposit charge",
+        "fees": "Fee",
+        "fixed_fees": "Processing fees",
+        "balance_charge": "Charge",
+        "include_fees": "Include fees",
+        "deposit_charge": "Deposit charge",
         "deposit_balance": "Deposit balance",
 
     },
-    "order":{
+    "settle": {
+        "create_time": "Create time",
+        "net_amount": "Net amount",
+        "settle_time": "Settlement time",
+        "settle_summary": "Settle summary",
+        "order_settle": "Transaction",
+        "payout_fees": "Payout fee",
+        "payout_total": "Payout total",
+        "batch_id_detail": "Payout detail",
+        "sure": "OK",
+    },
+    "order": {
         "trade_id_and_order_no": "TradeId/OrderNo",
         "card_and_email": "Card/Email",
         "order_amount_settle_amount": "Order/Settle Amount",

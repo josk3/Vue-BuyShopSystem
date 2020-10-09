@@ -79,7 +79,7 @@
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer" v-loading="loading">
-                    <el-button size="mini" @click="closeDialog()">取消</el-button>
+                    <el-button size="mini" @click="closeDialog()">{{$t('comm.cancel')}}</el-button>
                     <el-button size="mini" type="primary" @click="submitForm('disputeSubmitParams')">提交</el-button>
                 </div>
             </el-dialog>

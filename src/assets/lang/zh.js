@@ -66,6 +66,8 @@ module.exports = {
         "settle_amount": "结算金额",
         "month_two_timer": "一个月两次",
         "month_four_timer": "一个月四次",
+        "fees": "手续费",
+        "processing_fees": "处理费",
 
         "trade_balance": "交易款",
         "deposit_balance": "保证金",
@@ -272,13 +274,20 @@ module.exports = {
         "chargeback": "拒付",
     },
     "risk": {
-        "fingerprint": "卡指纹",
+        "fingerprint": "卡ID",
         "email": "邮箱",
         "ip": "Ip",
         "address": "地址",
         "full_name": "姓名全名",
         "phone": "电话",
         "card_no": "卡号",
+        "add_blacklist": "增加黑名单",
+        "add_black_by_trade_id": "根据某个流水号",
+        "add_black_by_data": "自定义增加",
+        "support_input_one_or_more": "支持填写一个或多个",
+        "state_name": "洲、省",
+        "add_risk_area": "添加风险地区",
+        "risk_area_order_will_block": "设置风险地区的交易将被拦截",
     },
     "timeline": {
         "order_canceled": "订单取消",
@@ -295,7 +304,7 @@ module.exports = {
         "settle": "结算",
         "chargeback": "拒付",
     },
-    "shipment":{
+    "shipment": {
         "add_ship": "添加物流",
         "add_track_info": "上传物流单号",
         "track_brand": "物流公司",
@@ -305,15 +314,26 @@ module.exports = {
         "upload_excel_max_500": "上传Excel表格文件，且一次不超过500行记录",
     },
     "finance": {
-        "fees":"手续费",
-        "fixed_fees":"处理费",
-        "balance_charge":"余额变动",
-        "include_fees":"包含了手续费",
-        "deposit_charge":"保证金变动",
+        "fees": "手续费",
+        "fixed_fees": "处理费",
+        "balance_charge": "余额变动",
+        "include_fees": "包含了手续费",
+        "deposit_charge": "保证金变动",
         "deposit_balance": "保证金余额",
 
     },
-    "order":{
+    "settle": {
+        "create_time": "生成时间",
+        "net_amount": "净结算",
+        "settle_time": "划款时间",
+        "settle_summary": "结算摘要",
+        "order_settle": "交易",
+        "payout_fees": "划款手续费",
+        "payout_total": "总计",
+        "batch_id_detail": "批次详情",
+        "sure": "确 定",
+    },
+    "order": {
         "trade_id_and_order_no": "流水号/订单号",
         "card_and_email": "卡号/邮箱",
         "order_amount_settle_amount": "订单/结算金额",

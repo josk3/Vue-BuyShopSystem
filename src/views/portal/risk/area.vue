@@ -8,7 +8,7 @@
                         <div class="col-12 text-left p-0" style="background-color: #F5F7FA">
                             <div class="ml-5 mt-1 mb-1">
                                 <el-button icon="el-icon-plus" size="small"
-                                           @click="addRiskAreaDialog" plain>增加风险地区
+                                           @click="addRiskAreaDialog" plain>{{$t('riks.add_risk_area')}}
                                 </el-button>
                             </div>
                         </div>
@@ -20,21 +20,21 @@
                             style="width: 100%">
                         <el-table-column
                                 prop="country_name"
-                                label="国家">
+                                :label="$t('comm.country_name')">
                             <template v-slot="scope">
                                 {{scope.row.country_name }}
                             </template>
                         </el-table-column>
                         <el-table-column
                                 prop="state_name"
-                                label="洲、省">
+                                :label="$t('risk.state_name')">
                             <template v-slot="scope">
                                 {{scope.row.state_name }}
                             </template>
                         </el-table-column>
                         <el-table-column
                                 prop="status"
-                                label="状态">
+                                :label="$t('comm.status')">
                             <template v-slot="scope">
                                 {{scope.row.status | numberStatus}}
                             </template>
@@ -48,7 +48,7 @@
                         </el-table-column>
                         <el-table-column
                                 prop="updated"
-                                label="时间">
+                                :label="$t('comm.created')">
                             <template v-slot="scope">
                                 {{scope.row.updated | toDay}}
                             </template>
@@ -56,7 +56,7 @@
                         <el-table-column
                                 prop="remark"
                                 :show-overflow-tooltip="true"
-                                label="备注">
+                                :label="$t('comm.remark')">
                             <template v-slot="scope">
                                 {{scope.row.remark }}
                             </template>
@@ -70,15 +70,15 @@
                                     <el-dropdown-menu slot="dropdown">
                                         <el-dropdown-item v-if="scope.row.status === 1" icon="el-icon-turn-off"
                                                           :command="commandVal('disable', scope.row, scope.$index)">
-                                            禁用
+                                            {{$t('comm.disable')}}
                                         </el-dropdown-item>
                                         <el-dropdown-item v-if="scope.row.status === 0" icon="el-icon-open"
                                                           :command="commandVal('enable', scope.row, scope.$index)">
-                                            启用
+                                            {{$t('comm.enable')}}
                                         </el-dropdown-item>
                                         <el-dropdown-item icon="el-icon-delete" divided
                                                           :command="commandVal('delete', scope.row, scope.$index)">
-                                            删除
+                                            {{$t('comm.del')}}
                                         </el-dropdown-item>
                                     </el-dropdown-menu>
                                 </el-dropdown>
@@ -90,20 +90,20 @@
                 <!--        ||        -->
                 <el-dialog custom-class="wpy-dialog sm-dialog bg-body"
                            :show-close="false" :close-on-click-modal="false"
-                           title="添加风险地区"
+                           :title="$t('risk.add_risk_area')"
                            :visible.sync="riskAreaDialogVisible">
                     <div>
                         <el-card shadow="hover" class="box-card p-3 mb-3"
                                  :body-style="{ padding: '0px' }">
                             <div class="text-muted p-0">
-                                <i class="el-icon-info text-blue"></i> 设置风险地区的交易将被拦截
+                                <i class="el-icon-info text-blue"></i> {{$t('risk.risk_area_order_will_block')}}
                             </div>
                         </el-card>
                         <el-form ref="risk_area_form"
                                  :model="risk_area_form"
                                  :rules="rules" label-width="90px" class="pr-4">
-                            <el-form-item label="国家" prop="select_country">
-                                <el-select v-model="risk_area_form.select_country" placeholder="请选择国家"
+                            <el-form-item :label="$t('comm.country')" prop="select_country">
+                                <el-select v-model="risk_area_form.select_country" :placeholder="$t('comm.country')"
                                            value-key="iso2"
                                            @change="selectCountry" filterable clearable>
                                     <el-option
@@ -116,8 +116,8 @@
                                     </el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="洲、省" prop="select_state">
-                                <el-select v-if="area_states_list" v-model="select_state" placeholder="请选择洲省"
+                            <el-form-item :label="$t('risk.state_name')" prop="select_state">
+                                <el-select v-if="area_states_list" v-model="select_state" :placeholder="$t('risk.state_name')"
                                            :validate-event="false"
                                            value-key="id"
                                            @change="selectState" filterable clearable>
@@ -131,14 +131,14 @@
                                     </el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="备注说明">
+                            <el-form-item :label="$t('comm.remark')">
                                 <el-input type="textarea" v-model="risk_area_form.remark"></el-input>
                             </el-form-item>
                         </el-form>
                     </div>
                     <div slot="footer" class="dialog-footer" v-loading="loading">
-                        <el-button size="mini" @click="riskAreaDialogVisible = false">取消</el-button>
-                        <el-button size="mini" type="primary" @click="submitRiskArea">提交</el-button>
+                        <el-button size="mini" @click="riskAreaDialogVisible = false">{{$t('comm.cancel')}}</el-button>
+                        <el-button size="mini" type="primary" @click="submitRiskArea">{{$t('comm.submit')}}</el-button>
                     </div>
                 </el-dialog>
 
@@ -179,7 +179,7 @@
                 area_states_list: {},//对应国家所有洲省数据
                 rules: {
                     select_country: [
-                        {required: true, message: '请选择国家', trigger: 'blur'},
+                        {required: true, message: this.validMsg('comm.country'), trigger: 'blur'},
                     ],
                 },
                 searchParams: {
@@ -193,6 +193,9 @@
             this.search();
         },
         methods: {
+            validMsg(name) {
+                return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
+            },
             pageChange(page) {
                 this.searchParams.page = page.page_num
                 this.search()

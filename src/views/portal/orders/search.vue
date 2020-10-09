@@ -32,7 +32,10 @@
                             :show-overflow-tooltip="true"
                             :label="$t('order.card_and_email')">
                         <template v-slot="scope">
-                            {{scope.row.card.card64 }}<br/>
+                            <span v-if="scope.row.card">
+                                •••• {{scope.row.card.last4 }}<br/>
+                            </span>
+                            <span v-else> -- <br/></span>
                             {{scope.row.customer.email }}
                         </template>
                     </el-table-column>
@@ -46,8 +49,8 @@
                     <el-table-column
                             :label="$t('order.card_brand')" width="60px">
                         <template v-slot="scope">
-                            <span class="card-brand" :class="['cb-' + scope.row.card.brand]">
-                            </span>
+                            <span v-if="scope.row.card" class="card-brand" :class="['cb-' + scope.row.card.brand]"></span>
+                            <span v-else> -- </span>
                         </template>
                     </el-table-column>
                     <el-table-column

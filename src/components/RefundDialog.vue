@@ -25,7 +25,7 @@
                 </el-form>
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
-                <el-button size="mini" @click="closeDialog('refund_form')">取消</el-button>
+                <el-button size="mini" @click="closeDialog('refund_form')">{{$t('comm.cancel')}}</el-button>
                 <el-popconfirm title="确实提交退款操作" @onConfirm="submitRefund" :hideIcon="true">
                     <el-button slot="reference" size="mini" type="primary" class="ml-3" >提交退款</el-button>
                 </el-popconfirm>

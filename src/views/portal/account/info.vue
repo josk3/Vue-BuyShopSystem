@@ -230,7 +230,7 @@
                 </el-form>
             </div>
             <div slot="footer" class="dialog-footer">
-                <el-button size="mini" @click="closeBankDialog()">取消</el-button>
+                <el-button size="mini" @click="closeBankDialog()">{{$t('comm.cancel')}}</el-button>
                 <el-button size="mini" type="primary" @click="submitAddBank">确认提交</el-button>
             </div>
         </el-dialog>

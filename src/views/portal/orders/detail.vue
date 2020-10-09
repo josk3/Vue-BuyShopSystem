@@ -91,9 +91,9 @@
                                     <span class="value"><span class="card-brand"
                                                               :class="['cb-' + order.card.brand]"></span></span>
                                 </div>
-                                <div class="item"><span class="label">卡号</span><span class="value">{{ order.card.card64 }}</span>
+                                <div class="item"><span class="label">卡号</span><span class="value">•••• {{ order.card.last4 }}</span>
                                 </div>
-                                <div class="item"><span class="label">卡指纹</span>
+                                <div class="item"><span class="label">{{$t('risk.fingerprint')}}</span>
                                     <span class="value">{{ order.card.fingerprint }}</span>
                                 </div>
                                 <div class="item"><span class="label">订单时间</span><span class="value">{{ order.created_time | toFullTime }}</span>
