@@ -44,7 +44,7 @@ module.exports = {
         "update": "修改",
         "upload": "上传",
         "sure": "确定",
-        "chick_show": "点击显示",
+        "click_show": "点击显示",
 
         //
         "trade_id": "流水号",
@@ -96,6 +96,8 @@ module.exports = {
         "test": "测试",
         "upload_file_drag_click": ["将文件拖到此处，或", "点击上传"],
         "mark_all_read": "标记全部为已读",
+        "click_to_help": "点击查看帮助",
+        "track_number": "物流单号",
 
     },
     "nav": {
@@ -147,8 +149,6 @@ module.exports = {
         "404": "404",
         "401": "401",
         "terms": "条款",
-        "chick_to_help": "点击查看帮助",
-        "track_number": "物流单号",
 
     },
     "user": { //跟用户相关
@@ -389,6 +389,11 @@ module.exports = {
         "is_virtual": "虚拟产品",
         "add_site": "增加网站",
         "protocol": "协议",
+        "http_protocol": "http协议",
+        "choose_http_or_https": "请正确认真选择 http 或 https, 如果错误将影响回调",
+        "domain": "网站域名",
+        "callback_url_info": "订单状态更新的回调通知url",
+        "submit_site": "提交网址",
     },
     "bank": {
         "settle_bank": "结算银行卡",

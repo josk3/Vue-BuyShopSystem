@@ -38,19 +38,12 @@
                     </el-table-column>
                     <el-table-column
                             prop="pay_status"
+                            width="90px"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
                             <span class="pay-status" :class="['ps-' + scope.row.pay_status]">
                                 {{scope.row.pay_status | payStatus }}
                             </span>
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                            prop="declined"
-                            :show-overflow-tooltip="true"
-                            :label="$t('kind.chargeback')">
-                        <template v-slot="scope">
-                            {{scope.row.declined | declinedStatus }}
                         </template>
                     </el-table-column>
                     <el-table-column

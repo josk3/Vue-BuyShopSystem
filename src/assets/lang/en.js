@@ -44,7 +44,7 @@ module.exports = {
         "update": "Update",
         "upload": "Upload",
         "sure": "Sure",
-        "chick_show": "Show",
+        "click_show": "Show",
 
         //
         "trade_id": "Trade ID",
@@ -94,8 +94,10 @@ module.exports = {
         "reason": "Reason",
         "save": "Save",
         "test": "Test",
-        "upload_file_drag_click": ["Drag files here，or", "chick upload"],
+        "upload_file_drag_click": ["Drag files here，or", "click upload"],
         "mark_all_read": "Mark all read",
+        "click_to_help": "Click to get help",
+        "track_number": "Track Number",
 
     },
     "nav": {
@@ -147,8 +149,6 @@ module.exports = {
         "404": "404",
         "401": "401",
         "terms": "Terms",
-        "chick_to_help": "Chick to get help",
-        "track_number": "Track Number",
 
     },
     "user": { //跟用户相关
@@ -366,7 +366,7 @@ module.exports = {
     "order": {
         "trade_id_and_order_no": "TradeId/OrderNo",
         "card_and_email": "Card/Email",
-        "order_amount_settle_amount": "Order/Settle Amount",
+        "order_amount_settle_amount": "Amount",//Order/Settle Amount
         "card_brand": "Card",
         "url_and_ip": "Url/IP",
         "create_time_payment_time": "Create/Payment",
@@ -385,12 +385,17 @@ module.exports = {
         "last90Days": "Last 90 Day",
     },
     "shop": {
-        "site_url": "Website Url",
+        "site_url": "Shop Url",
         "return_url": "Callback Url",
-        "site_system": "Website System",
-        "is_virtual": "Virtual Product",
-        "add_site": "Add Site",
+        "site_system": "System",
+        "is_virtual": "Is virtual product",
+        "add_site": "Add Site/Shop",
         "protocol": "Protocol",
+        "http_protocol": "Http Protocol",
+        "choose_http_or_https": "Please choose http or https correctly and carefully, if the error will affect the callback",
+        "domain": "Site Domain",
+        "callback_url_info": "Callback notification url for order status update",
+        "submit_site": "Submit Site",
     },
     "bank": {
         "settle_bank": "Settlement Bank",

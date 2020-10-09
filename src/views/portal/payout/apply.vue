@@ -6,9 +6,10 @@
                          :body-style="{ padding: '0px' }">
                     <h5>{{$t('payout.payout_apply')}}</h5>
                     <div class="text-muted p-0">
-                        <el-tooltip class="item" effect="dark" :content="$t('comm.chick_to_help')" placement="top">
+                        <el-tooltip class="item" effect="dark" :content="$t('comm.click_to_help')" placement="top">
                             <router-link :to="{name: 'faq', hash: '#order_settle'}">
-                                <i class="el-icon-info text-blue"></i> {{$t('payout.payout_apply_help_info')}} <i class="el-icon-warning-outline"></i>
+                                <i class="el-icon-info text-blue"></i> {{$t('payout.payout_apply_help_info')}} <i
+                                    class="el-icon-warning-outline"></i>
                             </router-link>
                         </el-tooltip>
                     </div>
@@ -57,6 +58,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="pay_status"
+                            width="90px"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
                             <span class="pay-status" :class="['ps-' + scope.row.pay_status]">
@@ -70,17 +72,6 @@
                             :label="$t('payout.refund')">
                         <template v-slot="scope">
                             {{scope.row.refunded | refundStatus }}
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                            prop="declined"
-                            :show-overflow-tooltip="true"
-                            width="60px"
-                            :label="$t('kind.chargeback')">
-                        <template v-slot="scope">
-                            <span :class="'declined-' + scope.row.declined">
-                                {{scope.row.declined | yesOrNo}}
-                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column

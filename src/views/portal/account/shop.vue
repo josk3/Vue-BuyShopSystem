@@ -52,10 +52,10 @@
                         <template v-slot="scope">
                             <span v-if="scope.row.status === 3">
                                 <el-popover
-                                            placement="top"
-                                            width="240"
-                                            trigger="hover"
-                                            :content="scope.row.review_reason">
+                                        placement="top"
+                                        width="240"
+                                        trigger="hover"
+                                        :content="scope.row.review_reason">
                                     <span slot="reference"><i class="el-icon-warning-outline text-red"></i> {{scope.row.status | shopStatus }} ?</span>
                                 </el-popover>
                             </span>
@@ -125,13 +125,15 @@
                                     placement="top-start"
                                     width="240"
                                     trigger="hover"
-                                    content="请正确认真选择 http 或 https, 如果错误将影响回调">
+                                    :content="$t('shop.choose_http_or_https')">
                                 <span slot="reference">{{ $t('shop.site_url') }}
                                     <i class="el-icon-warning-outline"></i></span>
                             </el-popover>
                         </template>
-                        <el-input v-model="add_shop.site_url" placeholder="请输入网站域名" class="input-with-select">
-                            <el-select v-model="add_shop.url_protocol" slot="prepend" placeholder="http协议"
+                        <el-input v-model="add_shop.site_url" :placeholder="$t('shop.domain')"
+                                  class="input-with-select">
+                            <el-select v-model="add_shop.url_protocol" slot="prepend"
+                                       :placeholder="$t('shop.http_protocol')"
                                        filterable>
                                 <el-option label="http" value="http"><span style="float: left">http</span></el-option>
                                 <el-option label="https" value="https"><span style="float: left">https</span>
@@ -140,7 +142,7 @@
                         </el-input>
                     </el-form-item>
                     <el-form-item :label="$t('shop.site_system')" prop="site_system">
-                        <el-select v-model="add_shop.site_system" placeholder="请选择网站系统"
+                        <el-select v-model="add_shop.site_system" :placeholder="$t('shop.site_system')"
                                    filterable>
                             <el-option
                                     v-for="item in site_sys_list"
@@ -158,12 +160,12 @@
                                     placement="top-start"
                                     width="240"
                                     trigger="hover"
-                                    content="订单状态更新的回调通知url">
+                                    :content="$t('shop.callback_url_info')">
                                 <span slot="reference">{{ $t('shop.return_url') }}
                                     <i class="el-icon-warning-outline"></i></span>
                             </el-popover>
                         </template>
-                        <el-input v-model="add_shop.return_url" placeholder="请输入返回网址">
+                        <el-input v-model="add_shop.return_url" :placeholder="$t('shop.return_url')">
                             <template slot="prepend">{{add_shop.url_protocol}}://</template>
                         </el-input>
                     </el-form-item>
@@ -179,7 +181,7 @@
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
                 <el-button size="mini" @click="closeShopDialog()">{{$t('comm.cancel')}}</el-button>
-                <el-button size="mini" type="primary" @click="submitAddShop">提交网址</el-button>
+                <el-button size="mini" type="primary" @click="submitAddShop">{{$t('shop.submit_site')}}</el-button>
             </div>
         </el-dialog>
     </div>
@@ -203,7 +205,7 @@
         data() {
             var checkReturnUrl = (rule, value, callback) => {
                 if (this.$data.customer_return_url.includes(this.$data.add_shop.site_system) && isEmpty(value)) {
-                    callback(new Error('请输入返回网址'));
+                    callback(new Error(this.$i18n.t('shop.return_url').toString()));
                 }
                 callback();
             };
@@ -221,13 +223,13 @@
                 customer_return_url: ['Other', 'Java', 'Php', 'Asp', 'PHP'],
                 rules: {
                     site_url: [
-                        {required: true, message: '请输入网址', trigger: 'blur'},
+                        {required: true, message: this.validMsg('shop.domain'), trigger: 'blur'},
                     ],
                     url_protocol: [
-                        {required: true, message: '请选择http协议', trigger: 'blur'},
+                        {required: true, message: this.validMsg('shop.http_protocol'), trigger: 'blur'},
                     ],
                     site_system: [
-                        {required: true, message: '请选择网站系统', trigger: 'blur'},
+                        {required: true, message: this.validMsg('shop.site_system'), trigger: 'blur'},
                     ],
                     return_url: [
                         {validator: checkReturnUrl, trigger: ['blur']},
@@ -240,6 +242,9 @@
             this.search();
         },
         methods: {
+            validMsg(name) {
+                return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
+            },
             paneClick(tab) {
                 this.searchParams.page = 1;//重置页码
                 this.paneName = tab.name
@@ -344,7 +349,7 @@
             submitAddShop() {
                 this.$refs['add_shop'].validate((valid) => {
                     if (isEmpty(this.add_shop.url_protocol)) {
-                        this.$message.error('请选择http协议')
+                        this.$message.error(this.validMsg('shop.http_protocol'))
                     }
                     if (!valid) {
                         return false;

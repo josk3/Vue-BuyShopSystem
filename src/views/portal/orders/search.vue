@@ -49,7 +49,8 @@
                     <el-table-column
                             :label="$t('order.card_brand')" width="60px">
                         <template v-slot="scope">
-                            <span v-if="scope.row.card" class="card-brand" :class="['cb-' + scope.row.card.brand]"></span>
+                            <span v-if="scope.row.card" class="card-brand"
+                                  :class="['cb-' + scope.row.card.brand]"></span>
                             <span v-else> -- </span>
                         </template>
                     </el-table-column>
@@ -65,7 +66,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="pay_status"
-                            width="50px"
+                            :width="lang === 'zh' ? '50px' : 'auto'"
                             :label="$t('kind.chargeback')">
                         <template v-slot="scope">
                             <span :class="'declined-' + scope.row.declined">{{scope.row.declined | yesOrNo}}</span>
@@ -74,7 +75,7 @@
                     <el-table-column
                             prop="site_url,ip"
                             :show-overflow-tooltip="true"
-                            :label="$t('url_and_ip')">
+                            :label="$t('order.url_and_ip')">
                         <template v-slot="scope">
                             {{scope.row.site_url}}<br/>
                             {{scope.row.ip}}
@@ -122,11 +123,15 @@
     import RefundDialog from "@/components/RefundDialog";
     import Pagination from "@/components/Pagination";
     import {ordersSearch} from "@/service/orderSer";
+    import {mapState} from "vuex";
 
     export default {
         name: "trade_manage",
         components: {SearchBox, Pagination, RefundDialog},
         computed: { //watch跟踪数据变化, 重点user, configs
+            ...mapState({
+                lang: state => state.app.lang,//多语言
+            }),
             configs() {
                 return configs;
             },
@@ -179,7 +184,7 @@
                         this.openRefundDialog(row)
                         break;
                     case 'detail':
-                        this.$router.push({name: 'order_detail',params:{id:row.trade_id}})
+                        this.$router.push({name: 'order_detail', params: {id: row.trade_id}})
                         break;
                 }
             },

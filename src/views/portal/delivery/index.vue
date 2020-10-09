@@ -65,7 +65,7 @@
                                 </div>
                                 <div v-else>
                                     <el-button type="text" @click="addTrackDialog(scope.$index, scope.row)">
-                                        {{$t('shipment.add_shop')}}
+                                        {{$t('shipment.add_ship')}}
                                     </el-button>
                                 </div>
                             </template>
@@ -86,7 +86,7 @@
                                         <el-dropdown-item v-if="!scope.row.track_number">
                                             <el-button type="text"
                                                        @click="addTrackDialog(scope.$index, scope.row)">
-                                                {{$t('shipment.add_shop')}}
+                                                {{$t('shipment.add_ship')}}
                                             </el-button>
                                         </el-dropdown-item>
                                     </el-dropdown-menu>
@@ -116,7 +116,8 @@
                             <el-input :value="track_form.trade_id" :disabled="true"></el-input>
                         </el-form-item>
                         <el-form-item :label="$t('shipment.track_brand')" prop="track_brand">
-                            <el-select v-model="track_form.track_brand" ：placeholder="$t('shipment.track_brand')" filterable>
+                            <el-select v-model="track_form.track_brand" :placeholder="$t('shipment.track_brand')"
+                                       filterable>
                                 <el-option v-for="brand in track_brand_all" :key="brand.value"
                                            :label="brand.text" :value="brand.value"></el-option>
                             </el-select>
@@ -160,7 +161,8 @@
                                     :on-remove="removeTrackExcelFile"
                                     :auto-upload="false">
                                 <i class="el-icon-upload"></i>
-                                <div class="el-upload__text" >{{$t('comm.upload_file_drag_click[0]')}}<em>{{$t('comm.upload_file_drag_click[1]')}}</em></div>
+                                <div class="el-upload__text">{{$t('comm.upload_file_drag_click[0]')}}<em>{{$t('comm.upload_file_drag_click[1]')}}</em>
+                                </div>
                                 <div class="el-upload__tip" slot="tip">{{$t('shipment.upload_excel_max_500')}}</div>
                             </el-upload>
                         </el-form>
@@ -251,7 +253,7 @@
                         this.$message.success(this.$i18n.t('comm.success').toString())
                         this.search();//reload page
                     }).finally(() => {
-                        this.percentage = - 1
+                        this.percentage = -1
                         this.loading = false
                     })
                 }
@@ -343,7 +345,7 @@
 </script>
 
 <style>
-    .track_excel .el-upload-dragger{
+    .track_excel .el-upload-dragger {
         width: 280px;
         height: 150px;
     }
