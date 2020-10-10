@@ -71,6 +71,7 @@ module.exports = {
         "month_four_timer": "Four times a month",
         "fees": "Fee",
         "processing_fees": "Processing fees",
+        "summary_total": "total",
 
         "trade_balance": "Order Income Balance",
         "deposit_balance": "Deposit Balance",
@@ -101,6 +102,8 @@ module.exports = {
         "track_number": "Track Number",
         "i_known": "I known",
         "please_select": "Select",
+        "copy_success": "Copy successfully",
+        "copy_fail": "Copy failed",
 
     },
     "nav": {
@@ -236,7 +239,7 @@ module.exports = {
         "resolver_password": "Reset password",
         "forget_info_will_send": "Information will be sent to your email",
         "resolver_email_send": ["Reset email sent", "Sending successfully, you can now enter the mailbox to reset your password"],
-        "resolver_email_fail": ["Did not receive?", "Resend", "Please check if there is any mail in the trash can, or send it again"],
+        "resolver_email_fail": ["Did not receive?", "Resend", "Please check the spam mailbox, or resend"],
         "reset_new_pwd": "Set new password",
         "new_password": "New password",
         "confirm_new_password": "Confirm password",
@@ -264,8 +267,8 @@ module.exports = {
         "canceled": "Canceled",
         "un_settled": "Un Settle",
         "has_settled": "Settled",
-        "payout_release": "已生成划款表",
-        "payout_paid": "已划款",
+        "payout_release": "Payout generated",
+        "payout_paid": "Paid",
         "wait_review": "Wait review",
         "review_reject": "Review reject",
         "invalid": "Invalid",
@@ -305,7 +308,7 @@ module.exports = {
         "notice_dispute_to_merchant": "Receive a notification if a payment is disputed.",
         "notice_chargeback_to_merchant": "Receive a notification if a payment is chargeback.",
         "pwd_will_send_this_email": "Password will be sent to this email.",
-        "login_mail_and_click_valid_link": "Please log in your mailbox to open the email to complete the authentication",
+        "login_mail_and_click_valid_link": "Please login your mailbox to open the email to complete the authentication",
 
     },
     "risk": {

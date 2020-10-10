@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Clipboard from 'clipboard'
+import i18n from "@/service/i18n";
 
 /**
  * https://zenorocha.github.io/clipboard.js
  */
 function clipboardSuccess() {
   Vue.prototype.$message({
-    message: 'Copy successfully',
+    message: i18n.t('comm.copy_success'),
     type: 'success',
     duration: 1500
   })
@@ -14,7 +15,7 @@ function clipboardSuccess() {
 
 function clipboardError() {
   Vue.prototype.$message({
-    message: 'Copy failed',
+    message: i18n.t('comm.copy_fail'),
     type: 'error'
   })
 }

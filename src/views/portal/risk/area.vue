@@ -91,6 +91,7 @@
                 <el-dialog custom-class="wpy-dialog sm-dialog bg-body"
                            :show-close="false" :close-on-click-modal="false"
                            :title="$t('risk.add_risk_area')"
+                           v-loading="loading"
                            :visible.sync="riskAreaDialogVisible">
                     <div>
                         <el-card shadow="hover" class="box-card p-3 mb-3"
@@ -136,7 +137,7 @@
                             </el-form-item>
                         </el-form>
                     </div>
-                    <div slot="footer" class="dialog-footer" v-loading="loading">
+                    <div slot="footer" class="dialog-footer">
                         <el-button size="mini" @click="riskAreaDialogVisible = false">{{$t('comm.cancel')}}</el-button>
                         <el-button size="mini" type="primary" @click="submitRiskArea">{{$t('comm.submit')}}</el-button>
                     </div>

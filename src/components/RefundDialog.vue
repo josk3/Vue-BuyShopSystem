@@ -8,7 +8,8 @@
             <div>
                 <el-form ref="refund"
                          :model="refund"
-                         :rules="rules" label-width="80px">
+                         :rules="rules"
+                         :label-width="lang === 'zh' ? '80px' : '130px'">
                     <el-form-item :label="$t('comm.trade_id')">
                         <el-input :value="refund.trade_id" :disabled="true"></el-input>
                     </el-form-item>
@@ -26,7 +27,10 @@
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
                 <el-button size="mini" @click="closeDialog('refund_form')">{{$t('comm.cancel')}}</el-button>
-                <el-popconfirm :title="$t('order.confirm_apply_refund')" @onConfirm="submitRefund" :hideIcon="true">
+                <el-popconfirm
+                        :confirmButtonText="$t('comm.sure')"
+                        :cancelButtonText="$t('comm.cancel')"
+                        :title="$t('order.confirm_apply_refund')" @onConfirm="submitRefund" :hideIcon="true">
                     <el-button slot="reference" size="mini" type="primary" class="ml-3" >{{$t('order.submit_refund')}}</el-button>
                 </el-popconfirm>
             </div>
@@ -38,10 +42,20 @@
 
     import {applyRefund} from "@/service/refundSer";
     import {isEmpty} from "@/utils/validate";
+    import {mapState} from "vuex";
+    import configs from "@/configs";
 
     export default {
         name: "RefundDialog",
         props: [],
+        computed: { //watch跟踪数据变化, 重点user, configs
+            ...mapState({
+                lang: state => state.app.lang,//多语言
+            }),
+            configs() {
+                return configs;
+            },
+        },
         data() {
             return {
                 loading: false,

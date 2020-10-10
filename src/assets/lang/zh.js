@@ -71,6 +71,7 @@ module.exports = {
         "month_four_timer": "一个月四次",
         "fees": "手续费",
         "processing_fees": "处理费",
+        "summary_total": "小计",
 
         "trade_balance": "交易款",
         "deposit_balance": "保证金",
@@ -101,6 +102,8 @@ module.exports = {
         "track_number": "物流单号",
         "i_known": "我知道了",
         "please_select": "请选择",
+        "copy_success": "复制成功",
+        "copy_fail": "复制失败",
 
     },
     "nav": {

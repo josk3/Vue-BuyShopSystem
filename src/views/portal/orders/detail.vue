@@ -15,17 +15,17 @@
                             </el-button>
                         </div>
                         <div class="text-left">
-                            {{ order.order_currency }} {{ order.order_amount }}
-                            <span v-if="order.refund_total < 0" class="pay-status refund-1">
+                            <strong>{{ order.order_currency }} {{ order.order_amount }}</strong>
+                            <span v-if="order.refund_total < 0" class="pay-status refund-1 ml-1">
                                 {{$t('kind.refund')}} {{order.refund_total}} {{ order.order_currency }}
                             </span>
-                            <span v-else class="pay-status" :class="['ps-' + order.pay_status]">
+                            <span v-else class="pay-status ml-1" :class="['ps-' + order.pay_status]">
                                 {{order.pay_status | payStatus}}
                             </span>
-                            <span v-if="order.declined" class="pay-status declined-1">
+                            <span v-if="order.declined" class="pay-status declined-1 ml-1">
                                 {{$t('status.has_declined')}}
                             </span>
-                            <span class="ml-3 tr-id btn clipboard-btn" :data-clipboard-text="order.trade_id"
+                            <span class="ml-1 tr-id btn clipboard-btn" :data-clipboard-text="order.trade_id"
                                   @click="copy">
                                 {{ order.trade_id }}
                                 <font-awesome-icon :icon="['far', 'clipboard']"/>

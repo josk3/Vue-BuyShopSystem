@@ -116,6 +116,7 @@
                    @close="closeShopDialog"
                    :show-close="false" :close-on-click-modal="false"
                    :title="$t('shop.add_site')"
+                   v-loading="loading"
                    :visible.sync="addShopDialogVisible">
             <div>
                 <el-form ref="add_shop"
@@ -181,7 +182,7 @@
                     </el-form-item>
                 </el-form>
             </div>
-            <div slot="footer" class="dialog-footer" v-loading="loading">
+            <div slot="footer" class="dialog-footer">
                 <el-button size="mini" @click="closeShopDialog()">{{$t('comm.cancel')}}</el-button>
                 <el-button size="mini" type="primary" @click="submitAddShop">{{$t('shop.submit_site')}}</el-button>
             </div>
@@ -304,18 +305,14 @@
                 this.openShopDialog('add', null)
             },
             openShopDialog(action, item) {
-                if (isEmpty(this.site_sys_list) || this.site_sys_list.length <= 0) {
-                    this.$data.loading = true
-                    getSiteSystemList().then(res => {
-                        const {data} = res
-                        this.$data.site_sys_list = data.list
-                        this.renderShopDialog(action, item)
-                    }).finally(() => {
-                        this.$data.loading = false
-                    })
-                } else {
+                this.$data.loading = true
+                getSiteSystemList().then(res => {
+                    const {data} = res
+                    this.$data.site_sys_list = data.list
                     this.renderShopDialog(action, item)
-                }
+                }).finally(() => {
+                    this.$data.loading = false
+                })
             },
             renderShopDialog(action, data) {
                 this.initShopForm()

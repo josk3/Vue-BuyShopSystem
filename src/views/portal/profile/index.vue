@@ -117,10 +117,10 @@
                 loading: false,
                 update_pwd: {old_pwd: '', new_pwd: ''},
                 rules: {
-                    old_pwd: [{required: true, message: '请输入密码', trigger: 'blur'},],
+                    old_pwd: [{required: true, message: this.validMsg('user.password'), trigger: 'blur'},],
                     new_pwd: [
-                        {required: true, message: '请输入密码', trigger: 'blur'},
-                        {min: 6, max: 25, message: '长度不能少于6位', trigger: 'blur'},
+                        {required: true, message: this.validMsg('user.password'), trigger: 'blur'},
+                        {min: 7, max: 25, message: this.$i18n.t('valid.bad.min_length_7'), trigger: 'blur'},
                     ],
                 },
                 user_info: {},
