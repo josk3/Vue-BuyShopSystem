@@ -46,6 +46,7 @@ module.exports = {
         needValidCode: 7002,//当前操作需要验证码, 例如注册登录多次尝试失败时
         needValidStatus: 7003, //用户还没验证邮箱或手机号
         existsParam: 43000, //某个元素已经存在,如注册时手机号，邮箱已经注册过了
+        reqIsBad: 42002,//请求非法
     },
     perm: {
         home_trade_report: 'home_trade_report',

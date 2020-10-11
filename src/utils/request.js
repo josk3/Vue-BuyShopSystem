@@ -73,8 +73,13 @@ service.interceptors.response.use(
             } else {
                 if (!isEmpty(response.config.show_error_msg_dialog) &&
                     response.config.show_error_msg_dialog === true) {
+                    let badMsg = (res.message || 'Error');
+                    if (configs.apiCode.reqIsBad === res.code ) {
+                        badMsg = badMsg + ' <small class="msg-req-id">' + res.request_id +'</small>'
+                    }
                     Message({
-                        message: res.message || 'Error',
+                        dangerouslyUseHTMLString: true,
+                        message: badMsg,
                         type: 'error',
                         duration: 5 * 1000
                     })
