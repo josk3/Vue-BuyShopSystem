@@ -156,7 +156,41 @@
                 </div>
             </el-card>
             <!--            -->
-
+            <el-card class="box-card wpy-card mb-2" shadow="never" :body-style="{ padding: '0px' }">
+                <div slot="header" class="clearfix">
+                    <span>Api KEY</span>
+                </div>
+                <div class="row">
+                    <div class="col-12 api-feature-soon">
+                        <div class="feature-soon-lay">Api 功能很快将开放使用。</div>
+                        <table class="table table-borderless">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Api Key</th>
+                                <th scope="col">Api Secret</th>
+                                <th scope="col">创建时间</th>
+                                <th scope="col">最近使用</th>
+                                <th scope="col">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>pok_xi3nf8sj1108yy</td>
+                                <td><ShowMoreBtn txt="sti1ei31108yy"></ShowMoreBtn></td>
+                                <td> -- </td>
+                                <td> -- </td>
+                                <td>
+                                    <el-button size="mini">删除</el-button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </el-card>
+            <!--    e   -->
         </div>
 
         <!--    d    -->
@@ -443,5 +477,24 @@
     .ecm-list-table .ecm-current-row {
         font-weight: bold;
         font-size: 15px;
+    }
+    .api-feature-soon{
+        position: relative;
+    }
+    .api-feature-soon table{
+        opacity: 0.3;
+        color: #666;
+    }
+    .feature-soon-lay{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        background: rgba(105,105,105 ,0.5);
+        height: 100%;
+        text-align: center;
+        padding-top: 40px;
+        color: #fff;
+        font-size: 19px;
+        z-index: 2;
     }
 </style>
