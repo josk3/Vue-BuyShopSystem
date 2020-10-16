@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:dev": "vue-cli-service build --mode development",
+    "build:165": "vue-cli-service build --mode 165",
     "build:stage": "vue-cli-service build --mode stage",
     "lint": "vue-cli-service lint",
     "mockerRunApi": "mocker ./mocker",
