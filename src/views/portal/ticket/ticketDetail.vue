@@ -4,7 +4,8 @@
         <el-card>
             <!--工单对话栏-->
             <div slot="header" class="clearfix">
-                <el-page-header @back="goBack()" content="工单详情" title="返回"></el-page-header>
+                <el-page-header @back="goBack()" :content="$t('nav.ticket_detail')"
+                                :title="$t('comm.go_back')"></el-page-header>
             </div>
             <div class="card-header" v-if="ticketDetailRsp.list">
                 <!--聊天框头部-->
@@ -207,22 +208,23 @@
             <!--回复工单-->
             <el-card id="ticketForm" v-show="isCloseTicket" class="bg-light">
                 <div slot="header">
-                    <span>回复工单</span>
+                    <span>{{$t('ticket.reply_ticket')}}</span>
                 </div>
                 <el-form :model="ticketFormParams" ref="ticketFormParams" :rules="rules" label-width="100px"
                          class="demo-ruleForm">
                     <el-form-item class="ml-4">
-                        <el-popconfirm @onConfirm="closeTicket()" title="您确定关闭工单吗？关闭后不可恢复">
-                            <el-button type="info" slot="reference">关闭工单</el-button>
+                        <el-popconfirm @onConfirm="closeTicket()" :title="$t('ticket.hint_close_ticket_msg')">
+                            <el-button type="info" slot="reference">{{$t('ticket.close_ticket')}}</el-button>
                         </el-popconfirm>
                     </el-form-item>
-                    <el-form-item label="内容:" prop="content" class="col-9">
-                        <el-input class="ml-2" type="textarea" placeholder="请输入内容" maxlength="100" show-word-limit
+                    <el-form-item :label="$t('ticket.content')" prop="content" class="col-9">
+                        <el-input class="ml-2" type="textarea" :placeholder="$t('ticket.hint_content')" maxlength="100"
+                                  show-word-limit
                                   :rows="4"
                                   v-model="ticketFormParams.content"></el-input>
                     </el-form-item>
                     <el-divider></el-divider>
-                    <el-form-item label="附件:" prop="attach" class="col-9">
+                    <el-form-item :label="$t('ticket.attach')" prop="attach" class="col-9">
                         <el-upload
                                 ref="upload"
                                 class="ml-2"
@@ -243,10 +245,10 @@
                         </el-upload>
                         <el-progress v-if="percentage >= 0" :percentage="percentage" status="success"></el-progress>
                         <el-dialog :visible.sync="dialogVisible">
-                            <img width="100%" :src="dialogImageUrl" alt="附件">
+                            <img width="100%" :src="dialogImageUrl" :alt="$t('ticket.attach')">
                         </el-dialog>
                         <p class="col-9 ml-n1">
-                            暂仅支持图片上传
+                            {{$t('ticket.affix_condition')}}
                         </p>
                     </el-form-item>
                     <el-form-item prop="attach" class="col-9 mt-n4">
@@ -288,8 +290,8 @@
                 //表单验证
                 rules: {
                     content: [
-                        {required: true, message: '内容不能为空', trigger: 'blur'},
-                        {min: 1, max: 100, message: '内容限制100字以下,请酌情精简内容', trigger: 'blur'}
+                        {required: true, message: this.validMsg('ticket.error_msg_content_is_null'), trigger: 'blur'},
+                        {min: 1, max: 100, message: this.validMsg('ticket.error_msg_title_size'), trigger: 'blur'}
                     ]
                 },
                 dialogImageUrl: '',
@@ -322,6 +324,9 @@
                     this.loading = false;
                 })
             },
+            validMsg(name) {
+                return this.$i18n.t((name));
+            },
             /*图片组变更事件*/
             imgChange(file, fileList) {
                 //如果当前图片组数量等于或大于限定上传图片数就隐藏上传按钮
@@ -340,16 +345,16 @@
                 const isPictureFormat = file.type === 'image/jpeg' || file.type === 'image/bmp' || file.type === 'image/tif' || file.type === 'image/gif' || file.type === 'image/png';
                 const isLt5M = file.size / 1024 / 1024 < 5;
                 if (!isPictureFormat) {
-                    this.$message.error('上传图片只能是 JPG、BMP、TIF、GIF、PNG 格式!');
+                    this.$message.error(this.validMsg('ticket.error_msg_img_format'));
                 }
                 if (!isLt5M) {
-                    this.$message.error('上传图片大小不能超过 5MB!');
+                    this.$message.error(this.validMsg('ticket.error_msg_img_size'));
                 }
                 return isPictureFormat && isLt5M;
             },
             /*图片上传事件-超过设置图片上传数*/
             handleExceedNorm() {
-                this.$message.error(`超过图片限制,最多只可上传 1 张图片!`);
+                this.$message.error(this.validMsg('ticket.error_msg_img_count'));
             },
             httpRequest(param) {
                 this.fileList.push(param.file);
