@@ -24,8 +24,8 @@
                         </el-option>
                     </el-select>
                 </div>
-                <div class="mb-2"><strong>订单 、退款 、拒付等相关问题</strong></div>
-                <div class="mb-2"><small class="opacity-65">专项问题由专项人员答疑,快速帮你解决遇到的问题</small></div>
+                <div class="mb-2"><strong>{{$t('ticket.ticket_subtitle')}}</strong></div>
+                <div class="mb-2"><small class="opacity-65">{{$t('ticket.ticket_detail_description')}}</small></div>
 
                 <el-button type="primary" style="margin-top: 12px;" @click="progressNext">{{$t('comm.setup_next')}}
                 </el-button>
@@ -34,7 +34,7 @@
         <!--工单列表-->
         <el-card v-show="active=='1'">
             <div slot="header">
-                <span>我的工单</span>
+                <span>{{$t('ticket.my_ticket')}}</span>
             </div>
             <!--工单列表-->
             <el-table
@@ -110,14 +110,16 @@
                     <el-radio v-model="ticketFormParams.priority" label="2">{{$t("ticket.urgent")}}</el-radio>
                 </el-form-item>
                 <el-form-item :label="$t('ticket.email')" prop="email" class="col-5">
-                    <el-input placeholder="请填写邮箱,为方便后续及时联系到您" disabled v-model="ticketFormParams.email"></el-input>
+                    <el-input :placeholder="$t('ticket.hint_email')" disabled
+                              v-model="ticketFormParams.email"></el-input>
                 </el-form-item>
                 <el-form-item :label="$t('ticket.title')" prop="title" class="col-5">
-                    <el-input placeholder="请拟标题" v-model="ticketFormParams.title" maxlength="15"
+                    <el-input :placeholder="$t('ticket.hint_title')" v-model="ticketFormParams.title" maxlength="15"
                               show-word-limit></el-input>
                 </el-form-item>
                 <el-form-item :label="$t('ticket.content')" prop="content" class="col-9">
-                    <el-input type="textarea" placeholder="请输入内容" maxlength="100" show-word-limit :rows="4"
+                    <el-input type="textarea" :placeholder="$t('ticket.hint_content')" maxlength="100" show-word-limit
+                              :rows="4"
                               v-model="ticketFormParams.content"></el-input>
                 </el-form-item>
                 <el-form-item :label="$t('ticket.attach')" prop="attach" class="col-9">
@@ -140,10 +142,10 @@
                     </el-upload>
                     <el-progress v-if="percentage >= 0" :percentage="percentage" status="success"></el-progress>
                     <el-dialog :visible.sync="dialogVisible">
-                        <img width="100%" :src="dialogImageUrl" alt="附件">
+                        <img width="100%" :src="dialogImageUrl">
                     </el-dialog>
                     <p class="col-9 ml-n3">
-                        暂仅支持图片上传
+                        {{$t('ticket.affix_condition')}}
                     </p>
                 </el-form-item>
                 <el-form-item prop="attach" class="col-9 mt-n4">
@@ -162,10 +164,10 @@
                     <p>
                         <el-icon class="el-icon-check"
                                  style="border:1px solid mediumseagreen;border-radius:50%;color:mediumseagreen;"></el-icon>
-                        <span class="ml-1">提交成功！</span></p>
-                    <small>您提交的问题已经受理.
+                        <span class="ml-1">{{$t('comm.submitted')}}</span></p>
+                    <small>{{$t('ticket.hint_ticket_have_entertained')}}
                         <router-link :to="{name:'ticket_detail',params:{id:ticket_id}}" class="btn-link">
-                            查看详情&nbsp;<i class="el-icon-right"></i>
+                            {{$t('comm.view_detail')}}&nbsp;<i class="el-icon-right"></i>
                         </router-link>
                     </small>
                 </div>
@@ -207,23 +209,23 @@
                 //表单验证
                 rules: {
                     priority: [
-                        {required: true, message: '请依实际情况选择处理优先级', trigger: 'blur'}
+                        {required: true, message: this.validMsg('ticket.error_msg_priority'), trigger: 'blur'}
                     ],
                     email: [
-                        {required: true, message: '请填写邮箱', trigger: 'blur'},
+                        {required: true, message: this.validMsg('ticket.error_msg_email_is_null'), trigger: 'blur'},
                         {
                             pattern: /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
-                            message: '邮箱格式不正确,请重新填写',
+                            message: this.validMsg('ticket.error_msg_email_format'),
                             trigger: 'blur'
                         }
                     ],
                     title: [
-                        {required: true, message: '标题不能为空', trigger: 'blur'},
-                        {min: 1, max: 15, message: '标题限制15字以下,请酌情精简', trigger: 'blur'}
+                        {required: true, message: this.validMsg('ticket.error_msg_title_is_null'), trigger: 'blur'},
+                        {min: 1, max: 15, message: this.validMsg('ticket.error_msg_title_size'), trigger: 'blur'}
                     ],
                     content: [
-                        {required: true, message: '内容不能为空', trigger: 'blur'},
-                        {min: 1, max: 100, message: '内容限制100字以下,请酌情精简内容', trigger: 'blur'}
+                        {required: true, message: this.validMsg('ticket.error_msg_content_is_null'), trigger: 'blur'},
+                        {min: 1, max: 100, message: this.validMsg('ticket.error_msg_title_size'), trigger: 'blur'}
                     ]
                 },
                 ticketFormParams: {
@@ -272,7 +274,8 @@
             progressNext() {
                 //判断是否选择问题类型
                 if (this.ticketFormParams.case_id == undefined || this.ticketFormParams.case_id == null || this.ticketFormParams.case_id == '') {
-                    this.$message.error('请选择要咨询的问题类型!');
+                    let errorMsg = this.validMsg('ticket.question_type_is_null');
+                    this.$message.error(errorMsg);
                     return false;
                 }
                 //进入下一步骤
@@ -289,6 +292,9 @@
                 }).finally(() => {
                     this.loading = false
                 })
+            },
+            validMsg(name) {
+                return this.$i18n.t((name));
             },
             pageChange(page) {
                 this.ticketParams.page = page.page_num
@@ -312,16 +318,16 @@
                 const isPictureFormat = file.type === 'image/jpeg' || file.type === 'image/bmp' || file.type === 'image/tif' || file.type === 'image/gif' || file.type === 'image/png';
                 const isLt5M = file.size / 1024 / 1024 < 5;
                 if (!isPictureFormat) {
-                    this.$message.error('上传图片只能是 JPG、BMP、TIF、GIF、PNG 格式!');
+                    this.$message.error(this.validMsg('ticket.error_msg_img_format'));
                 }
                 if (!isLt5M) {
-                    this.$message.error('上传图片大小不能超过 5MB!');
+                    this.$message.error(this.validMsg('ticket.error_msg_img_size'));
                 }
                 return isPictureFormat && isLt5M;
             },
             /*图片上传事件-超过设置图片上传数*/
             handleExceedNorm() {
-                this.$message.error(`超过图片限制,最多只可上传 1 张图片!`);
+                this.$message.error(this.validMsg('ticket.error_msg_img_count'));
             },
             httpRequest(param) {
                 this.fileList.push(param.file);
