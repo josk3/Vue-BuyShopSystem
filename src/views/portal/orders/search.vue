@@ -3,14 +3,23 @@
         <SearchBox :params="searchParams" @search="search"></SearchBox>
         <div class="wrap-tab p-0">
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
-                <el-tabs v-model="paneName" type="border-card"
-                         @tab-click="paneClick">
-                    <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
-                    <el-tab-pane :label="$t('status.paid')" name="paid"></el-tab-pane>
-                    <el-tab-pane :label="$t('status.pending')" name="pending"></el-tab-pane>
-                    <el-tab-pane :label="$t('status.failed')" name="failed"></el-tab-pane>
-                    <el-tab-pane :label="$t('status.canceled')" name="canceled"></el-tab-pane>
-                </el-tabs>
+                <div class="row">
+                    <el-tabs class="col-6 mr-n3"  v-model="paneName" type="border-card"
+                             @tab-click="paneClick">
+                        <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
+                        <el-tab-pane :label="$t('status.paid')" name="paid"></el-tab-pane>
+                        <el-tab-pane :label="$t('status.pending')" name="pending"></el-tab-pane>
+                        <el-tab-pane :label="$t('status.failed')" name="failed"></el-tab-pane>
+                        <el-tab-pane :label="$t('status.canceled')" name="canceled"></el-tab-pane>
+                    </el-tabs>
+                    <div class="col-6 text-right " style="background-color: #F5F7FA">
+                        <div class="mr-5 mt-1 mb-1">
+                            <el-button icon="el-icon-download" size="mini"
+                                       @click="downOrders" plain>{{ $t('comm.download') }}
+                            </el-button>
+                        </div>
+                    </div>
+                </div>
                 <el-table
                         :class="tabData.list.length ? '' : 'wpy-z-table'"
                         :data="tabData.list"
@@ -122,7 +131,7 @@
     import SearchBox from "@/components/SearchBox";
     import RefundDialog from "@/components/RefundDialog";
     import Pagination from "@/components/Pagination";
-    import {ordersSearch} from "@/service/orderSer";
+    import {ordersSearch,ordersDownload} from "@/service/orderSer";
     import {mapState} from "vuex";
 
     export default {
@@ -145,6 +154,7 @@
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认
+                order_form: this.initFormObj(),
             }
         },
         mounted() {
@@ -188,6 +198,18 @@
                         break;
                 }
             },
+            downOrders() {
+                //页面效果,正在加载中
+                this.$data.loading = true
+                ordersDownload(this.order_form).then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.$data.loading = false
+                })
+            },
+            initFormObj() {
+                return {trade_id: '', merchant_order_no: '', pay_status: ''};
+            }
         },
     }
 </script>
