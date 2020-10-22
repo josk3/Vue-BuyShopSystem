@@ -287,7 +287,7 @@ export function download(url, params, progressCallback) {
                 let fileName = headers['content-disposition']
                 fileName = fileName.replace(/\w+; filename=(.*)/, '$1')
                 fileName = fileName.replace(/\w+;filename=(.*)/, '$1')
-                fileName = fileName.replaceAll('"', '')
+                fileName = fileName.replace(/"/g, '')
                 fileName = fileName.trim()
                 const blob = new Blob([data], {type: headers['content-type']})
                 let dom = document.createElement('a')
