@@ -1,4 +1,4 @@
-import {post} from '@/utils/request'
+import {post,download} from '@/utils/request'
 
 /**
  * 退款
@@ -13,4 +13,8 @@ export function applyRefund(params) {
 
 export function cancelApply(params) {
     return post('/refund/cancel', params);
+}
+
+export function refundDownload(params){
+    return download("/refund/download",params);
 }

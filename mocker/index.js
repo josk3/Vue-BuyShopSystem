@@ -3217,6 +3217,18 @@ const proxy = {
             data: {}
         })
     },
+    'POST /api/v1/orders/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/refund/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
     'POST /api/v1/shop/search': (req, res) => {
         return res.json({
             status: 1,

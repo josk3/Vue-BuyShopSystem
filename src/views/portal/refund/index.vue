@@ -3,7 +3,8 @@
         <SearchBox :params="searchParams" @search="search"></SearchBox>
         <div class="wrap-tab p-0">
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
-                <el-tabs v-model="paneName" type="border-card"
+                <div class="row">
+                <el-tabs class="col-6 mr-n3" v-model="paneName" type="border-card"
                          @tab-click="paneClick">
                     <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
                     <el-tab-pane :label="$t('comm.refund_ing')" name="refund_ing"></el-tab-pane>
@@ -11,6 +12,14 @@
                     <el-tab-pane :label="$t('comm.cancel')" name="cancel"></el-tab-pane>
                     <el-tab-pane :label="$t('comm.fail')" name="fail"></el-tab-pane>
                 </el-tabs>
+                <div class="col-6 text-right " style="background-color: #F5F7FA">
+                    <div class="mr-5 mt-1 mb-1">
+                        <el-button icon="el-icon-download" size="mini"
+                                   @click="downRefund" plain>{{ $t('comm.download') }}
+                        </el-button>
+                    </div>
+                </div>
+                </div>
                 <el-table
                         :class="tabData.page.total ? '' : 'wpy-z-table'"
                         :data="tabData.list"
@@ -99,7 +108,7 @@
 
 <script>
     import configs from '@/configs'
-    import {cancelApply, refundSearch} from "@/service/refundSer";
+    import {cancelApply, refundSearch,refundDownload} from "@/service/refundSer";
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
 
@@ -120,6 +129,7 @@
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认
+                refund_params: {trade_id: '', merchant_order_no: '', email: ''},
             }
         },
         mounted() {
@@ -163,7 +173,16 @@
                         break;
                 }
             },
-
+            //下载退款记录
+            downRefund(){
+                //页面效果,正在加载中
+                this.$data.loading = true
+                refundDownload(this.refund_params).then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.$data.loading = false
+                })
+            }
         },
     }
 </script>

@@ -1,4 +1,4 @@
-import {get, post} from '@/utils/request'
+import {get, post,download} from '@/utils/request'
 
 /**
  * 订单
@@ -15,3 +15,6 @@ export function ordersSearch(params) {
     return post('/orders/search', params);
 }
 
+export function ordersDownload(params) {
+    return download('/orders/download',params);
+}
