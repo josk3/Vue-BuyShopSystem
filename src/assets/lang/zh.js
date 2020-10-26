@@ -276,7 +276,7 @@ module.exports = {
     "kind": {
         "settle": "结算",
         "depositSettle": "保证金结算",
-        "sale": "收款",
+        "sale": "订单",
         "refund": "退款",
         "trade": "交易结算",
         "deposit": "保证金结算",

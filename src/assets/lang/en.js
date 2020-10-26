@@ -277,7 +277,7 @@ module.exports = {
     "kind": {
         "settle": "Settle",
         "depositSettle": "Deposit Settle",
-        "sale": "Trade Income",
+        "sale": "Order",
         "refund": "Refund",
         "trade": "Order Settle",
         "deposit": "Deposit Settle",
