@@ -97,7 +97,7 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.payout_history', page: 1,
-                    trade_id: '', merchant_order_no: '', email: ''
+                    trade_id: '', merchant_order_no: ''
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'submitted', //默认
