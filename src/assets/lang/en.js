@@ -326,6 +326,11 @@ module.exports = {
         "state_name": "State",
         "add_risk_area": "Add risk area",
         "risk_area_order_will_block": "Set the risk area transactions will be blocked",
+        "upload_black_model": "Upload blacklist template",
+        "drag_the_file_here_or": "Drag the file here, or",
+        "click_on_upload": "Click on the upload",
+        "upload_file": "Upload files",
+        "please_upload_file": "Please select upload file first",
     },
     "timeline": {
         "order_canceled": "Order cancel",
