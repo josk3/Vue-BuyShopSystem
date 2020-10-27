@@ -1,4 +1,4 @@
-import {del, post} from '@/utils/request'
+import {del, post,upload} from '@/utils/request'
 
 /**
  * 黑名单
@@ -21,4 +21,11 @@ export function blacklistEnable(params) {
 
 export function blacklistAdd(params) {
     return post('/blacklist/add', params);
+}
+
+/**
+ * 批量上传黑名单
+ */
+export function uploadBlackList(params, blackListFile) {
+    return upload('/blacklist/upload', params, blackListFile);
 }

@@ -10,6 +10,9 @@
                                 <el-button icon="el-icon-plus" size="small"
                                            @click="showBlacklistDialog" plain>{{$t('risk.add_blacklist')}}
                                 </el-button>
+                                <el-button icon="el-icon-upload2" size="small"
+                                           @click="showUploadDialog" plain>{{$t('comm.batch_upload')}}
+                                </el-button>
                             </div>
                         </div>
                     </div>
@@ -187,6 +190,36 @@
                     <el-button size="mini" type="primary" @click="submitTrackNumber">{{$t('comm.submit')}}</el-button>
                 </div>
             </el-dialog>
+            <el-dialog :visible.sync="uploadDialogVisible" width="450px" :title="$t('risk.upload_black_model')"
+                       @close="closeUploadExcelDialog">
+                <div class="pt-5 pb-5 bg-light">
+                    <el-upload
+                            class="upload-demo text-center"
+                            ref="black_excel"
+                            name="black_excel"
+                            :class="blackListExcelUploadEnable ? 'showFileBox' : 'hideFileBox'"
+                            drag
+                            action=""
+                            accept=".xls,.xlsx"
+                            :limit="1"
+                            :auto-upload="false"
+                            :on-change="changeBlackListExcelFile"
+                            :on-remove="removeBlackListExcelFile"
+                    >
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">{{$t('risk.drag_the_file_here_or')}}<em>{{$t('risk.click_on_upload')}}</em>
+                        </div>
+                        <div class="el-upload__tip" slot="tip" style="font-size: 14px;">
+                            {{$t('shipment.upload_excel_max_500')}}
+                        </div>
+                    </el-upload>
+                </div>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="uploadDialogVisible=false"
+                               @close="closeUploadExcelDialog">{{$t('comm.cancel')}}</el-button>
+                    <el-button type="primary" @click="uploadBlackList">{{$t('risk.click_on_upload')}}</el-button>
+                  </span>
+            </el-dialog>
         </div>
     </div>
 </template>
@@ -200,7 +233,8 @@
         blacklistDel,
         blacklistDisable,
         blacklistEnable,
-        blacklistSearch
+        blacklistSearch,
+        uploadBlackList
     } from "@/service/blacklistSer";
     import {isEmpty} from "@/utils/validate";
     import {getOrder} from "@/service/orderSer";
@@ -217,8 +251,10 @@
             return {
                 loading: false,
                 blacklistDialogVisible: false,
+                uploadDialogVisible: false, //对话框显隐
                 paneName: 'byTradeId',
-
+                blackListExcelUploadEnable: true, //黑名单模板是否已经上传
+                blackListFile: '',  //黑名单excel模板
                 formByTradeId: this.initByTradeIdObj(),
                 formByData: this.initByDataObj(),
                 track_brand_all: [],
@@ -241,6 +277,12 @@
             validMsg(name) {
                 return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
             },
+            closeUploadExcelDialog() {
+                this.blackListFile = null;
+                this.blackListExcelUploadEnable = true;
+                this.uploadTrackDialogVisible = false;
+                this.$refs.black_excel.clearFiles();//重置
+            },
             initByTradeIdData() {
                 this.formByTradeId = this.initByTradeIdObj()
             },
@@ -256,6 +298,10 @@
                     card_no: '',
                     remark: '',
                 };
+            },
+            /*上传图片回调进度*/
+            progressCallback(n) {
+                this.percentage = n;
             },
             initByDataObj() {
                 return {
@@ -287,6 +333,10 @@
             },
             showBlacklistDialog() {
                 this.blacklistDialogVisible = true
+            },
+            // 显示批量上传对话框
+            showUploadDialog() {
+                this.uploadDialogVisible = true;
             },
             handleByTradeId() {
                 this.$refs['search_order'].validate((valid) => {
@@ -375,6 +425,35 @@
                         break;
                 }
             },
+            changeBlackListExcelFile(file) {
+                this.blackListFile = file.raw;
+                this.blackListExcelUploadEnable = false;
+            },
+            removeBlackListExcelFile() {
+                this.blackListExcelUploadEnable = true;
+                this.blackListFile = null;
+            },
+            // 黑名单上传
+            uploadBlackList: function () {
+                //是否选择上传文件
+                if (isEmpty(this.blackListFile)) {
+                    this.$message.error(this.$i18n.t('risk.please_upload_file').toString())
+                } else {
+                    this.loading = true;
+                    let formData = new FormData();
+                    formData.append("file", this.blackListFile);
+                    uploadBlackList(formData, this.progressCallback).then(() => {
+                        //取消对话框
+                        this.uploadDialogVisible = false;
+                        //查询黑名单
+                        this.search();
+                        //处理结果
+                        this.$message.success(this.$i18n.t('comm.success').toString())
+                    }).finally(() => {
+                        this.loading = false;
+                    })
+                }
+            }
         },
     }
 </script>
