@@ -126,8 +126,8 @@
                                                         <el-image
                                                                 style="width:220px;"
                                                                 class="img-fluid rounded"
-                                                                :src="fullImgUrl(detailInfo.ticket_attach_url)"
-                                                                :preview-src-list="[fullImgUrl(detailInfo.ticket_attach_url)]"
+                                                                :src="fullImgUrl(detailInfo.ticket_attach_url+'&ticket='+ticketDetailRsp.info.tk_id)"
+                                                                :preview-src-list="[fullImgUrl(detailInfo.ticket_attach_url+'&ticket='+ticketDetailRsp.info.tk_id)]"
                                                         >
                                                             <div slot="error" style="display: flex;justify-content: center; align-items: center;width: 100%;height: 100%;background: #CCCCCC;
                                                                color: #000000;font-size: 14px;">
@@ -177,8 +177,8 @@
                                                         <el-image
                                                                 style="width:220px;"
                                                                 class="img-fluid rounded"
-                                                                :src="fullImgUrl(detailInfo.ticket_attach_url)"
-                                                                :preview-src-list="[fullImgUrl(detailInfo.ticket_attach_url)]"
+                                                                :src="fullImgUrl(detailInfo.ticket_attach_url+'&ticket='+ticketDetailRsp.info.tk_id)"
+                                                                :preview-src-list="[fullImgUrl(detailInfo.ticket_attach_url+'&ticket='+ticketDetailRsp.info.tk_id)]"
                                                         >
                                                             <div slot="error" style="display: flex;justify-content: center; align-items: center;width: 100%;height: 100%;background: #CCCCCC;
                                                                color: #000000;font-size: 14px;">
@@ -368,6 +368,7 @@
                 this.$refs.upload.clearFiles();
                 this.showBtnImg = true;
                 this.noneBtnImg = false;
+                this.fileList = [];
                 this.$refs['ticketFormParams'].resetFields();//重置
                 this.$refs['ticketFormParams'].clearValidate();//重置
             },
