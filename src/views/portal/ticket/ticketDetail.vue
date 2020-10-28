@@ -368,6 +368,7 @@
                 this.$refs.upload.clearFiles();
                 this.showBtnImg = true;
                 this.noneBtnImg = false;
+                this.fileList = [];
                 this.$refs['ticketFormParams'].resetFields();//重置
                 this.$refs['ticketFormParams'].clearValidate();//重置
             },
