@@ -222,7 +222,7 @@
                     </el-form-item>
                     <el-form-item :label="$t('comm.email')" prop="email">
                         <el-input v-model="add_user.email" :disabled="add_user.action === 'edit'"></el-input>
-                        <p v-show="add_user.action === 'add'" class="text-muted p-0 m-0">*{{$t('account.pwd_will_send_this_email')}}</p>
+                        <p v-show="add_user.action === 'add'" class="text-muted p-0 m-0"><strong>*{{$t('account.pwd_will_send_this_email')}}</strong></p>
                     </el-form-item>
                     <el-form-item :label="$t('user.user_role')" prop="role_uid">
                         <el-select v-model="add_user.role_uid" :placeholder="$t('user.user_role')"
