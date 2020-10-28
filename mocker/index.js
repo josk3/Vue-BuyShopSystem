@@ -1906,6 +1906,31 @@ const proxy = {
                         }
                     },
                     {
+                        "otl_id": "otl_0807532B6cjf0miciMie",
+                        "trade_id": "tr_M1130a0807s4C53263jC",
+                        "kind": "payment_failed",
+                        "title": "payment_failed",
+                        "created_time": 1596802345000,
+                        "transaction": {
+                            "py_id": "py_M1130a080716KjF484k71hv7",
+                            "trade_id": "tr_M1130a0807s4C53263jC",
+                            "kind": "settle",
+                            "status": "pass",
+                            "amount": 5018.05,
+                            "currency": "CNY",
+                            "ch_id": null,
+                            "cr_id": null,
+                            "fees": 0,
+                            "fail_code": '23424324',
+                            "fail_message": 'payment_failedddddd',
+                            "pay_date": null,
+                            "created": 1596802338000,
+                            "reason": null,
+                            "mer_uid": null,
+                            "updated": null
+                        }
+                    },
+                    {
                         "otl_id": "otl_0807s12kh7ceKAkZtcQM",
                         "trade_id": "tr_M1130a0807s4C53263jC",
                         "kind": "shipment_info",

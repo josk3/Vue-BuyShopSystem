@@ -48,6 +48,9 @@
                                     :type="timelineType(activity.kind)"
                                     :timestamp="activity.created_time | toFullTime">
                                 {{ $t('timeline.' + activity.kind) }}
+                                <span v-if="activity.kind === 'payment_failed'">
+                                    {{ activity.transaction.fail_code}} {{ activity.transaction.fail_message}}
+                                </span>
                                 <span v-if="activity.kind === 'refund'">
                                     {{ activity.transaction.status | refundStatus}}
                                     {{ activity.transaction.reason}}
