@@ -290,15 +290,21 @@ export function download(url, params, progressCallback) {
                 fileName = fileName.replace(/"/g, '')
                 fileName = fileName.trim()
                 const blob = new Blob([data], {type: headers['content-type']})
-                let dom = document.createElement('a')
-                let url = window.URL.createObjectURL(blob)
-                dom.href = url
-                dom.download = decodeURI(fileName)
-                dom.style.display = 'none'
-                document.body.appendChild(dom)
-                dom.click()
-                dom.parentNode.removeChild(dom)
-                window.URL.revokeObjectURL(url)
+                //兼容IE解决办法
+                if(window.navigator && window.navigator.msSaveOrOpenBlob){
+                    navigator.msSaveBlob(blob, fileName);
+                }else{
+                    //其他浏览器
+                    let dom = document.createElement('a')
+                    let url = window.URL.createObjectURL(blob)
+                    dom.href = url
+                    dom.download = decodeURI(fileName)
+                    dom.style.display = 'none'
+                    document.body.appendChild(dom)
+                    dom.click()
+                    dom.parentNode.removeChild(dom)
+                    window.URL.revokeObjectURL(url)
+                }
                 resolve(res);
             }).catch((err) => {
             reject(err)
