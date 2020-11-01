@@ -97,7 +97,7 @@
                         <el-card shadow="hover" class="box-card p-3 mb-3"
                                  :body-style="{ padding: '0px' }">
                             <div class="text-muted p-0">
-                                <i class="el-icon-info text-blue"></i> {{$t('risk.risk_area_order_will_block')}}
+                                <i class="el-icon-info text-blue"></i> {{$t('risk.risk_area_order_will_block')}} (Billing)
                             </div>
                         </el-card>
                         <el-form ref="risk_area_form"
