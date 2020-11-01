@@ -46,7 +46,7 @@
                                     v-for="(activity, index) in timeline"
                                     :key="index"
                                     :type="timelineType(activity.kind)"
-                                    :timestamp="activity.created_time | toFullTime">
+                                    :timestamp="activity.created_time | toMinuteTime">
                                 {{ $t('timeline.' + activity.kind) }}
                                 <span v-if="activity.kind === 'payment_failed'">
                                     {{ activity.transaction.fail_code}} {{ activity.transaction.fail_message}}

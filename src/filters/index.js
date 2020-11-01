@@ -234,6 +234,15 @@ export function toFullTime(date) {
     return parseTime(new Date(date), format)
 }
 
+export function toMinuteTime(date) {
+    if (isEmpty(date)) return ''
+    let format = '{y}-{m}-{d} {h}:{i}'
+    if (isNumber(date)) {
+        return parseTime(date, format)
+    }
+    return parseTime(new Date(date), format)
+}
+
 export function toDayTime(date) {
     if (isEmpty(date)) return '--'
     return parseTime(new Date(date), '{m}-{d} {h}:{i}:{s}')
