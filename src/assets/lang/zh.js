@@ -131,7 +131,7 @@ module.exports = {
         "risk_manage": "风控管理",
         "risk_area": "风险地区",
         "blacklist": "黑名单",
-        "support_ticket": "技术支持",
+        "support_ticket": "服务工单",
         "message_center": "消息中心",
         "message_center_type": "消息中心",
         "dispute_manage": "争议订单",
