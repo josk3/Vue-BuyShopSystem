@@ -228,7 +228,6 @@
                     phone: [{required: true, message: this.validMsg('user.phone'), trigger: 'blur'},],
                     email: [{required: true, type: 'email', message: this.validMsg('user.email'), trigger: 'blur'},],
                     identity_name: [{required: true, message: this.validMsg('user.identity_name'), trigger: 'blur'},],
-                    company_name: [{required: true, message: this.validMsg('user.company_name'), trigger: 'blur'},],
                     identity_photo_a: [{
                         required: true,
                         message: this.validMsg('user.identity_photo_a'),
@@ -264,6 +263,7 @@
                     product_info: [{required: true, message: this.validMsg('user.product_info'), trigger: 'blur'},],
                 },
                 rulesB: {
+                    company_name: [{required: true, message: this.validMsg('user.company_name'), trigger: 'blur'},],
                     company_identity_photo: [{
                         required: true,
                         message: this.validMsg('user.company_identity_photo'),
@@ -316,9 +316,11 @@
             typeChange() {
                 this.detail.profession = ''
                 if (this.detail.mid_type === 'company') {
+                    this.rules = Object.assign(this.rulesB, this.rulesA);
                     this.professionList = this.businessType
                 } else {
                     this.professionList = this.jobType
+                    this.rules = this.rulesA;
                 }
             },
             validMsg(name) {
