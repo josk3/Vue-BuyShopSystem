@@ -251,16 +251,25 @@
                 },
                 active: 1,   //控制进度&控制页面内容显隐
                 options: [{
-                    case_id: 'OTHER',
-                    label: 'order'
+                    case_id: 'trade',
+                    label: 'trade'
                 }, {
-                    case_id: 'ORDER',
-                    label: 'interface'
+                    case_id: 'finance',
+                    label: 'finance'
                 }, {
-                    case_id: 'INTERFACE',
+                    case_id: 'settlement',
                     label: 'settlement'
-                }, {
-                    case_id: 'SETTLEMENT',
+                },{
+                    case_id: 'refund',
+                    label: 'refund'
+                },{
+                    case_id: 'protest',
+                    label: 'protest'
+                },{
+                    case_id: 'transportation',
+                    label: 'transportation'
+                },{
+                    case_id: 'other',
                     label: 'other'
                 }]
             }
