@@ -335,6 +335,7 @@
             /*图片上传事件-删除*/
             handleRemove(file, fileList) {
                 this.noneBtnImg = fileList.length >= this.limitCountImg;
+                this.fileList = [];
             },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;

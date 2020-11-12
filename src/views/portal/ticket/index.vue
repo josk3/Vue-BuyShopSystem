@@ -308,6 +308,7 @@
             handleRemove(file, fileList) {
                 //触发删除事件检索图片组是否存在空余空间,并显示上传按钮
                 this.noneBtnImg = fileList.length >= this.limitCountImg;
+                this.fileList = [];
             },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
