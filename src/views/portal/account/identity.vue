@@ -185,6 +185,9 @@
                                     {{$t('comm.confirm_submit')}}
                                 </el-button>
                             </el-form-item>
+                            <el-form-item v-if="hold_edit">
+                                <strong>{{ info.identity_status | identityStatus}}</strong>
+                            </el-form-item>
                         </el-form>
                     </div>
 
