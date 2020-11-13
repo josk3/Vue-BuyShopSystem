@@ -213,6 +213,9 @@
                                     <el-divider></el-divider>
                                 </div>
                             </div>
+                            <div v-else-if="order.product_json">
+                                {{ order.product_json }}
+                            </div>
                             <div v-else class="col-12">
                                 --{{$t('order.not_date')}}--
                             </div>
