@@ -444,6 +444,7 @@ module.exports = {
         "domain": "Site domain",
         "callback_url_info": "Callback notification url for order status update",
         "submit_site": "Submit site",
+        "site_url_www_help_info" : "Url attention to the presence of www.",
     },
     "bank": {
         "settle_bank": "Settlement Bank",

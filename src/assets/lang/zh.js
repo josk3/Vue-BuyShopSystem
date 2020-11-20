@@ -442,6 +442,7 @@ module.exports = {
         "domain": "网站域名",
         "callback_url_info": "订单状态更新的回调通知url",
         "submit_site": "提交网址",
+        "site_url_www_help_info" : "网址根据实际情况填写有无www.",
     },
     "bank": {
         "settle_bank": "结算银行卡",

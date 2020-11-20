@@ -119,6 +119,12 @@
                    v-loading="loading"
                    :visible.sync="addShopDialogVisible">
             <div>
+                <el-card shadow="hover" class="box-card p-2"
+                         :body-style="{ padding: '0px' }">
+                    <div class="text-muted p-0">
+                        <i class="el-icon-info text-blue"></i> {{$t('shop.site_url_www_help_info')}}
+                    </div>
+                </el-card>
                 <el-form ref="add_shop"
                          :model="add_shop"
                          :rules="rules" label-width="110px" class="p-1 pt-3 pb-0">
