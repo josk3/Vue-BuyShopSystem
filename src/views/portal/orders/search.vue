@@ -4,7 +4,7 @@
         <div class="wrap-tab p-0">
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
                 <div class="row">
-                    <el-tabs class="col-6 mr-n3"  v-model="paneName" type="border-card"
+                    <el-tabs class="col-6 mr-n3" v-model="paneName" type="border-card"
                              @tab-click="paneClick">
                         <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
                         <el-tab-pane :label="$t('status.paid')" name="paid"></el-tab-pane>
@@ -131,7 +131,7 @@
     import SearchBox from "@/components/SearchBox";
     import RefundDialog from "@/components/RefundDialog";
     import Pagination from "@/components/Pagination";
-    import {ordersSearch,ordersDownload} from "@/service/orderSer";
+    import {ordersDownload, ordersSearch} from "@/service/orderSer";
     import {mapState} from "vuex";
 
     export default {
@@ -154,7 +154,6 @@
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认
-                order_form: this.initFormObj(),
             }
         },
         mounted() {
@@ -164,6 +163,11 @@
         methods: {
             paneClick(tab) {
                 this.searchParams.page = 1;//重置页码
+                //清trade_id,merchant_order_no 搜索条件
+                if (this.paneName !== 'all') {
+                    this.searchParams.trade_id = ''
+                    this.searchParams.merchant_order_no = ''
+                }
                 this.paneName = tab.name
                 this.searchParams.pay_status = tab.name //搜索对应status
                 this.search()
@@ -201,15 +205,12 @@
             downOrders() {
                 //页面效果,正在加载中
                 this.$data.loading = true
-                ordersDownload(this.order_form).then(() => {
+                ordersDownload(this.searchParams).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
                 }).finally(() => {
                     this.$data.loading = false
                 })
             },
-            initFormObj() {
-                return {trade_id: '', merchant_order_no: '', pay_status: ''};
-            }
         },
     }
 </script>
