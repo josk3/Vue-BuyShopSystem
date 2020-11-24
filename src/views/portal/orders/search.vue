@@ -68,8 +68,20 @@
                             width="90px"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
-                            <span class="pay-status" :class="['ps-' + scope.row.pay_status]">
-                                {{scope.row.pay_status | payStatus}}
+                            <span v-if="scope.row.pay_status === 'failed'" class="pay-status pay-status-help" :class="['ps-' + scope.row.pay_status]">
+                                <el-popover
+                                        placement="top"
+                                        width="400"
+                                        :title="scope.row.merchant_order_no"
+                                        trigger="hover"
+                                        :content="scope.row.fail_message">
+                                    <span slot="reference">
+                                        {{scope.row.pay_status | payStatus}}
+                                    </span>
+                                </el-popover>
+                            </span>
+                            <span v-else class="pay-status" :class="['ps-' + scope.row.pay_status]">
+                                 {{scope.row.pay_status | payStatus}}
                             </span>
                         </template>
                     </el-table-column>
