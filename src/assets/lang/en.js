@@ -313,6 +313,7 @@ module.exports = {
     },
     "risk": {
         "fingerprint": "Card ID",
+        "bill_address": "Bill address",
         "email": "Email",
         "ip": "Ip",
         "address": "Address",

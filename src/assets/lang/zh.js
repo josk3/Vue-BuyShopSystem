@@ -312,6 +312,7 @@ module.exports = {
     },
     "risk": {
         "fingerprint": "卡ID",
+        "bill_address": "账单地址",
         "email": "邮箱",
         "ip": "Ip",
         "address": "地址",

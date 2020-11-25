@@ -104,8 +104,8 @@
                                 </div>
                                 <div class="item"><span class="label">{{$t('risk.card_no')}}</span><span class="value">•••• {{ order.card.last4 }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('risk.fingerprint')}}</span>
-                                    <span class="value">{{ order.card.fingerprint }}</span>
+                                <div class="item"><span class="label">{{$t('risk.bill_address')}}</span>
+                                    <span class="value">{{ order.bill_address }}</span>
                                 </div>
                                 <div class="item"><span class="label">{{$t('order.order_time')}}</span><span
                                         class="value">{{ order.created_time | toFullTime }}</span>
