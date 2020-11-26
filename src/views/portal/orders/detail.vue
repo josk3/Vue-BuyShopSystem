@@ -104,8 +104,8 @@
                                 </div>
                                 <div class="item"><span class="label">{{$t('risk.card_no')}}</span><span class="value">•••• {{ order.card.last4 }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('risk.fingerprint')}}</span>
-                                    <span class="value">{{ order.card.fingerprint }}</span>
+                                <div class="item"><span class="label">{{$t('risk.bill_address')}}</span>
+                                    <span class="value">{{ order.bill_address }}</span>
                                 </div>
                                 <div class="item"><span class="label">{{$t('order.order_time')}}</span><span
                                         class="value">{{ order.created_time | toFullTime }}</span>
@@ -212,6 +212,9 @@
                                             class="value">{{ item.quantity }}</span></div>
                                     <el-divider></el-divider>
                                 </div>
+                            </div>
+                            <div v-else-if="order.product_json">
+                                {{ order.product_json }}
                             </div>
                             <div v-else class="col-12">
                                 --{{$t('order.not_date')}}--

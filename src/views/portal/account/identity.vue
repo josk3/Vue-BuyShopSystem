@@ -44,9 +44,6 @@
                             <el-form-item :label="$t('user.shop_site')" prop="shop_site">
                                 <el-input v-model="detail.shop_site"></el-input>
                             </el-form-item>
-                            <el-form-item :label="$t('user.product_info')" prop="product_info">
-                                <el-input v-model="detail.product_info"></el-input>
-                            </el-form-item>
                             <el-form-item :label="$t('user.qq')" prop="qq">
                                 <el-input v-model="detail.qq"></el-input>
                             </el-form-item>
@@ -185,6 +182,9 @@
                                     {{$t('comm.confirm_submit')}}
                                 </el-button>
                             </el-form-item>
+                            <el-form-item v-if="hold_edit">
+                                <strong>{{ info.identity_status | identityStatus}}</strong>
+                            </el-form-item>
                         </el-form>
                     </div>
 
@@ -260,7 +260,7 @@
                     zip_code: [{required: true, message: this.validMsg('user.zip_code'), trigger: 'blur'},],
                     shop_site: [{required: true, message: this.validMsg('user.shop_site'), trigger: 'blur'},],
                     mid_type: [{required: true, message: this.validMsg('comm.type'), trigger: 'blur'},],
-                    product_info: [{required: true, message: this.validMsg('user.product_info'), trigger: 'blur'},],
+                    //product_info: [{required: true, message: this.validMsg('user.product_info'), trigger: 'blur'},],
                 },
                 rulesB: {
                     company_name: [{required: true, message: this.validMsg('user.company_name'), trigger: 'blur'},],
