@@ -305,7 +305,7 @@
                     ],
                     username: [
                         {required: true, message: this.validMsg('user.username'), trigger: 'blur'},
-                        {min: 5, max: 20, message: this.$i18n.t('valid.bad.length_4_20'), trigger: 'blur'},
+                        {min: 4, max: 20, message: this.$i18n.t('valid.bad.length_4_20'), trigger: 'blur'},
                     ],
                     email: [
                         {required: true, message: this.validMsg('user.email'), trigger: 'blur'},
