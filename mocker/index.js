@@ -3397,6 +3397,7 @@ const proxy = {
                     updated: "2020-08-07 23:53:26",
                     virtual: false,
                     mid_type: '', //company
+                    identity_account_type:'',
                     allow_personal: 0,
                 },
                 bank: {
