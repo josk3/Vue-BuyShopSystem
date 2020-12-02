@@ -162,7 +162,7 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.trade_manage', page: 1,
-                    trade_id: '', merchant_order_no: '', pay_status: ''
+                    trade_id: '', merchant_order_no: '', pay_status: '', search_date: ''
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认
