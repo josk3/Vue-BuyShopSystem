@@ -202,7 +202,7 @@
                    :title="$t('bank.add_bank')"
                    :visible.sync="addBankDialogVisible">
             <div>
-                <GroupNav v-show="info.mid_type === 'company'"
+                <GroupNav v-show="info.identity_account_type === 'company'"
                           :list="bankTypeList" :active="activeName" @nav-click="bankTypeClick($event)"></GroupNav>
                 <el-form ref="add_bank"
                          :model="add_bank"
@@ -375,7 +375,7 @@
                 this.initBankForm()
                 this.loadMerInfo()
                 //
-                this.typeChangeUpdateBank(this.info.mid_type)
+                this.typeChangeUpdateBank(this.info.identity_account_type)
                 this.add_bank.action = action
                 this.addBankDialogVisible = true
             },
@@ -387,7 +387,7 @@
                     this.cardType[0].disabled = false
                     this.cardType[1].disabled = true
                     this.cardType[2].disabled = true
-                    this.add_bank.need_authorize = this.info.mid_type === 'company'; //认证企业但结算到个人
+                    this.add_bank.need_authorize = this.info.identity_account_type === 'company'; //认证企业但结算到个人
                 }else {
                     this.cardType[0].disabled = true
                     this.cardType[1].disabled = false

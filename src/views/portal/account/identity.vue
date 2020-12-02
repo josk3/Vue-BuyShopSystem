@@ -48,7 +48,7 @@
                                 <el-input v-model="detail.qq"></el-input>
                             </el-form-item>
                             <hr>
-                            <el-form-item prop="mid_type">
+                            <el-form-item prop="identity_account_type">
                                 <template slot="label">
                                     类别
                                     <el-popover v-show="!allowPersonal"
@@ -59,7 +59,7 @@
                                         <span slot="reference"><i class="el-icon-warning-outline"></i></span>
                                     </el-popover>
                                 </template>
-                                <el-select v-model="detail.mid_type"
+                                <el-select v-model="detail.identity_account_type"
                                            :disabled="!allowPersonal"
                                            placeholder="请选择类型"
                                            @change="typeChange"
@@ -76,7 +76,7 @@
                             <div class="personal">
                                 <el-form-item :label="$t('user.identity_name')" prop="identity_name">
                                     <el-input v-model="detail.identity_name"></el-input>
-                                    <small v-show="detail.mid_type === 'company'">法人信息</small>
+                                    <small v-show="detail.identity_account_type === 'company'">法人信息</small>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.identity_number')" prop="identity_number">
                                     <el-input v-model="detail.identity_number"></el-input>
@@ -133,7 +133,7 @@
                                 </el-form-item>
                             </div>
                             <hr>
-                            <div class="company" v-show="detail.mid_type !== 'personal'">
+                            <div class="company" v-show="detail.identity_account_type !== 'personal'">
                                 <el-form-item :label="$t('user.company_name')" prop="company_name">
                                     <el-input v-model="detail.company_name"></el-input>
                                 </el-form-item>
@@ -222,7 +222,7 @@
                 loading: false,
                 hold_edit: false,
                 info: {},
-                detail: {mid_type: ''},
+                detail: {identity_account_type: ''},
                 rules: {},
                 rulesA: {
                     phone: [{required: true, message: this.validMsg('user.phone'), trigger: 'blur'},],
@@ -259,7 +259,7 @@
                     sex: [{required: true, message: this.validMsg('user.sex'), trigger: 'change'},],
                     zip_code: [{required: true, message: this.validMsg('user.zip_code'), trigger: 'blur'},],
                     shop_site: [{required: true, message: this.validMsg('user.shop_site'), trigger: 'blur'},],
-                    mid_type: [{required: true, message: this.validMsg('comm.type'), trigger: 'blur'},],
+                    identity_account_type: [{required: true, message: this.validMsg('comm.type'), trigger: 'blur'},],
                     //product_info: [{required: true, message: this.validMsg('user.product_info'), trigger: 'blur'},],
                 },
                 rulesB: {
@@ -315,7 +315,7 @@
             },
             typeChange() {
                 this.detail.profession = ''
-                if (this.detail.mid_type === 'company') {
+                if (this.detail.identity_account_type === 'company') {
                     this.rules = Object.assign(this.rulesB, this.rulesA);
                     this.professionList = this.businessType
                 } else {
@@ -328,8 +328,8 @@
             },
             reloadAccountType() {
                 let detail = this.detail
-                if (!isEmpty(detail) && !isEmpty(detail.mid_type)) {
-                    if (detail.mid_type === 'company') {
+                if (!isEmpty(detail) && !isEmpty(detail.identity_account_type)) {
+                    if (detail.identity_account_type === 'company') {
                         this.rules = Object.assign(this.rulesB, this.rulesA);
                         this.professionList = this.businessType
                     } else {
@@ -357,7 +357,7 @@
                 getMerIdentity().then(res => {
                     const {data} = res
                     let detailData = data.detail
-                    detailData.mid_type = 'company'//初始值
+                    detailData.identity_account_type = 'company'//初始值
                     if (detailData.qq === 'null') detailData.qq = ''
                     this.$data.detail = detailData //赋值
                     this.$data.jobType = data.job_type
@@ -365,15 +365,15 @@
                     //
                     if (this.$data.info.allow_personal === 1) {
                         this.$data.allowPersonal = true
-                        if (!isEmpty(this.$data.info.mid_type)) {//type数据在info
-                            if (this.$data.info.mid_type === 'company') {
-                                this.$data.detail.mid_type = 'company'
+                        if (!isEmpty(this.$data.info.identity_account_type)) {//type数据在info
+                            if (this.$data.info.identity_account_type === 'company') {
+                                this.$data.detail.identity_account_type = 'company'
                             } else {
-                                this.$data.detail.mid_type = 'personal'
+                                this.$data.detail.identity_account_type = 'personal'
                             }
                         }
                     } else {
-                        this.$data.detail.mid_type = 'company' //默认只能认证为公司,要个人得人工申请
+                        this.$data.detail.identity_account_type = 'company' //默认只能认证为公司,要个人得人工申请
                         this.$data.allowPersonal = false
                     }
                     this.reloadAccountType()
