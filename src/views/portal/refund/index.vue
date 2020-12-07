@@ -125,11 +125,10 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.refund_select', page: 1,
-                    trade_id: '', merchant_order_no: '', email: ''
+                    trade_id: '', merchant_order_no: '', email: '', refund_status: ''
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认
-                refund_params: {trade_id: '', merchant_order_no: '', email: ''},
             }
         },
         mounted() {
@@ -177,7 +176,7 @@
             downRefund(){
                 //页面效果,正在加载中
                 this.$data.loading = true
-                refundDownload(this.refund_params).then(() => {
+                refundDownload(this.searchParams).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
                 }).finally(() => {
                     this.$data.loading = false
