@@ -415,3 +415,40 @@ export function disputeStatus(priorityValue) {
             return i18n.t('dispute.complete')
     }
 }
+
+/**
+ * 争议管理状态值转文字
+ */
+export function shipReason(reason) {
+    if (isEmpty(reason)) return ''
+    switch (reason) {
+        case 'search_info_fail':
+            return '搜索的信息有误'
+        case 'track_number_fail_or_other':
+            return '本邮件号输入有误或有其他情况'
+        case 'customs_pass':
+            return '海关放行'
+        case 'returned':
+            return '被退回'
+        case 'in_delivery_process':
+            return '到达处理中心'
+        case 'not_found':
+            return '查不到'
+        case 'not_deliver':
+            return '未妥投'
+        case 'delivering':
+            return '运输途中'
+        case 'leave_delivery':
+            return '离开处理中心'
+        case 'give_to_customs':
+            return '送交海关'
+        case 'diff_receive_address':
+            return '签收人和地址都不一样'
+        case 'than_600_after_3m':
+            return '大于600美金3个月后结算'
+        case 'wait_customs_clearance':
+            return '快件等待清关'
+        case 'miss_track_info':
+            return '查不到物流'
+    }
+}

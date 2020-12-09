@@ -30,7 +30,7 @@
                 <el-popconfirm
                         :confirmButtonText="$t('comm.sure')"
                         :cancelButtonText="$t('comm.cancel')"
-                        :title="$t('order.confirm_apply_refund')" @onConfirm="submitRefund" :hideIcon="true">
+                        :title="$t('order.confirm_apply_refund')" @confirm="submitRefund" :hideIcon="true">
                     <el-button slot="reference" size="mini" type="primary" class="ml-3" >{{$t('order.submit_refund')}}</el-button>
                 </el-popconfirm>
             </div>

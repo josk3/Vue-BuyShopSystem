@@ -23,3 +23,10 @@ export function deliveryUpload(formData, progressCallback) {
     return upload('/delivery/upload', formData , progressCallback);
 }
 
+export function getVirtualStatus() {
+    return get('/delivery/virtual/status', '');
+}
+
+export function batchAutoVirtualShip() {
+    return post('/delivery/virtual/batch_auto_ship', '');
+}

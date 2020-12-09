@@ -368,6 +368,7 @@ function demoOrderInfo() {
             "delivery_status": 1,
             "track_number": "TESTUoIiqtrXp1",
             "track_brand": "dhl",
+            "virtual_ship": "1",
             "meta_data": null,
             "bill_address": "ws2ef*sss",
             "customer": {
@@ -1724,6 +1725,23 @@ const proxy = {
                         "value": "OTHER"
                     },
                 ]
+            }
+        });
+    },
+    'GET /api/v1/delivery/virtual/status': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                is_virtual: true
+            }
+        });
+    },
+    'POST /api/v1/delivery/virtual/batch_auto_ship': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '系统自动填单完成 33 笔虚拟交易订单',
+            data: {
             }
         });
     },

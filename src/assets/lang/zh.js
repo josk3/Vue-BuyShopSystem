@@ -41,6 +41,8 @@ module.exports = {
         "type": "类型",
         "view_detail": "查看详情",
         "batch_upload": "批量上传",
+        "batch_auto_virtual_ship": "虚拟交易自动填单",
+        "batch_auto_virtual_ship_help_ifo": "确认虚拟交易物流信息系统自动帮您完成填单",
         "update": "修改",
         "upload": "上传",
         "sure": "确定",

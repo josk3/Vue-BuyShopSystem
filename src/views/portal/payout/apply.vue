@@ -79,7 +79,11 @@
                             :show-overflow-tooltip="true"
                             :label="$t('comm.track_number')">
                         <template v-slot="scope">
-                            {{scope.row.track_number }}
+                            <span v-if="scope.row.virtual_ship">
+                                <small v-if="scope.row.virtual_ship === '1'">{{ $t('shop.is_a_virtual') }}</small>
+                                <small v-else></small>
+                            </span>
+                            <span v-else>{{ scope.row.track_number }}</span>
                         </template>
                     </el-table-column>
                 </el-table>

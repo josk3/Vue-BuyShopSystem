@@ -41,6 +41,8 @@ module.exports = {
         "type": "Type",
         "view_detail": "View Detail",
         "batch_upload": "Batch upload",
+        "batch_auto_virtual_ship": "Virtual order auto input",
+        "batch_auto_virtual_ship_help_ifo": "Confirm virtual order auto input",
         "update": "Update",
         "upload": "Upload",
         "sure": "Sure",
