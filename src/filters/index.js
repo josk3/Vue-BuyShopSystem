@@ -452,3 +452,34 @@ export function shipReason(reason) {
             return '查不到物流'
     }
 }
+
+/**
+ * 通知消息 标题类型
+ */
+export function noticeKindStr(title) {
+    if (isEmpty(title)) return ''
+    switch (title) {
+        case 'announce':
+            return '公告通知'
+        case 'chargeback':
+            return '拒付订单'
+        case 'dispute':
+            return '订单投诉'
+        case 'ticket':
+            return '工单消息'
+        case 'identityPass':
+            return '激活认证通过'
+        case 'updatePassword':
+            return '修改密码成功'
+        case 'settledPayout':
+            return '结算已划款'
+        case 'shopSiteReviewPass':
+            return '审核通过绑定网址'
+        case 'shopSiteReviewReject':
+            return '绑定网址审核拒绝'
+        case 'manualCharge':
+            return '订单重试扣款'
+        default:
+            return title;
+    }
+}

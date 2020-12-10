@@ -6,7 +6,7 @@
                          :body-style="{ padding: '0px' }">
                     <div slot="header" class="clearfix text-left">
                         <el-button type="text" @click="goMsgCenter"><i class="el-icon-arrow-left"></i></el-button>
-                        {{ detail.title }}
+                        {{ detail.title | noticeKindStr }}
                     </div>
                     <div>
                         <div class="d-block text-right p-2">{{ detail.created | toFullTime }}</div>
@@ -32,6 +32,15 @@
                                 <router-link :to="configs.disputePath" class="btn-link d-block mt-2">
                                     {{ $t('nav.dispute_manage') }}
                                 </router-link>
+                            </div>
+                            <div v-else-if="detail.kind == 'manualCharge'" class="mb-3">
+                                <p>{{ detail.kind | noticeKindStr }}</p>
+                                <strong v-if="detail.target_id">
+                                    {{ $t('comm.trade_id') }}:
+                                    <router-link :to="configs.orderDetailPath + detail.target_id" class="btn-link">
+                                        {{ detail.target_id }}
+                                    </router-link>
+                                </strong>
                             </div>
                             <div v-html="detail.message" class="html-content-detail"></div>
                         </div>

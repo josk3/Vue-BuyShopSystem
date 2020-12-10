@@ -47,7 +47,7 @@
                                         width="220px"
                                         label="title">
                                     <template v-slot="scope">
-                                        {{scope.row.title }}
+                                        {{scope.row.kind | noticeKindStr }}
                                     </template>
                                 </el-table-column>
                                 <el-table-column property="created" label="time">

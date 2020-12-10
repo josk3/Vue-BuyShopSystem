@@ -33,8 +33,8 @@
                             :show-overflow-tooltip="true"
                             :label="$t('comm.title')">
                         <template v-slot="scope">
-                            <span v-if="scope.row.has_read === 1">{{scope.row.title}}</span>
-                            <span v-else><strong>{{scope.row.title}}</strong></span>
+                            <span v-if="scope.row.has_read === 1">{{scope.row.title | noticeKindStr}}</span>
+                            <span v-else><strong>{{scope.row.title | noticeKindStr}}</strong></span>
                         </template>
                     </el-table-column>
                     <el-table-column
