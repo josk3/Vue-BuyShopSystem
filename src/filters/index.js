@@ -479,6 +479,8 @@ export function noticeKindStr(title) {
             return '绑定网址审核拒绝'
         case 'manualCharge':
             return '订单重试扣款'
+        case 'crmEvent':
+            return '受理结果'
         default:
             return title;
     }
