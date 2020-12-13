@@ -481,6 +481,10 @@ export function noticeKindStr(title) {
             return '订单重试扣款'
         case 'crmEvent':
             return '受理结果'
+        case 'chargebackMonthFees':
+            return '拒付处理费变更'
+        case 'tradeMonthFees':
+            return '交易手续费变更'
         default:
             return title;
     }
