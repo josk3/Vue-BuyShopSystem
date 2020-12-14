@@ -5,12 +5,19 @@
             <div class="wrap-tab p-0">
                 <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
                     <div class="row">
-                        <div class="col-8 pr-0" style="background-color: #F5F7FA">
+                        <div class="col-6 pr-0" style="background-color: #F5F7FA">
                             <el-tabs type="border-card">
                             </el-tabs>
                         </div>
-                        <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
+                        <div class="col-6 text-right p-0" style="background-color: #F5F7FA">
                             <div class="mr-5 mt-1 mb-1">
+                                <el-popconfirm v-if="is_virtual" @confirm="batchAutoVirtualShip()"
+                                               :title="$t('comm.batch_auto_virtual_ship_help_ifo')">
+                                    <el-button slot="reference" icon="el-icon-refresh" size="mini" class="mr-3" plain>
+                                        {{$t('comm.batch_auto_virtual_ship')}}
+                                    </el-button>
+                                </el-popconfirm>
+
                                 <el-button icon="el-icon-upload2" size="mini" class="mr-3"
                                            @click="uploadTrackDialogVisible = true" plain>{{$t('comm.batch_upload')}}
                                 </el-button>
@@ -62,6 +69,7 @@
                             <template v-slot="scope">
                                 <div v-if="scope.row.track_number">
                                     {{scope.row.track_number }}
+                                    {{ scope.row.shipment_reason | shipReason}}
                                 </div>
                                 <div v-else>
                                     <el-button type="text" @click="addTrackDialog(scope.$index, scope.row)">
@@ -183,7 +191,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {deliveryAdd, deliveryDownload, deliverySearch, deliveryUpload, getTrackBrands} from "@/service/deliverySer";
+    import {deliveryAdd, deliveryDownload, deliverySearch, deliveryUpload, getTrackBrands, getVirtualStatus, batchAutoVirtualShip} from "@/service/deliverySer";
     import {isEmpty} from "@/utils/validate";
     import {mapState} from "vuex";
 
@@ -221,9 +229,12 @@
                 trackExcelFile: '',
                 uploadTrackDialogVisible: false,
                 trackExcelUploadEnable: true,
+                //
+                is_virtual: false,
             }
         },
         mounted() {
+            this.virtualStatus();
             this.search();
         },
         methods: {
@@ -346,6 +357,26 @@
                     this.$message.success(this.$i18n.t('comm.success').toString())
                 }).finally(() => {
                     this.$data.loading = false
+                })
+            },
+            virtualStatus() {//是否是虚拟商户或交易
+                this.loading = true
+                getVirtualStatus().then(res => {
+                    const {data} = res
+                    this.$data.is_virtual = data.is_virtual
+                }).finally(() => {
+                    this.loading = false
+                })
+            },
+            batchAutoVirtualShip(){
+                this.loading = true
+                batchAutoVirtualShip().then(res => {
+                    if (res.status === 1) {
+                        this.$message.success(res.message)
+                        this.search()
+                    }
+                }).finally(() => {
+                    this.loading = false
                 })
             },
         },

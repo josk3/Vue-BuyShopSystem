@@ -70,13 +70,7 @@
                     min-width="100px"
                     prop="charge">
                 <template slot="header">
-                    <el-popover
-                            placement="top-start"
-                            width="200"
-                            trigger="hover"
-                            :content="$t('finance.include_fees')">
-                        <span slot="reference">{{$t('finance.balance_charge')}} <i class="el-icon-warning-outline"></i></span>
-                    </el-popover>
+                    <span slot="reference">{{$t('finance.balance_charge')}}</span>
                 </template>
                 <template v-slot="scope">
                             <span :class="scope.row.charge === 0 ? '' : (scope.row.charge > 0 ? 'c-income' : 'c-outlay')">

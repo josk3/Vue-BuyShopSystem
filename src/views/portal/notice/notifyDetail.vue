@@ -6,14 +6,45 @@
                          :body-style="{ padding: '0px' }">
                     <div slot="header" class="clearfix text-left">
                         <el-button type="text" @click="goMsgCenter"><i class="el-icon-arrow-left"></i></el-button>
-                        {{ detail.title }}
+                        {{ detail.title | noticeKindStr }}
                     </div>
                     <div>
                         <div class="d-block text-right p-2">{{ detail.created | toFullTime }}</div>
                         <div class="p-4">
-                            <div class="html-content-detail" v-html="detail.message"></div>
+                            <div v-if="detail.kind == 'chargeback'" class="mb-3">
+                                <strong v-if="detail.target_id">
+                                    {{ $t('comm.trade_id') }}:
+                                    <router-link :to="configs.orderDetailPath + detail.target_id" class="btn-link">
+                                        {{ detail.target_id }}
+                                    </router-link>
+                                </strong>
+                                <router-link :to="configs.chargebackPath" class="btn-link d-block mt-2">
+                                    {{ $t('nav.decline_manage') }}
+                                </router-link>
+                            </div>
+                            <div v-else-if="detail.kind == 'dispute'" class="mb-3">
+                                <strong v-if="detail.target_id">
+                                    {{ $t('dispute.dispute_no') }}:
+                                    <router-link :to="configs.disputeDetailPath + detail.target_id" class="btn-link">
+                                        {{ detail.target_id }}
+                                    </router-link>
+                                </strong>
+                                <router-link :to="configs.disputePath" class="btn-link d-block mt-2">
+                                    {{ $t('nav.dispute_manage') }}
+                                </router-link>
+                            </div>
+                            <div v-else-if="detail.kind == 'manualCharge'" class="mb-3">
+                                <p>{{ detail.kind | noticeKindStr }}</p>
+                                <strong v-if="detail.target_id">
+                                    {{ $t('comm.trade_id') }}:
+                                    <router-link :to="configs.orderDetailPath + detail.target_id" class="btn-link">
+                                        {{ detail.target_id }}
+                                    </router-link>
+                                </strong>
+                            </div>
+                            <div v-html="detail.message" class="html-content-detail"></div>
                         </div>
-                        <div class="mt-5 mb-3">
+                        <div class="mt-3 mb-3">
                             <el-button class="ml-4 pl-3 pr-4" @click="goMsgCenter">
                                 <i class="el-icon-arrow-left"></i> {{ $t('comm.go_back') }}
                             </el-button>
@@ -64,7 +95,7 @@
                 })
             },
             goMsgCenter() {
-                this.$router.push({name: 'message_center_type', params:{ type: 'notify'} })
+                this.$router.push({name: 'message_center_type', params: {type: 'notify'}})
             },
 
         },

@@ -5,6 +5,7 @@
   2.最近7天
   3.最近30天
 @return ([start,end]) 返回开始时间和结束时间的数组
+*
 */
 export default function acquire(type) {
 	const end = new Date();

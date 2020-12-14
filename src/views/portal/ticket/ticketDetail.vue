@@ -213,7 +213,7 @@
                 <el-form :model="ticketFormParams" ref="ticketFormParams" :rules="rules" label-width="100px"
                          class="demo-ruleForm">
                     <el-form-item class="ml-4">
-                        <el-popconfirm @onConfirm="closeTicket()" :title="$t('ticket.hint_close_ticket_msg')">
+                        <el-popconfirm @confirm="closeTicket()" :title="$t('ticket.hint_close_ticket_msg')">
                             <el-button type="info" slot="reference">{{$t('ticket.close_ticket')}}</el-button>
                         </el-popconfirm>
                     </el-form-item>

@@ -40,6 +40,10 @@ module.exports = {
     registerPath: '/register',
     ticketPath: '/support/ticket',
     termsPath: '/terms',
+    chargebackPath: '/decline/manage',
+    disputePath: '/dispute/manage',
+    orderDetailPath: '/order/detail/',
+    disputeDetailPath: '/dispute/detail/',
     apiCode: {
         needLogin: 7011,
         reloadUserData: 7010,//用户状态或有新消息或数据有更新时

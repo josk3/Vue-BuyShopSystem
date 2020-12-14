@@ -421,3 +421,77 @@ export function disputeStatus(priorityValue) {
             return i18n.t('dispute.complete')
     }
 }
+
+/**
+ * 争议管理状态值转文字
+ */
+export function shipReason(reason) {
+    if (isEmpty(reason)) return ''
+    switch (reason) {
+        case 'search_info_fail':
+            return '搜索的信息有误'
+        case 'track_number_fail_or_other':
+            return '本邮件号输入有误或有其他情况'
+        case 'customs_pass':
+            return '海关放行'
+        case 'returned':
+            return '被退回'
+        case 'in_delivery_process':
+            return '到达处理中心'
+        case 'not_found':
+            return '查不到'
+        case 'not_deliver':
+            return '未妥投'
+        case 'delivering':
+            return '运输途中'
+        case 'leave_delivery':
+            return '离开处理中心'
+        case 'give_to_customs':
+            return '送交海关'
+        case 'diff_receive_address':
+            return '签收人和地址都不一样'
+        case 'than_600_after_3m':
+            return '大于600美金3个月后结算'
+        case 'wait_customs_clearance':
+            return '快件等待清关'
+        case 'miss_track_info':
+            return '查不到物流'
+    }
+}
+
+/**
+ * 通知消息 标题类型
+ */
+export function noticeKindStr(title) {
+    if (isEmpty(title)) return ''
+    switch (title) {
+        case 'announce':
+            return '公告通知'
+        case 'chargeback':
+            return '拒付订单'
+        case 'dispute':
+            return '订单投诉'
+        case 'ticket':
+            return '工单消息'
+        case 'identityPass':
+            return '激活认证通过'
+        case 'updatePassword':
+            return '修改密码成功'
+        case 'settledPayout':
+            return '结算已划款'
+        case 'shopSiteReviewPass':
+            return '审核通过绑定网址'
+        case 'shopSiteReviewReject':
+            return '绑定网址审核拒绝'
+        case 'manualCharge':
+            return '订单重试扣款'
+        case 'crmEvent':
+            return '受理结果'
+        case 'chargebackMonthFees':
+            return '拒付处理费变更'
+        case 'tradeMonthFees':
+            return '交易手续费变更'
+        default:
+            return title;
+    }
+}
