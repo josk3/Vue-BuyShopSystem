@@ -3380,6 +3380,9 @@ const proxy = {
     'GET /api/v1/merchant/menus': (req, res) => {
         return res.json(demoUserInfo());
     },
+    'POST /api/v1/merchant/bank/add': (req, res) => {
+        return res.json(demoUserInfo());
+    },
     'GET /api/v1/merchant/info': (req, res) => {
         return res.json({
             status: 1,
