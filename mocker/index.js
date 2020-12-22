@@ -3870,6 +3870,12 @@ const proxy = {
             data: {}
         })
     },
+    'POST /api/v1/shop/resubmit': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
 
 }
 let sleep = false;

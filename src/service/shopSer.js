@@ -28,3 +28,7 @@ export function openShop(params) {
     return post('/shop/open', params);
 }
 
+export function resubmit(params) {
+    return post('/shop/resubmit', params);
+}
+
