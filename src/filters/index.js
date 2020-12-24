@@ -395,6 +395,7 @@ export function settleCycle(val) {
     if (isEmpty(val)) return '--'
     switch (val) {
         case 'monthTwoTimer':
+        case 'monthTwoTimer825':
             return i18n.t('comm.month_two_timer')
         case 'monthFourTimer':
             return i18n.t('comm.month_two_timer')
