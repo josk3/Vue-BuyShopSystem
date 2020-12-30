@@ -130,7 +130,7 @@
                 rules: {
                     content: [
                         {required: true, message: this.validMsg('dispute.dispute_content_is_null'), trigger: 'blur'},
-                        {min: 1, max: 270, message: this.validMsg('dispute.error_msg_content_size'), trigger: 'blur'}
+                        {min: 1, max: 1000, message: this.validMsg('dispute.error_msg_content_size'), trigger: 'blur'}
                     ]
                 },
                 dispose: {
