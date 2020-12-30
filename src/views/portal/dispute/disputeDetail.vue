@@ -78,7 +78,7 @@
                     <el-input type="hidden" v-model="disputeSubmitParams.type"></el-input>
                     <el-form-item :label="$t('dispute.task_response')" prop="content" class="col-12">
                         <el-input type="textarea" :placeholder="$t('dispute.prompt_solution_information')"
-                                  maxlength="270" show-word-limit :rows="4"
+                                  maxlength="1000" show-word-limit :rows="8"
                                   v-model="disputeSubmitParams.content"></el-input>
                     </el-form-item>
                     <el-form-item>
