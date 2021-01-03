@@ -2071,6 +2071,14 @@ const proxy = {
             }
         });
     },
+    'POST /api/v1/order/cancel/pending': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+            }
+        });
+    },
     'POST /api/v1/blacklist/add': (req, res) => {
         return res.json({
             status: 1,
@@ -3179,6 +3187,12 @@ const proxy = {
         })
     },
     'POST /api/v1/settle/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/settle/detail/download': (req, res) => {
         return res.json({
             status: 1,
             data: {}

@@ -13,6 +13,11 @@
                                 <font-awesome-icon icon="undo"/>
                                 {{$t('kind.refund')}}
                             </el-button>
+                            <el-button v-else-if="order.pay_status === 'pending'" class="float-right" size="mini"
+                                       @click="openCancelPendingDialog">
+                                <i class="el-icon-refresh-right"></i>
+                                {{$t('order.cancel_pending')}}
+                            </el-button>
                         </div>
                         <div class="text-left">
                             <strong>{{ order.order_currency }} {{ order.order_amount }}</strong>
@@ -238,6 +243,7 @@
         </div>
         <!--    d    -->
         <RefundDialog ref="refund_dialog"></RefundDialog>
+        <CancelPendingDialog ref="cancel_pending_dialog"></CancelPendingDialog>
 
     </div>
 </template>
@@ -248,11 +254,12 @@
     import {isEmpty} from "@/utils/validate";
     import newClipboard from "@/utils/clipboard";
     import RefundDialog from "@/components/RefundDialog";
+    import CancelPendingDialog from "@/components/CancelPendingDialog";
     import {mapState} from "vuex";
 
     export default {
         name: "order_detail",
-        components: {RefundDialog},
+        components: {RefundDialog, CancelPendingDialog},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 lang: state => state.app.lang,//多语言
@@ -314,6 +321,9 @@
                 } else if (kind === 'chargeback') {
                     return 'danger';
                 }
+            },
+            openCancelPendingDialog() {
+                this.$refs.cancel_pending_dialog.show(this.order, this.getOrder)
             },
 
         },

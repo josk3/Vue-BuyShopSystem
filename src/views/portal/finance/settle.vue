@@ -95,8 +95,9 @@
                        top="3vh"
                        :visible.sync="payoutSummaryDialog">
                 <div v-loading="loading">
-                    <h6>{{$t('comm.batch_id')}}:<span class="tr-id btn clipboard-btn" :data-clipboard-text="summaryBatchId"
-                                  @click="copy">{{ summaryBatchId }} <font-awesome-icon
+                    <h6>{{$t('comm.batch_id')}}:<span class="tr-id btn clipboard-btn"
+                                                      :data-clipboard-text="summaryBatchId"
+                                                      @click="copy">{{ summaryBatchId }} <font-awesome-icon
                             :icon="['far', 'clipboard']"/></span>
                     </h6>
                     <el-table v-if="summaryData.groups"
@@ -111,19 +112,23 @@
                         <el-table-column property="order_settle" :label="$t('settle.order_settle')"></el-table-column>
                         <el-table-column property="fees" :label="$t('comm.fees')"></el-table-column>
                         <el-table-column property="fixed_fees" :label="$t('comm.processing_fees')"></el-table-column>
-                        <el-table-column property="deposit_charge" :label="$t('comm.deposit_balance')"></el-table-column>
+                        <el-table-column property="deposit_charge"
+                                         :label="$t('comm.deposit_balance')"></el-table-column>
                         <el-table-column property="charge" :label="$t('comm.summary_total')"></el-table-column>
                     </el-table>
                     <div class="row" v-if="summaryData.payout">
                         <div class="col-4"></div>
                         <div class="col-8 text-right pr-4">
                             <p class="p-0">{{$t('settle.payout_fees')}}: {{summaryData.payout.fees}}</p>
-                            <p class="p-0">{{$t('settle.payout_total')}}: <strong>{{summaryData.payout.total}}</strong></p>
+                            <p class="p-0">{{$t('settle.payout_total')}}: <strong>{{summaryData.payout.total}}</strong>
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div slot="footer" class="dialog-footer">
-                    <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">{{$t('settle.batch_id_detail')}}</el-button>
+                    <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">
+                        {{$t('settle.batch_id_detail')}}
+                    </el-button>
                     <el-button type="primary" @click="payoutSummaryDialog = false">{{$t('settle.sure')}}</el-button>
                 </div>
             </el-dialog>
@@ -135,10 +140,15 @@
                              :body-style="{ padding: '0px' }">
                         <el-breadcrumb separator="/">
                             <el-breadcrumb-item>
-                                <i class="el-icon-arrow-left text-blue"></i> <strong class="pointer" @click="toPayoutList">{{$t('nav.settle_search')}}</strong>
+                                <i class="el-icon-arrow-left text-blue"></i> <strong class="pointer"
+                                                                                     @click="toPayoutList">{{$t('nav.settle_search')}}</strong>
                             </el-breadcrumb-item>
-                            <el-breadcrumb-item>{{$t('comm.batch_id')}} {{searchViewDetail.batch_id}}</el-breadcrumb-item>
+                            <el-breadcrumb-item>{{$t('comm.batch_id')}} {{searchViewDetail.batch_id}}
+                            </el-breadcrumb-item>
                         </el-breadcrumb>
+                        <el-button class="fr" icon="el-icon-download" size="mini"
+                                   @click="downSettleDetail(searchViewDetail.batch_id)" plain>{{ $t('comm.download') }}
+                        </el-button>
                     </el-card>
                 </div>
             </div>
@@ -153,7 +163,13 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {settleDownload, settleSearch, settleSummary, settleViewDetail} from "@/service/financeSer";
+    import {
+        settleDetailDownload,
+        settleDownload,
+        settleSearch,
+        settleSummary,
+        settleViewDetail
+    } from "@/service/financeSer";
     import newClipboard from "@/utils/clipboard";
     import {isEmpty} from "@/utils/validate";
     import FinanceTable from "@/components/FinanceTable";
@@ -253,6 +269,14 @@
             toPayoutList() {
                 console.log("toList")
                 this.isPayoutList = true
+            },
+            downSettleDetail(batchId) {
+                this.loading = true
+                settleDetailDownload({'batch_id': batchId}).then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.loading = false
+                })
             },
 
         },
