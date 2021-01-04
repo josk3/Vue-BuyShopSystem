@@ -15,7 +15,7 @@
                         <small class="mt-1" style="font-size: 8px;color:#9e9e9e;">{{user.mer_no}}</small>
                     </div>
                     <nav class="my-2 my-md-0 mr-md-3 float-right">
-                        <el-dropdown trigger="click"
+                        <el-dropdown trigger="hover"
                                      class="mr-4"
                                      @command="handleLangChange">
                             <span class="el-dropdown-link text-white">
@@ -35,7 +35,7 @@
                         <el-popover
                                 placement="bottom"
                                 width="350"
-                                trigger="click" @show="loadNotice">
+                                trigger="hover" @show="loadNotice">
                             <el-table v-loading="noticeLoading"
                                       class="pointer"
                                       :class="noticeList ? '' : 'wpy-z-table'"
@@ -70,7 +70,7 @@
                                 </el-badge>
                             </el-button>
                         </el-popover>
-                        <el-dropdown trigger="click">
+                        <el-dropdown trigger="hover">
                             <span class="el-dropdown-link text-white">
                                 ( {{ user.mer_no }} ) {{ user.username }}<i class="el-icon-arrow-down el-icon--right"></i>
                             </span>

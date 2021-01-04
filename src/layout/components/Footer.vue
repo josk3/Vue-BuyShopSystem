@@ -18,7 +18,7 @@
                     </li>
                     <li class="text-muted">
                         <small>Content protected Copyright © 2020 All Rights Reserved Wintopay.com</small>
-                        <el-dropdown trigger="click" class="float-right" @command="handleLangChange">
+                        <el-dropdown trigger="hover" class="float-right" @command="handleLangChange">
                             <span class="el-dropdown-link text-blue">
                                 <font-awesome-icon icon="language" size="2x"/>
                             </span>
