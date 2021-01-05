@@ -420,6 +420,7 @@ module.exports = {
         "no_find_order_info": "No find order",
         "confirm_apply_refund": "Confirm refund apply",
         "submit_refund": "Submit refund",
+        "cancel_pending": "Cancel pending",
     },
     "payout": {
         "delivery_reject": "Delivery aberrant",

@@ -18,3 +18,7 @@ export function ordersSearch(params) {
 export function ordersDownload(params) {
     return download('/orders/download',params);
 }
+
+export function cancelPendingOrder(params) {
+    return post('/order/cancel/pending', params);
+}

@@ -85,12 +85,12 @@
                     </el-table-column>
                     <el-table-column width="50" fixed="right">
                         <template v-slot="scope">
-                            <el-dropdown trigger="click" @command="handleCommand">
+                            <el-dropdown v-show="scope.row.status !== 2" trigger="click" @command="handleCommand">
                                       <span class="el-dropdown-link">
                                           <i class="el-icon-more"></i>
                                       </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item v-show="scope.row.status !== 1 && scope.row.status !== 4"
+                                    <el-dropdown-item v-show="scope.row.status === 3"
                                                       :command="commandVal('edit', scope.row, scope.$index)">
                                         <i class="el-icon-edit"></i> {{$t('comm.edit')}}
                                     </el-dropdown-item>
@@ -98,9 +98,13 @@
                                                       :command="commandVal('close', scope.row, scope.$index)">
                                         <i class="el-icon-turn-off"></i> {{$t('comm.close')}}
                                     </el-dropdown-item>
-                                    <el-dropdown-item v-if="scope.row.status === 4"
+                                    <el-dropdown-item v-else-if="scope.row.status === 4"
                                                       :command="commandVal('open', scope.row, scope.$index)">
                                         <i class="el-icon-turn-off"></i> {{$t('comm.open')}}
+                                    </el-dropdown-item>
+                                    <el-dropdown-item v-else-if="scope.row.status === 3"
+                                                      :command="commandVal('resubmit', scope.row, scope.$index)">
+                                        <i class="el-icon-turn-off"></i> {{$t('comm.submit')}}
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
@@ -200,7 +204,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {addShop, closeShop, getSiteSystemList, openShop, shopSearch, updateShop} from "@/service/shopSer";
+    import {addShop, closeShop, getSiteSystemList, openShop, shopSearch, updateShop, resubmit} from "@/service/shopSer";
     import {isEmpty} from "@/utils/validate";
 
     export default {
@@ -298,6 +302,15 @@
                     case 'open':
                         this.$data.loading = true
                         openShop(row).then(() => {
+                            this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.search()
+                        }).finally(() => {
+                            this.$data.loading = false
+                        })
+                        break;
+                    case 'resubmit':
+                        this.$data.loading = true
+                        resubmit(row).then(() => {
                             this.$message.success(this.$i18n.t('comm.success').toString())
                             this.search()
                         }).finally(() => {

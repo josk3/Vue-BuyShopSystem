@@ -26,3 +26,7 @@ export function settleViewDetail(params) {
 export function settleDownload(params) {
     return download('/settle/download', params);
 }
+
+export function settleDetailDownload(params) {
+    return download('/settle/detail/download', params);
+}

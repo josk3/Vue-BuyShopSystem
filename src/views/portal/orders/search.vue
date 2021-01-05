@@ -68,7 +68,8 @@
                             width="90px"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
-                            <span v-if="scope.row.pay_status === 'failed'" class="pay-status pay-status-help" :class="['ps-' + scope.row.pay_status]">
+                            <span v-if="scope.row.pay_status === 'failed'" class="pay-status pay-status-help"
+                                  :class="['ps-' + scope.row.pay_status]">
                                 <el-popover
                                         placement="top"
                                         width="400"
@@ -123,6 +124,10 @@
                                     <el-dropdown-item :command="commandVal('detail', scope.row, scope.$index)">
                                         {{$t('comm.view_detail')}}
                                     </el-dropdown-item>
+                                    <el-dropdown-item v-if="scope.row.pay_status === 'pending'"
+                                                      :command="commandVal('cancel_pending', scope.row)">
+                                        {{$t('order.cancel_pending')}}
+                                    </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </template>
@@ -134,6 +139,7 @@
 
             <!--    d    -->
             <RefundDialog ref="refund_dialog"></RefundDialog>
+            <CancelPendingDialog ref="cancel_pending_dialog"></CancelPendingDialog>
         </div>
     </div>
 </template>
@@ -145,10 +151,11 @@
     import Pagination from "@/components/Pagination";
     import {ordersDownload, ordersSearch} from "@/service/orderSer";
     import {mapState} from "vuex";
+    import CancelPendingDialog from "@/components/CancelPendingDialog";
 
     export default {
         name: "trade_manage",
-        components: {SearchBox, Pagination, RefundDialog},
+        components: {CancelPendingDialog, SearchBox, Pagination, RefundDialog},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 lang: state => state.app.lang,//多语言
@@ -200,6 +207,9 @@
             openRefundDialog(row) {
                 this.$refs.refund_dialog.show(row)
             },
+            openCancelPendingDialog(row) {
+                this.$refs.cancel_pending_dialog.show(row, this.search)
+            },
             commandVal(action, row, index) {
                 return {action: action, row: row, index: index}
             },
@@ -211,6 +221,9 @@
                         break;
                     case 'detail':
                         this.$router.push({name: 'order_detail', params: {id: row.trade_id}})
+                        break;
+                    case 'cancel_pending':
+                        this.openCancelPendingDialog(row)
                         break;
                 }
             },

@@ -418,6 +418,7 @@ module.exports = {
         "no_find_order_info": "找不到订单信息",
         "confirm_apply_refund": "确实提交退款操作",
         "submit_refund": "提交退款",
+        "cancel_pending": "取消待处理",
     },
     "payout": {
         "delivery_reject": "问题单",
