@@ -27,7 +27,7 @@ module.exports = {
     aliImageValidAppKey: 'FFFF0N00000000009051',
 
     anonAuthPages: ['/login', '/logout', '/404', '/401', '/500',
-        '/register', '/forget_pwd', '/reset_pwd', '/active_email', '/terms'], //不用登录状态也能访问
+        '/register', '/forget_pwd', '/reset_pwd', '/active_email', '/terms','/valid_code'], //不用登录状态也能访问
     logoutPath: '/logout',
     loginPath: '/login',
     profilePath: '/profile',
