@@ -9,6 +9,7 @@
                                  @tab-click="paneClick">
                             <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
                             <el-tab-pane :label="$t('comm.wait_review')" name="wait_review"></el-tab-pane>
+                            <el-tab-pane :label="$t('comm.enable')" name="enable"></el-tab-pane>
                             <el-tab-pane :label="$t('comm.close')" name="close"></el-tab-pane>
                             <el-tab-pane :label="$t('comm.review_reject')" name="review_reject"></el-tab-pane>
                         </el-tabs>
@@ -197,6 +198,7 @@
                 <el-button size="mini" type="primary" @click="submitAddShop">{{$t('shop.submit_site')}}</el-button>
             </div>
         </el-dialog>
+
     </div>
 </template>
 
@@ -204,7 +206,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {addShop, closeShop, getSiteSystemList, openShop, shopSearch, updateShop, resubmit} from "@/service/shopSer";
+    import {addShop, closeShop, getSiteSystemList, openShop, resubmit, shopSearch, updateShop} from "@/service/shopSer";
     import {isEmpty} from "@/utils/validate";
 
     export default {

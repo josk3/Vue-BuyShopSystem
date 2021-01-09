@@ -30,7 +30,7 @@
                                     v-for="item in props.row.menus"
                                     :key="item.name"
                                     type="info"
-                                    class="mr-2"
+                                    class="mr-2 mb-1"
                                     effect="plain">
                                 {{ $t('nav.' + item.name) }}
                             </el-tag>
@@ -73,6 +73,9 @@
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item :command="commandVal('editRole', scope.row, scope.$index)">
                                         <i class="el-icon-edit"></i> {{$t('comm.edit')}}
+                                    </el-dropdown-item>
+                                    <el-dropdown-item :command="commandVal('userSite', scope.row, scope.$index)">
+                                        <i class="el-icon-view"></i> 配置仅查看部分网站
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
@@ -249,12 +252,15 @@
                 <el-button size="mini" type="primary" @click="submitAddUser">{{$t('comm.confirm_submit')}}</el-button>
             </div>
         </el-dialog>
+        <UserSiteDialog ref="user_site_dialog"></UserSiteDialog>
+
     </div>
 </template>
 
 <script>
     import configs from '@/configs'
     import Pagination from "@/components/Pagination";
+    import UserSiteDialog from "@/components/UserSiteDialog";
     import {isArray, isEmpty} from "@/utils/validate";
     import {
         addRole,
@@ -269,7 +275,7 @@
 
     export default {
         name: "merchant_users",
-        components: {Pagination},
+        components: {Pagination, UserSiteDialog},
         computed: { //watch跟踪数据变化, 重点user, configs
             configs() {
                 return configs;
@@ -353,11 +359,17 @@
             commandVal(action, row, index) {
                 return {action: action, row: row, index: index}
             },
+            openUserSiteDialog(row) {
+                this.$refs.user_site_dialog.show(row)
+            },
             handleCommand(command) {
                 let row = command.row
                 switch (command.action) {
                     case 'editRole':
                         this.openRoleDialog('edit', row)
+                        break;
+                    case 'userSite':
+                        this.openUserSiteDialog(row)
                         break;
                     case 'editUser':
                         this.openUserDialog('edit', row)

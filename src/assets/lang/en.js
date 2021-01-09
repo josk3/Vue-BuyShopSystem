@@ -150,7 +150,7 @@ module.exports = {
         "notify_detail": "Notify Detail",
         "announce": "Announce",
         "notify": "Notification",
-        "can_view_balance": "View Balance",
+        "can_view_balance": "View Balance Total",
         "home_trade_report": "Order Report",
         "delivery_download": "Deliver Download",
         "dispute_detail": "Dispute Detail",

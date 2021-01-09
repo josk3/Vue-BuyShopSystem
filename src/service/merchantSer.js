@@ -69,3 +69,11 @@ export function disableUser(params) {
 export function enableUser(params) {
     return post('/merchant/user/enable', params);
 }
+
+export function roleUserSiteSearch(params) {
+    return post('/merchant/role/user/site', params);
+}
+
+export function saveUserSite(params) {
+    return post('/merchant/role/site/save', params);
+}
