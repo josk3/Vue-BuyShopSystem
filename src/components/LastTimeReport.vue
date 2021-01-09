@@ -11,6 +11,9 @@
             </el-select>
         </div>
         <line-chart :styles="chartStyle" :options="options" :chartData="datacollection"></line-chart>
+        <div v-if="limit_permission" class="col-12 mt-2">
+            <small class="pl-3" style="font-size: 9px;color:#dcdcdc">管理员配置您权限仅能查看部分数据</small>
+        </div>
     </div>
 </template>
 
@@ -60,6 +63,7 @@
         data() {
             return {
                 loading: false,
+                limit_permission: false,
                 reportRange: [
                     {value: 'last24Hours', label: this.$i18n.t('label.last24Hours')},
                     {value: 'last30Days', label: this.$i18n.t('label.last30Days')},
@@ -156,6 +160,7 @@
                 return this.$i18n.t('label.' + this.range).toString;
             },
             chartRender(data) {
+                this.limit_permission = data.limit_permission
                 this.dataLabels = data.labels
                 if (isEmpty(data.list[0])) data.list[0] = 0
                 this.dataList = data.list

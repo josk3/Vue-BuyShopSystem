@@ -6,7 +6,7 @@
                    top="2vh"
                    :title="$t('nav.merchant_users')"
                    :visible.sync="userSiteDialogVisible">
-            <div>
+            <div v-if="userSiteData">
                 <p>
                     注: 结算管理、财务中心明细与结算显示的是所有网站交易情况、争议订单与消息通知为所有网站订单。
                 </p>
@@ -151,6 +151,7 @@
                 this.search()
             },
             search() {
+                this.loading = true
                 roleUserSiteSearch(this.searchParams).then((resp) => {
                     this.loadSiteData(resp.data)
                 }).finally(() => {

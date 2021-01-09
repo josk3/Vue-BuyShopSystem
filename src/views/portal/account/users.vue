@@ -75,7 +75,7 @@
                                         <i class="el-icon-edit"></i> {{$t('comm.edit')}}
                                     </el-dropdown-item>
                                     <el-dropdown-item :command="commandVal('userSite', scope.row, scope.$index)">
-                                        <i class="el-icon-view"></i> 配置仅查看部分网站
+                                        <i class="el-icon-view"></i> 分配网站权限
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
