@@ -217,10 +217,16 @@
                 this.search()
             },
             pageChange(page) {
-                this.searchParams.page = page.page_num
-                this.search()
+                this.search(page.page_num)
             },
-            search() {
+            search(pageNum) {
+                if (pageNum === undefined || isEmpty(pageNum)) {
+                    pageNum = 1
+                }else if (!isEmpty(pageNum) && pageNum === 'keep') {
+                    //keep 可能只是重载数据页面
+                    pageNum = this.searchParams.page
+                }
+                this.searchParams.page = pageNum
                 this.loading = true
                 settleSearch(this.searchParams).then(res => {
                     const {data} = res

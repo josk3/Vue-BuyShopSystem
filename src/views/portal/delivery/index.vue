@@ -270,7 +270,7 @@
                     deliveryUpload(formData, this.progressCallback).then(() => {
                         this.closeUploadExcelDialog()
                         this.$message.success(this.$i18n.t('comm.success').toString())
-                        this.search();//reload page
+                        this.search('keep');//reload page
                     }).finally(() => {
                         this.percentage = -1
                         this.loading = false
@@ -286,10 +286,16 @@
                 this.$refs['track_form'].clearValidate();//重置
             },
             pageChange(page) {
-                this.searchParams.page = page.page_num
-                this.search()
+                this.search(page.page_num)
             },
-            search() {
+            search(pageNum) {
+                if (pageNum === undefined || isEmpty(pageNum)) {
+                    pageNum = 1
+                }else if (!isEmpty(pageNum) && pageNum === 'keep') {
+                    //keep 可能只是重载数据页面
+                    pageNum = this.searchParams.page
+                }
+                this.searchParams.page = pageNum
                 this.loading = true
                 deliverySearch(this.searchParams).then(res => {
                     const {data} = res
@@ -373,7 +379,7 @@
                 batchAutoVirtualShip().then(res => {
                     if (res.status === 1) {
                         this.$message.success(res.message)
-                        this.search()
+                        this.search('keep')
                     }
                 }).finally(() => {
                     this.loading = false

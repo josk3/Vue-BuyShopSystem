@@ -74,6 +74,7 @@
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
     import {disputeSearch} from '@/service/disputeSer';
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "index",
@@ -103,10 +104,16 @@
         },
         methods: {
             pageChange(page) {
-                this.searchParams.page = page.page_num
-                this.disputeSearch();
+                this.disputeSearch(page.page_num);
             },
-            disputeSearch() {
+            disputeSearch(pageNum) {
+                if (pageNum === undefined || isEmpty(pageNum)) {
+                    pageNum = 1
+                }else if (!isEmpty(pageNum) && pageNum === 'keep') {
+                    //keep 可能只是重载数据页面
+                    pageNum = this.searchParams.page
+                }
+                this.searchParams.page = pageNum
                 this.loading = true;
                 disputeSearch(this.searchParams).then(res => {
                     this.$data.disputeList = res.data;

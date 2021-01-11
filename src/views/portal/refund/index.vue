@@ -111,6 +111,7 @@
     import {cancelApply, refundSearch,refundDownload} from "@/service/refundSer";
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
+    import {isEmpty} from "@/utils/validate";
 
     export default {
         name: "refund",
@@ -143,10 +144,16 @@
                 this.search()
             },
             pageChange(page) {
-                this.searchParams.page = page.page_num
-                this.search()
+                this.search(page.page_num)
             },
-            search() {
+            search(pageNum) {
+                if (pageNum === undefined || isEmpty(pageNum)) {
+                    pageNum = 1
+                }else if (!isEmpty(pageNum) && pageNum === 'keep') {
+                    //keep 可能只是重载数据页面
+                    pageNum = this.searchParams.page
+                }
+                this.searchParams.page = pageNum
                 this.loading = true
                 refundSearch(this.searchParams).then(res => {
                     const {data} = res
@@ -165,7 +172,7 @@
                         this.loading = true
                         cancelApply(row).then(() => {
                             this.$message.success(this.$i18n.t('comm.success').toString())
-                            this.search()
+                            this.search('keep') //reload page
                         }).finally(() => {
                             this.loading = false
                         })
