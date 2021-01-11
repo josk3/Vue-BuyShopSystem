@@ -12,8 +12,11 @@
                     :current-page="page.page_num"
                     :page-size="page.page_size"
                     :total="page.total"
-                    @current-change="change" >
+                    @current-change="change">
             </el-pagination>
+        </div>
+        <div v-if="page.limit_permission" class="col-12 mt-2">
+            <small class="pl-3" style="font-size: 9px;color:#dcdcdc">管理员配置您权限仅能查看部分数据</small>
         </div>
     </div>
 </template>
@@ -27,14 +30,14 @@
     export default {
         name: 'Pagination',
         props: {
-            page: Object
+            page: Object,
         },
         data() {
             return {};
         },
         mounted() {
             if (isEmpty(this.page)) {
-                this.page = {total: 0, page_size: 20, page_num: 0, count: 0}
+                this.page = {total: 0, page_size: 20, page_num: 0, count: 0, limit_permission: false}
             }
         },
         methods: {

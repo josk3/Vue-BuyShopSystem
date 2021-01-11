@@ -554,5 +554,8 @@ el-table thead{
   color: #a7a7a7;
   margin-left: 10px;
 }
+.no-px-table .el-table--medium th, .no-px-table .el-table--medium td{
+  padding: 0;
+}
 //-
 
