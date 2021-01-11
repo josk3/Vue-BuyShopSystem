@@ -51,11 +51,6 @@
                         :label="$t('dispute.dispute_type')">
                 </el-table-column>
                 <el-table-column
-                        prop="remark"
-                        :show-overflow-tooltip="true"
-                        :label="$t('dispute.remark')">
-                </el-table-column>
-                <el-table-column
                         :label="$t('comm.created')">
                     <template v-slot="scope">
                         {{scope.row.created | toDay}}
