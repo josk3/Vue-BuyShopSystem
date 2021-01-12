@@ -12,7 +12,7 @@
                            class="btn btn-light btn-sm mr-2">{{ $t('comm.contact_us') }}</a>
                     </li>
                     <li class="text-muted">
-                        <small>Content protected Copyright © 2020 All Rights Reserved Wintopay.com</small>
+                        <small>Content protected Copyright © 2021 All Rights Reserved Wintopay.com</small>
                     </li>
                 </ul>
             </div>
