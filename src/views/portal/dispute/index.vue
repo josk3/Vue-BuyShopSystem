@@ -3,14 +3,25 @@
         <!--公共搜索栏-->
         <SearchBox :params="searchParams" @search="disputeSearch"></SearchBox>
         <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
-            <!--标签页-->
-            <el-tabs v-model="tabName" type="border-card" @tab-click="clickSearch">
-                <el-tab-pane :label="$t('comm.all')" name="all">
-                </el-tab-pane>
-                <el-tab-pane :label="$t('dispute.untreated')" name="untreated"></el-tab-pane>
-                <el-tab-pane :label="$t('dispute.underway')" name="underway"></el-tab-pane>
-                <el-tab-pane :label="$t('dispute.complete')" name="complete"></el-tab-pane>
-            </el-tabs>
+            <div class="row">
+                <div class="col-8 pr-0">
+                    <!--标签页-->
+                    <el-tabs v-model="tabName" type="border-card" @tab-click="clickSearch">
+                        <el-tab-pane :label="$t('comm.all')" name="all">
+                        </el-tab-pane>
+                        <el-tab-pane :label="$t('dispute.untreated')" name="untreated"></el-tab-pane>
+                        <el-tab-pane :label="$t('dispute.underway')" name="underway"></el-tab-pane>
+                        <el-tab-pane :label="$t('dispute.complete')" name="complete"></el-tab-pane>
+                    </el-tabs>
+                </div>
+                <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
+                    <div class="mr-5 mt-1">
+                        <el-button icon="el-icon-download" size="mini"
+                                   @click="downDispute" plain>{{ $t('comm.download') }}
+                        </el-button>
+                    </div>
+                </div>
+            </div>
             <el-table
                     :data="disputeList.list"
                     :header-row-style="{background:'#2C2E2F'}"
@@ -73,7 +84,7 @@
 <script>
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {disputeSearch} from '@/service/disputeSer';
+    import {disputeSearch,disputeDownload} from '@/service/disputeSer';
     import {isEmpty} from "@/utils/validate";
 
     export default {
@@ -109,7 +120,7 @@
             disputeSearch(pageNum) {
                 if (pageNum === undefined || isEmpty(pageNum)) {
                     pageNum = 1
-                }else if (!isEmpty(pageNum) && pageNum === 'keep') {
+                } else if (!isEmpty(pageNum) && pageNum === 'keep') {
                     //keep 可能只是重载数据页面
                     pageNum = this.searchParams.page
                 }
@@ -124,7 +135,14 @@
                 this.searchParams.dispute_status = tab.name;
                 this.searchParams.page = 1;
                 this.disputeSearch();
-            }
+            },downDispute() {
+                this.loading = true
+               disputeDownload(this.searchParams).then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.loading = false
+                })
+            },
         }
     }
 </script>

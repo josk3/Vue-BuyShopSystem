@@ -3902,7 +3902,12 @@ const proxy = {
             data: {}
         })
     },
-
+    'POST /api/v1/dispute/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
 }
 let sleep = false;
 // let sleep = true;// true 测试延迟响应
