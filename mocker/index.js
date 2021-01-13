@@ -1753,8 +1753,7 @@ const proxy = {
         return res.json({
             status: 1,
             message: '系统自动填单完成 33 笔虚拟交易订单',
-            data: {
-            }
+            data: {}
         });
     },
     'POST /api/v1/risk_area/search': (req, res) => {
@@ -2087,8 +2086,7 @@ const proxy = {
         return res.json({
             status: 1,
             message: '测试test',
-            data: {
-            }
+            data: {}
         });
     },
     'POST /api/v1/blacklist/add': (req, res) => {
@@ -3444,7 +3442,7 @@ const proxy = {
                     updated: "2020-08-07 23:53:26",
                     virtual: false,
                     mid_type: '', //company
-                    identity_account_type:'',
+                    identity_account_type: '',
                     allow_personal: 0,
                 },
                 bank: {
@@ -3903,6 +3901,12 @@ const proxy = {
         })
     },
     'POST /api/v1/dispute/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/payout/download': (req, res) => {
         return res.json({
             status: 1,
             data: {}
