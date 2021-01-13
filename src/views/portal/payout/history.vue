@@ -3,11 +3,22 @@
         <SearchBox :params="searchParams" @search="search"></SearchBox>
         <div class="wrap-tab p-0">
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
-                <el-tabs v-model="paneName" type="border-card"
-                         @tab-click="paneClick">
-                    <el-tab-pane :label="$t('comm.submitted')" name="submitted"></el-tab-pane>
-                    <el-tab-pane :label="$t('payout.delivery_reject')" name="reject"></el-tab-pane>
-                </el-tabs>
+                <div class="row">
+                    <div class="col-8 pr-0">
+                        <el-tabs v-model="paneName" type="border-card"
+                                 @tab-click="paneClick">
+                            <el-tab-pane :label="$t('comm.submitted')" name="submitted"></el-tab-pane>
+                            <el-tab-pane :label="$t('payout.delivery_reject')" name="reject"></el-tab-pane>
+                        </el-tabs>
+                    </div>
+                    <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
+                        <div class="mr-5 mt-1">
+                            <el-button icon="el-icon-download" size="mini"
+                                       @click="downApplicantHistory" plain>{{ $t('comm.download') }}
+                            </el-button>
+                        </div>
+                    </div>
+                </div>
                 <el-table
                         :class="tabData.list.length ? '' : 'wpy-z-table'"
                         :data="tabData.list"
@@ -125,7 +136,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {payoutSearch} from "@/service/payoutSer";
+    import {payoutSearch, applicantHistoryDownload} from "@/service/payoutSer";
     import {deliveryAdd, getTrackBrands} from "@/service/deliverySer";
     import {isEmpty} from "@/utils/validate";
     import {mapState} from "vuex";
@@ -184,7 +195,7 @@
             search(pageNum) {
                 if (pageNum === undefined || isEmpty(pageNum)) {
                     pageNum = 1
-                }else if (!isEmpty(pageNum) && pageNum === 'keep') {
+                } else if (!isEmpty(pageNum) && pageNum === 'keep') {
                     //keep 可能只是重载数据页面
                     pageNum = this.searchParams.page
                 }
@@ -255,8 +266,14 @@
                         })
                     }
                 });
+            }, downApplicantHistory() {
+                this.loading = true
+                applicantHistoryDownload(this.searchParams).then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.loading = false
+                })
             },
-
         },
     }
 </script>
