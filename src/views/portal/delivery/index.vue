@@ -55,7 +55,14 @@
                         </el-table-column>
                         <el-table-column
                                 prop="pay_status"
-                                :label="$t('comm.status')">
+                                :label="$t('comm.order_amount')" width="100">
+                            <template v-slot="scope">
+                            {{scope.row.order_amount}} {{scope.row.order_currency}}
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                prop="pay_status"
+                                :label="$t('comm.status')" width="70">
                             <template v-slot="scope">
                             <span class="pay-status" :class="['ps-' + scope.row.pay_status]">
                                 {{scope.row.pay_status | payStatus}}
