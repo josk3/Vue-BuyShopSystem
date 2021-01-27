@@ -274,9 +274,9 @@
                     formData.append("action", "upload_track_excel_file");
                     formData.append("file", this.trackExcelFile);
                     this.loading = true
-                    deliveryUpload(formData, this.progressCallback).then(() => {
+                    deliveryUpload(formData, this.progressCallback).then(res => {
                         this.closeUploadExcelDialog()
-                        this.$message.success(this.$i18n.t('comm.success').toString())
+                        this.$message.success(res.message)
                         this.search('keep');//reload page
                     }).finally(() => {
                         this.percentage = -1
