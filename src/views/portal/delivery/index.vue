@@ -55,14 +55,7 @@
                         </el-table-column>
                         <el-table-column
                                 prop="pay_status"
-                                :label="$t('comm.order_amount')" width="100">
-                            <template v-slot="scope">
-                            {{scope.row.order_amount}} {{scope.row.order_currency}}
-                            </template>
-                        </el-table-column>
-                        <el-table-column
-                                prop="pay_status"
-                                :label="$t('comm.status')" width="70">
+                                :label="$t('comm.status')">
                             <template v-slot="scope">
                             <span class="pay-status" :class="['ps-' + scope.row.pay_status]">
                                 {{scope.row.pay_status | payStatus}}
@@ -274,9 +267,9 @@
                     formData.append("action", "upload_track_excel_file");
                     formData.append("file", this.trackExcelFile);
                     this.loading = true
-                    deliveryUpload(formData, this.progressCallback).then(res => {
+                    deliveryUpload(formData, this.progressCallback).then(() => {
                         this.closeUploadExcelDialog()
-                        this.$message.success(res.message)
+                        this.$message.success(this.$i18n.t('comm.success').toString())
                         this.search('keep');//reload page
                     }).finally(() => {
                         this.percentage = -1

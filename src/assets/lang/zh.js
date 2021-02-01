@@ -107,8 +107,6 @@ module.exports = {
         "please_select": "请选择",
         "copy_success": "复制成功",
         "copy_fail": "复制失败",
-        "generate_settle_batch": "生成结算批次号",
-        "payout": "划款",
 
     },
     "nav": {
