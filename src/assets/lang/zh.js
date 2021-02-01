@@ -331,7 +331,7 @@ module.exports = {
         "state_name": "洲、省",
         "add_risk_area": "添加风险地区",
         "risk_area_order_will_block": "设置风险地区的交易将被拦截",
-        "upload_black_model": "上传黑名单模板",
+        "upload_black_model": "批量上传黑名单",
         "drag_the_file_here_or": "将文件拖到此处，或",
         "click_on_upload": "点击上传",
         "upload_file": "上传文件",
