@@ -48,6 +48,7 @@ module.exports = {
         "sure": "Sure",
         "click_show": "Show",
         "timeline": "Timeline",
+        "template_download": "template download",
 
         //
         "trade_id": "Trade ID",

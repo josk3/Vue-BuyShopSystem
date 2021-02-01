@@ -2135,6 +2135,13 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/blacklist/templates/download': (req, res) => {
+        return res.json({
+            status: 1,
+            message: null,
+            data: {}
+        });
+    },
     'POST /api/v1/orders/search': (req, res) => {
         return res.json({
             "status": 1,

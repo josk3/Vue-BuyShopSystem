@@ -48,6 +48,7 @@ module.exports = {
         "sure": "确定",
         "click_show": "点击显示",
         "timeline": "时间轴",
+        "template_download": "模板下载",
 
         //
         "trade_id": "流水号",
