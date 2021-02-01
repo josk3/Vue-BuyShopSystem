@@ -107,6 +107,8 @@ module.exports = {
         "please_select": "Select",
         "copy_success": "Copy successfully",
         "copy_fail": "Copy failed",
+        "generate_settle_batch": "Generate settle batch no",
+        "payout": "Payout",
 
     },
     "nav": {
