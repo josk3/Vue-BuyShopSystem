@@ -330,14 +330,20 @@ export function uppercaseFirst(string) {
 export function ticketQuestionStatus(caseStatus) {
     if (isEmpty(caseStatus)) return ''
     switch (caseStatus) {
-        case 'OTHER':
+        case 'other':
             return i18n.t('ticket.other')
-        case 'ORDER':
+        case 'trade':
             return i18n.t('ticket.order')
-        case 'INTERFACE':
+        case 'finance':
             return i18n.t('ticket.interface')
-        case 'SETTLEMENT':
+        case 'settlement':
             return i18n.t('ticket.settlement')
+        case 'refund':
+            return i18n.t('ticket.refund')
+        case 'protest':
+            return i18n.t('ticket.protest')
+        case 'transportation':
+            return i18n.t('ticket.transportation')
     }
 }
 

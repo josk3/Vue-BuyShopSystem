@@ -94,10 +94,16 @@ export const constantRoutes = [
                 path: '/',
                 redirect: configs.homePath,
                 hidden: true
-            },
+            }
         ]
     },
-
+    {
+        path: '/valid_code',
+        name: 'valid_code',
+        // component: () => import('@/views/login/AliValidCode'),
+        component: () => import('@/views/login/AliValidCode'),
+        hidden: true
+    }
     // {
     //     path: '/',
     //     component: Layout,

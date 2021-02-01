@@ -48,6 +48,7 @@ module.exports = {
         "sure": "Sure",
         "click_show": "Show",
         "timeline": "Timeline",
+        "template_download": "template download",
 
         //
         "trade_id": "Trade ID",
@@ -481,9 +482,12 @@ module.exports = {
     "profile": {},
     "ticket": {
         "other": "Other",
-        "order": "Order / Transfer",
-        "interface": "Tech Interface",
-        "settlement": "Settlement",
+        "trade": "Trade issues",
+        "finance": "Financial Issues",
+        "settlement": "Settlement problem",
+        "refund": "Refund issue",
+        "protest": "Refusal of payment problem",
+        "transportation": "logistics problem",
         "pending": "Pending",
         "wait_replay": "Wait Replay",
         "replied": "Replied",

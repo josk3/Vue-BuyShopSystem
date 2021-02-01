@@ -1,4 +1,4 @@
-import {del, post,upload} from '@/utils/request'
+import {del, post,upload,download} from '@/utils/request'
 
 /**
  * 黑名单
@@ -28,4 +28,10 @@ export function blacklistAdd(params) {
  */
 export function uploadBlackList(params, blackListFile) {
     return upload('/blacklist/upload', params, blackListFile);
+}
+/**
+ * 模板下载
+ */
+export function downloadTemplate(){
+    return download('/blacklist/templates/download');
 }

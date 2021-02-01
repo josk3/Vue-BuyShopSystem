@@ -13,6 +13,9 @@
                                 <el-button icon="el-icon-upload2" size="small"
                                            @click="showUploadDialog" plain>{{$t('comm.batch_upload')}}
                                 </el-button>
+                                <el-button icon="el-icon-download" size="small"
+                                           @click="downloadBackListTemplate" plain>{{$t('comm.template_download')}}
+                                </el-button>
                             </div>
                         </div>
                     </div>
@@ -234,7 +237,8 @@
         blacklistDisable,
         blacklistEnable,
         blacklistSearch,
-        uploadBlackList
+        uploadBlackList,
+        downloadTemplate
     } from "@/service/blacklistSer";
     import {isEmpty} from "@/utils/validate";
     import {getOrder} from "@/service/orderSer";
@@ -459,7 +463,17 @@
                         this.loading = false;
                     })
                 }
-            }
+            },
+            //黑名单模板下载
+           downloadBackListTemplate: function (){
+               this.loading = true;
+               downloadTemplate().then(() => {
+                   this.search()
+                   this.$message.success(this.$i18n.t('comm.success').toString())
+               }).finally(() => {
+                   this.$data.loading = false
+               })
+           }
         },
     }
 </script>
