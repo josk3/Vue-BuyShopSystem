@@ -286,6 +286,7 @@ module.exports = {
         "trade": "交易结算",
         "deposit": "保证金结算",
         "annualFee": "年费",
+        "oldSysSettleDebt": "老系统结算",
         "chargeback": "拒付",
     },
     "account": {
