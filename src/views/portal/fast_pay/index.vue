@@ -33,7 +33,7 @@
                                     </el-form-item>
                                     <el-form-item label="订单号">
                                         <el-input v-model="newFastPay.orderId"></el-input>
-                                        <small>用于您的订单记录与查询, 如果不填写系统将随机生成。</small>
+                                        <small>用于您的订单记录与查询</small>
                                     </el-form-item>
                                     <el-form-item label="支付页面标题">
                                         <el-input v-model="newFastPay.orderTitle"></el-input>
