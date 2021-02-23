@@ -496,3 +496,8 @@ export function noticeKindStr(title) {
             return title;
     }
 }
+
+export function fastPayUrl(fyToken) {
+    if (isEmpty(fyToken)) return '--'
+    return 'https://api.win4mall.com/v1/gatepay/fast_pay?code=' + fyToken
+}
