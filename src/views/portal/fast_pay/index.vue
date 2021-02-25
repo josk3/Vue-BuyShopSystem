@@ -33,7 +33,7 @@
                                     </el-form-item>
                                     <el-form-item label="订单号*">
                                         <el-input v-model="newFastPay.orderId"></el-input>
-                                        <small>用于您的订单记录与查询</small>
+                                        <small>用于您的订单记录与查询, 订单号请保持唯一性.</small>
                                     </el-form-item>
                                     <el-form-item label="已经绑定的网站*">
                                         <el-select
@@ -155,7 +155,7 @@
                             </template>
                         </el-table-column>
                         <el-table-column
-                                label="链接">
+                                label="链接" width="170px">
                             <template v-slot="scope">
                                 <el-link :href="scope.row.fy_token | fastPayUrl" target="_blank" type="primary">打开链接
                                 </el-link>
@@ -185,7 +185,14 @@
                             </template>
                         </el-table-column>
                         <el-table-column
-                                label="时间">
+                                label="网站" width="180px">
+                            <template v-slot="scope">
+                                <span v-if="scope.row.site_url === 'www.fast_pay.cn'">--</span>
+                                <span v-else>{{scope.row.site_url}}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                label="时间" width="140px">
                             <template v-slot="scope">
                                 {{ scope.row.created | toMinuteTime}}
                             </template>
