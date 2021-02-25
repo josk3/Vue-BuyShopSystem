@@ -3357,6 +3357,33 @@ const proxy = {
             }
         })
     },
+    'POST /api/v1/shop/last50': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: [
+                    {
+                        site_id: 'wfljw342f2',
+                        site_url: 'www.google.com',
+                        return_url: 'http://www.gooogle.com/payment/paymentRetReturn.php',
+                        site_system: 'Opencart',
+                        created: '2020-01-01',
+                        status: 3,
+                        review_reason: '网站并非实物',
+                        updated: '',
+                        is_virtual: 0,
+                        operator_name: '张三',
+                    }
+                ]
+            }
+        })
+    },
     'GET /api/v1/shop/site_system_list': (req, res) => {
         return res.json({
             status: 1,

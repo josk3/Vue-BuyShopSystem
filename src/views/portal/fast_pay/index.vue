@@ -31,13 +31,32 @@
                                             </el-select>
                                         </el-col>
                                     </el-form-item>
-                                    <el-form-item label="订单号">
+                                    <el-form-item label="订单号*">
                                         <el-input v-model="newFastPay.orderId"></el-input>
                                         <small>用于您的订单记录与查询</small>
                                     </el-form-item>
+                                    <el-form-item label="已经绑定的网站*">
+                                        <el-select
+                                                v-model="newFastPay.siteId"
+                                                filterable
+                                                clearable
+                                                remote
+                                                placeholder="请输入域名"
+                                                :remote-method="ajaxSelectSite"
+                                                :loading="siteLoading">
+                                            <el-option
+                                                    v-for="item in merSiteLists"
+                                                    :key="item.value"
+                                                    :label="item.label"
+                                                    :value="item.value">
+                                            </el-option>
+                                        </el-select>
+                                        <small> [账户管理] -> 网址绑定</small>
+                                    </el-form-item>
                                     <el-form-item label="支付页面标题">
                                         <el-input v-model="newFastPay.orderTitle"></el-input>
-                                        <el-link type="info" @click="showTitleHelp = true"><i class="el-icon-question"></i>
+                                        <el-link type="info" @click="showTitleHelp = true"><i
+                                                class="el-icon-question"></i>
                                             点击查看说明
                                         </el-link>
                                     </el-form-item>
@@ -225,9 +244,10 @@
     import configs from '@/configs'
     import Pagination from "@/components/Pagination";
     import {fastPayAdd, fastPaySearch} from "@/service/fastPaySer";
-    import {isEmpty} from "@/utils/validate";
+    import {isArray, isEmpty} from "@/utils/validate";
     import {mapState} from "vuex";
     import newClipboard from "@/utils/clipboard";
+    import {getLastValid50, shopSearch} from "@/service/shopSer";
 
     export default {
         name: "fast_pay",
@@ -260,12 +280,57 @@
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 //
+                siteLoading: false,
+                merSiteLists: [],
+                merSiteLast50: [],
+                siteOptions: [],
             }
         },
         mounted() {
+            getLastValid50().then(res => {
+                const {data} = res
+                this.convertSiteListData(data)
+                this.merSiteLast50 = this.merSiteLists
+            }).finally(() => {
+                this.loading = false
+            })
             this.search();
         },
         methods: {
+            convertSiteListData(data) {
+                if (data.list !== undefined && isArray(data.list)) {
+                    this.merSiteLists = data.list.map(item => {
+                        return {value: item.site_id, label: item.site_url};
+                    });
+                } else {
+                    this.merSiteLists = this.merSiteLast50;
+                }
+            },
+            ajaxSelectSite(query) {
+                if (query !== '') {
+                    this.siteLoading = true;
+                    setTimeout(() => {
+                        this.siteLoading = false;
+                        let list = this.merSiteLists.filter(item => {
+                            return item.label.toLowerCase()
+                                .indexOf(query.toLowerCase()) > -1;
+                        });
+                        if (list === undefined || list.length === 0) {
+                            this.siteLoading = true
+                            let searchParams = {'status': 'enable', 'siteUrl': query}
+                            shopSearch(searchParams).then(res => {
+                                const {data} = res
+                                this.convertSiteListData(data)
+                            }).finally(() => {
+                                this.siteLoading = false
+                            })
+                        }
+                        this.siteOptions = list
+                    }, 200);
+                } else {
+                    this.siteOptions = [];
+                }
+            },
             copy() {
                 newClipboard('.clipboard-btn')
             },
