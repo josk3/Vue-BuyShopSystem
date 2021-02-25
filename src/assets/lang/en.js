@@ -285,6 +285,7 @@ module.exports = {
         "trade": "Order Settle",
         "deposit": "Deposit Settle",
         "annualFee": "Annual Fee",
+        "oldSysSettleDebt": "Old sys settle",
         "chargeback": "Chargeback",
     },
     "account": {

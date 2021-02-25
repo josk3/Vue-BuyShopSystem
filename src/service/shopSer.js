@@ -32,3 +32,6 @@ export function resubmit(params) {
     return post('/shop/resubmit', params);
 }
 
+export function getLastValid50() {
+    return post('/shop/last50', {});
+}

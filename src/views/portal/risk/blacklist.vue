@@ -13,9 +13,6 @@
                                 <el-button icon="el-icon-upload2" size="small"
                                            @click="showUploadDialog" plain>{{$t('comm.batch_upload')}}
                                 </el-button>
-                                <el-button icon="el-icon-download" size="small"
-                                           @click="downloadBackListTemplate" plain>{{$t('comm.template_download')}}
-                                </el-button>
                             </div>
                         </div>
                     </div>
@@ -194,8 +191,9 @@
                 </div>
             </el-dialog>
             <el-dialog :visible.sync="uploadDialogVisible" width="450px" :title="$t('risk.upload_black_model')"
+                       custom-class="wpy-dialog sm-dialog bg-body"
                        @close="closeUploadExcelDialog">
-                <div class="pt-5 pb-5 bg-light">
+                <div class="pt-3 pb-3 bg-light">
                     <el-upload
                             class="upload-demo text-center"
                             ref="black_excel"
@@ -214,6 +212,15 @@
                         </div>
                         <div class="el-upload__tip" slot="tip" style="font-size: 14px;">
                             {{$t('shipment.upload_excel_max_500')}}
+                            <div class="d-block">
+                                <el-button icon="el-icon-download" size="small"
+                                           @click="downloadBackListTemplate"  type="primary" plain>{{$t('comm.template_download')}}
+                                </el-button>
+                            </div>
+                            <div class="d-block text-dark">
+                                1.下载模板表格并填写对应黑名单数据。<br/>
+                                2.上传表格，完成。
+                            </div>
                         </div>
                     </el-upload>
                 </div>

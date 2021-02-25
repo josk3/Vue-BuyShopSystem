@@ -100,6 +100,7 @@
                        custom-class="wpy-dialog sm-dialog"
                        :show-close="false" :close-on-click-modal="false"
                        :title="popupData.title"
+                       top="2vh"
                        :visible.sync="popupDialogVisible">
                 <div class="p-1 mb-2">
                     <div>

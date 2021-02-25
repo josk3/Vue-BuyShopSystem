@@ -126,14 +126,14 @@ function demoUserInfo() {
                     ],
                     "have_show_child": true
                 },
-                // {
-                //     "name": "fast_pay",
-                //     "path": "/fast_pay/index",
-                //     "meta": null,
-                //     "hidden": false,
-                //     "children": null,
-                //     "have_show_child": false
-                // },
+                {
+                    "name": "fast_pay",
+                    "path": "/fast_pay/index",
+                    "meta": null,
+                    "hidden": false,
+                    "children": null,
+                    "have_show_child": false
+                },
                 {
                     "name": "delivery_manage",
                     "path": "/delivery/manage",
@@ -1559,6 +1559,76 @@ const proxy = {
                     total: 50,
                 },
                 list: demoFinanceList(req),
+            }
+        });
+    },
+    'POST /api/v1/fast_pay/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: [
+                    {
+                        "fy_token": "fys7h1K4A50Hbe4hfeglG1plH7i1SPvq",
+                        "site_id": null,
+                        "order_id": "f232424",
+                        "amount": 34,
+                        "currency": "USD",
+                        "order_description": "rthrthrthr",
+                        "operator": "uid_091816K0h7j079v5aYug",
+                        "cch_id": null,
+                        "status": 1,
+                        "remark": null,
+                        "order_title": "2g4hthh",
+                        "language": "en",
+                        "created": 1614103197000,
+                        "products": [
+                            {
+                                "id": 1,
+                                "itemId": null,
+                                "mid": 86,
+                                "sku": null,
+                                "name": "ergerg",
+                                "amount": "234",
+                                "currency": "USD",
+                                "quantity": 1,
+                                "source": "fast_pay",
+                                "tradeId": null,
+                                "fyToken": "fys7h1K4A50Hbe4hfeglG1plH7i1SPvq",
+                                "created": 1614103188000,
+                                "operator": null
+                            },
+                            {
+                                "id": 2,
+                                "itemId": null,
+                                "mid": 86,
+                                "sku": null,
+                                "name": "43t24t 34t 34t34t",
+                                "amount": "45",
+                                "currency": "USD",
+                                "quantity": 1,
+                                "source": "fast_pay",
+                                "tradeId": null,
+                                "fyToken": "fys7h1K4A50Hbe4hfeglG1plH7i1SPvq",
+                                "created": 1614103191000,
+                                "operator": null
+                            }
+                        ]
+                    }
+                ]
+            }
+        });
+    },
+    'POST /api/v1/fast_pay/new': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
             }
         });
     },
@@ -3282,6 +3352,33 @@ const proxy = {
                         url_protocol: 'https',
                         operator_name: '张三',
                     },
+                ]
+            }
+        })
+    },
+    'POST /api/v1/shop/last50': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: [
+                    {
+                        site_id: 'wfljw342f2',
+                        site_url: 'www.google.com',
+                        return_url: 'http://www.gooogle.com/payment/paymentRetReturn.php',
+                        site_system: 'Opencart',
+                        created: '2020-01-01',
+                        status: 3,
+                        review_reason: '网站并非实物',
+                        updated: '',
+                        is_virtual: 0,
+                        operator_name: '张三',
+                    }
                 ]
             }
         })
