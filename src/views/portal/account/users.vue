@@ -188,7 +188,7 @@
                         <el-checkbox-group v-model="add_role.role_perm" size="mini">
                             <div v-for="perm in perm_list" :key="perm.name">
                                 <el-checkbox :label="perm.name"
-                                             :disabled="perm.name === 'home' || perm.name === 'message_center'"
+                                             :disabled="perm.name === 'home' || perm.name === 'message_center' || perm.name === 'app_home' "
                                              name="role_perm" size="mini">
                                     {{ $t('nav.' + perm.name) }}
                                 </el-checkbox>
@@ -427,6 +427,7 @@
                 }
                 this.add_role.role_perm.push('home')
                 this.add_role.role_perm.push('message_center')
+                this.add_role.role_perm.push('app_home')
                 this.add_role.action = action
                 this.addRoleDialogVisible = true
             },
