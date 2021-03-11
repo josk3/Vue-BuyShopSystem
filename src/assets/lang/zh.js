@@ -288,6 +288,7 @@ module.exports = {
         "annualFee": "年费",
         "oldSysSettleDebt": "老系统结算",
         "chargeback": "拒付",
+        "refundFail": "退款失败",
     },
     "account": {
         "need_valid_identity_before": "请先完成账户激活认证",

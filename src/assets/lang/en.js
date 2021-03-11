@@ -289,6 +289,7 @@ module.exports = {
         "annualFee": "Annual Fee",
         "oldSysSettleDebt": "Old sys settle",
         "chargeback": "Chargeback",
+        "refundFail": "Refund fail",
     },
     "account": {
         "need_valid_identity_before": "Please complete the account activation verification first",
