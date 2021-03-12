@@ -561,5 +561,8 @@ module.exports = {
         "end_processing": "结束处理",
         "dispute_settled": "争议已处理!",
         "task_response": "完成情况",
+        "first_step_handling_complaint_mail":"商户联系持卡人处理投诉邮件",
+        "second_step_in_communicating":"商户与持卡人投诉邮件正在沟通中",
+        "third_step_submit_solved_case":"商户与持卡人投诉邮件已处理解决",
     }
 }
