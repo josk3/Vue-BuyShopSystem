@@ -113,6 +113,7 @@ module.exports = {
         "pass": "Pass",
         "applySettle": "Apply settle",
         "declineTime": "Chargeback time",
+        "downDeliveryBrands": "Download track company",
 
     },
     "nav": {
@@ -368,6 +369,10 @@ module.exports = {
         "batch_upload_track_info": "Batch upload track data",
         "upload_excel_file_info": "Upload excel file",
         "upload_excel_max_500": "Excel file no more than 500 records at a time",
+        "all": "All status",
+        "normal": "Track number is null",
+        "submitted": "Submitted",
+        "reject": "Reject",
     },
     "finance": {
         "fees": "Fee",

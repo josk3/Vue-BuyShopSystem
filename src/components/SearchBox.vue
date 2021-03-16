@@ -77,6 +77,16 @@
                                   @keyup.native.enter="submitSearch"
                                   :placeholder="$t('comm.ip')" clearable></el-input>
                     </el-form-item>
+                    <el-form-item v-if="searchForm.delivery_status !== undefined" prop="delivery_status">
+                        <el-select size="mini" v-model="searchForm.delivery_status" :placeholder="$t('comm.status')" clearable>
+                            <el-option
+                                    v-for="item in deliveryStatus"
+                                    :key="item.value"
+                                    :label="$t('shipment.' + item.value)"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
                     <el-form-item v-if="searchForm.search_date !== undefined" prop="start_date">
                         <el-date-picker
                                 v-model="searchForm.search_date"
@@ -131,6 +141,12 @@
                 declineTypes: [
                     {value: 'customer_service'},
                     {value: 'fraud'},
+                ],
+                deliveryStatus: [
+                    {value: 'all'},
+                    {value: 'normal'},
+                    {value: 'submitted'},
+                    {value: 'reject'},
                 ],
                 pickerOptions: {
                     shortcuts: [{

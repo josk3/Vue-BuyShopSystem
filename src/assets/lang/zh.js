@@ -113,6 +113,7 @@ module.exports = {
         "pass": "通过",
         "applySettle": "提交结算申请",
         "declineTime": "拒付时间",
+        "downDeliveryBrands": "下载物流公司代号",
 
     },
     "nav": {
@@ -366,6 +367,10 @@ module.exports = {
         "batch_upload_track_info": "批量上传物流信息",
         "upload_excel_file_info": "上传相对应的Excel表格文件",
         "upload_excel_max_500": "上传Excel表格文件，且一次不超过500行记录",
+        "all": "所有状态",
+        "normal": "未上传单号",
+        "submitted": "已提交过单号",
+        "reject": "问题单",
     },
     "finance": {
         "fees": "手续费",

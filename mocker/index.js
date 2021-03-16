@@ -2213,6 +2213,13 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/delivery/download_ship_brand_code': (req, res) => {
+        return res.json({
+            status: 1,
+            message: null,
+            data: {}
+        });
+    },
     'POST /api/v1/orders/search': (req, res) => {
         return res.json({
             "status": 1,
