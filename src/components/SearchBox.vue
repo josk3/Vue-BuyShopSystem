@@ -72,6 +72,11 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
+                    <el-form-item v-if="searchForm.ip !== undefined" prop="ip">
+                        <el-input size="mini" v-model="searchForm.ip"
+                                  @keyup.native.enter="submitSearch"
+                                  :placeholder="$t('comm.ip')" clearable></el-input>
+                    </el-form-item>
                     <el-form-item v-if="searchForm.search_date !== undefined" prop="start_date">
                         <el-date-picker
                                 v-model="searchForm.search_date"

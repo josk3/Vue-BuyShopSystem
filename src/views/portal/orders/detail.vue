@@ -63,6 +63,14 @@
                                     {{ activity.transaction.status | refundStatus}}
                                     {{ activity.transaction.reason}}
                                 </span>
+                                <span v-if="activity.kind === 'shipment_info'">
+                                    {{ activity.title | shipTitle}}
+                                    {{ activity.info | timelineShipInfo }}
+                                </span>
+                                <span v-if="activity.kind === 'settle'">
+                                    {{ activity.title | settleTitle}}
+                                    {{ activity.info }}
+                                </span>
                             </el-timeline-item>
                         </el-timeline>
                     </el-card>

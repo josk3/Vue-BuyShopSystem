@@ -61,6 +61,7 @@ module.exports = {
         "blacklist_type": "Blacklist Type",
         "blacklist_value": "Blacklist Value",
         "site_url": "Website Url",
+        "ip": "IP",
         "order_amount": "Order Amount",
         "payment_time": "Pay Time",
         "currency": "Currency",
@@ -109,6 +110,9 @@ module.exports = {
         "copy_fail": "Copy failed",
         "generate_settle_batch": "Generate settle batch no",
         "payout": "Payout",
+        "pass": "Pass",
+        "applySettle": "Apply settle",
+        "declineTime": "Chargeback time",
 
     },
     "nav": {

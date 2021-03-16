@@ -61,6 +61,7 @@ module.exports = {
         "blacklist_type": "黑名单类型",
         "blacklist_value": "黑名单值",
         "site_url": "网址",
+        "ip": "IP",
         "order_amount": "订单金额",
         "payment_time": "交易时间",
         "currency": "币种",
@@ -109,6 +110,9 @@ module.exports = {
         "copy_fail": "复制失败",
         "generate_settle_batch": "生成结算批次号",
         "payout": "划款",
+        "pass": "通过",
+        "applySettle": "提交结算申请",
+        "declineTime": "拒付时间",
 
     },
     "nav": {
