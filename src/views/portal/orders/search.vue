@@ -39,13 +39,23 @@
                     </el-table-column>
                     <el-table-column
                             :show-overflow-tooltip="true"
+                            width="160"
                             :label="$t('order.card_and_email')">
                         <template v-slot="scope">
                             <span v-if="scope.row.card">
                                 •••• {{scope.row.card.last4 }}<br/>
                             </span>
                             <span v-else> -- <br/></span>
-                            {{scope.row.customer.email }}
+                            <el-popover
+                                    placement="top"
+                                    width="260"
+                                    title="Email"
+                                    trigger="hover"
+                                    :content="scope.row.customer.email">
+                                    <span slot="reference">
+                                         {{scope.row.customer.email }}
+                                    </span>
+                            </el-popover>
                         </template>
                     </el-table-column>
                     <el-table-column
