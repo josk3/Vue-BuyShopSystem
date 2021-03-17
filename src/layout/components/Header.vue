@@ -98,7 +98,7 @@
             </div>
             <!--  top="2vh"-->
             <el-dialog v-if="popupData"
-                       custom-class="wpy-dialog sm-dialog popup-dialog"
+                       custom-class="wpy-dialog popup-dialog"
                        :show-close="false" :close-on-click-modal="false"
                        :title="popupData.title"
                        :visible.sync="popupDialogVisible">
