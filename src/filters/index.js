@@ -404,7 +404,7 @@ export function settleCycle(val) {
         case 'monthTwoTimer825':
             return i18n.t('comm.month_two_timer')
         case 'monthFourTimer':
-            return i18n.t('comm.month_two_timer')
+            return i18n.t('comm.month_four_timer')
     }
 }
 
