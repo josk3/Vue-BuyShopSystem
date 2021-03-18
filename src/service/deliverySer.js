@@ -30,3 +30,7 @@ export function getVirtualStatus() {
 export function batchAutoVirtualShip() {
     return post('/delivery/virtual/batch_auto_ship', '');
 }
+
+export function downloadShipBrandCode() {
+    return download('/delivery/download_ship_brand_code', '');
+}

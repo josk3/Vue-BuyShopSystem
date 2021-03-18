@@ -61,6 +61,7 @@ module.exports = {
         "blacklist_type": "Blacklist Type",
         "blacklist_value": "Blacklist Value",
         "site_url": "Website Url",
+        "ip": "IP",
         "order_amount": "Order Amount",
         "payment_time": "Pay Time",
         "currency": "Currency",
@@ -109,6 +110,10 @@ module.exports = {
         "copy_fail": "Copy failed",
         "generate_settle_batch": "Generate settle batch no",
         "payout": "Payout",
+        "pass": "Pass",
+        "applySettle": "Apply settle",
+        "declineTime": "Chargeback time",
+        "downDeliveryBrands": "Download track company",
 
     },
     "nav": {
@@ -289,6 +294,7 @@ module.exports = {
         "annualFee": "Annual Fee",
         "oldSysSettleDebt": "Old sys settle",
         "chargeback": "Chargeback",
+        "refundFail": "Refund fail",
     },
     "account": {
         "need_valid_identity_before": "Please complete the account activation verification first",
@@ -363,6 +369,10 @@ module.exports = {
         "batch_upload_track_info": "Batch upload track data",
         "upload_excel_file_info": "Upload excel file",
         "upload_excel_max_500": "Excel file no more than 500 records at a time",
+        "all": "All status",
+        "normal": "Track number is null",
+        "submitted": "Submitted",
+        "reject": "Reject",
     },
     "finance": {
         "fees": "Fee",
