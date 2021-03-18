@@ -22,7 +22,7 @@
         <el-card style="border-top: 3px rgb(233,109,99) solid">
             <el-main v-if="disputeDetail.list.length > 0">
                 <!--工单步骤栏-->
-                <el-steps :active="dispose.progress" finish-status="finish" process-status="process">
+                <el-steps :active="dispose.progress" finish-status="success">
                     <el-step :title="$t('dispute.first_step_handling_complaint_mail')"
                              :description="disputeDetail.info.created_fmt"></el-step>
                     <el-step :title="$t('dispute.second_step_in_communicating')"
@@ -45,7 +45,7 @@
                                         <small class="text-muted">{{dispute.email}}</small>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-end text-muted">
-                                        <i class="el-icon-time mr-2 text-gray"></i> {{dispute.created}}
+                                        <i class="el-icon-time mr-2 text-primary"></i> {{dispute.created}}
                                     </div>
                                 </div>
                                 <el-divider></el-divider>
@@ -108,7 +108,7 @@
                                         <small class="text-muted">{{dispute.email}}</small>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-end text-muted">
-                                        <i class="el-icon-time mr-2 text-gray"></i> {{dispute.created}}
+                                        <i class="el-icon-time mr-2 text-primary"></i> {{dispute.created}}
                                     </div>
                                 </div>
 
@@ -201,8 +201,10 @@
                                             :limit="1"
                                             :on-exceed="handleExceed"
                                             :file-list="previewFileGroup">
-                                        <el-button size="small" type="primary">{{$t('risk.click_on_upload')}}</el-button>
-                                        <div slot="tip" class="el-upload__tip">{{$t('dispute.error_msg_img_size')}}</div>
+                                        <el-button size="small" type="primary">{{$t('risk.click_on_upload')}}
+                                        </el-button>
+                                        <div slot="tip" class="el-upload__tip">{{$t('dispute.error_msg_img_size')}}
+                                        </div>
                                     </el-upload>
                                 </el-card>
                             </el-form>
