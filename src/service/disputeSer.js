@@ -1,4 +1,4 @@
-import {post, get, download} from '@/utils/request'
+import {post, get, download, upload} from '@/utils/request'
 
 /**
  * 争议展示列表
@@ -18,7 +18,7 @@ export function disputeDetail(dispute) {
  * 追加争议消息
  */
 export function finishDispute(params) {
-    return post("/dispute/finish", params);
+    return upload("/dispute/finish", params);
 }
 
 /**
@@ -33,4 +33,11 @@ export function updateDispute(params) {
  */
 export function disputeDownload(params) {
     return download('/dispute/download', params);
+}
+
+/**
+ *
+ */
+export function attachDownload(params){
+    return download("/dispute/attach", params);
 }
