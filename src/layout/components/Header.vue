@@ -96,11 +96,11 @@
                     </nav>
                 </div>
             </div>
+            <!--  top="2vh"-->
             <el-dialog v-if="popupData"
-                       custom-class="wpy-dialog sm-dialog"
+                       custom-class="wpy-dialog popup-dialog"
                        :show-close="false" :close-on-click-modal="false"
                        :title="popupData.title"
-                       top="2vh"
                        :visible.sync="popupDialogVisible">
                 <div class="p-1 mb-2">
                     <div>
@@ -241,6 +241,8 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    .popup-dialog{
+        width: 600px;
+    }
 </style>

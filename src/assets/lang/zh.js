@@ -61,6 +61,7 @@ module.exports = {
         "blacklist_type": "黑名单类型",
         "blacklist_value": "黑名单值",
         "site_url": "网址",
+        "ip": "IP",
         "order_amount": "订单金额",
         "payment_time": "交易时间",
         "currency": "币种",
@@ -107,7 +108,12 @@ module.exports = {
         "please_select": "请选择",
         "copy_success": "复制成功",
         "copy_fail": "复制失败",
-
+        "generate_settle_batch": "生成结算批次号",
+        "payout": "划款",
+        "pass": "通过",
+        "applySettle": "提交结算申请",
+        "declineTime": "拒付时间",
+        "downDeliveryBrands": "下载物流公司代号",
     },
     "nav": {
         "home": "主页",
@@ -299,6 +305,7 @@ module.exports = {
         "annualFee": "年费",
         "oldSysSettleDebt": "老系统结算",
         "chargeback": "拒付",
+        "refundFail": "退款失败",
     },
     "account": {
         "need_valid_identity_before": "请先完成账户激活认证",
@@ -372,6 +379,10 @@ module.exports = {
         "batch_upload_track_info": "批量上传物流信息",
         "upload_excel_file_info": "上传相对应的Excel表格文件",
         "upload_excel_max_500": "上传Excel表格文件，且一次不超过500行记录",
+        "all": "所有状态",
+        "normal": "未上传单号",
+        "submitted": "已提交过单号",
+        "reject": "问题单",
     },
     "finance": {
         "fees": "手续费",

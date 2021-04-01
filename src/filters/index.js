@@ -404,7 +404,7 @@ export function settleCycle(val) {
         case 'monthTwoTimer825':
             return i18n.t('comm.month_two_timer')
         case 'monthFourTimer':
-            return i18n.t('comm.month_two_timer')
+            return i18n.t('comm.month_four_timer')
     }
 }
 
@@ -500,4 +500,43 @@ export function noticeKindStr(title) {
 export function fastPayUrl(fyToken) {
     if (isEmpty(fyToken)) return '--'
     return 'https://api.win4mall.com/fast/v1/payment?code=' + fyToken
+}
+
+/**
+ * 订单时间轴物流信息文字处理
+ */
+export function timelineShipInfo(infoTxt) {
+    if (isEmpty(infoTxt)) return '--';
+    //ShipId: ship_xxx
+    return infoTxt.replace(/^ShipId: \w+ (.*)/, '$1')
+}
+
+/**
+ * 订单时间轴物流信息状态
+ */
+export function shipTitle(title) {
+    if (isEmpty(title)) return '--';
+    switch (title) {
+        case "submitted":
+            return i18n.t('comm.submitted');
+        case "pass":
+            return i18n.t('comm.pass');
+        default:
+            return i18n.t('comm.' + title);
+    }
+}
+
+/**
+ * 订单时间轴 结算信息状态
+ */
+export function settleTitle(title) {
+    if (isEmpty(title)) return '--';
+    switch (title) {
+        case "applySettle":
+            return i18n.t('comm.applySettle');
+        case "pass":
+            return i18n.t('comm.pass');
+        default:
+            return i18n.t('comm.' + title);
+    }
 }

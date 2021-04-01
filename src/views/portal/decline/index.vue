@@ -18,6 +18,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="row text-left" v-if="searchDeclineTimeTip">
+                    <div class="col-12">
+                        <small class="ml-2">{{ searchDeclineTimeTip }} : {{ searchParams.search_date[0] }} ~ {{
+                            searchParams.search_date[1] }}</small>
+                    </div>
+                </div>
                 <el-table
                         :class="tabData.list.length ? '' : 'wpy-z-table'"
                         :data="tabData.list"
@@ -78,7 +84,7 @@
                     <el-table-column
                             prop="chargeback.chargeback_time"
                             :show-overflow-tooltip="true"
-                            :label="$t('comm.created')">
+                            :label="$t('comm.declineTime')">
                         <template v-slot="scope">
                             {{scope.row.chargeback.chargeback_time | toDay }}
                         </template>
@@ -111,10 +117,11 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.decline_manage', page: 1,
-                    trade_id: '', merchant_order_no: '', decline_type: '',
+                    trade_id: '', merchant_order_no: '', decline_type: '', search_date: '',
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认
+                searchDeclineTimeTip: '',// 搜索的是拒付导入时间，不是订单
             }
         },
         mounted() {
@@ -134,12 +141,17 @@
             search(pageNum) {
                 if (pageNum === undefined || isEmpty(pageNum)) {
                     pageNum = 1
-                }else if (!isEmpty(pageNum) && pageNum === 'keep') {
+                } else if (!isEmpty(pageNum) && pageNum === 'keep') {
                     //keep 可能只是重载数据页面
                     pageNum = this.searchParams.page
                 }
                 this.searchParams.page = pageNum
                 this.loading = true
+                if (!isEmpty(this.searchParams.search_date)) {
+                    this.searchDeclineTimeTip = this.$i18n.t('comm.declineTime') + ''
+                } else {
+                    this.searchDeclineTimeTip = ''
+                }
                 declineSearch(this.searchParams).then(res => {
                     const {data} = res
                     this.$data.tabData = data

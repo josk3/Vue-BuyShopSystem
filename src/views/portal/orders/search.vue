@@ -39,13 +39,23 @@
                     </el-table-column>
                     <el-table-column
                             :show-overflow-tooltip="true"
+                            width="160"
                             :label="$t('order.card_and_email')">
                         <template v-slot="scope">
                             <span v-if="scope.row.card">
                                 •••• {{scope.row.card.last4 }}<br/>
                             </span>
                             <span v-else> -- <br/></span>
-                            {{scope.row.customer.email }}
+                            <el-popover
+                                    placement="top"
+                                    width="260"
+                                    title="Email"
+                                    trigger="hover"
+                                    :content="scope.row.customer.email">
+                                    <span slot="reference">
+                                         {{scope.row.customer.email }}
+                                    </span>
+                            </el-popover>
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -170,7 +180,7 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.trade_manage', page: 1,
-                    trade_id: '', merchant_order_no: '', pay_status: '', search_date: '', email: ''
+                    trade_id: '', merchant_order_no: '', pay_status: '', search_date: '', email: '', site_url: '', ip: ''
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认
@@ -204,6 +214,9 @@
                 }
                 this.searchParams.page = pageNum
                 this.loading = true
+                if (!isEmpty(this.searchParams.pay_status)) {
+                    this.paneName = this.searchParams.pay_status
+                }
                 ordersSearch(this.searchParams).then(res => {
                     const {data} = res
                     this.$data.tabData = data

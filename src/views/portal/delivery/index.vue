@@ -5,11 +5,11 @@
             <div class="wrap-tab p-0">
                 <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
                     <div class="row">
-                        <div class="col-6 pr-0" style="background-color: #F5F7FA">
+                        <div class="col-3 pr-0" style="background-color: #F5F7FA">
                             <el-tabs type="border-card">
                             </el-tabs>
                         </div>
-                        <div class="col-6 text-right p-0" style="background-color: #F5F7FA">
+                        <div class="col-9 text-right p-0" style="background-color: #F5F7FA">
                             <div class="mr-5 mt-1 mb-1">
                                 <el-popconfirm v-if="is_virtual" @confirm="batchAutoVirtualShip()"
                                                :title="$t('comm.batch_auto_virtual_ship_help_ifo')">
@@ -22,7 +22,11 @@
                                            @click="uploadTrackDialogVisible = true" plain>{{$t('comm.batch_upload')}}
                                 </el-button>
                                 <el-button icon="el-icon-download" size="mini"
+                                           @click="downBrandCode" plain>{{ $t('comm.downDeliveryBrands') }}
+                                </el-button>
+                                <el-button icon="el-icon-download" size="mini"
                                            @click="downDelivery" plain>{{ $t('comm.download') }}
+                                    <span v-if="downDeliveryStatus">{{ $t('shipment.' + downDeliveryStatus) }}</span>
                                 </el-button>
                             </div>
                         </div>
@@ -56,6 +60,14 @@
                         <el-table-column
                                 prop="pay_status"
                                 :label="$t('comm.status')">
+                                :label="$t('comm.order_amount')" width="100">
+                            <template v-slot="scope">
+                                {{scope.row.order_amount}} {{scope.row.order_currency}}
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                prop="pay_status"
+                                :label="$t('comm.status')" width="70">
                             <template v-slot="scope">
                             <span class="pay-status" :class="['ps-' + scope.row.pay_status]">
                                 {{scope.row.pay_status | payStatus}}
@@ -88,7 +100,7 @@
                                         <el-dropdown-item v-if="scope.row.track_number">
                                             <el-button type="text"
                                                        @click="editTrackDialog(scope.$index, scope.row)">
-                                                {{$t('comm.update')}} {{scope.row.track_number}}
+                                                {{$t('comm.update')}} {{scope.row.track_brand}} ( {{scope.row.track_number}} )
                                             </el-button>
                                         </el-dropdown-item>
                                         <el-dropdown-item v-if="!scope.row.track_number">
@@ -127,8 +139,13 @@
                         <el-form-item :label="$t('shipment.track_brand')" prop="track_brand">
                             <el-select v-model="track_form.track_brand" :placeholder="$t('shipment.track_brand')"
                                        filterable>
-                                <el-option v-for="brand in track_brand_all" :key="brand.value"
-                                           :label="brand.text" :value="brand.value"></el-option>
+                                <el-option v-for="brand in track_brand_all"
+                                           :key="brand.value"
+                                           :label="brand.text"
+                                           :value="brand.value">
+                                    <span style="float: left">{{ brand.text }}</span>
+                                    <span style="float: right; color: #8492a6; font-size: 13px">{{ brand.value }}</span>
+                                </el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item :label="$t('shipment.track_number')" prop="track_number">
@@ -191,7 +208,15 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {deliveryAdd, deliveryDownload, deliverySearch, deliveryUpload, getTrackBrands, getVirtualStatus, batchAutoVirtualShip} from "@/service/deliverySer";
+    import {
+        batchAutoVirtualShip,
+        deliveryAdd,
+        deliveryDownload,
+        deliverySearch,
+        deliveryUpload, downloadShipBrandCode,
+        getTrackBrands,
+        getVirtualStatus
+    } from "@/service/deliverySer";
     import {isEmpty} from "@/utils/validate";
     import {mapState} from "vuex";
 
@@ -205,6 +230,9 @@
             configs() {
                 return configs;
             },
+            wcSearchParams() {
+                return this.searchParams.delivery_status;
+            }
         },
         data() {
             return {
@@ -222,7 +250,7 @@
                 },
                 searchParams: {
                     title: 'nav.delivery_manage', page: 1,
-                    trade_id: '', merchant_order_no: '', email: '',
+                    trade_id: '', merchant_order_no: '', email: '', delivery_status: '',
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 percentage: -1,
@@ -231,7 +259,19 @@
                 trackExcelUploadEnable: true,
                 //
                 is_virtual: false,
+                downloadParams: {delivery_status: 'normal'},
+                downDeliveryStatus: 'normal',
             }
+        },
+        watch: {
+            wcSearchParams(val){
+                if (val === 'all' || isEmpty(val)) {
+                    this.downloadParams.delivery_status = 'normal'
+                } else {
+                    this.downloadParams.delivery_status = val
+                }
+                this.downDeliveryStatus = this.downloadParams.delivery_status
+            },
         },
         mounted() {
             this.virtualStatus();
@@ -291,7 +331,7 @@
             search(pageNum) {
                 if (pageNum === undefined || isEmpty(pageNum)) {
                     pageNum = 1
-                }else if (!isEmpty(pageNum) && pageNum === 'keep') {
+                } else if (!isEmpty(pageNum) && pageNum === 'keep') {
                     //keep 可能只是重载数据页面
                     pageNum = this.searchParams.page
                 }
@@ -358,8 +398,8 @@
                 });
             },
             downDelivery() {
-                this.$data.loading = true
-                deliveryDownload(this.track_form).then(() => {
+                this.loading = true
+                deliveryDownload(this.downloadParams).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
                 }).finally(() => {
                     this.$data.loading = false
@@ -374,7 +414,7 @@
                     this.loading = false
                 })
             },
-            batchAutoVirtualShip(){
+            batchAutoVirtualShip() {
                 this.loading = true
                 batchAutoVirtualShip().then(res => {
                     if (res.status === 1) {
@@ -383,6 +423,14 @@
                     }
                 }).finally(() => {
                     this.loading = false
+                })
+            },
+            downBrandCode() {
+                this.loading = true
+                downloadShipBrandCode().then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.$data.loading = false
                 })
             },
         },

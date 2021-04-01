@@ -55,6 +55,7 @@
                                 {{ $t('timeline.' + activity.kind) }}
                                 <span v-if="activity.kind === 'payment_failed'">
                                     {{ activity.transaction.fail_code}} {{ activity.transaction.fail_message}}
+                                    <small v-if="activity.transaction.fail_code === '115100'">高风险黑名单顾客</small>
                                 </span>
                                 <span v-if="activity.kind === 'order_canceled'">
                                     {{ activity.info }}
@@ -62,6 +63,14 @@
                                 <span v-if="activity.kind === 'refund'">
                                     {{ activity.transaction.status | refundStatus}}
                                     {{ activity.transaction.reason}}
+                                </span>
+                                <span v-if="activity.kind === 'shipment_info'">
+                                    {{ activity.title | shipTitle}}
+                                    {{ activity.info | timelineShipInfo }}
+                                </span>
+                                <span v-if="activity.kind === 'settle'">
+                                    {{ activity.title | settleTitle}}
+                                    {{ activity.info }}
                                 </span>
                             </el-timeline-item>
                         </el-timeline>
