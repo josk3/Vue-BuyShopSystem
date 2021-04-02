@@ -1,92 +1,234 @@
 <template>
     <div v-loading="loading">
 
-        <el-card>
+        <el-card class="mb-3 mt-1" body-style="background-color: rgb(253,241,217)">
+            <!-- 返回-->
             <div slot="header">
                 <el-page-header @back="goBack()" :content="$t('dispute.dispute_email_detail')"
                                 :title="$t('comm.go_back')"></el-page-header>
             </div>
-            <el-main class="bg-light" v-if="disputeDetail.list.length > 0">
-                <el-row :gutter="20" class="mb-5">
-                </el-row>
-                <div style="overflow-y: scroll;height:800px;"
-                     ref="disputeBody">
+            <div class="d-flex align-items-start justify-content-start">
+                <div class="mb-n1 mr-1">
+                    <small class="text-danger">{{$t('dispute.warm_prompt')}}：</small>
+                </div>
+                <div class="media-body align-self-center text-truncate">
+                    <div class="text-truncate"><small>1.{{$t('dispute.warm_prompt_one')}}</small></div>
+                    <div class="text-truncate"><small>2.{{$t('dispute.warm_prompt_two')}}</small>
+                    </div>
+                </div>
+            </div>
+        </el-card>
+
+        <el-card style="border-top: 3px rgb(233,109,99) solid">
+            <el-main v-if="disputeDetail.list.length > 0">
+                <!--工单步骤栏-->
+                <el-steps :active="dispose.progress" finish-status="success">
+                    <el-step :title="$t('dispute.first_step_handling_complaint_mail')"
+                             :description="disputeDetail.info.created_fmt"></el-step>
+                    <el-step :title="$t('dispute.second_step_in_communicating')"
+                             :description="disputeDetail.info.created_fmt"></el-step>
+                    <el-step :title="$t('dispute.third_step_submit_solved_case')"
+                             :description="disputeDetail.info.updated_fmt"></el-step>
+                </el-steps>
+
+                <div ref="disputeBody">
                     <div v-for="(dispute,index) in disputeDetail.list" :key="index">
+                        <el-divider></el-divider>
                         <el-row :gutter="20" class="mb-2 ml-2 mr-2" v-if="dispute.is_system === '0'">
-                            <div class="d-flex align-items-start justify-content-start">
-                                <div class="mb-n1 mr-1" style="width: 50px; height: 50px;">
-                                    <el-avatar icon="el-icon-s-custom" :size="40" class="bg-blue"></el-avatar>
+                            <div>
+                                <div class="d-flex align-items-center justify-content-start">
+                                    <div class="mb-n1 mr-1" style="width: 50px; height: 50px;">
+                                        <el-avatar icon="el-icon-s-custom" :size="40" class="bg-blue"></el-avatar>
+                                    </div>
+                                    <div class="media-body align-self-center text-truncate">
+                                        <h6 class="text-truncate">{{$t('dispute.guest_email')}}</h6>
+                                        <small class="text-muted">{{dispute.email}}</small>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-end text-muted">
+                                        <i class="el-icon-time mr-2 text-primary"></i> {{dispute.created}}
+                                    </div>
                                 </div>
-                                <el-card style="border-radius: 18px;font-size: 20px;">
-                                    <div><span
-                                            style="color:rgba(75.5,178.5,255,20)">{{$t('dispute.guest_email')}} </span>{{dispute.email}}
+                                <el-divider></el-divider>
+                                <div style="font-size: 14px;">
+                                    <p style="overflow-wrap: break-word;">{{dispute.complaint_content}}</p>
+                                </div>
+                                <!--是否有下载文件-->
+                                <div class="mt-4" v-if="dispute.attach !== null && dispute.attach_info !== null">
+                                    <!-- 图片文件展示 -->
+                                    <div class="d-flex align-items-center p-4 justify-content-start"
+                                         v-if="dispute.attach_info.type === 'image'">
+                                        <div>
+                                            <div class="form-row py-3">
+                                                <div class="col">
+                                                    <el-image
+                                                            style="width:220px;"
+                                                            class="img-fluid rounded"
+                                                            :src="fullImgUrl(dispute.dispute_attach_url+'&dispute='+disputeDetail.info.dispute_no)"
+                                                            :preview-src-list="[fullImgUrl(dispute.dispute_attach_url+'&dispute='+disputeDetail.info.dispute_no)]"
+                                                    >
+                                                        <div slot="error" style="display: flex;justify-content: center; align-items: center;width: 100%;height: 100%;background: #CCCCCC;
+                                                               color: #000000;font-size: 14px;">
+                                                            <i class="el-icon-picture-outline"></i>
+                                                        </div>
+                                                    </el-image>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <el-divider></el-divider>
-                                    <div><span style="color:rgba(75.5,178.5,255,20)">{{$t('dispute.send_time')}} </span>{{dispute.created}}
-                                    </div>
-                                    <el-divider></el-divider>
-                                    <span style="color:rgba(75.5,178.5,255,20)">{{$t('dispute.mail_content')}} </span>
-                                    <p>{{dispute.complaint_content}}</p>
-                                </el-card>
+                                    <el-button @click="attachDownload(dispute.attach)"
+                                               v-if="dispute.attach_info.type === 'excel'">
+                                        <div class="d-flex align-items-center justify-content-start p-2"
+                                             style="background-color: #F2F8FF">
+                                            <div style="width: 50px; height: 50px;">
+                                                <el-avatar icon="el-icon-document"
+                                                           style="font-size: 24px;background-color: #468FF7;"
+                                                           shape="square" :size="50"></el-avatar>
+                                            </div>
+                                            <div class="media-body align-self-center col-6 text-center">
+                                                <div class="text-primary">
+                                                    <small>{{dispute.attach_info.file_name}}</small></div>
+                                                <small class="text-muted">{{dispute.attach_info.file_size}} KB</small>
+                                            </div>
+                                            <div class="d-flex align-items-center col-3 justify-content-end"><i
+                                                    class="el-icon-download" style="font-size: 22px;"></i></div>
+                                        </div>
+                                    </el-button>
+                                </div>
                             </div>
                         </el-row>
                         <el-row :gutter="20" class="mb-2 ml-2 mr-2" v-if="dispute.is_system === '1'">
-                            <div class="d-flex align-items-start justify-content-end">
-                                <el-card style="border-radius: 18px;font-size: 20px;">
-                                    <div><span
-                                            style="color:rgba(75.5,178.5,255,20)">{{$t('dispute.guest_email')}} </span>{{dispute.email}}
+                            <div>
+                                <div class="d-flex align-items-center justify-content-start">
+                                    <div class="mb-n1 mr-1" style="width: 50px; height: 50px;">
+                                        <el-avatar icon="el-icon-user-solid" :size="40"
+                                                   class="bg-secondary"></el-avatar>
                                     </div>
-                                    <el-divider></el-divider>
-                                    <div><span
-                                            style="color:rgba(75.5,178.5,255,20)">{{$t('dispute.send_time')}}  </span>{{dispute.created}}
+                                    <div class="media-body align-self-center text-truncate">
+                                        <h6 class="text-truncate">{{$t('dispute.merchant_email')}}</h6>
+                                        <small class="text-muted">{{dispute.email}}</small>
                                     </div>
-                                    <el-divider></el-divider>
-                                    <span style="color:rgba(75.5,178.5,255,20)">{{$t('dispute.mail_content')}} </span>
+                                    <div class="d-flex align-items-center justify-content-end text-muted">
+                                        <i class="el-icon-time mr-2 text-primary"></i> {{dispute.created}}
+                                    </div>
+                                </div>
+
+                                <el-divider></el-divider>
+                                <div style="font-size: 14px;">
                                     <p>{{dispute.complaint_content}}</p>
-                                </el-card>
-                                <div class="mb-n1 ml-3" style="width: 50px; height: 50px;">
-                                    <el-avatar icon="el-icon-user-solid" class="bg-secondary" :size="40"></el-avatar>
+                                </div>
+                                <!-- 是否有下载文件-->
+                                <div class="mt-4" v-if="dispute.attach !== null && dispute.attach_info !== null">
+                                    <!-- 图片文件展示 -->
+                                    <div class="d-flex align-items-center p-4 justify-content-start"
+                                         v-if="dispute.attach_info.type === 'image'">
+                                        <div>
+                                            <div class="form-row py-3">
+                                                <div class="col">
+                                                    <el-image
+                                                            style="width:220px;"
+                                                            class="img-fluid rounded"
+                                                            :src="fullImgUrl(dispute.dispute_attach_url+'&dispute='+disputeDetail.info.dispute_no)"
+                                                            :preview-src-list="[fullImgUrl(dispute.dispute_attach_url+'&dispute='+disputeDetail.info.dispute_no)]"
+                                                    >
+                                                        <div slot="error" style="display: flex;justify-content: center; align-items: center;width: 100%;height: 100%;background: #CCCCCC;
+                                                               color: #000000;font-size: 14px;">
+                                                            <i class="el-icon-picture-outline"></i>
+                                                        </div>
+                                                    </el-image>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 文件下载 -->
+                                    <el-button @click="attachDownload(dispute.attach)"
+                                               v-if="dispute.attach_info.type === 'excel'">
+                                        <div class="d-flex align-items-center justify-content-start p-2"
+                                             style="background-color: #F2F8FF">
+                                            <div style="width: 50px; height: 50px;">
+                                                <el-avatar icon="el-icon-document"
+                                                           style="font-size: 24px;background-color: #468FF7;"
+                                                           shape="square" :size="50"></el-avatar>
+                                            </div>
+                                            <div class="media-body align-self-center col-6 text-center">
+                                                <div class="text-primary">
+                                                    <small>{{dispute.attach_info.file_name}}</small></div>
+                                                <small class="text-muted">{{dispute.attach_info.file_size}} KB</small>
+                                            </div>
+                                            <div class="d-flex align-items-center col-3 justify-content-end"><i
+                                                    class="el-icon-download" style="font-size: 22px;"></i></div>
+                                        </div>
+                                    </el-button>
                                 </div>
                             </div>
                         </el-row>
                     </div>
                 </div>
-            </el-main>
-        </el-card>
+                <el-divider></el-divider>
 
-        <!--处理按钮-->
-        <el-card ref="disposeCard" v-if="disputeDetail.list.length > 0">
-            <div class="text-center mt-3" v-show="dispose.isClose">
-                <el-button :type="dispose.disposeType" class="mb-3 col-3" @click="open()">{{dispose.status}}
-                </el-button>
-                <div class="mb-2"><strong>{{dispose.msg}}</strong></div>
-                <div class="mb-2"><small class="opacity-65">{{$t('dispute.btr_explain_a')}}</small></div>
-            </div>
-            <div class="text-center mt-3" v-show="!dispose.isClose">
-                <div class="mb-2"><i class="el-icon-check text-success mr-1"></i><strong>{{dispose.msg}}</strong></div>
-                <div class="mb-2"><small class="opacity-65">{{$t('dispute.btr_explain_b')}}</small></div>
-            </div>
+                <!-- 投诉解决栏-->
+                <el-card v-show="dispose.isClose !== 'complete'">
+                    <div class="media-body align-self-center" style="color: #468FF7;">
+                        <div class="text-truncate"><small>{{dispose.msg}}</small></div>
+                    </div>
+
+                    <!--处理按钮-->
+                    <div ref="disposeCard" v-if="disputeDetail.list.length > 0">
+                        <div class="mt-3" v-show="dispose.isClose==='untreated'">
+                            <el-button :type="dispose.disposeType" class="mb-3 " @click="open()">
+                                {{$t('dispute.contact_cardholder')}}
+                            </el-button>
+                            <small class="ml-2">{{$t('dispute.link')}}：<a href="http://www.hao123.com/mail"
+                                                                          target="_blank"
+                                                                          style="color:#468FF7;">http://www.hao123.com/mail</a></small>
+                        </div>
+                        <div class="mt-3" v-show="dispose.isClose==='underway'">
+                            <el-form :model="disputeSubmitParams" :rules="rules" ref="disputeSubmitParams"
+                                     label-width="100px"
+                                     class="demo-ruleForm" id="disputeAppendForm">
+                                <el-input type="hidden" v-model="disputeSubmitParams.type"></el-input>
+                                <el-input type="textarea" :placeholder="$t('dispute.prompt_solution_information')"
+                                          maxlength="1000" show-word-limit :rows="6"
+                                          v-model="disputeSubmitParams.content"></el-input>
+                                <el-card>
+                                    <el-upload
+                                            class="upload-demo col-5"
+                                            name="files"
+                                            action="#"
+                                            :http-request="httpRequest"
+                                            :on-preview="handlePreview"
+                                            :on-remove="handleRemove"
+                                            :before-remove="beforeRemove"
+                                            :limit="1"
+                                            :on-exceed="handleExceed"
+                                            :file-list="previewFileGroup">
+                                        <el-button size="small" type="primary">{{$t('risk.click_on_upload')}}
+                                        </el-button>
+                                        <div slot="tip" class="el-upload__tip">{{$t('dispute.error_msg_img_size')}}
+                                        </div>
+                                    </el-upload>
+                                </el-card>
+                            </el-form>
+                            <div class="dialog-footer text-right mt-2" v-loading="loading">
+                                <el-button type="primary" @click="submitForm('disputeSubmitParams')">
+                                    {{$t('comm.submit')}}
+                                </el-button>
+                            </div>
+                        </div>
+                    </div>
+                </el-card>
+            </el-main>
         </el-card>
 
         <!--争议关闭及商户解决过程描述-->
         <el-card>
             <!--填写争议表单-->
-            <el-dialog :visible="refundDialogVisible" :title="$t('dispute.handling_result')" :show-close="false"
-                       :close-on-click-modal="false">
-                <el-form :model="disputeSubmitParams" :rules="rules" ref="disputeSubmitParams" label-width="100px"
-                         class="demo-ruleForm" id="disputeAppendForm">
-                    <el-input type="hidden" v-model="disputeSubmitParams.type"></el-input>
-                    <el-form-item :label="$t('dispute.task_response')" prop="content" class="col-12">
-                        <el-input type="textarea" :placeholder="$t('dispute.prompt_solution_information')"
-                                  maxlength="1000" show-word-limit :rows="8"
-                                  v-model="disputeSubmitParams.content"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                    </el-form-item>
-                </el-form>
+            <el-dialog :visible="refundDialogVisible" :title="$t('dispute.warm_reminder')" :show-close="false"
+                       custom-class="wpy-dialog sm-dialog"
+                       :close-on-click-modal="false" width="25%">
+                <p>{{$t('dispute.dispute_explain')}}</p>
                 <div slot="footer" class="dialog-footer" v-loading="loading">
                     <el-button size="mini" @click="closeDialog()">{{$t('comm.cancel')}}</el-button>
-                    <el-button size="mini" type="primary" @click="submitForm('disputeSubmitParams')">
+                    <el-button size="mini" type="primary" @click="updateDispute">
                         {{$t('comm.submit')}}
                     </el-button>
                 </div>
@@ -97,7 +239,7 @@
 
 <script>
     import configs from '@/configs'
-    import {disputeDetail, finishDispute, updateDispute} from '@/service/disputeSer';
+    import {disputeDetail, finishDispute, updateDispute, attachDownload} from '@/service/disputeSer';
     import {isEmpty} from "@/utils/validate";
 
     export default {
@@ -137,29 +279,16 @@
                     msg: '',
                     disposeType: '',
                     status: '',
-                    isClose: true
+                    isClose: '',
+                    progress: 0
                 },
                 open() {
-                    if (this.disputeDetail.info.dispute_status === 'complete') {
-                        return false;
-                    }
-                    if (this.disputeDetail.info.dispute_status === 'underway') {
+                    if (this.disputeDetail.info.dispute_status === 'untreated') {
                         this.refundDialogVisible = true;
-                        return false;
                     }
-                    this.$confirm(this.validMsg('dispute.dispute_explain'), this.validMsg('dispute.hint'), {
-                        confirmButtonText: this.validMsg('comm.sure'),
-                        cancelButtonText: this.validMsg('comm.cancel'),
-                        type: 'warning'
-                    }).then(() => {
-                        this.updateDispute();
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: this.validMsg('dispute.operation_canceled')
-                        });
-                    });
                 },
+                previewFileGroup: [],
+                uploadFile: null,
             }
         },
         mounted() {
@@ -197,7 +326,11 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.loading = true;
-                        finishDispute(this.disputeSubmitParams).then(() => {
+                        this.subParam = new FormData();
+                        this.subParam.append(`files`, this.uploadFile) // 把单个图片重命名，存储起来（给后台）
+                        this.subParam.append("dp_id", this.disputeSubmitParams.dp_id);
+                        this.subParam.append("content", this.disputeSubmitParams.content);
+                        finishDispute(this.subParam).then(() => {
                             this.refundDialogVisible = false;
                             this.disputeDetailSearch();
                         }).finally(() => {
@@ -215,7 +348,8 @@
                             msg: this.validMsg('dispute.msg_handling_of_dispute'),
                             disposeType: 'primary',
                             status: this.validMsg('dispute.start_processing'),
-                            isClose: true
+                            isClose: 'untreated',
+                            progress: 1
                         };
                         break;
                     case 'underway':
@@ -223,21 +357,54 @@
                             msg: this.validMsg('dispute.msg_end_the_dispute'),
                             disposeType: 'primary',
                             status: this.validMsg('dispute.end_processing'),
-                            isClose: true
+                            isClose: 'underway',
+                            progress: 2
                         };
                         break;
                     case 'complete':
-                        this.dispose = {msg: this.validMsg('dispute.dispute_settled'), isClose: false};
+                        this.dispose = {
+                            msg: this.validMsg('dispute.dispute_settled'),
+                            isClose: 'complete',
+                            progress: 3
+                        };
                         break;
                 }
             },
             updateDispute() {
                 this.loading = true;
                 updateDispute(this.disputeStatusParam).then(() => {
+                    this.refundDialogVisible = false;
                     this.disputeDetailSearch();
                 }).finally(() => {
                     this.loading = false;
                 })
+            },
+            attachDownload(fileUrl) {
+                this.loading = true;
+                attachDownload({dispute: this.dispute, attach: fileUrl}).then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.loading = false;
+                })
+            },
+            fullImgUrl(path) {
+                return configs.imgBaseUrl + path;
+            },
+            handleRemove() {
+                this.previewFileGroup = [];
+                this.uploadFile = null;
+            },
+            handlePreview() {
+            },
+            //超出上传上限钩子
+            handleExceed(files, fileList) {
+                this.$message.warning(this.validMsg('dispute.restrict_dispute_msg_file1') + files.length + this.validMsg('dispute.restrict_dispute_msg_file2') + (files.length + fileList.length) + this.validMsg('dispute.restrict_dispute_msg_file3'));
+            },
+            beforeRemove(file) {
+                return this.$confirm(this.validMsg('dispute.sure_to_remove') + `${file.name}？`);
+            },
+            httpRequest(param) {
+                this.uploadFile = param.file;
             }
         }
     }
