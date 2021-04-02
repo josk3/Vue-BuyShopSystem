@@ -177,9 +177,6 @@
                             <el-button :type="dispose.disposeType" class="mb-3 " @click="open()">
                                 {{$t('dispute.contact_cardholder')}}
                             </el-button>
-                            <small class="ml-2">{{$t('dispute.link')}}：<a href="http://www.hao123.com/mail"
-                                                                          target="_blank"
-                                                                          style="color:#468FF7;">http://www.hao123.com/mail</a></small>
                         </div>
                         <div class="mt-3" v-show="dispose.isClose==='underway'">
                             <el-form :model="disputeSubmitParams" :rules="rules" ref="disputeSubmitParams"
