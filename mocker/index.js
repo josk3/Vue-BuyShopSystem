@@ -1628,8 +1628,7 @@ const proxy = {
         return res.json({
             status: 1,
             message: '测试test',
-            data: {
-            }
+            data: {}
         });
     },
     'POST /api/v1/delivery/search': (req, res) => {
@@ -3877,66 +3876,41 @@ const proxy = {
             status: 1,
             message: '',
             data: {
-                list: [
+                "list": [
                     {
-                        email: '1506266211@qq.com',
-                        complaint_content: '这批货不对啊,airPod重量不达标,官网标准41g,实际量37.2g,不行这批货不要',
-                        is_system: '0',
-                        created: '2020-09-14 17:11:01',
-                        operator: 'fan'
-                    },
-                    {
-                        email: '1506266211@qq.com',
-                        complaint_content: '收到后请尽快处理,不然就直接走拒付了',
-                        is_system: '0',
-                        created: '2020-09-14 17:11:01',
-                        operator: 'fan'
-                    },
-                    {
-                        email: '1506266211@qq.com',
-                        complaint_content: '收到后请尽快处理,不然就直接走拒付了',
-                        is_system: '0',
-                        created: '2020-09-14 17:11:02',
-                        operator: 'fan'
-                    },
-                    {
-                        email: '1506266211@qq.com',
-                        complaint_content: '收到后请尽快处理,不然就直接走拒付了',
-                        is_system: '0',
-                        created: '2020-09-14 17:11:03',
-                        operator: 'fan'
-                    },
-                    {
-                        email: '1506266211@qq.com',
-                        complaint_content: '收到后请尽快处理,不然就直接走拒付了',
-                        is_system: '0',
-                        created: '2020-09-14 17:11:04',
-                        operator: 'fan'
-                    },
-                    {
-                        email: '1506266211@qq.com',
-                        complaint_content: '收到后请尽快处理,不然就直接走拒付了',
-                        is_system: '0',
-                        created: '2020-09-14 17:11:05',
-                        operator: 'fan'
-                    },
-                    {
-                        email: '1584300100@qq.com',
-                        complaint_content: '已与客户沟通调解,将货物回收,回来邮费自费,在三个工作日内会将款项原路返回',
-                        is_system: '1',
-                        created: '2020-09-14 17:11:01',
-                        operator: 'fan'
-                    },
+                        "email": "1071233321@live.com",
+                        "complaint_content": "Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！Test！",
+                        "is_system": "0",
+                        "created": "2021-03-18 09:49:05",
+                        "operator": "fan",
+                        "attach": "SVYeF103180949.xlsx",
+                        "attach_info": {
+                            "file_size": "9.89",
+                            "file_name": "黑名单批量导入模板v1.0.xlsx",
+                            "type": "excel",
+                            "new_file_name": "SVYeF103180949.xlsx",
+                            "suffix": "xlsx"
+                        },
+                        "exist_file": true,
+                        "dispute_attach_url": "/api/dispute/attach?name=SVYeF103180949.xlsx"
+                    }
                 ],
-                info: {
-                    created: "2020-09-21 15:24:47",
-                    dispute_no: "dp_TkHzv1Q7BAoY",
-                    dispute_status: "untreated",
-                    dispute_type: "REFUND",
-                    email: "1506266211@qq.com",
-                    merchant_order_no: "test1597030507",
-                    remark: "顶顶顶顶",
-                    trade_id: "tr_M112670810s727c108G0",
+                "info": {
+                    "dispute_no": "dp_A3P8XIUTJ1Jj",
+                    "merchant_order_no": "7007320201113152400",
+                    "trade_id": "tr_test700731113s89K8360aF",
+                    "email": "1071233321@live.com",
+                    "remark": null,
+                    "created": 1616032145000,
+                    "updated": null,
+                    "dispute_status": "untreated",
+                    "dispute_type": "REFUND",
+                    "dispute_execution_time": null,
+                    "is_read": 1,
+                    "created_fmt": "2021-03-18 09:49:05",
+                    "updated_fmt": "",
+                    "created_pretty": "7小时前",
+                    "dispute_execution_time_fmt": ""
                 }
             }
         })
@@ -4023,6 +3997,12 @@ const proxy = {
             data: {}
         })
     },
+    'POST /api/v1/dispute/attach': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    }
 }
 let sleep = false;
 // let sleep = true;// true 测试延迟响应
