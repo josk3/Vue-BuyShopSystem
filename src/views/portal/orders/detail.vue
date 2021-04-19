@@ -61,7 +61,7 @@
                                     {{ activity.info }}
                                 </span>
                                 <span v-if="activity.kind === 'refund'">
-                                    {{ activity.transaction.status | refundStatus}}
+                                    {{ activity.title | refundStatus}}
                                     {{ activity.transaction.reason}}
                                 </span>
                                 <span v-if="activity.kind === 'shipment_info'">
