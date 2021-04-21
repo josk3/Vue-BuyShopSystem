@@ -51,6 +51,14 @@
                 </template>
             </el-table-column>
             <el-table-column
+                    prop="order_amount"
+                    :show-overflow-tooltip="true"
+                    :label="$t('comm.order_amount')">
+                <template v-slot="scope">
+                    {{scope.row.order_amount }}  {{scope.row.order_currency }}
+                </template>
+            </el-table-column>
+            <el-table-column
                     prop="fees"
                     width="70px"
                     :label="$t('finance.fees')">
