@@ -46,6 +46,9 @@
                                 </div>
                             </el-step>
                         </el-steps>
+                        <p v-if="tabData.can_apply_order_time && tabData.page.total == 0" class="mb-1">
+                            <small>*订单支付时间在{{tabData.can_apply_order_time}}之前可提交申请。</small>
+                        </p>
                     </div>
                     <div v-if="this.user.is_master">
                         <el-alert v-if="this.user.identity_status == 0 || this.user.identity_status == 3"
@@ -175,7 +178,7 @@
                     title: 'nav.payout_apply', page: 1,
                     trade_id: '', merchant_order_no: '', email: ''
                 },
-                tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
+                tabData: {list: [], page: {count: 0, page_num: 0, total: 0}, can_apply_order_time: '', next_settle_day: ''},
                 selected: [],
             }
         },
