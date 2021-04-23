@@ -37,7 +37,6 @@
                     </el-table-column>
                     <el-table-column
                             prop="merchant_order_no"
-                            :show-overflow-tooltip="true"
                             :label="$t('comm.merchant_order_no')">
                     </el-table-column>
                     <el-table-column
