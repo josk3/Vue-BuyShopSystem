@@ -26,11 +26,11 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="currency"
-                    width="50px"
-                    :label="$t('comm.currency')">
+                    prop="order_amount"
+                    :show-overflow-tooltip="true"
+                    :label="$t('comm.order_amount')">
                 <template v-slot="scope">
-                    {{scope.row.currency}}
+                    {{scope.row.order_amount }}  {{scope.row.order_currency }}
                 </template>
             </el-table-column>
             <el-table-column
@@ -48,6 +48,14 @@
                     :label="$t('comm.created')">
                 <template v-slot="scope">
                     {{scope.row.charge_time | toFullTime }}
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="currency"
+                    width="50px"
+                    :label="$t('comm.currency')">
+                <template v-slot="scope">
+                    {{scope.row.currency}}
                 </template>
             </el-table-column>
             <el-table-column

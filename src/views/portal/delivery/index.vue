@@ -2,6 +2,11 @@
     <div v-loading="loading">
         <div class="delivery-list">
             <SearchBox :params="searchParams" @search="search"></SearchBox>
+            <div class="row text-left" v-if="searchParams.delivery_status && searchParams.delivery_status != 'all'">
+                <div class="col-12">
+                    <small class="ml-2"><strong>*{{ $t('shipment.' + searchParams.delivery_status) }}</strong></small>
+                </div>
+            </div>
             <div class="wrap-tab p-0">
                 <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
                     <div class="row">
@@ -76,7 +81,7 @@
                         </el-table-column>
                         <el-table-column
                                 prop="track_number"
-                                :show-overflow-tooltip="true"
+                                :show-overflow-tooltip="track_number"
                                 :label="$t('comm.track_number')">
                             <template v-slot="scope">
                                 <div v-if="scope.row.track_number">
@@ -87,6 +92,26 @@
                                     <el-button type="text" @click="addTrackDialog(scope.$index, scope.row)">
                                         {{$t('shipment.add_ship')}}
                                     </el-button>
+                                    <span v-if="scope.row.refund_total != 0">
+                                        <el-popover
+                                                placement="top-end"
+                                                :title="$t('kind.refund')"
+                                                width="310"
+                                                trigger="hover">
+                                            <div>退款订单也要上传物流单号. 如果还没发货的填写：<b>已退款+流水号</b> , 物流公司:其他</div>
+                                            <span slot="reference">已退款<i class="el-icon-info text-blue"></i></span>
+                                        </el-popover>
+                                    </span>
+                                    <span v-if="scope.row.declined == 1">
+                                        <el-popover
+                                                placement="top-end"
+                                                :title="$t('kind.chargeback')"
+                                                width="310"
+                                                trigger="hover">
+                                            <div>拒付订单也要上传物流单号. 如果还没发货的填写：<b>已拒付+流水号</b> , 物流公司:其他</div>
+                                            <span slot="reference">已拒付 <i class="el-icon-info text-blue"></i></span>
+                                        </el-popover>
+                                    </span>
                                 </div>
                             </template>
                         </el-table-column>
@@ -250,7 +275,7 @@
                 },
                 searchParams: {
                     title: 'nav.delivery_manage', page: 1,
-                    trade_id: '', merchant_order_no: '', email: '', delivery_status: '',
+                    trade_id: '', merchant_order_no: '', email: '', delivery_status: 'normal', //默认normal未上传单号
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 percentage: -1,
@@ -271,6 +296,7 @@
                     this.downloadParams.delivery_status = val
                 }
                 this.downDeliveryStatus = this.downloadParams.delivery_status
+                this.search()
             },
         },
         mounted() {
