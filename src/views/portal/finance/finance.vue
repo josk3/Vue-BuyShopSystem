@@ -23,7 +23,7 @@
                         </div>
                     </div>
                 </div>
-                <FinanceTable :tab_data="tabData" @page_change="pageChange($event)"></FinanceTable>
+                <FinanceTable :tab_data="tabData" @page_change="pageChange($event)" page_kind="finance"></FinanceTable>
             </el-card>
         </div>
     </div>

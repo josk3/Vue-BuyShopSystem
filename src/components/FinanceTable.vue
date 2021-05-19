@@ -59,6 +59,7 @@
                 </template>
             </el-table-column>
             <el-table-column
+                    v-if="page_kind == 'finance'"
                     prop="fees"
                     width="70px"
                     :label="$t('finance.fees')">
@@ -67,6 +68,7 @@
                 </template>
             </el-table-column>
             <el-table-column
+                    v-if="page_kind == 'finance'"
                     prop="fixed_fees"
                     width="70px"
                     :label="$t('finance.fixed_fees')">
@@ -87,6 +89,7 @@
                 </template>
             </el-table-column>
             <el-table-column
+                    v-if="page_kind == 'finance'"
                     prop="deposit_charge"
                     :label="$t('finance.deposit_charge')">
                 <template v-slot="scope">
@@ -96,6 +99,7 @@
                 </template>
             </el-table-column>
             <el-table-column
+                    v-if="page_kind == 'finance'"
                     prop="surplus"
                     :label="$t('comm.balance')">
                 <template v-slot="scope">
@@ -103,6 +107,7 @@
                 </template>
             </el-table-column>
             <el-table-column
+                    v-if="page_kind == 'finance'"
                     prop="deposit_surplus"
                     :label="$t('finance.deposit_balance')">
                 <template v-slot="scope">
@@ -121,7 +126,7 @@
     export default {
         name: "FinanceTable",
         components: {Pagination},
-        props: ['tab_data', 'page_change'],
+        props: ['tab_data', 'page_change', 'page_kind'],
         data() {
             return {
                 loading: false,

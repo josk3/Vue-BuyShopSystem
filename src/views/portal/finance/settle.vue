@@ -153,7 +153,7 @@
                 </div>
             </div>
             <el-card class="box-card pb-3" shadow="never" :body-style="{ padding: '0px' }">
-                <FinanceTable :tab_data="viewDetailData" @page_change="viewPageChange($event)"></FinanceTable>
+                <FinanceTable :tab_data="viewDetailData" @page_change="viewPageChange($event)" page_kind="settle"></FinanceTable>
             </el-card>
         </div>
     </div>
