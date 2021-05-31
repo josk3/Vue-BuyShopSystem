@@ -77,6 +77,7 @@
                 </template>
             </el-table-column>
             <el-table-column
+                    v-if="tab_data.kind != 'deposit'"
                     min-width="100px"
                     prop="charge">
                 <template slot="header">
@@ -85,6 +86,21 @@
                 <template v-slot="scope">
                             <span :class="scope.row.charge === 0 ? '' : (scope.row.charge > 0 ? 'c-income' : 'c-outlay')">
                                 {{scope.row.charge | chargeAmount}}
+                            </span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    v-if="tab_data.kind == 'deposit' && page_kind == 'settle'"
+                    min-width="100px"
+                    prop="deposit_charge">
+                <template slot="header">
+                    <span slot="reference">
+                        {{$t('finance.deposit_charge')}}
+                    </span>
+                </template>
+                <template v-slot="scope">
+                            <span :class="scope.row.deposit_charge === 0 ? '' : (scope.row.deposit_charge > 0 ? 'c-income' : 'c-outlay')">
+                                {{scope.row.deposit_charge | chargeAmount}}
                             </span>
                 </template>
             </el-table-column>
