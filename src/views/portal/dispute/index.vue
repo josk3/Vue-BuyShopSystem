@@ -29,7 +29,7 @@
                 <el-table-column
                         prop="dispute_no"
                         :label="$t('dispute.dispute_no')"
-                        width="160">
+                        width="150">
                     <template slot-scope="scope">
                         <router-link :to="{name:'dispute_detail',params:{id:scope.row.dispute_no}}" class="btn-link">
                             {{scope.row.dispute_no}}
@@ -41,8 +41,7 @@
                         :label="$t('dispute.email')" width="180px">
                 </el-table-column>
                 <el-table-column
-                        :show-overflow-tooltip="true"
-                        :label="$t('dispute.trade_id_merchant_order_no')" width="150px">
+                        :label="$t('dispute.trade_id_merchant_order_no')">
                     <template v-slot="scope">
                         {{scope.row.trade_id }}<br/>
                         {{scope.row.merchant_order_no }}
@@ -50,6 +49,7 @@
                 </el-table-column>
                 <el-table-column
                         prop="dispute_status"
+                        width="120"
                         :label="$t('dispute.dispute_status')">
                     <template v-slot="scope">
                             <span>
@@ -62,6 +62,7 @@
                         :label="$t('dispute.dispute_type')">
                 </el-table-column>
                 <el-table-column
+                        width="120"
                         :label="$t('comm.created')">
                     <template v-slot="scope">
                         {{scope.row.created | toDay}}
