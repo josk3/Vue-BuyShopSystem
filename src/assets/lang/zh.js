@@ -294,6 +294,7 @@ module.exports = {
         "oldSysSettleDebt": "老系统结算",
         "chargeback": "拒付",
         "refundFail": "退款失败",
+        "manual": "人工",
     },
     "account": {
         "need_valid_identity_before": "请先完成账户激活认证",
@@ -358,6 +359,7 @@ module.exports = {
         "refund": "退款",
         "settle": "结算",
         "chargeback": "拒付",
+        "wipe_out_order": "订单抹账",
     },
     "shipment": {
         "add_ship": "添加物流",

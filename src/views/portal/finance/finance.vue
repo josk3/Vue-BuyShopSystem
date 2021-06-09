@@ -7,7 +7,7 @@
                     <div class="col-8 pr-0">
                         <el-tabs v-model="paneName" type="border-card"
                                  @tab-click="paneClick">
-                            <el-tab-pane :label="$t('comm.balance')" name="all"></el-tab-pane>
+                            <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
                             <el-tab-pane :label="$t('kind.sale')" name="sale"></el-tab-pane>
                             <el-tab-pane :label="$t('kind.settle')" name="settle"></el-tab-pane>
                             <el-tab-pane :label="$t('kind.refund')" name="refund"></el-tab-pane>

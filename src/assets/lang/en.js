@@ -295,6 +295,7 @@ module.exports = {
         "oldSysSettleDebt": "Old sys settle",
         "chargeback": "Chargeback",
         "refundFail": "Refund fail",
+        "manual": "Manual",
     },
     "account": {
         "need_valid_identity_before": "Please complete the account activation verification first",
@@ -360,6 +361,7 @@ module.exports = {
         "refund": "Refund",
         "settle": "Settlement",
         "chargeback": "Chargeback",
+        "wipe_out_order": "Wipe out",
     },
     "shipment": {
         "add_ship": "Add track",
