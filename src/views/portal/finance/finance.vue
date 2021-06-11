@@ -49,7 +49,8 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.finance_search', page: 1,
-                    batch_id: '', trade_id: '', merchant_order_no: '', search_date: ''
+                    trade_id: '', merchant_order_no: '', search_date: '',
+                    trade_batch_id: '', deposit_batch_id: '', trade_settled: '', deposit_settled: ''
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认

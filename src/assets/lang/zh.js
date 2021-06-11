@@ -114,6 +114,10 @@ module.exports = {
         "applySettle": "提交结算申请",
         "declineTime": "拒付时间",
         "downDeliveryBrands": "下载物流公司代号",
+        "trade_batch_id": "交易款结算批次号",
+        "deposit_batch_id": "保证金结算批次号",
+        "trade_settled": "交易款是否结算",
+        "deposit_settled": "保证金是否结算",
 
     },
     "nav": {

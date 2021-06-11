@@ -4,7 +4,8 @@
             <div slot="header" class="clearfix">
                 <span>{{ $t(searchForm.title) }}</span>
             </div>
-            <el-form :model="searchForm" :inline="true" class="form form-inline" ref="searchForm" @submit.native.prevent="submitSearch">
+            <el-form :model="searchForm" :inline="true" class="form form-inline" ref="searchForm"
+                     @submit.native.prevent="submitSearch">
                 <!-- 日期表组建 -->
                 <div class="p-3 pb-0">
                     <el-form-item v-if="searchForm.trade_id !== undefined" prop="trade_id">
@@ -23,7 +24,8 @@
                                   :placeholder="$t('comm.merchant_order_no')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.pay_status !== undefined" prop="pay_status">
-                        <el-select size="mini" v-model="searchForm.pay_status" :placeholder="$t('comm.status')" clearable>
+                        <el-select size="mini" v-model="searchForm.pay_status" :placeholder="$t('comm.status')"
+                                   clearable>
                             <el-option
                                     v-for="item in payStatusList"
                                     :key="item.value"
@@ -43,7 +45,8 @@
                                   :placeholder="$t('comm.blacklist_value')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.blacklist_type !== undefined" prop="blacklist_type">
-                        <el-select size="mini" v-model="searchForm.blacklist_type" :placeholder="$t('comm.blacklist_type')" clearable>
+                        <el-select size="mini" v-model="searchForm.blacklist_type"
+                                   :placeholder="$t('comm.blacklist_type')" clearable>
                             <el-option
                                     v-for="item in blacklistTypeList"
                                     :key="item.value"
@@ -63,7 +66,8 @@
                                   :placeholder="$t('comm.site_url')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.decline_type !== undefined" prop="decline_type">
-                        <el-select size="mini" v-model="searchForm.decline_type" :placeholder="$t('comm.type')" clearable>
+                        <el-select size="mini" v-model="searchForm.decline_type" :placeholder="$t('comm.type')"
+                                   clearable>
                             <el-option
                                     v-for="item in declineTypes"
                                     :key="item.value"
@@ -78,7 +82,8 @@
                                   :placeholder="$t('comm.ip')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.delivery_status !== undefined" prop="delivery_status">
-                        <el-select size="mini" v-model="searchForm.delivery_status" :placeholder="$t('comm.status')" clearable>
+                        <el-select size="mini" v-model="searchForm.delivery_status" :placeholder="$t('comm.status')"
+                                   clearable>
                             <el-option
                                     v-for="item in deliveryStatus"
                                     :key="item.value"
@@ -99,6 +104,42 @@
                                 end-placeholder="结束日期"
                                 :picker-options="pickerOptions">
                         </el-date-picker>
+                    </el-form-item>
+                    <el-form-item v-if="searchForm.trade_batch_id !== undefined" prop="trade_batch_id">
+                        <el-input size="mini" v-model="searchForm.trade_batch_id"
+                                  :placeholder="$t('comm.trade_batch_id')"
+                                  @keyup.native.enter="submitSearch"
+                                  clearable></el-input>
+                    </el-form-item>
+                    <el-form-item v-if="searchForm.deposit_batch_id !== undefined" prop="deposit_batch_id">
+                        <el-input size="mini" v-model="searchForm.deposit_batch_id"
+                                  :placeholder="$t('comm.deposit_batch_id')"
+                                  @keyup.native.enter="submitSearch"
+                                  clearable></el-input>
+                    </el-form-item>
+                    <el-form-item v-if="searchForm.trade_settled !== undefined" prop="trade_settled">
+                        <el-select size="mini" v-model="searchForm.trade_settled"
+                                   :placeholder="$t('comm.trade_settled')" clearable>
+                            <el-option value="" :label="$t('comm.trade_settled')"></el-option>
+                            <el-option
+                                    v-for="item in settleSearchOptions"
+                                    :key="item.value"
+                                    :label="$t(item.label)"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item v-if="searchForm.deposit_settled !== undefined" prop="deposit_settled">
+                        <el-select size="mini" v-model="searchForm.deposit_settled"
+                                   :placeholder="$t('comm.deposit_settled')" clearable>
+                            <el-option value="" :label="$t('comm.deposit_settled')"></el-option>
+                            <el-option
+                                    v-for="item in settleSearchOptions"
+                                    :key="item.value"
+                                    :label="$t(item.label)"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
                     </el-form-item>
 
                     <el-form-item>
@@ -147,6 +188,10 @@
                     {value: 'normal'},
                     {value: 'submitted'},
                     {value: 'reject'},
+                ],
+                settleSearchOptions: [
+                    {value: '0', label: 'status.un_settled'},
+                    {value: '1', label: 'status.has_settled'},
                 ],
                 pickerOptions: {
                     shortcuts: [{

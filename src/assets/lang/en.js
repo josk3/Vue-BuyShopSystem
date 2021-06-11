@@ -114,6 +114,10 @@ module.exports = {
         "applySettle": "Apply settle",
         "declineTime": "Chargeback time",
         "downDeliveryBrands": "Download track company",
+        "trade_batch_id": "Settle batch id",
+        "deposit_batch_id": "Deposit settle id",
+        "trade_settled": "Order settle",
+        "deposit_settled": "Deposit settle",
 
     },
     "nav": {
