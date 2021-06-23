@@ -40,6 +40,8 @@
                     :label="$t('comm.type')">
                 <template v-slot="scope">
                     {{scope.row.kind | chargeKind }}
+                    <span v-if="scope.row.manual_kind_name">{{ scope.row.manual_kind_name }}</span>
+                    <span v-if="scope.row.reason"><br/>说明: {{ scope.row.reason }}</span>
                 </template>
             </el-table-column>
             <el-table-column
