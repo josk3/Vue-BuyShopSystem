@@ -72,6 +72,9 @@
                                     {{ activity.title | settleTitle}}
                                     {{ activity.info }}
                                 </span>
+                                <span v-if="activity.kind === 'finance_ticket'">
+                                     {{ activity.info }}
+                                </span>
                             </el-timeline-item>
                         </el-timeline>
                     </el-card>

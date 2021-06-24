@@ -365,6 +365,7 @@ module.exports = {
         "chargeback": "拒付",
         "wipe_out_order": "订单抹账",
         "chargeback_cancel": "拒付返回",
+        "finance_ticket": "人工建单",
     },
     "shipment": {
         "add_ship": "添加物流",

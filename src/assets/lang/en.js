@@ -367,6 +367,7 @@ module.exports = {
         "chargeback": "Chargeback",
         "wipe_out_order": "Wipe out",
         "chargeback_cancel": "Chargeback cancel",
+        "finance_ticket": "Finance ticket",
     },
     "shipment": {
         "add_ship": "Add track",
