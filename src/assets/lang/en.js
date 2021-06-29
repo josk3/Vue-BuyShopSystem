@@ -583,7 +583,7 @@ module.exports = {
         "first_step_handling_complaint_mail": "first step The merchant contacts the cardholder to handle the complaint email",
         "second_step_in_communicating": "second step The complaint email between the merchant and the cardholder is being communicated",
         "third_step_submit_solved_case": "third step The complaint emails of merchants and cardholders have been dealt with and resolved",
-        "contact_cardholder": "Contact The Cardholder",
+        "disposal": "disposal",
         "link": "link",
         "warm_reminder": "Warm Reminder",
         "restrict_dispute_msg_file1": "The current limit is 1 file, this time it is selected",

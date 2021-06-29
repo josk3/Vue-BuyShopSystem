@@ -582,7 +582,7 @@ module.exports = {
         "first_step_handling_complaint_mail":"商户联系持卡人处理投诉邮件",
         "second_step_in_communicating":"商户与持卡人投诉邮件正在沟通中",
         "third_step_submit_solved_case":"商户与持卡人投诉邮件已处理解决",
-        "contact_cardholder":"联系持卡人",
+        "disposal":"去处理",
         "link":"链接",
         "warm_reminder":"温馨提醒说明",
         "restrict_dispute_msg_file1":"当前限制选择 1 个文件，本次选择了",
