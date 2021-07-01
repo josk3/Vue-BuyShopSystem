@@ -286,6 +286,7 @@ module.exports = {
         "review_reject": "审核拒绝",
         "invalid": "未认证",
         "valid": "已认证",
+        "3DPay": "3D支付中",
     },
     "kind": {
         "settle": "结算",
