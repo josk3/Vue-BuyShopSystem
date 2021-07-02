@@ -287,6 +287,7 @@ module.exports = {
         "review_reject": "Review reject",
         "invalid": "Invalid",
         "valid": "Valid",
+        "3DPay": "3DPay",
     },
     "kind": {
         "settle": "Settle",

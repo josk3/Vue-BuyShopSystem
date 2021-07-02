@@ -91,6 +91,9 @@
                                     </span>
                                 </el-popover>
                             </span>
+                            <span v-else-if="scope.row.pay_status === 'unpaid' && scope.row.wtp3d == 1" class="pay-status" :class="['ps-' + scope.row.pay_status]">
+                                 {{$t('status.3DPay')}}
+                            </span>
                             <span v-else class="pay-status" :class="['ps-' + scope.row.pay_status]">
                                  {{scope.row.pay_status | payStatus}}
                             </span>
