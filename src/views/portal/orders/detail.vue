@@ -1,6 +1,6 @@
 <template>
     <div v-loading="loading">
-        <div v-if="order.trade_id" class="order-detail p-0"  :class="'order-detail-' + lang">
+        <div v-if="order.trade_id" class="order-detail p-0" :class="'order-detail-' + lang">
             <div class="row">
                 <div class="col-12 mb-2">
                     <el-card shadow="hover" class="wpy-card box-card p-3"
@@ -23,8 +23,11 @@
                             <strong>{{ order.order_currency }} {{ order.order_amount }}</strong>
                             <span v-if="order.declined" class="pay-status declined-1 ml-1">
                                 {{$t('status.has_declined')}}
+                                <small v-if="order.chargeback_cancel" class="pay-status text-green ml-1">
+                                 {{$t('timeline.chargeback_cancel')}}
+                                </small>
                             </span>
-                            <span v-else-if="order.refund_total < 0" class="pay-status refund-1 ml-1">
+                            <span v-if="order.refund_total < 0" class="pay-status refund-1 ml-1">
                                 {{$t('kind.refund')}} {{order.refund_total}} {{ order.order_currency }}
                             </span>
                             <span v-else class="pay-status ml-1" :class="['ps-' + order.pay_status]">
@@ -343,7 +346,7 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .order-detail-en .list-info-box span.label{
+    .order-detail-en .list-info-box span.label {
         width: 130px;
     }
 </style>
