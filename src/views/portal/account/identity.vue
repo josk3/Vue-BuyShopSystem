@@ -50,7 +50,7 @@
                             <hr>
                             <el-form-item prop="identity_account_type">
                                 <template slot="label">
-                                    类别
+                                    {{ $t('comm.category') }}
                                     <el-popover v-show="!allowPersonal"
                                                 placement="top-start"
                                                 width="240"
@@ -76,7 +76,7 @@
                             <div class="personal">
                                 <el-form-item :label="$t('user.identity_name')" prop="identity_name">
                                     <el-input v-model="detail.identity_name"></el-input>
-                                    <small v-show="detail.identity_account_type === 'company'">法人信息</small>
+                                    <small v-show="detail.identity_account_type === 'company'">{{ $t('user.legal_person') }}</small>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.identity_number')" prop="identity_number">
                                     <el-input v-model="detail.identity_number"></el-input>
@@ -96,38 +96,38 @@
                                             type="date"
                                             placeholder="选择身份证有效期过期">
                                     </el-date-picker>
-                                    <el-button size="mini" @click="identityExpireForever" type="text" plain>长期有效
+                                    <el-button size="mini" @click="identityExpireForever" type="text" plain>{{ $t('user.long_effective') }}
                                     </el-button>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.identity_photo_a')" prop="identity_photo_a">
-                                    <UploadImgOnce txt="身份证-正面照片" size="sm"
+                                    <UploadImgOnce :txt="$t('user.identity_photo_a')" size="sm"
                                                    :disable="hold_edit"
                                                    :img_url="fullImgUrl(detail.identity_photo_a_url)"
                                                    @img="updateImg($event, 'identity_photo_a')"></UploadImgOnce>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.identity_photo_b')" prop="identity_photo_b">
-                                    <UploadImgOnce txt="身份证-反面照片" size="sm"
+                                    <UploadImgOnce :txt="$t('user.identity_photo_b')" size="sm"
                                                    :disable="hold_edit"
                                                    :img_url="fullImgUrl(detail.identity_photo_b_url)"
                                                    @img="updateImg($event, 'identity_photo_b')"></UploadImgOnce>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.sex')" prop="sex">
                                     <el-select v-model="detail.sex">
-                                        <el-option value="">选择</el-option>
-                                        <el-option value="0" label="男"></el-option>
-                                        <el-option value="1" label="女"></el-option>
+                                        <el-option value="">{{ $t('comm.please_select') }}</el-option>
+                                        <el-option value="0" :label="$t('user.man')"></el-option>
+                                        <el-option value="1" :label="$t('user.woman')"></el-option>
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.profession')" prop="profession">
                                     <el-select v-model="detail.profession"
-                                               placeholder="请选择"
+                                               :placeholder="$t('comm.please_select')"
                                                filterable>
                                         <el-option
                                                 v-for="item in professionList"
                                                 :key="item.value"
-                                                :label="item.text"
+                                                :label="item.value | businessType"
                                                 :value="item.value">
-                                            <span style="float: left">{{ item.text }}</span>
+                                            <span style="float: left">{{ item.value | businessType }}</span>
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
