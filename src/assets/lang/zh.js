@@ -118,7 +118,7 @@ module.exports = {
         "deposit_batch_id": "保证金结算批次号",
         "trade_settled": "交易款是否结算",
         "deposit_settled": "保证金是否结算",
-
+        "category" : "类别",
     },
     "nav": {
         "home": "主页",
@@ -213,13 +213,15 @@ module.exports = {
         "product_info": "经营产品",
         "profession": "职业/行业",
         "sex": "性别",
-
+        "man": "男",
+        "woman": "女",
         "profile_info": "个人信息",
         "update_password": "修改密码",
         //email
         "complete_input_email": "请完善邮箱信息",
         "input_often_email_to_receive_notice": "请填写常用的邮箱, 便于接收通知",
-
+        "legal_person" : "法人信息",
+        "long_effective" : "长期有效",
     },
     "register_form": {
         "email_or_phone": "手机号", //字面上优化让用户使用手机号,英文使用email
@@ -594,5 +596,28 @@ module.exports = {
         "warm_prompt_one":"后台不具备邮件转发功能,请商户自行联系持卡人,并将回复内容添加到投诉后台,方便我司人员跟进。",
         "warm_prompt_two":"为了减少拒付给商户带来的不必要损失和影响通道使用,超过2个工作日未处理的投诉订单，将会做强制退款处理,请悉知！",
         "error_msg_img_size":"只能上传图片或Excel表格，且不超过5MB",
+    },
+    "business":{
+        "geoponics":"农、林、牧、渔业",
+        "mining":"采矿业",
+        "manufacturing":"制造业",
+        "energy":"电力、热力、燃气及水生产和供应业",
+        "building":"建筑业",
+        "wholesale_and_retail":"批发和零售业",
+        "transport":"交通运输",
+        "accommodation_catering":"住宿和餐饮业",
+        "technology_service":"信息传输、软件和信息技术服务业",
+        "financial":"金融业",
+        "realty":"房地产业",
+        "rental_service":"租赁和商务服务业",
+        "research":"科学研究和技术服务业",
+        "facilities_management":"水利、环境和公共设施管理业",
+        "resident":"居民服务、修理和其他服务业",
+        "education":"教育",
+        "social_work":"卫生和社会工作",
+        "culturalMedia":"文化、体育和娱乐业",
+        "public_management":"公共管理、社会保障和社会组织",
+        "international_organization":"国际组织",
+        "unknown":"未知",
     }
 }

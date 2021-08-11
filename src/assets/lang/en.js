@@ -118,7 +118,7 @@ module.exports = {
         "deposit_batch_id": "Deposit settle id",
         "trade_settled": "Order settle",
         "deposit_settled": "Deposit settle",
-
+        "category" : "category",
     },
     "nav": {
         "home": "Home",
@@ -213,13 +213,15 @@ module.exports = {
         "product_info": "Shop product",
         "profession": "Profession",
         "sex": "Sex",
-
+        "man": "man",
+        "woman": "woman",
         "profile_info": "User",
         "update_password": "Update Password",
         //email
         "complete_input_email": "Complete your email address",
         "input_often_email_to_receive_notice": "Please use often email address to receive notices",
-
+        "legal_person" : "legal person",
+        "long_effective": "long effective",
     },
     "valid": {
         "required_field": "{0} is null",
@@ -595,5 +597,28 @@ module.exports = {
         "warm_prompt_one":"The background does not have the function of email forwarding, please contact the cardholder by yourself, and add the reply to the complaint background, so that our staff can follow up.",
         "warm_prompt_two":"Please note that in order to reduce the unnecessary loss brought to the merchant by the refusal of payment and affect the use of the channel, the complaint order that is not processed within 2 working days will be subject to compulsory refund processing！",
         "error_msg_img_size":"Only images or Excel spreadsheets can be uploaded and no more than 5MB",
+    },
+    "business":{
+        "geoponics":"Agriculture, Forestry, Wood, Fishery",
+        "mining":"Mining",
+        "manufacturing":"Manufacturing",
+        "energy":"Electricity, Heat, Gas and water production and supply",
+        "building":"Construction industry",
+        "wholesale_and_retail":"Wholesales and retail trade",
+        "transport":"Transportation",
+        "accommodation_catering":"Hotel and catering sectors",
+        "technology_service":"Information transmission, software and Information Technology services",
+        "financial":"Financial industry",
+        "realty":"Real estate",
+        "rental_service":"Leasing and business service",
+        "research":"Scientific research and technical services",
+        "facilities_management":"Water conservancy, environment and public utilities management",
+        "resident":"Residential services, repairs and other services",
+        "education":"Education",
+        "social_work":"Health and social work",
+        "culturalMedia":"Culture, sports and entertainment",
+        "public_management":"Public administration, social security and social organization",
+        "international_organization":"International organization",
+        "unknown":"Unknown",
     }
 }
