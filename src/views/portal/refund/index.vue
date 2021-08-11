@@ -70,6 +70,9 @@
                             :show-overflow-tooltip="true"
                             :label="$t('comm.status')">
                         <template v-slot="scope">
+                            <strong v-if="scope.row.review_reason">
+                                {{scope.row.review_reason}}<br/>
+                            </strong>
                             {{scope.row.refund_status | refundStatus }}
                         </template>
                     </el-table-column>

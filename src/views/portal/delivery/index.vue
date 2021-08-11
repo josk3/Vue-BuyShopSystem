@@ -275,6 +275,7 @@
                 searchParams: {
                     title: 'nav.delivery_manage', page: 1,
                     trade_id: '', merchant_order_no: '', email: '', delivery_status: 'normal', //默认normal未上传单号
+                    track_number: '',
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 percentage: -1,

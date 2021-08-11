@@ -81,6 +81,11 @@
                                   @keyup.native.enter="submitSearch"
                                   :placeholder="$t('comm.ip')" clearable></el-input>
                     </el-form-item>
+                    <el-form-item v-if="searchForm.track_number !== undefined" prop="track_number">
+                        <el-input size="mini" v-model="searchForm.track_number"
+                                  @keyup.native.enter="submitSearch"
+                                  :placeholder="$t('comm.track_number')" clearable></el-input>
+                    </el-form-item>
                     <el-form-item v-if="searchForm.delivery_status !== undefined" prop="delivery_status">
                         <el-select size="mini" v-model="searchForm.delivery_status" :placeholder="$t('comm.status')"
                                    clearable>
