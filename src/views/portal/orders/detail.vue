@@ -66,7 +66,8 @@
                                 <span v-if="activity.kind === 'refund'">
                                     {{ activity.title | refundStatus}}
                                     {{ activity.transaction.reason}}
-                                    <storng v-if="activity.transaction.review_reason">
+                                    <storng v-if="activity.transaction.review_reason
+                                    && activity.title === 'rejectRefund' ">
                                         {{ activity.transaction.review_reason }}
                                     </storng>
                                 </span>
