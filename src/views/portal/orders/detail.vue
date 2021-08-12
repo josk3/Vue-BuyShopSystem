@@ -66,6 +66,9 @@
                                 <span v-if="activity.kind === 'refund'">
                                     {{ activity.title | refundStatus}}
                                     {{ activity.transaction.reason}}
+                                    <storng v-if="activity.transaction.review_reason">
+                                        {{ activity.transaction.review_reason }}
+                                    </storng>
                                 </span>
                                 <span v-if="activity.kind === 'shipment_info'">
                                     {{ activity.title | shipTitle}}
