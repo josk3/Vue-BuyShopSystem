@@ -58,6 +58,10 @@
                                 <div class="col-8"><span>{{info.fees_rate | tradeFeeStr}}</span>
                                 </div>
                             </div>
+                            <div class="row" v-if="other_info"><label class="col-4">{{$t('comm.currency')}}</label>
+                                <div class="col-8"><span>{{other_info.trade_currencies}}</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-6">
                             <div class="row"><label class="col-4">{{$t('account.ecm_current_month')}}</label>
@@ -301,6 +305,7 @@
                 info: {},
                 bank: {},
                 detail: {},
+                other_info: {},
                 //-
                 addBankDialogVisible: false,
                 cardType: this.cardTypeList(),
@@ -337,6 +342,7 @@
                 getMerInfo().then(res => {
                     const {data} = res
                     this.$data.info = data.info
+                    this.$data.other_info = data.other_info
                     this.$data.bank = data.bank
                     this.$data.ecmRuleData = data.ecm_rule
                     if (isEmpty(data.bank)) {
