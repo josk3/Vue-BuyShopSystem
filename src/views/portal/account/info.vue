@@ -68,13 +68,13 @@
                                 <div class="col-8"><span>{{info.monitor_ecm | nullToLine}}</span></div>
                             </div>
                             <div class="row"><label class="col-4">{{$t('account.chargeback_count_current_month')}}</label>
-                                <div class="col-8"><span>{{info.total_declined_num | nullToLine}}</span></div>
+                                <div class="col-8"><span>{{info.declined_num | nullToLine}}</span></div>
                             </div>
                             <div class="row"><label class="col-4">{{$t('account.ecm_account')}}</label>
                                 <div class="col-8"><span>{{info.total_ecm | nullToLine}}</span></div>
                             </div>
                             <div class="row"><label class="col-4">{{$t('account.chargeback_count_account')}}</label>
-                                <div class="col-8"><span>{{info.declined_num | nullToLine}}</span></div>
+                                <div class="col-8"><span>{{info.total_declined_num | nullToLine}}</span></div>
                             </div>
                             <div class="row"><label class="col-4">{{$t('account.ecm_last_month')}}</label>
                                 <div class="col-8"><span>{{info.last_monthly_ecm | nullToLine}}</span></div>
