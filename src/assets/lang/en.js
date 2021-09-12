@@ -264,6 +264,7 @@ module.exports = {
         "remember_you_merchant_no": "Remember you merchant ID",
         "has_send_active_email": "Send a active email,pleas check",
         "sms_valid_code": "Sms Valid Code",
+        "you_password_is_simple": "Your current password is relatively simple, please change it for security.",
 
     },
     "register_form": {

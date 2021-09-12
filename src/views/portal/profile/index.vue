@@ -96,7 +96,7 @@
                    :title="$t('user.update_password')"
                    :visible.sync="updatePwdWithSafe">
             <div>
-                <p>安全策略修改密码</p>
+                <p class="text-blue"><b>{{$t('login.you_password_is_simple')}}</b></p>
                 <el-form ref="update_pwd_with_safe"
                          @submit.native.prevent="submitChangePwdWithSafe"
                          :model="updatePwdWithSafeForm">
