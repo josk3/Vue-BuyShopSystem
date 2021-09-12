@@ -183,10 +183,10 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.trade_manage', page: 1,
-                    trade_id: '', merchant_order_no: '', pay_status: '', search_date: '', email: '', site_url: '', ip: ''
+                    trade_id: '', merchant_order_no: '', pay_status: '', search_date: '', email: '', site_url: '', ip: '', card_brand: ''
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
-                paneName: 'all', //默认
+                paneName: 'paid', //默认 从all改为paid(应需求)
             }
         },
         mounted() {
@@ -209,6 +209,9 @@
                 this.search(page.page_num)
             },
             search(pageNum) {
+                if (this.searchParams.pay_status === '' || this.searchParams.pay_status === null) {
+                    this.paneName = 'all'
+                }
                 if (pageNum === undefined || isEmpty(pageNum)) {
                     pageNum = 1
                 }else if (!isEmpty(pageNum) && pageNum === 'keep') {

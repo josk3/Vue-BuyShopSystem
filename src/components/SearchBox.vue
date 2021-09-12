@@ -97,6 +97,17 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
+                    <el-form-item v-if="searchForm.card_brand !== undefined" prop="delivery_status">
+                        <el-select size="mini" v-model="searchForm.card_brand" :placeholder="$t('order.card_brand')"
+                                   clearable>
+                            <el-option
+                                    v-for="item in cardBrandLists"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
                     <el-form-item v-if="searchForm.search_date !== undefined" prop="start_date">
                         <el-date-picker
                                 v-model="searchForm.search_date"
@@ -225,6 +236,14 @@
                         }
                     }]
                 },
+                cardBrandLists: [
+                    {value: 'visa', label: 'Visa'},
+                    {value: 'mastercard', label: 'Master card'},
+                    {value: 'ae', label: 'American Express'},
+                    {value: 'jcb', label: 'Jcb'},
+                    {value: 'dc', label: 'Discover Card'},
+                    {value: 'DClub', label: 'DinersClub'},
+                ],
             }
         },
         watch: {},
