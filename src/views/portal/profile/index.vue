@@ -13,15 +13,18 @@
                 </div>
                 <div v-else class="row">
                     <div v-if="onlyShowUpdateEmailCard" class="col-12">
-                        <el-alert :title="$t('user.complete_input_email')" type="warning" class="pl-5" show-icon></el-alert>
+                        <el-alert :title="$t('user.complete_input_email')" type="warning" class="pl-5"
+                                  show-icon></el-alert>
                     </div>
                     <el-form ref="update_email"
                              :model="update_email"
-                             :rules="rulesEmail" label-width="140px" class="pl-1 pr-3 pt-3 pb-0" @submit.native.prevent="submitUpdateEmail">
+                             :rules="rulesEmail" label-width="140px" class="pl-1 pr-3 pt-3 pb-0"
+                             @submit.native.prevent="submitUpdateEmail">
                         <el-form-item :label="$t('comm.email')" prop="email">
                             <el-input v-model="update_email.email" type="email"></el-input>
                             <div class="text-muted p-0">
-                                <i class="el-icon-info text-blue"></i> {{$t('user.input_often_email_to_receive_notice')}}
+                                <i class="el-icon-info text-blue"></i>
+                                {{$t('user.input_often_email_to_receive_notice')}}
                             </div>
                         </el-form-item>
                         <el-form-item>
@@ -31,7 +34,7 @@
                 </div>
             </el-card>
             <div v-if="!onlyShowUpdateEmailCard">
-<!--            -->
+                <!--            -->
                 <el-card class="box-card wpy-card mb-2" shadow="never" :body-style="{ padding: '0px' }">
                     <div slot="header" class="clearfix">
                         <span>{{$t('user.update_password')}}</span>
@@ -47,7 +50,8 @@
                                 <el-input v-model="update_pwd.new_pwd" type="password"></el-input>
                             </el-form-item>
                             <el-form-item>
-                                <el-button type="primary" @click="submitUpdatePwd">{{$t('comm.confirm_submit')}}</el-button>
+                                <el-button type="primary" @click="submitUpdatePwd">{{$t('comm.confirm_submit')}}
+                                </el-button>
                             </el-form-item>
                         </el-form>
                     </div>
@@ -83,10 +87,31 @@
                         </el-form>
                     </div>
                 </el-card>
-<!--                -->
+                <!--                -->
             </div>
 
         </div>
+        <el-dialog custom-class="wpy-dialog sm-dialog"
+                   :show-close="false" :close-on-click-modal="false"
+                   :title="$t('user.update_password')"
+                   :visible.sync="updatePwdWithSafe">
+            <div>
+                <p>安全策略修改密码</p>
+                <el-form ref="update_pwd_with_safe"
+                         @submit.native.prevent="submitChangePwdWithSafe"
+                         :model="updatePwdWithSafeForm">
+                    <el-form-item :label="$t('user.new_password')">
+                        <el-input v-model="updatePwdWithSafeForm.new_pwd" show-password></el-input>
+                    </el-form-item>
+                    <p v-if="updatePwdWithSafeErr" class="text-red">{{updatePwdWithSafeErr}}</p>
+                </el-form>
+            </div>
+            <div slot="footer" class="dialog-footer" v-loading="loading">
+                <el-button size="mini" type="primary" @click="submitChangePwdWithSafe" class="ml-3">
+                    {{$t('comm.sure')}}
+                </el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -94,7 +119,7 @@
     import configs from '@/configs'
     import user from "@/store/modules/user";
     import {mapState} from "vuex";
-    import {getUserInfo, updateEmail, updatePwd, updateUserInfo} from "@/service/userSer";
+    import {getUserInfo, updateEmail, updatePwd, updatePwdWithSafe, updateUserInfo} from "@/service/userSer";
     import UserValidEmailPhone from "@/components/UserValidEmailPhone";
     import {isEmpty} from "@/utils/validate";
 
@@ -133,6 +158,9 @@
                 rulesEmail: {
                     email: [{required: true, type: 'email', message: this.validMsg('user.email'), trigger: 'blur'},],
                 },
+                updatePwdWithSafe: false,
+                updatePwdWithSafeForm: {'new_pwd': ''},
+                updatePwdWithSafeErr: '',
             }
         },
         mounted() {
@@ -140,6 +168,11 @@
             if (!isEmpty(this.$route.params)) {
                 if (!isEmpty(this.$route.params.user_init_email) && this.$route.params.user_init_email === 1) {
                     this.onlyShowUpdateEmailCard = true
+                }
+            }
+            if (!isEmpty(this.$route.query)) {
+                if (this.$route.query.change_pwd !== undefined && this.$route.query.change_pwd === 'with_safe') {
+                    this.updatePwdWithSafe = true
                 }
             }
         },
@@ -200,7 +233,22 @@
                 });
             },
             validUpdateEmailOK() {
-
+            },
+            submitChangePwdWithSafe(){
+                if (isEmpty(this.updatePwdWithSafeForm.new_pwd)) {
+                    this.updatePwdWithSafeErr = this.$i18n.t('login.reset_new_pwd')
+                }else {
+                    this.updatePwdWithSafeErr = ''
+                    updatePwdWithSafe(this.updatePwdWithSafeForm).then(() => {
+                        this.$message.success(this.$i18n.t('comm.success').toString())
+                        this.$router.push({path: this.configs.homePath})
+                    }).catch((res) => {
+                        this.$data.updatePwdWithSafeErr = res.message
+                        this.$message.error(this.$data.errorMsg)
+                    }).finally(() => {
+                        this.$data.loading = false
+                    })
+                }
             },
         },
     }

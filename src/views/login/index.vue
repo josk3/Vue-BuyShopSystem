@@ -148,7 +148,7 @@
                     try {
                         this.loading = true
                         this.$store.dispatch('user/login', this.userLogin)
-                            .then(() => {
+                            .then((res) => {
                                 let redirect;
                                 if (!isEmpty(this.redirect) && this.redirect !== configs.loginPath) {
                                     let findRouterPath = findPath('/' + this.redirect, this.menus);
@@ -159,6 +159,10 @@
                                     }
                                 } else {
                                     redirect = configs.homePath
+                                }
+                                //老商户密码策略检测需要修改密码
+                                if (res.need_change_pwd_with_safe !== undefined && res.need_change_pwd_with_safe === 1) {
+                                    redirect = configs.profilePath + '?change_pwd=with_safe'
                                 }
                                 this.$router.push({path: redirect})
                                 //this.$message.success('登录成功')
