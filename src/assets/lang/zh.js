@@ -268,6 +268,7 @@ module.exports = {
         "has_send_active_email": "已发送一封认证邮件",
         "sms_valid_code": "短信验证码",
         "you_password_is_simple": "您当前密码比较简单, 为了安全起见请修改密码。",
+        "you_password_is_expire": "您密码已有一段时间未修改, 为了安全起见请修改密码。",
 
     },
     "status": {

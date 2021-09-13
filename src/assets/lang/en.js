@@ -265,6 +265,7 @@ module.exports = {
         "has_send_active_email": "Send a active email,pleas check",
         "sms_valid_code": "Sms Valid Code",
         "you_password_is_simple": "Your current password is relatively simple, please change it for security.",
+        "you_password_is_expire": "Your current password has not been changed for a period of time, please change it for security.",
 
     },
     "register_form": {

@@ -1359,6 +1359,12 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/password/update_with_expire': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        });
+    },
     'POST /api/v1/email/update': (req, res) => {
         return res.json(demoUserInfo());
     },

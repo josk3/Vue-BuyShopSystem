@@ -112,6 +112,27 @@
                 </el-button>
             </div>
         </el-dialog>
+        <el-dialog custom-class="wpy-dialog sm-dialog"
+                   :show-close="false" :close-on-click-modal="false"
+                   :title="$t('user.update_password')"
+                   :visible.sync="updatePwdWithExpire">
+            <div>
+                <p class="text-blue"><b>{{$t('login.you_password_is_expire')}}</b></p>
+                <el-form ref="update_pwd_with_safe"
+                         @submit.native.prevent="submitChangePwdWithSafe"
+                         :model="updatePwdWithExpireForm">
+                    <el-form-item :label="$t('user.new_password')">
+                        <el-input v-model="updatePwdWithExpireForm.new_pwd" show-password></el-input>
+                    </el-form-item>
+                    <p v-if="updatePwdWithExpireErr" class="text-red">{{updatePwdWithExpireErr}}</p>
+                </el-form>
+            </div>
+            <div slot="footer" class="dialog-footer" v-loading="loading">
+                <el-button size="mini" type="primary" @click="submitChangePwdWithExpire" class="ml-3">
+                    {{$t('comm.sure')}}
+                </el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -119,7 +140,14 @@
     import configs from '@/configs'
     import user from "@/store/modules/user";
     import {mapState} from "vuex";
-    import {getUserInfo, updateEmail, updatePwd, updatePwdWithSafe, updateUserInfo} from "@/service/userSer";
+    import {
+        getUserInfo,
+        updateEmail,
+        updatePwd,
+        updatePwdWithExpire,
+        updatePwdWithSafe,
+        updateUserInfo
+    } from "@/service/userSer";
     import UserValidEmailPhone from "@/components/UserValidEmailPhone";
     import {isEmpty} from "@/utils/validate";
 
@@ -161,6 +189,9 @@
                 updatePwdWithSafe: false,
                 updatePwdWithSafeForm: {'new_pwd': ''},
                 updatePwdWithSafeErr: '',
+                updatePwdWithExpire: false,
+                updatePwdWithExpireForm: {'new_pwd': ''},
+                updatePwdWithExpireErr: '',
             }
         },
         mounted() {
@@ -173,6 +204,8 @@
             if (!isEmpty(this.$route.query)) {
                 if (this.$route.query.change_pwd !== undefined && this.$route.query.change_pwd === 'with_safe') {
                     this.updatePwdWithSafe = true
+                } else if (this.$route.query.change_pwd !== undefined && this.$route.query.change_pwd === 'with_expire') {
+                    this.updatePwdWithExpire = true
                 }
             }
         },
@@ -234,16 +267,32 @@
             },
             validUpdateEmailOK() {
             },
-            submitChangePwdWithSafe(){
+            submitChangePwdWithSafe() {
                 if (isEmpty(this.updatePwdWithSafeForm.new_pwd)) {
                     this.updatePwdWithSafeErr = this.$i18n.t('login.reset_new_pwd')
-                }else {
+                } else {
                     this.updatePwdWithSafeErr = ''
                     updatePwdWithSafe(this.updatePwdWithSafeForm).then(() => {
                         this.$message.success(this.$i18n.t('comm.success').toString())
                         this.$router.push({path: this.configs.homePath})
                     }).catch((res) => {
                         this.$data.updatePwdWithSafeErr = res.message
+                        this.$message.error(this.$data.errorMsg)
+                    }).finally(() => {
+                        this.$data.loading = false
+                    })
+                }
+            },
+            submitChangePwdWithExpire() {
+                if (isEmpty(this.updatePwdWithExpireForm.new_pwd)) {
+                    this.updatePwdWithExpireErr = this.$i18n.t('login.reset_new_pwd')
+                } else {
+                    this.updatePwdWithExpireErr = ''
+                    updatePwdWithExpire(this.updatePwdWithExpireForm).then(() => {
+                        this.$message.success(this.$i18n.t('comm.success').toString())
+                        this.$router.push({path: this.configs.homePath})
+                    }).catch((res) => {
+                        this.$data.updatePwdWithExpireErr = res.message
                         this.$message.error(this.$data.errorMsg)
                     }).finally(() => {
                         this.$data.loading = false

@@ -160,9 +160,12 @@
                                 } else {
                                     redirect = configs.homePath
                                 }
-                                //老商户密码策略检测需要修改密码
                                 if (res.need_change_pwd_with_safe !== undefined && res.need_change_pwd_with_safe === 1) {
+                                    //老商户密码策略检测需要修改密码
                                     redirect = configs.profilePath + '?change_pwd=with_safe'
+                                }else if (res.need_change_pwd_with_expire !== undefined && res.need_change_pwd_with_expire === configs.apiCode.passwordExpired) {
+                                    //密码过期
+                                    redirect = configs.profilePath + '?change_pwd=with_expire'
                                 }
                                 this.$router.push({path: redirect})
                                 //this.$message.success('登录成功')

@@ -76,3 +76,7 @@ export function updateEmail(data) {
 export function updatePwdWithSafe(data) {
     return post('/password/update_with_safe', data);
 }
+
+export function updatePwdWithExpire(data) {
+    return post('/password/update_with_expire', data);
+}
