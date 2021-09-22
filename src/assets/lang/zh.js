@@ -622,5 +622,15 @@ module.exports = {
         "public_management": "公共管理、社会保障和社会组织",
         "international_organization": "国际组织",
         "unknown": "未知",
+    },
+    "job": {
+        "technician" : "各类专业，技术人员",
+        "enterprise_responsible": "国家机关，党群组织，企事业单位的负责人",
+        "clerks": "办事人员和有关人员",
+        "commercial_staff": "商业工作人员",
+        "service_staff": "服务性工作人员",
+        "livestock_labourer": "农林牧渔劳动者",
+        "production_transport": "生产工作，运输工作和部分体力劳动者",
+        "other_workers": "不便分类的其他劳动者",
     }
 }

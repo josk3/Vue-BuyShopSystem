@@ -542,7 +542,7 @@ export function settleTitle(title) {
 }
 
 /**
- * 激活账户行业类型
+ * 激活账户行业/职业类型
  */
 export function businessType(code) {
     if (isEmpty(code)) return '';
@@ -589,5 +589,21 @@ export function businessType(code) {
             return i18n.t('business.international_organization');
         case "X":
             return i18n.t('business.unknown');
+        case "1A":
+            return i18n.t('job.technician');
+        case "1B":
+            return i18n.t('job.enterprise_responsible');
+        case "1C":
+            return i18n.t('job.clerks');
+        case "1D":
+            return i18n.t('job.commercial_staff');
+        case "1E":
+            return i18n.t('job.service_staff');
+        case "1F":
+            return i18n.t('job.livestock_labourer');
+        case "1G":
+            return i18n.t('job.production_transport');
+        case "1H":
+            return i18n.t('job.other_workers');
     }
 }

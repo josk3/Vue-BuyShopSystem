@@ -622,5 +622,15 @@ module.exports = {
         "public_management":"Public administration, social security and social organization",
         "international_organization":"International organization",
         "unknown":"Unknown",
+    },
+    "job": {
+        "technician" : "All kinds of professional and technical personnel",
+        "enterprise_responsible": "Persons in charge of state organs, party and mass organizations, enterprises and institutions",
+        "clerks": "Clerical and associated personnel",
+        "commercial_staff": "Commercial staff",
+        "service_staff": "Service workers",
+        "livestock_labourer": "Agriculture, forestry, animal husbandry and fishery workers",
+        "production_transport": "Production jobs, transportation jobs and some manual labor",
+        "other_workers": "Other workers who are inconvenient to classify",
     }
 }
