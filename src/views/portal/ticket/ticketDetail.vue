@@ -98,7 +98,7 @@
                         <div class="group text-center mr-1 mr-lg-4">
                             <div class="mb-n1" style="width: 50px; height: 50px;"><i
                                     class="el-icon-user fa-3x "></i></div>
-                            <div class="" style="font-size: 12px;">{{detailInfo.operator}}</div>
+                            <div class="" style="font-size: 12px;"></div>
                         </div>
                         <div class="message-body">
                             <div class="message-row rounded">
