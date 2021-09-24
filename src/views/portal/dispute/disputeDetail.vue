@@ -175,7 +175,7 @@
                     <div ref="disposeCard" v-if="disputeDetail.list.length > 0">
                         <div class="mt-3" v-show="dispose.isClose==='untreated'">
                             <el-button :type="dispose.disposeType" class="mb-3 " @click="open()">
-                                {{$t('dispute.contact_cardholder')}}
+                                {{$t('dispute.disposal')}}
                             </el-button>
                         </div>
                         <div class="mt-3" v-show="dispose.isClose==='underway'">

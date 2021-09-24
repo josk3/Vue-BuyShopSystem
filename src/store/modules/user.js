@@ -68,7 +68,7 @@ const actions = {
                 if (!isEmpty((data.menus))) {
                     router.addRoutes(convertRouters(data.menus))
                 }
-                resolve()
+                resolve(data)
             }).catch(error => {
                 reject(error)
             })

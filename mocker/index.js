@@ -1203,7 +1203,7 @@ const proxy = {
             // '/api/v1/(.*)': 'http://192.168.3.182:8013',
             // '/api/v1/(.*)': 'http://127.0.0.1/',
             // '/images/(.*)': 'http://localhost:8013/',
-            // '/api/v1/(.*)': 'http://localhost:8013/',
+            '/api/v1/(.*)': 'http://localhost:8013/',
         },
         changeHost: true,
         header: {
@@ -1347,6 +1347,18 @@ const proxy = {
         });
     },
     'POST /api/v1/password/update': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        });
+    },
+    'POST /api/v1/password/update_with_safe': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        });
+    },
+    'POST /api/v1/password/update_with_expire': (req, res) => {
         return res.json({
             status: 1,
             data: {}

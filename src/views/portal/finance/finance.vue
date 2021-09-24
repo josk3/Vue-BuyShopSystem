@@ -7,7 +7,7 @@
                     <div class="col-8 pr-0">
                         <el-tabs v-model="paneName" type="border-card"
                                  @tab-click="paneClick">
-                            <el-tab-pane :label="$t('comm.balance')" name="all"></el-tab-pane>
+                            <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
                             <el-tab-pane :label="$t('kind.sale')" name="sale"></el-tab-pane>
                             <el-tab-pane :label="$t('kind.settle')" name="settle"></el-tab-pane>
                             <el-tab-pane :label="$t('kind.refund')" name="refund"></el-tab-pane>
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                 </div>
-                <FinanceTable :tab_data="tabData" @page_change="pageChange($event)"></FinanceTable>
+                <FinanceTable :tab_data="tabData" @page_change="pageChange($event)" page_kind="finance"></FinanceTable>
             </el-card>
         </div>
     </div>
@@ -49,7 +49,8 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.finance_search', page: 1,
-                    batch_id: '', trade_id: '', merchant_order_no: '', search_date: ''
+                    trade_id: '', merchant_order_no: '', search_date: '',
+                    trade_batch_id: '', deposit_batch_id: '', trade_settled: '', deposit_settled: ''
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认

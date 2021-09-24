@@ -80,8 +80,11 @@
                             </template>
                         </el-table-column>
                         <el-table-column
+                                prop="site_url"
+                                :label="$t('comm.site_url')">
+                        </el-table-column>
+                        <el-table-column
                                 prop="track_number"
-                                :show-overflow-tooltip="track_number"
                                 :label="$t('comm.track_number')">
                             <template v-slot="scope">
                                 <div v-if="scope.row.track_number">
@@ -92,24 +95,33 @@
                                     <el-button type="text" @click="addTrackDialog(scope.$index, scope.row)">
                                         {{$t('shipment.add_ship')}}
                                     </el-button>
-                                    <span v-if="scope.row.refund_total != 0">
-                                        <el-popover
-                                                placement="top-end"
-                                                :title="$t('kind.refund')"
-                                                width="310"
-                                                trigger="hover">
-                                            <div>退款订单也要上传物流单号. 如果还没发货的填写：<b>已退款+流水号</b> , 物流公司:其他</div>
-                                            <span slot="reference">已退款<i class="el-icon-info text-blue"></i></span>
-                                        </el-popover>
-                                    </span>
-                                    <span v-if="scope.row.declined == 1">
+                                    <span v-if="scope.row.declined === 1">
                                         <el-popover
                                                 placement="top-end"
                                                 :title="$t('kind.chargeback')"
                                                 width="310"
                                                 trigger="hover">
                                             <div>拒付订单也要上传物流单号. 如果还没发货的填写：<b>已拒付+流水号</b> , 物流公司:其他</div>
-                                            <span slot="reference">已拒付 <i class="el-icon-info text-blue"></i></span>
+                                            <span slot="reference">已拒付 <i class="el-icon-info text-yellow"></i></span>
+                                        </el-popover>
+                                    </span>
+                                    <span v-else-if="scope.row.refunded === 1">
+                                        <el-popover
+                                                placement="top-end"
+                                                :title="$t('kind.refund')"
+                                                width="310"
+                                                trigger="hover">
+                                            <div>退款订单也要上传物流单号. 如果还没发货的填写：<b>已退款+流水号</b> , 物流公司:其他</div>
+                                            <span slot="reference">全额退款<i class="el-icon-info text-yellow"></i></span>
+                                        </el-popover>
+                                    </span>
+                                    <span v-else-if="scope.row.refund_total !== 0">
+                                        <el-popover
+                                                placement="top-end"
+                                                :title="$t('kind.refund')"
+                                                width="310"
+                                                trigger="hover">
+                                            <span slot="reference">部分退款</span>
                                         </el-popover>
                                     </span>
                                 </div>
@@ -154,6 +166,12 @@
                        @close="closeDialog"
                        :visible.sync="trackNumberDialogVisible">
                 <div>
+                    <small v-if="track_form.declined === 1">
+                        拒付订单也要上传物流单号. 如果还没发货的填写：<b>已拒付+流水号</b> , 物流公司:其他
+                    </small>
+                    <small v-else-if="track_form.refunded === 1">
+                        退款订单也要上传物流单号. 如果还没发货的填写：<b>已退款+流水号</b> , 物流公司:其他
+                    </small>
                     <el-form ref="track_form"
                              :model="track_form"
                              :rules="rules"
@@ -276,6 +294,7 @@
                 searchParams: {
                     title: 'nav.delivery_manage', page: 1,
                     trade_id: '', merchant_order_no: '', email: '', delivery_status: 'normal', //默认normal未上传单号
+                    track_number: '',
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 percentage: -1,
@@ -344,7 +363,7 @@
                 }
             },
             initFormObj() {
-                return {action: '', index: '', trade_id: '', track_number: '', track_brand: ''};
+                return {action: '', index: '', trade_id: '', track_number: '', track_brand: '', declined: '' , refund_total: '', refunded : ''};
             },
             closeDialog() {
                 this.trackNumberDialogVisible = false
@@ -388,6 +407,9 @@
                     this.track_form.action = action
                     this.track_form.index = index
                     this.track_form.trade_id = row.trade_id
+                    this.track_form.refund_total = row.refund_total
+                    this.track_form.declined = row.declined
+                    this.track_form.refunded = row.refunded
                     if (action === 'edit') {
                         this.track_form.track_brand = row.track_brand
                         this.track_form.track_number = row.track_number

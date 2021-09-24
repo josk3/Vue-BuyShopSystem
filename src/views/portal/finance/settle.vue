@@ -109,18 +109,28 @@
                             </template>
                         </el-table-column>
                         <el-table-column property="currency" :label="$t('comm.currency')"></el-table-column>
-                        <el-table-column property="order_settle" :label="$t('settle.order_settle')"></el-table-column>
-                        <el-table-column property="fees" :label="$t('comm.fees')"></el-table-column>
-                        <el-table-column property="fixed_fees" :label="$t('comm.processing_fees')"></el-table-column>
-                        <el-table-column property="deposit_charge"
+                        <el-table-column
+                                v-if="summaryData.payout.kind == 'trade'"
+                                property="order_settle" :label="$t('settle.order_settle')"></el-table-column>
+                        <el-table-column v-if="summaryData.payout.kind == 'trade'"
+                                         property="fees" :label="$t('comm.fees')"></el-table-column>
+                        <el-table-column v-if="summaryData.payout.kind == 'trade'"
+                                         property="fixed_fees" :label="$t('comm.processing_fees')"></el-table-column>
+                        <el-table-column v-if="summaryData.payout.kind == 'deposit'"
+                                         property="deposit_charge"
                                          :label="$t('comm.deposit_balance')"></el-table-column>
-                        <el-table-column property="charge" :label="$t('comm.summary_total')"></el-table-column>
+                        <el-table-column v-if="summaryData.payout.kind == 'trade'"
+                                         property="charge" :label="$t('comm.summary_total')"></el-table-column>
                     </el-table>
                     <div class="row" v-if="summaryData.payout">
                         <div class="col-4"></div>
                         <div class="col-8 text-right pr-4">
                             <p class="p-0">{{$t('settle.payout_fees')}}: {{summaryData.payout.fees}}</p>
-                            <p class="p-0">{{$t('settle.payout_total')}}: <strong>{{summaryData.payout.total}}</strong>
+                            <p class="p-0">
+                                {{$t('settle.payout_total')}}: <strong>{{summaryData.payout.total}}</strong>
+                            </p>
+                            <p v-if="summaryData.payout.fees != 0" class="p-0">
+                                {{$t('settle.net_amount')}}: {{summaryData.payout.total + summaryData.payout.fees}}
                             </p>
                         </div>
                     </div>
@@ -153,7 +163,7 @@
                 </div>
             </div>
             <el-card class="box-card pb-3" shadow="never" :body-style="{ padding: '0px' }">
-                <FinanceTable :tab_data="viewDetailData" @page_change="viewPageChange($event)"></FinanceTable>
+                <FinanceTable :tab_data="viewDetailData" @page_change="viewPageChange($event)" page_kind="settle"></FinanceTable>
             </el-card>
         </div>
     </div>

@@ -540,3 +540,70 @@ export function settleTitle(title) {
             return i18n.t('comm.' + title);
     }
 }
+
+/**
+ * 激活账户行业/职业类型
+ */
+export function businessType(code) {
+    if (isEmpty(code)) return '';
+    switch (code) {
+        case "A":
+            return i18n.t('business.geoponics');
+        case "B":
+            return i18n.t('business.mining');
+        case "C":
+            return i18n.t('business.manufacturing');
+        case "D":
+            return i18n.t('business.energy');
+        case "E":
+            return i18n.t('business.building');
+        case "F":
+            return i18n.t('business.wholesale_and_retail');
+        case "G":
+            return i18n.t('business.transport');
+        case "H":
+            return i18n.t('business.accommodation_catering');
+        case "I":
+            return i18n.t('business.technology_service');
+        case "J":
+            return i18n.t('business.financial');
+        case "K":
+            return i18n.t('business.realty');
+        case "L":
+            return i18n.t('business.rental_service');
+        case "M":
+            return i18n.t('business.research');
+        case "N":
+            return i18n.t('business.facilities_management');
+        case "O":
+            return i18n.t('business.resident');
+        case "P":
+            return i18n.t('business.education');
+        case "Q":
+            return i18n.t('business.social_work');
+        case "R":
+            return i18n.t('business.culturalMedia');
+        case "S":
+            return i18n.t('business.public_management');
+        case "T":
+            return i18n.t('business.international_organization');
+        case "X":
+            return i18n.t('business.unknown');
+        case "1A":
+            return i18n.t('job.technician');
+        case "1B":
+            return i18n.t('job.enterprise_responsible');
+        case "1C":
+            return i18n.t('job.clerks');
+        case "1D":
+            return i18n.t('job.commercial_staff');
+        case "1E":
+            return i18n.t('job.service_staff');
+        case "1F":
+            return i18n.t('job.livestock_labourer');
+        case "1G":
+            return i18n.t('job.production_transport');
+        case "1H":
+            return i18n.t('job.other_workers');
+    }
+}

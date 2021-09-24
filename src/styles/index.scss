@@ -376,6 +376,11 @@ span.pay-status{
 .pay-status-help{
   cursor: help;
 }
+span.ps-unpaid{
+  color: #fb7803;
+  font-weight: 700;
+  background-color: #fdf1df;
+}
 span.ps-paid{
   color: #05ccbf;
   font-weight: 700;
