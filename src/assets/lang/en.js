@@ -119,6 +119,8 @@ module.exports = {
         "trade_settled": "Order settle",
         "deposit_settled": "Deposit settle",
         "category" : "category",
+        "download_Authorization_explain":"Download the template form and fill in the corresponding authorization letter information.",
+        "upload_table_ok":"Upload the form. Done.",
     },
     "nav": {
         "home": "Home",
