@@ -259,8 +259,15 @@
                     </el-form-item>
                     <el-form-item v-show="add_bank.need_authorize"
                                   :label="$t('bank.authorize_photo')" prop="authorize_photo">
-                        <UploadImgOnce txt="*企业授权书相关说明请联系客服" size="md"
+                        <UploadImgOnce  size="md"
                                        @img="updateAuthorizePhoto($event)"></UploadImgOnce>
+                        <el-button type="primary" plain><a target="_blank" class="download-trigger" :href="companyAuthorizationTemplate">
+                            <i class="el-icon-download"></i>
+                            {{$t('comm.template_download')}}</a></el-button>
+                        <div class="text-dark">
+                            <em size="md">1.{{$t('comm.download_Authorization_explain')}}。</em><br/>
+                            <em size="md">2.{{$t('comm.upload_table_ok')}}</em>
+                        </div>
                     </el-form-item>
                     <el-form-item :label="$t('bank.bank_swift_no_option')" prop="bank_swift_no">
                         <el-input v-model="add_bank.bank_swift_no"></el-input>
@@ -324,6 +331,7 @@
                     {label: '个人(法人)', name: 'personal'},
                 ],
                 activeName: 'company',
+                companyAuthorizationTemplate: configs.template.companyAuthorizationPath,
             }
         },
         mounted() {

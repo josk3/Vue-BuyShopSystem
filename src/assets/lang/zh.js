@@ -119,6 +119,8 @@ module.exports = {
         "trade_settled": "交易款是否结算",
         "deposit_settled": "保证金是否结算",
         "category": "类别",
+        "download_Authorization_explain":"下载模版表格并填写对应委托授权书信息.",
+        "upload_table_ok":"上传表格，完成。",
     },
     "nav": {
         "home": "主页",
