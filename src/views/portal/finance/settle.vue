@@ -129,7 +129,14 @@
                             <p class="p-0">
                                 {{$t('settle.payout_total')}}: <strong>{{summaryData.payout.total}}</strong>
                             </p>
-                            <p v-if="summaryData.payout.fees != 0" class="p-0">
+                            <p v-if="summaryData.payout.debt_amount !=='' && summaryData.payout.debt_amount !== 0" class="p-0">
+                              {{$t('settle.debt_amount')}}: {{summaryData.payout.debt_amount}}
+                              <br/>
+                              <span>
+                                {{$t('settle.net_amount')}}: {{summaryData.payout.net_amount}}
+                              </span>
+                            </p>
+                            <p v-else-if="summaryData.payout.fees != 0" class="p-0">
                                 {{$t('settle.net_amount')}}: {{summaryData.payout.total + summaryData.payout.fees}}
                             </p>
                         </div>

@@ -407,6 +407,7 @@ module.exports = {
         "payout_total": "总计",
         "batch_id_detail": "批次详情",
         "sure": "确 定",
+        "debt_amount": "负债金额",
         "batch_upload_reject":"批量上传问题单",
     },
     "order": {
