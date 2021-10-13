@@ -13,6 +13,9 @@
                     </div>
                     <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
                         <div class="mr-5 mt-1">
+                            <el-button icon="el-icon-upload2" size="mini" class="mr-3"
+                                       @click="uploadTrackDialogVisible = true" plain v-if="paneName === 'reject'">{{$t('comm.batch_upload')}}
+                            </el-button>
                             <el-button icon="el-icon-download" size="mini"
                                        @click="downApplicantHistory" plain>{{ $t('comm.download') }}
                             </el-button>
@@ -129,6 +132,48 @@
                 <el-button size="mini" type="primary" @click="submitTrackNumber">{{$t('comm.submit')}}</el-button>
             </div>
         </el-dialog>
+
+        <el-dialog custom-class="wpy-dialog sm-dialog bg-body"
+                   :show-close="false" :close-on-click-modal="false"
+                   :title="$t('settle.batch_upload_reject')"
+                   @close="closeUploadExcelDialog"
+                   :visible.sync="uploadTrackDialogVisible">
+            <div>
+                <el-card shadow="hover" class="box-card p-3 mb-3"
+                         :body-style="{ padding: '0px' }">
+                    <div class="text-muted p-0">
+                        <i class="el-icon-info text-blue"></i> {{$t('shipment.upload_excel_file_info')}}
+                    </div>
+                </el-card>
+                <div class="text-center">
+                    <el-form ref="track_upload" label-width="80px">
+                        <!--   accept="image/*" , :http-request="upload"  -->
+                        <el-upload
+                                class="text-center m-auto track_excel pb-3"
+                                :class="trackExcelUploadEnable ? 'showFileBox' : 'hideFileBox'"
+                                ref="track_excel"
+                                drag
+                                action=""
+                                name="track_excel"
+                                accept=".xls,.xlsx"
+                                :limit="1"
+                                :on-change="changeTrackExcelFile"
+                                :on-remove="removeTrackExcelFile"
+                                :auto-upload="false">
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text">{{$t('comm.upload_file_drag_click[0]')}} <em>{{$t('comm.upload_file_drag_click[1]')}}</em>
+                            </div>
+                            <div class="el-upload__tip" slot="tip">{{$t('shipment.upload_excel_max_500')}}</div>
+                        </el-upload>
+                    </el-form>
+                    <el-progress v-if="percentage >= 0" :percentage="percentage" status="success"></el-progress>
+                </div>
+            </div>
+            <div slot="footer" class="dialog-footer" v-loading="loading">
+                <el-button size="mini" @click="closeUploadExcelDialog">{{$t('comm.cancel')}}</el-button>
+                <el-button size="mini" type="primary" @click="uploadTrackFile">{{$t('comm.upload')}}</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -137,7 +182,7 @@
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
     import {payoutSearch, applicantHistoryDownload} from "@/service/payoutSer";
-    import {deliveryAdd, getTrackBrands} from "@/service/deliverySer";
+    import {deliveryAdd, deliveryUpload, getTrackBrands} from "@/service/deliverySer";
     import {isEmpty} from "@/utils/validate";
     import {mapState} from "vuex";
 
@@ -173,6 +218,9 @@
                         {required: true, message: this.validMsg('shipment.track_brand'), trigger: 'blur'},
                     ],
                 },
+                uploadTrackDialogVisible: false,
+                trackExcelUploadEnable: true,
+                percentage: -1,
             }
         },
         mounted() {
@@ -261,18 +309,54 @@
                             this.initTrackFormData()
                             this.closeDialog()
                             this.$message.success(this.$i18n.t('comm.success').toString())
+                            //更新问题单列表
+                            this.search();//reload page
                         }).finally(() => {
                             this.$data.loading = false
                         })
                     }
                 });
-            }, downApplicantHistory() {
+            },
+            downApplicantHistory() {
                 this.loading = true
                 applicantHistoryDownload(this.searchParams).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
                 }).finally(() => {
                     this.loading = false
                 })
+            },
+            closeUploadExcelDialog() {
+                this.trackExcelFile = null
+                this.trackExcelUploadEnable = true
+                this.uploadTrackDialogVisible = false
+                this.$refs.track_excel.clearFiles();//重置
+            },
+            removeTrackExcelFile() {
+                this.trackExcelFile = null
+                this.trackExcelUploadEnable = true
+            },
+            changeTrackExcelFile(e) {
+                //this.$refs.upload_img.uploadFiles //all file list
+                this.trackExcelFile = e.raw
+                this.trackExcelUploadEnable = false //只上传一个文件
+            },
+            uploadTrackFile() {
+                if (isEmpty(this.trackExcelFile)) {
+                    this.$message.error('请先选择上传文件')
+                } else {
+                    let formData = new FormData();
+                    formData.append("action", "upload_track_excel_file");
+                    formData.append("file", this.trackExcelFile);
+                    this.loading = true
+                    deliveryUpload(formData, this.progressCallback).then(res => {
+                        this.closeUploadExcelDialog()
+                        this.$message.success(res.message)
+                        this.search();//reload page
+                    }).finally(() => {
+                        this.percentage = -1
+                        this.loading = false
+                    })
+                }
             },
         },
     }

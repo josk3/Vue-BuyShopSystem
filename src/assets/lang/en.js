@@ -408,6 +408,7 @@ module.exports = {
         "payout_total": "Payout total",
         "batch_id_detail": "Payout detail",
         "sure": "OK",
+        "batch_upload_reject":"batch upload reject",
     },
     "order": {
         "trade_id_and_order_no": "TradeId/OrderNo",
