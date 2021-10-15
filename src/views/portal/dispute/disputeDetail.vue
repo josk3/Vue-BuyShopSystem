@@ -330,6 +330,12 @@
                         finishDispute(this.subParam).then(() => {
                             this.refundDialogVisible = false;
                             this.disputeDetailSearch();
+                        }).catch((res) => {
+                            this.$data.errorMsg = res.message
+                            if(res.code === configs.apiCode.needValidStatus){
+                                console.log(res.code);
+                                this.$router.push({name: 'profile'})
+                            }
                         }).finally(() => {
                             this.loading = false;
                         })
