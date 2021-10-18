@@ -603,6 +603,8 @@ module.exports = {
         "warm_prompt_one": "后台不具备邮件转发功能,请商户自行联系持卡人,并将回复内容添加到投诉后台,方便我司人员跟进。",
         "warm_prompt_two": "为了减少拒付给商户带来的不必要损失和影响通道使用,超过2个工作日未处理的投诉订单，将会做强制退款处理,请悉知！",
         "error_msg_img_size": "只能上传图片或Excel表格，且不超过5MB",
+        "error_msg_binding_email": "使用商户后台【工单服务】前先绑定您的邮箱，以便我司后续跟进您的问题。点击【个人中心】-邮箱一栏进行绑定。",
+        "jump_binding_email_web": "跳转绑定邮箱页面",
     },
     "business": {
         "geoponics": "农、林、牧、渔业",

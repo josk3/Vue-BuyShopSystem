@@ -230,6 +230,22 @@
                     </el-button>
                 </div>
             </el-dialog>
+            <!--提示-->
+            <el-dialog :visible="errorDialogVisible" :title="$t('dispute.warm_reminder')" :show-close="false"
+                       custom-class="wpy-dialog sm-dialog"
+                       :close-on-click-modal="false" width="25%">
+                <p>{{$t('dispute.error_msg_binding_email')}}
+                    <router-link :to="configs.profilePath" class="mr-2 text-blue">
+                        {{$t('dispute.jump_binding_email_web')}}
+                    </router-link>
+                 </p>
+                <div slot="footer" class="dialog-footer" v-loading="loading">
+                    <el-button size="mini" @click="closeDialog()">{{$t('comm.cancel')}}</el-button>
+                    <el-button size="mini" type="primary" @click="errorDialogVisible=false">
+                        {{$t('comm.sure')}}
+                    </el-button>
+                </div>
+            </el-dialog>
         </el-card>
     </div>
 </template>
@@ -252,6 +268,7 @@
                 dispute: '', //争议号
                 disputeInfo: [], //争议单信息
                 refundDialogVisible: false, //对话框显隐
+                errorDialogVisible: false, //提示错误信息显隐
                 disputeDetail: {
                     list: [],
                     info: {}
@@ -263,6 +280,7 @@
                 },
                 closeDialog() {
                     this.refundDialogVisible = false
+                    this.errorDialogVisible = false
                     this.$refs.disputeSubmitParams.resetFields();//重置
                 }
                 ,
@@ -330,6 +348,11 @@
                         finishDispute(this.subParam).then(() => {
                             this.refundDialogVisible = false;
                             this.disputeDetailSearch();
+                        }).catch((res) => {
+                            if(res.code === configs.apiCode.needValidStatus){
+                                //弹框
+                                this.errorDialogVisible = true;
+                            }
                         }).finally(() => {
                             this.loading = false;
                         })
