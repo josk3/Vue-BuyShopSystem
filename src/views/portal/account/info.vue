@@ -258,17 +258,17 @@
                         <el-input v-model="add_bank.bank_card_mobile"></el-input>
                     </el-form-item>
                     <el-form-item v-show="add_bank.need_authorize"
-                                  :label="$t('bank.authorize_photo')" prop="authorize_photo">
+                                  :label="$t('bank.authorize_photo')" prop="authorize_photo" style="margin-bottom: 0px;">
                         <UploadImgOnce  size="md"
                                        @img="updateAuthorizePhoto($event)"></UploadImgOnce>
                         <el-button type="primary" plain><a target="_blank" class="download-trigger" :href="companyAuthorizationTemplate">
                             <i class="el-icon-download"></i>
                             {{$t('comm.template_download')}}</a></el-button>
-                        <div class="text-dark">
-                            <em size="md">1.{{$t('comm.download_Authorization_explain')}}。</em><br/>
-                            <em size="md">2.{{$t('comm.upload_table_ok')}}</em>
-                        </div>
                     </el-form-item>
+                    <div style="margin-left: 140px;">
+                        <div >1.{{$t('comm.download_Authorization_explain')}}。</div>
+                        <div >2.{{$t('comm.upload_table_ok')}}</div>
+                    </div>
                     <el-form-item :label="$t('bank.bank_swift_no_option')" prop="bank_swift_no">
                         <el-input v-model="add_bank.bank_swift_no"></el-input>
                     </el-form-item>

@@ -421,6 +421,7 @@ module.exports = {
         "payout_total": "Payout total",
         "batch_id_detail": "Payout detail",
         "sure": "OK",
+        "batch_upload_reject":"batch upload reject",
     },
     "order": {
         "trade_id_and_order_no": "TradeId/OrderNo",
@@ -614,6 +615,8 @@ module.exports = {
         "warm_prompt_one":"The background does not have the function of email forwarding, please contact the cardholder by yourself, and add the reply to the complaint background, so that our staff can follow up.",
         "warm_prompt_two":"Please note that in order to reduce the unnecessary loss brought to the merchant by the refusal of payment and affect the use of the channel, the complaint order that is not processed within 2 working days will be subject to compulsory refund processing！",
         "error_msg_img_size":"Only images or Excel spreadsheets can be uploaded and no more than 5MB",
+        "error_msg_binding_email": "Bind your email address before using merchant background [ticket service], so that we can follow up your questions.  Click 【Personal Center】 -mailbox column for binding.  ",
+        "jump_binding_email_web": "Jump to bound mailbox",
     },
     "business":{
         "geoponics":"Agriculture, Forestry, Wood, Fishery",
