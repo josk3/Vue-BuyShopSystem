@@ -55,20 +55,43 @@
             closeValidCodeDialog() {
                 this.validCodeDialogVisible = false
                 this.$emit('close')
-                //调安卓端方法,关闭dialog
-                window.$App.closeDialog();
+                if (this.isAndroid()) {
+                    //调安卓端方法,关闭dialog
+                    window.$App.closeDialog();
+                }
+                if (this.isiOS()) {
+                    //调用ios方法,关闭dialog
+                    window.webkit.messageHandlers.closeDialog.postMessage({'message': 'close dialog'});
+                }
             },
             validCodeCallback(data) {
-                this.closeValidCodeDialog()
                 //data : csessionid, value ,sig
                 this.$emit('callback', JSON.stringify(data))
-                //调安卓端方法,传输阿里云回调数据给到安卓端
-                window.$App.getSlideData(JSON.stringify(data));
+                if (this.isAndroid()) {
+                    //调安卓端方法,传输阿里云回调数据给到安卓端
+                    window.$App.getSlideData(JSON.stringify(data));
+                }
+                if (this.isiOS()) {
+                    //传输阿里云回调数据给ios
+                    window.webkit.messageHandlers.getSlideData.postMessage(JSON.stringify(data));
+                }
+                //关闭dialog
+                this.validCodeDialogVisible = false
             },
             validCodeDialogOpened() {
                 AliImageValid(configs.aliImageValidAppKey, this.validCodeCallback, this.lang)
                 this.$emit('opened')
             },
+            isAndroid() {
+                return navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1;
+            },
+            isiOS() {
+                let device = navigator.userAgent;//设备
+                let ios = !!device.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+                let iPad = device.indexOf('iPad') > -1;
+                let iPhone = device.indexOf('iPhone') > -1 || device.indexOf('Mac') > -1;
+                return ios || iPad || iPhone;
+            }
         },
 
     }

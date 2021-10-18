@@ -52,8 +52,8 @@
                     </div>
                     <div v-if="this.user.is_master">
                         <el-alert v-if="this.user.identity_status == 0 || this.user.identity_status == 3"
-                                type="error"
-                                effect="dark">
+                                  type="error"
+                                  effect="dark">
                             <div slot="title">
                                 请先认证激活您的账号,
                                 <router-link :to="{name:'active_account'}" class="btn-link">
@@ -62,8 +62,8 @@
                             </div>
                         </el-alert>
                         <el-alert v-if="this.user.bank_status != 1"
-                                type="warning"
-                                effect="dark">
+                                  type="warning"
+                                  effect="dark">
                             <div slot="title">
                                 请先绑定您的结算银行卡,
                                 <router-link :to="{name:'merchant_info'}" class="btn-link">
@@ -159,7 +159,6 @@
     import {payoutApply, waitApply} from "@/service/payoutSer";
     import {isEmpty} from "@/utils/validate";
     import user from "@/store/modules/user";
-
     export default {
         name: "payout_apply",
         components: {Pagination},
@@ -228,5 +227,4 @@
 </script>
 
 <style scoped>
-
 </style>
