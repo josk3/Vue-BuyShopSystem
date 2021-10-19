@@ -226,6 +226,7 @@
                 ordersSearch(this.searchParams).then(res => {
                     const {data} = res
                     this.$data.tabData = data
+                    this.searchParams.pay_status = '';  //每次查询后搜索栏状态重置,适应商户习惯
                 }).finally(() => {
                     this.loading = false
                 })
