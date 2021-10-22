@@ -257,8 +257,13 @@
             downOrders() {
                 //页面效果,正在加载中
                 this.$data.loading = true
+                //搜索栏状态重置,判断
+                if(this.searchParams.pay_status === ''||this.searchParams.pay_status === null){
+                    this.searchParams.pay_status = this.paneName;
+                }
                 ordersDownload(this.searchParams).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
+                    this.search();
                 }).finally(() => {
                     this.$data.loading = false
                 })
