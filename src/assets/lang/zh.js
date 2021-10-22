@@ -238,6 +238,7 @@ module.exports = {
         "input_often_email_to_receive_notice": "请填写常用的邮箱, 便于接收通知",
         "legal_person": "法人信息",
         "long_effective": "长期有效",
+        "hint_Supplementary_account_information":"请完善您的账户信息，提交我司审核，以便于后续结算申请。",
     },
     "register_form": {
         "email_or_phone": "手机号", //字面上优化让用户使用手机号,英文使用email

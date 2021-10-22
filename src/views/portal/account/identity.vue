@@ -2,11 +2,19 @@
     <div v-loading="loading">
         <div class="row">
             <div class="col-12 mb-2">
-                <el-card shadow="always" class="box-card p-3"
+                <el-card shadow="always" class="box-card "
                          :body-style="{ padding: '0px' }">
-                    <div class="text-muted p-0">
+                    <div class="text-muted p-0 p-3">
                         <i class="el-icon-info text-blue"></i>
                         {{$t('comm.status')}} : <strong>{{ info.identity_status | identityStatus}}</strong>
+                    </div>
+                    <div v-if="info.identity_status !== 1" class="d-flex align-items-start justify-content-start p-3" style="background-color: rgb(253,241,217)">
+                        <div class="mb-n1 mr-1">
+                            <small class="text-danger">{{$t('dispute.warm_prompt')}}：</small>
+                        </div>
+                        <div class="media-body align-self-center text-truncate">
+                            <div class="text-truncate"><small>{{$t('user.hint_Supplementary_account_information')}}</small></div>
+                        </div>
                     </div>
                 </el-card>
             </div>
