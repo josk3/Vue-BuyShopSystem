@@ -237,6 +237,7 @@ module.exports = {
         "input_often_email_to_receive_notice": "Please use often email address to receive notices",
         "legal_person" : "legal person",
         "long_effective": "long effective",
+        "hint_Supplementary_account_information":"Please improve your account information and submit it to our company for review, so as to facilitate subsequent settlement application  。",
     },
     "valid": {
         "required_field": "{0} is null",
@@ -281,7 +282,6 @@ module.exports = {
         "sms_valid_code": "Sms Valid Code",
         "you_password_is_simple": "Your current password is relatively simple, please change it for security.",
         "you_password_is_expire": "Your current password has not been changed for a period of time, please change it for security.",
-
     },
     "register_form": {
         "email_or_phone": "Email",
