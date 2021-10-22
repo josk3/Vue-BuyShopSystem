@@ -8,7 +8,7 @@
                         <i class="el-icon-info text-blue"></i>
                         {{$t('comm.status')}} : <strong>{{ info.identity_status | identityStatus}}</strong>
                     </div>
-                    <div class="d-flex align-items-start justify-content-start p-3" style="background-color: rgb(253,241,217)">
+                    <div v-if="info.identity_status !== 1" class="d-flex align-items-start justify-content-start p-3" style="background-color: rgb(253,241,217)">
                         <div class="mb-n1 mr-1">
                             <small class="text-danger">{{$t('dispute.warm_prompt')}}：</small>
                         </div>
