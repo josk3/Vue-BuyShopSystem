@@ -1,5 +1,5 @@
 <template>
-  <div id="portal">
+  <div id="portal" class="notranslate">
     <router-view></router-view>
   </div>
 </template>
