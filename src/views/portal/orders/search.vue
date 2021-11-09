@@ -206,6 +206,9 @@
                 this.search()
             },
             pageChange(page) {
+                if(this.searchParams.pay_status === '' || this.searchParams.pay_status === null){
+                    this.searchParams.pay_status = this.paneName;
+                }
                 this.search(page.page_num)
             },
             search(pageNum) {
