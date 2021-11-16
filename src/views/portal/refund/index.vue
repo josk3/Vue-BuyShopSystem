@@ -7,8 +7,7 @@
                 <el-tabs class="col-6 mr-n3" v-model="paneName" type="border-card"
                          @tab-click="paneClick">
                     <el-tab-pane :label="$t('comm.all')" name="all"></el-tab-pane>
-                    <el-tab-pane :label="$t('comm.refund_ing')" name="refund_ing"></el-tab-pane>
-                    <el-tab-pane :label="$t('comm.success')" name="success"></el-tab-pane>
+                    <el-tab-pane :label="$t('comm.has_refund')" name="has_refund"></el-tab-pane>
                     <el-tab-pane :label="$t('comm.cancel')" name="cancel"></el-tab-pane>
                     <el-tab-pane :label="$t('comm.fail')" name="fail"></el-tab-pane>
                 </el-tabs>
