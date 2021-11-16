@@ -495,6 +495,7 @@ module.exports = {
         "submit_site": "提交网址",
         "site_url_www_help_info": "网址根据实际情况填写有无www.",
         "site_url_review_help_info": "网站审核会在工作日1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
+        "remindClose": "知道了",
     },
     "bank": {
         "settle_bank": "结算银行卡",
