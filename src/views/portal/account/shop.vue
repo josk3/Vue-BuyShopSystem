@@ -1,6 +1,13 @@
 <template>
     <div v-loading="loading">
         <SearchBox :params="searchParams" @search="search"></SearchBox>
+      <el-alert class="mb-2 rm-1 url-review-remind"
+                title="网站审核会在工作日1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。"
+                type="remind"
+                close-text="知道了"
+                @close=close()
+                show-icon>
+      </el-alert>
         <div class="wrap-tab p-0">
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
                 <div class="row">
@@ -194,6 +201,9 @@
                 </el-form>
             </div>
             <div slot="footer" class="dialog-footer">
+              <div class="text-muted p-0 url-review-help-remind">
+                <i class="el-icon-info text-blue"></i> {{$t('shop.site_url_review_help_info')}}
+              </div>
                 <el-button size="mini" @click="closeShopDialog()">{{$t('comm.cancel')}}</el-button>
                 <el-button size="mini" type="primary" @click="submitAddShop">{{$t('shop.submit_site')}}</el-button>
             </div>
@@ -413,5 +423,16 @@
 
     .el-popover--plain {
         word-break: keep-all;
+    }
+
+    .url-review-remind {
+      background-color: #fbf0f0;
+      color: #e4827f;
+    }
+
+    .url-review-help-remind {
+      text-align: left;
+      font-size: 14px;
+      float: left;
     }
 </style>

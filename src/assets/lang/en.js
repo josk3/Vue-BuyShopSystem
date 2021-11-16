@@ -492,6 +492,7 @@ module.exports = {
         "callback_url_info": "Callback notification url for order status update",
         "submit_site": "Submit site",
         "site_url_www_help_info": "Url attention to the presence of www.",
+        "site_url_review_help_info": "The website will be approved within 1 ~ 3 hours on weekdays, and the result will be notified by email.",
     },
     "bank": {
         "settle_bank": "Settlement Bank",
