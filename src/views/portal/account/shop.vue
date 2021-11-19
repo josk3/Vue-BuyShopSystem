@@ -2,9 +2,9 @@
     <div v-loading="loading">
         <SearchBox :params="searchParams" @search="search"></SearchBox>
       <el-alert class="mb-2 rm-1 url-review-remind"
-                title="网站审核会在工作日1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。"
+                :title="$t('shop.site_url_review_help_info')"
                 type="remind"
-                close-text="知道了"
+                :close-text="$t('shop.remindClose')"
                 @close=close()
                 show-icon>
       </el-alert>
@@ -388,7 +388,7 @@
                         if (this.add_shop.action === 'add') {
                             this.$data.loading = true
                             addShop(this.add_shop).then(() => {
-                                this.$message.success(this.$i18n.t('comm.success').toString())
+                                this.$message.success(this.$i18n.t('shop.site_success').toString())
                                 this.closeShopDialog()
                                 this.search()
                             }).finally(() => {
@@ -397,7 +397,7 @@
                         } else if (this.add_shop.action === 'edit') {
                             this.$data.loading = true
                             updateShop(this.add_shop).then(() => {
-                                this.$message.success(this.$i18n.t('comm.success').toString())
+                                this.$message.success(this.$i18n.t('shop.site_success').toString())
                                 this.closeShopDialog()
                                 this.search('pane')
                             }).finally(() => {
