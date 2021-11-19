@@ -388,7 +388,7 @@
                         if (this.add_shop.action === 'add') {
                             this.$data.loading = true
                             addShop(this.add_shop).then(() => {
-                                this.$message.success(this.$i18n.t('comm.success').toString())
+                                this.$message.success(this.$i18n.t('shop.site_success').toString())
                                 this.closeShopDialog()
                                 this.search()
                             }).finally(() => {
@@ -397,7 +397,7 @@
                         } else if (this.add_shop.action === 'edit') {
                             this.$data.loading = true
                             updateShop(this.add_shop).then(() => {
-                                this.$message.success(this.$i18n.t('comm.success').toString())
+                                this.$message.success(this.$i18n.t('shop.site_success').toString())
                                 this.closeShopDialog()
                                 this.search('pane')
                             }).finally(() => {

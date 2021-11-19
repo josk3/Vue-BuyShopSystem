@@ -494,6 +494,7 @@ module.exports = {
         "site_url_www_help_info": "Url attention to the presence of www.",
         "site_url_review_help_info": "The website will be approved within 1 to 3 hours on workingdays, and the result will be sent to you by email.",
         "remindClose": "Got it",
+        "site_success": "Successful,The website will be approved within 1 to 3 hours on workingdays, and the result will be sent to you by email.",
     },
     "bank": {
         "settle_bank": "Settlement Bank",
