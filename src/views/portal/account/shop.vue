@@ -110,10 +110,6 @@
                                                       :command="commandVal('open', scope.row, scope.$index)">
                                         <i class="el-icon-turn-off"></i> {{$t('comm.open')}}
                                     </el-dropdown-item>
-                                    <el-dropdown-item v-else-if="scope.row.status === 3"
-                                                      :command="commandVal('resubmit', scope.row, scope.$index)">
-                                        <i class="el-icon-turn-off"></i> {{$t('comm.submit')}}
-                                    </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </template>
@@ -397,6 +393,7 @@
                         } else if (this.add_shop.action === 'edit') {
                             this.$data.loading = true
                             updateShop(this.add_shop).then(() => {
+                                resubmit(this.add_shop)
                                 this.$message.success(this.$i18n.t('shop.site_success').toString())
                                 this.closeShopDialog()
                                 this.search('pane')
