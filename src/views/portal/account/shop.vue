@@ -130,7 +130,7 @@
                @close="closeShopDialog"
                :show-close="false" :close-on-click-modal="false"
                :title="$t('shop.add_site')"
-               v-loading="loading"
+               :loading="loading"
                :visible.sync="addShopDialogVisible">
       <div>
         <el-card shadow="hover" class="box-card p-2"
@@ -204,7 +204,7 @@
       </div>
       <div slot="footer" class="dialog-footer">
         <div class="text-muted p-0 url-review-help-remind">
-          <i class="el-icon-info text-blue"></i> {{ $t('shop.site_url_review_help_info') }}
+          <i class="el-icon-info text-blue"></i> <div v-html="$t('shop.site_url_review_help_info')"></div>
         </div>
         <el-button size="mini" @click="closeShopDialog()">{{ $t('comm.cancel') }}</el-button>
         <el-button size="mini" type="primary" @click="submitAddShop">{{ $t('shop.submit_site') }}</el-button>
