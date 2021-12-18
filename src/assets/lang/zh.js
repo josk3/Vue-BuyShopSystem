@@ -495,7 +495,7 @@ module.exports = {
         "callback_url_info": "订单状态更新的回调通知url",
         "submit_site": "提交网址",
         "site_url_www_help_info": "网址根据实际情况填写有无www.",
-        "site_url_review_help_info": "网站审核会在工作日1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
+        "site_url_review_help_info": "网站审核会在<strong>工作日</strong>1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
         "remindClose": "知道了",
         "site_success": "提交成功，网站审核会在工作日1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
     },
