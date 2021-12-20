@@ -11,7 +11,7 @@
               type="warning"
               show-icon
               :close-text="$t('account.remindClose')"
-              :description="$t('account.expire_time') + ': ' + this.info.expire_date + ', ' + this.remainingDays + $t('account.remainingDays')" class="mb-2">
+              :description="$t('account.expire_time') + ': ' + this.info.expire_date + '  （' + this.remainingDays + $t('account.remainingDays') + ')'"  class="mb-2">
           </el-alert>
             <div class="col-12 mb-3 home-top-info-box">
                 <el-card shadow="hover" class="box-card p-2 pl-3"
