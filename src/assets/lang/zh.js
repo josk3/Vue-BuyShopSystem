@@ -349,7 +349,9 @@ module.exports = {
         "notice_chargeback_to_merchant": "有拒付时邮件通知商户",
         "pwd_will_send_this_email": "密码将发送至该邮箱",
         "login_mail_and_click_valid_link": "请登录邮箱打开邮件点击认证链接完成认证",
-
+        "will_expire_remind": "商户到期提醒（可联系客服完成续费工作）",
+        "remindClose": "知道了",
+        "remainingDays": "天后",
     },
     "risk": {
         "fingerprint": "卡ID",
