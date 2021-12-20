@@ -207,7 +207,9 @@
                 if (this.permViewBalance) this.getBalances()
                 this.$data.loadingLastTrade = true
             })
-            this.getRemainingDay()
+            if (this.user.is_master) {
+                this.getRemainingDay()
+            }
         },
         methods: {
             onlyOnlineCanUse() {
