@@ -5,6 +5,14 @@
                 <span class="float-left pl-3">{{$t('home.hello')}}, {{ user.full_name }}</span>
                 <span class="float-right pr-3">{{$t('home.last_login')}}: {{ user.second_login | toFullTime }}</span>
             </div>
+          <el-alert
+              v-if="willExpire"
+              :title="$t('account.will_expire_remind')"
+              type="warning"
+              show-icon
+              :close-text="$t('account.remindClose')"
+              :description="$t('account.expire_time') + ': ' + this.info.expire_date + ', ' + this.remainingDays + $t('account.remainingDays')" class="mb-2">
+          </el-alert>
             <div class="col-12 mb-3 home-top-info-box">
                 <el-card shadow="hover" class="box-card p-2 pl-3"
                          :body-style="{ padding: '0px' }">
@@ -136,7 +144,7 @@
     import configs from '@/configs'
     import user from "@/store/modules/user";
     import LastTimeReport from "@/components/LastTimeReport";
-    import {getBalances} from "@/service/merchantSer";
+    import {getBalances, getMerInfo} from "@/service/merchantSer";
     import {getLastAnnounce} from "@/service/noticeSer";
     import {mapState} from "vuex";
     import {hasPermission} from "@/service/userSer";
@@ -180,6 +188,9 @@
                 loadingLastTrade: false,
                 permViewBalance: false,
                 menu_disabled: false,
+                info: {},
+                willExpire: false,
+                remainingDays: '',
                 //-
             }
         },
@@ -196,6 +207,7 @@
                 if (this.permViewBalance) this.getBalances()
                 this.$data.loadingLastTrade = true
             })
+            this.getRemainingDay()
         },
         methods: {
             onlyOnlineCanUse() {
@@ -234,6 +246,23 @@
             },
             goAnnounceDetail(row) {
                 this.$router.push({name: 'announce_detail', params: {id: row.nid}})
+            },
+            getRemainingDay() {
+                this.willExpire = false
+                getMerInfo().then(res => {
+                    const {data} = res
+                    this.$data.info = data.info
+                    this.$data.info.expire_date = data.info.expire_date
+                    let expireTime = new Date(this.info.expire_date).getTime()
+                    const currentTime = new Date().getTime()
+                    let lastTime = expireTime - currentTime
+                    let remainingDay = lastTime / (1000 * 60 * 60 * 24);
+                    if ((62 <= remainingDay && remainingDay < 63) || (7 <= remainingDay && remainingDay < 8)) {
+                      this.willExpire = true
+                    }
+                    this.remainingDays = Math.floor(remainingDay)
+                }).finally(() => {
+                })
             },
 
         },

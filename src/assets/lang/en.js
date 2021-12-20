@@ -347,7 +347,9 @@ module.exports = {
         "notice_chargeback_to_merchant": "Receive a notification if a payment is chargeback.",
         "pwd_will_send_this_email": "Password will be sent to this email.",
         "login_mail_and_click_valid_link": "Please login your mailbox to open the email to complete the authentication",
-
+        "will_expire_remind": "Reminder of expiry services: please contact customer service to complete the renewal work, otherwise it will affect your normal transaction.",
+        "remindClose": "Got it",
+        "remainingDays": " days later",
     },
     "risk": {
         "fingerprint": "Card ID",
