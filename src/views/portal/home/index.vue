@@ -259,7 +259,7 @@
                     const currentTime = new Date().getTime()
                     let lastTime = expireTime - currentTime
                     let remainingDay = lastTime / (1000 * 60 * 60 * 24);
-                    if ((62 <= remainingDay && remainingDay < 63) || (7 <= remainingDay && remainingDay < 8)) {
+                    if ((31 <= remainingDay && remainingDay < 32) || (7 <= remainingDay && remainingDay < 8)) {
                       this.willExpire = true
                     }
                     this.remainingDays = Math.floor(remainingDay)
