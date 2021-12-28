@@ -63,7 +63,7 @@
                             {{scope.row.updated | toDay }}
                         </template>
                     </el-table-column>
-                    <el-table-column width="50" fixed="right">
+                    <el-table-column width="50" >
                         <template v-slot="scope">
                             <el-dropdown
                                     trigger="click" @command="handleCommand">
