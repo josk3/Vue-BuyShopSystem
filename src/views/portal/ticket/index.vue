@@ -214,7 +214,7 @@
                     email: [
                         {required: true, message: this.validMsg('ticket.error_msg_email_is_null'), trigger: 'blur'},
                         {
-                            pattern: /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+                            pattern: /^[A-Za-z0-9\u4e00-\u9fa5.]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
                             message: this.validMsg('ticket.error_msg_email_format'),
                             trigger: 'blur'
                         }
