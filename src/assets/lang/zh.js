@@ -509,6 +509,7 @@ module.exports = {
         "card_no": "卡号",
         "card_type": "卡类型",
         "bank_card_mobile": "银行预留手机号",
+        "card_identity_number": "收款人证件号",
         "bank_swift_no": "开户行号支行",
         "bank_swift_no_option": "开户行号支行(选填)",
         "bank_photo": "手持银行卡照片",
