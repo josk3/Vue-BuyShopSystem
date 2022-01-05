@@ -282,7 +282,7 @@
             </div>
             <div slot="footer" class="dialog-footer">
                 <el-button size="mini" @click="closeBankDialog()">{{$t('comm.cancel')}}</el-button>
-                <el-button size="mini" type="primary" @click="submitAddBank">{{$t('comm.confirm_submit')}}</el-button>
+                <el-button size="mini" type="primary" @click="checkIdentityNumber()">{{$t('comm.confirm_submit')}}</el-button>
             </div>
         </el-dialog>
     </div>
@@ -476,6 +476,17 @@
                         }
                     }
                 });
+            },
+            checkIdentityNumber(){
+              let idVal = this.add_bank.card_identity_number;
+              let _IDRe18 = /^([1-6][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+              let _IDre15 =  /^([1-6][1-9]|50)\d{4}\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}$/
+              // 校验身份证：
+              if( _IDRe18.test( idVal ) || _IDre15.test( idVal )  ) {
+                this.submitAddBank()
+              } else {
+                this.$message.error(this.$i18n.t('bank.card_id_error_message').toString())
+              }
             },
             //-------
         },

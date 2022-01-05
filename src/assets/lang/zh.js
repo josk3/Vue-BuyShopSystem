@@ -514,6 +514,7 @@ module.exports = {
         "bank_swift_no_option": "开户行号支行(选填)",
         "bank_photo": "手持银行卡照片",
         "authorize_photo": "企业授权书",
+        "card_id_error_message": "收款人证件号不符合规范",
     },
 
     "home": {
