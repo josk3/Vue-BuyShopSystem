@@ -142,6 +142,9 @@
                                     <ShowMoreBtn :txt="bank.card_no"></ShowMoreBtn>
                                 </div>
                             </div>
+                            <div class="row"><label class="col-4">{{$t('bank.card_identity_number')}}</label>
+                              <div class="col-8"><span>{{bank.card_identity_number}}</span></div>
+                            </div>
                             <div class="row"><label class="col-4">{{$t('bank.bank_card_mobile')}}</label>
                                 <div class="col-8"><span>{{bank.bank_card_mobile}}</span></div>
                             </div>
@@ -254,6 +257,9 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
+                    <el-form-item :label="$t('bank.card_identity_number')" prop="card_identity_number">
+                      <el-input v-model="add_bank.card_identity_number"></el-input>
+                    </el-form-item>
                     <el-form-item :label="$t('bank.bank_card_mobile')" prop="bank_card_mobile">
                         <el-input v-model="add_bank.bank_card_mobile"></el-input>
                     </el-form-item>
@@ -323,6 +329,7 @@
                     card_no: [{required: true, trigger: 'blur'},],
                     card_type: [{required: true, trigger: 'blur'},],
                     bank_card_mobile: [{required: true, trigger: 'blur'},],
+                    card_identity_number: [{required: true, trigger: 'blur'},],
                 },
                 //
                 ecmRuleData: [],
@@ -429,6 +436,7 @@
                     card_no: '',
                     card_type: '',
                     bank_card_mobile: '',
+                    card_identity_number: '',
                     bank_swift_no: '',
                     authorize_photo: '',
                     need_authorize: false,
