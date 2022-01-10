@@ -512,6 +512,7 @@ module.exports = {
         "bank_swift_no_option": "Bank No. Sub-branch (optional)",
         "bank_photo": "Photo of holding bank card",
         "authorize_photo": "Letter of Enterprise Authorization",
+        "card_id_error_message": "Please fill in the correct ID number",
     },
 
     "home": {

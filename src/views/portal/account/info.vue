@@ -313,6 +313,14 @@
             },
         },
         data() {
+            var checkIdNum = (rule, value, callback) => {//18位身份证规范检查
+                const reg =/^([1-6][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+                if (!reg.test(value)) {
+                  return callback(this.$message.error(this.$i18n.t('bank.card_id_error_message').toString()))
+                } else {
+                  callback()
+                }
+            }
             return {
                 loading: false,
                 info: {},
@@ -329,7 +337,7 @@
                     card_no: [{required: true, trigger: 'blur'},],
                     card_type: [{required: true, trigger: 'blur'},],
                     bank_card_mobile: [{required: true, trigger: 'blur'},],
-                    card_identity_number: [{required: true, trigger: 'blur'},],
+                    card_identity_number: [{required: true, trigger: 'blur'}, {validator: checkIdNum, trigger: 'blur'}],
                 },
                 //
                 ecmRuleData: [],
