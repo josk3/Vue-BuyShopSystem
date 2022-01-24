@@ -323,6 +323,7 @@ module.exports = {
         "chargeback": "拒付",
         "refundFail": "退款失败",
         "manual": "人工",
+        "reverseDeposit": "冲正保证金",
     },
     "account": {
         "need_valid_identity_before": "请先完成账户激活认证",
