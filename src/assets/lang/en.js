@@ -186,6 +186,12 @@ module.exports = {
         "refund_view":"Refund Card",
         "paid_view":"Paid Card",
         "top10_size_view":"Merchant Top10 WebSite Card",
+        "ip": "IP",
+        "visitDevice": "loginEquipment",
+        "login_area": "Area",
+        "userName": "userName",
+        "createdFmt": "Time",
+        "merchant_user_loginHistory": "UserLoginHistory",
     },
     "user": { //跟用户相关
         "name": "Name or Company",

@@ -1,4 +1,4 @@
-import {get, post, postHandleError} from '@/utils/request'
+import request, {get, post, postHandleError} from '@/utils/request'
 import {isArray, isEmpty} from "@/utils/validate";
 
 export function hasPermission(perm, permissionLists) {
@@ -79,4 +79,8 @@ export function updatePwdWithSafe(data) {
 
 export function updatePwdWithExpire(data) {
     return post('/password/update_with_expire', data);
+}
+
+export function getLoginHistory(params) {
+    return get('/user/login_history', params);
 }
