@@ -82,5 +82,5 @@ export function updatePwdWithExpire(data) {
 }
 
 export function getLoginHistory(params) {
-    return get('/user/login_history', params);
+    return post('/user/login_history', params);
 }

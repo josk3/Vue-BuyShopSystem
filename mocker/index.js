@@ -4016,6 +4016,12 @@ const proxy = {
             status: 1,
             data: {}
         })
+    },
+    'POST /api/v1/user/login_history': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
     }
 }
 let sleep = false;
