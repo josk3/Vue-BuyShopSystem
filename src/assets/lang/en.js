@@ -327,6 +327,7 @@ module.exports = {
         "chargeback": "Chargeback",
         "refundFail": "Refund fail",
         "manual": "Manual",
+        "reverseDeposit": "Reverse deposit",
     },
     "account": {
         "need_valid_identity_before": "Please complete the account activation verification first",
