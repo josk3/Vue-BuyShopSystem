@@ -310,6 +310,7 @@
             /*跳转路由后获取请求参数*/
             if (!isEmpty(this.$route.params)) {
                 this.dispute = this.$route.params.id;
+                console.log(this.dispute);
                 this.disputeStatusParam.dp_id = this.$route.params.id;
                 this.disputeSubmitParams.dp_id = this.$route.params.id;
                 this.disputeDetailSearch();

@@ -117,9 +117,27 @@
                                             </div>
                                         </div>
                                         <!--管理者图片部分-->
-                                        <div class="d-flex align-items-center bg-light p-4 justify-content-start"
-                                             v-if="detailInfo.attach">
-                                            <div>
+                                        <div class="d-flex align-items-center bg-light p-4 justify-content-start">
+                                            <div v-if="detailInfo.attach && detailInfo.attach_info && (detailInfo.attach_info.type === 'word' || detailInfo.attach_info.type === 'pdf')">
+                                              <el-button @click="ticketFileDownload(detailInfo.attach)">
+                                                <div class="d-flex align-items-center justify-content-start p-2"
+                                                     style="background-color: #F2F8FF">
+                                                  <div style="width: 50px; height: 50px;">
+                                                    <el-avatar icon="el-icon-document"
+                                                               style="font-size: 24px;background-color: #468FF7;"
+                                                               shape="square" :size="50"></el-avatar>
+                                                  </div>
+                                                  <div class="media-body align-self-center col-6 text-center">
+                                                    <div class="text-primary">
+                                                      <small>{{detailInfo.attach_info.file_name}}</small></div>
+                                                    <small class="text-muted">{{detailInfo.attach_info.file_size}} KB</small>
+                                                  </div>
+                                                  <div class="d-flex align-items-center col-3 justify-content-end"><i
+                                                      class="el-icon-download" style="font-size: 22px;"></i></div>
+                                                </div>
+                                              </el-button>
+                                            </div>
+                                            <div v-else-if="detailInfo.attach">
                                                 <h6 class="mb-2">附件(点击图片查看详情):</h6>
                                                 <div class="form-row py-3">
                                                     <div class="col">
@@ -136,7 +154,6 @@
                                                         </el-image>
                                                     </div>
                                                 </div>
-
                                                 <div class="mt-1">
                                                     <small class="opacity-65">{{detailInfo.current_dist}}</small>
                                                 </div>
@@ -265,7 +282,7 @@
 
 <script>
     import configs from "@/configs";
-    import {ticketDetailInfo, ticketReply, closeTicket} from '@/service/ticketDetailSer';
+    import {ticketDetailInfo, ticketReply, closeTicket, ticketFileDownload} from '@/service/ticketDetailSer';
     import {isEmpty} from "@/utils/validate";
 
     export default {
@@ -313,6 +330,15 @@
             }
         },
         methods: {
+            /*工单文件下载*/
+            ticketFileDownload(fileUrl){
+              this.loading = true;
+              ticketFileDownload({ticket: this.ticket, attach: fileUrl}).then(() => {
+                this.$message.success(this.$i18n.t('comm.success').toString())
+              }).finally(() => {
+                this.loading = false;
+              })
+            },
             /*工单详情信息*/
             getTicketDetail() {
                 this.loading = true;
