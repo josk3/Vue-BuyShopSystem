@@ -134,49 +134,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 mb-3" >
-              <div class="row">
-                <div v-loading="historyLoading" class="col-12 mb-3" >
-                  <el-card class="box-card wpy-card sm-card box-pane pb-4" shadow="hover"
-                           :body-style="{ padding: '0px' }">
-                    <div slot="header" class="clearfix">
-                      <h5 class="card-title" >{{$t('nav.merchant_user_loginHistory')}}</h5>
-                    </div>
-                    <el-table
-                              :class="historyData.list.length ? '' : 'wpy-z-table'"
-                              :data="historyData.list"
-                              :header-row-style="{background:'#2C2E2F'}"
-                              style="width: 100%">
-                      <el-table-column
-                          prop="user_name"
-                          :show-overflow-tooltip="true"
-                          :label="$t('nav.userName')">
-                      </el-table-column>
-                      <el-table-column
-                          prop="ip"
-                          :label="$t('nav.ip')" width="210px">
-                      </el-table-column>
-                      <el-table-column
-                          prop="visit_device"
-                          :show-overflow-tooltip="true"
-                          :label="$t('nav.visitDevice')">
-                      </el-table-column>
-                      <el-table-column
-                          prop="area"
-                          :show-overflow-tooltip="true"
-                          :label="$t('nav.login_area')">
-                      </el-table-column>
-                      <el-table-column
-                          prop="created_fmt"
-                          :show-overflow-tooltip="true"
-                          :label="$t('nav.createdFmt')">
-                      </el-table-column>
-                    </el-table>
-                    <Pagination v-if="historyData.page" :page="historyData.page" @change="pageChange"/>
-                  </el-card>
-                </div>
-              </div>
-            </div>
 
         </div>
 
@@ -190,14 +147,13 @@
     import {getBalances, getMerInfo} from "@/service/merchantSer";
     import {getLastAnnounce} from "@/service/noticeSer";
     import {mapState} from "vuex";
-    import {hasPermission, getLoginHistory} from "@/service/userSer";
+    import {hasPermission} from "@/service/userSer";
     import {isEmpty} from "@/utils/validate";
     import {alertUnOnlineStatus} from "@/service/CommSer";
-    import Pagination from "@/components/Pagination";
 
     export default {
         name: "home",
-        components: {LastTimeReport, Pagination},
+        components: {LastTimeReport},
         computed: { //watch跟踪数据变化, 重点user, configs
             ...mapState({
                 sidebar: state => state.app.sidebar,
@@ -235,10 +191,6 @@
                 info: {},
                 willExpire: false,
                 remainingDays: '',
-                historyData: {list: [], page: {count: 0, page_num: 0, total: 0}},
-                historyParams:{page: 1, type: this.historyPanName},
-                historyPanName: 'user_loginHistory',
-                historyLoading: false,
                 //-
             }
         },
@@ -254,7 +206,6 @@
                 this.getAnnounceList()
                 if (this.permViewBalance) this.getBalances()
                 this.$data.loadingLastTrade = true
-                this.getUserHistory()
             })
             if (this.user.is_master) {
                 this.getRemainingDay()
@@ -315,26 +266,6 @@
                 }).finally(() => {
                 })
             },
-            pageChange(page) {
-              this.getUserHistory(page.page_num)
-            },
-            getUserHistory(pageNum) {
-              if (pageNum === undefined || isEmpty(pageNum)) {
-                pageNum = 1
-              } else if (!isEmpty(pageNum) && pageNum === 'keep') {
-                //keep 可能只是重载数据页面
-                pageNum = this.historyParams.page
-              }
-              this.historyParams.page = pageNum
-              this.historyLoading = true
-              getLoginHistory(this.historyParams).then(res => {
-                const {data} = res
-                this.$data.historyData = data
-                this.$data.historyData.list = data.list
-              }).finally(() => {
-                this.historyLoading = false
-              })
-            }
 
         },
     }
