@@ -107,9 +107,9 @@
                       :label="$t('nav.ip')" width="210px">
                   </el-table-column>
                   <el-table-column
-                      prop="visit_device"
+                      prop="user_agent_min"
                       :show-overflow-tooltip="true"
-                      :label="$t('nav.visitDevice')">
+                      :label="$t('nav.userAgentMin')">
                   </el-table-column>
                   <el-table-column
                       prop="area"
