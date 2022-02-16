@@ -97,6 +97,19 @@
                         :class="['ps-' + scope.row.pay_status]">
                                  {{ $t('status.3DPay') }}
                             </span>
+                  <span v-else-if="scope.row.pay_status === 'canceled'" class="pay-status pay-status-help"
+                        :class="['ps-' + scope.row.pay_status]">
+                                <el-popover
+                                    placement="top"
+                                    width="400"
+                                    :title="scope.row.merchant_order_no"
+                                    trigger="hover"
+                                    :content="scope.row.order_reason">
+                                    <span slot="reference">
+                                        {{ scope.row.pay_status | payStatus }}
+                                    </span>
+                                </el-popover>
+                            </span>
                   <span v-else class="pay-status" :class="['ps-' + scope.row.pay_status]">
                                  {{ scope.row.pay_status | payStatus }}
                             </span>
