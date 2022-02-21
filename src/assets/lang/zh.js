@@ -187,7 +187,7 @@ module.exports = {
         "paid_view":"成功交易财报卡片",
         "top10_size_view":"商户top10网站财报卡片",
         "ip": "IP",
-        "visitDevice": "登录设备",
+        "userAgentMin": "设备",
         "login_area": "地区",
         "userName": "用户名",
         "createdFmt": "登录时间",
