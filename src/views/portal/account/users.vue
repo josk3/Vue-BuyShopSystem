@@ -331,11 +331,12 @@
             },
             pageUserChange(page) {
                 this.searchUserParams.page = page.page_num
-                this.roleSearch()
+                this.userSearch()
+
             },
             pageRoleChange(page) {
                 this.searchParams.page = page.page_num
-                this.userSearch()
+                this.roleSearch()
             },
             roleSearch() {
                 this.loading = true
