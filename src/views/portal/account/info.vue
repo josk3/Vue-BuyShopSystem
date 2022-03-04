@@ -379,6 +379,7 @@
                 this.loading = true
                 getMerIdentity().then(res => {
                     const {data} = res
+					console.log("data",data)
                     this.$data.detail = data.detail
                 }).finally(() => {
                     this.loading = false
@@ -392,13 +393,16 @@
                 ]
             },
             addBankBtn() {
-                if (this.user.identity_status !== 1) {
-                    this.$alert( this.$i18n.t('account.need_valid_identity_before').toString(), '', {
-                        confirmButtonText: this.$i18n.t('comm.sure').toString(),
-                    });
-                } else {
-                    this.openBankDialog('add', null)
-                }
+				// 更新状态
+				this.$store.dispatch('user/loadUserInfo').then(() => {
+				   if (this.user.identity_status !== 1) {
+				       this.$alert( this.$i18n.t('account.need_valid_identity_before').toString(), '', {
+				           confirmButtonText: this.$i18n.t('comm.sure').toString(),
+				       });
+				   } else {
+				       this.openBankDialog('add', null)
+				   }
+				})
             },
             openBankDialog(action) {
                 this.initBankForm()
