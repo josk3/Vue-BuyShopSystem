@@ -184,6 +184,7 @@ import {ordersDownload, ordersSearch} from "@/service/orderSer";
 import {mapState} from "vuex";
 import CancelPendingDialog from "@/components/CancelPendingDialog";
 import {isEmpty} from "@/utils/validate";
+import {parseTime} from "@/utils";
 
 export default {
   name: "trade_manage",
@@ -217,6 +218,10 @@ export default {
   },
   mounted() {
     this.searchParams.pay_status = this.paneName
+    //默认页面搜索近三个月数据
+    const currentTime = new Date().getTime()
+    this.searchParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 90, '{y}-{m}-{d}')
+      , parseTime(currentTime, '{y}-{m}-{d}')]
     this.search();
   },
   methods: {
