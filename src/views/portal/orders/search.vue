@@ -44,8 +44,8 @@
                   width="160"
                   :label="$t('order.card_and_email')">
                 <template v-slot="scope">
-                            <span v-if="scope.row.card">
-                                •••• {{ scope.row.card.last4 }}<br/>
+                            <span v-if="scope.row.last4">
+                                •••• {{ scope.row.last4 }}<br/>
                             </span>
                   <span v-else> -- <br/></span>
                   <el-popover
@@ -53,10 +53,10 @@
                       width="260"
                       title="Email"
                       trigger="hover"
-                      :content="scope.row.customer.email">
-                                    <span slot="reference">
-                                         {{ scope.row.customer.email }}
-                                    </span>
+                      :content="scope.row.email">
+                    <span slot="reference">
+                         {{ scope.row.email }}
+                    </span>
                   </el-popover>
                 </template>
               </el-table-column>
@@ -70,8 +70,9 @@
               <el-table-column
                   :label="$t('order.card_brand')" width="60px">
                 <template v-slot="scope">
-                            <span v-if="scope.row.card" class="card-brand"
-                                  :class="['cb-' + scope.row.card.brand]"></span>
+                   <span v-if="scope.row.card_brand"
+                         class="card-brand"
+                         :class="['cb-' + scope.row.card_brand]"></span>
                   <span v-else> -- </span>
                 </template>
               </el-table-column>
@@ -80,39 +81,41 @@
                   width="90px"
                   :label="$t('comm.status')">
                 <template v-slot="scope">
-                            <span v-if="scope.row.pay_status === 'failed'" class="pay-status pay-status-help"
-                                  :class="['ps-' + scope.row.pay_status]">
-                                <el-popover
-                                    placement="top"
-                                    width="400"
-                                    :title="scope.row.merchant_order_no"
-                                    trigger="hover"
-                                    :content="scope.row.fail_message">
-                                    <span slot="reference">
-                                        {{ scope.row.pay_status | payStatus }}
-                                    </span>
-                                </el-popover>
-                            </span>
-                  <span v-else-if="scope.row.pay_status === 'unpaid' && scope.row.wtp3d == 1" class="pay-status"
+                  <span v-if="scope.row.pay_status === 'failed'" class="pay-status pay-status-help"
                         :class="['ps-' + scope.row.pay_status]">
-                                 {{ $t('status.3DPay') }}
-                            </span>
-                  <span v-else-if="scope.row.pay_status === 'canceled'" class="pay-status pay-status-help"
+                      <el-popover
+                          placement="top"
+                          width="400"
+                          :title="scope.row.merchant_order_no"
+                          trigger="hover"
+                          :content="scope.row.fail_message">
+                          <span slot="reference">
+                              {{ scope.row.pay_status | payStatus }}
+                          </span>
+                      </el-popover>
+                  </span>
+                  <span v-else-if="scope.row.pay_status === 'unpaid' && scope.row.wtp3d == 1"
+                        class="pay-status"
                         :class="['ps-' + scope.row.pay_status]">
-                                <el-popover
-                                    placement="top"
-                                    width="400"
-                                    :title="scope.row.merchant_order_no"
-                                    trigger="hover"
-                                    :content="scope.row.order_reason">
-                                    <span slot="reference">
-                                        {{ scope.row.pay_status | payStatus }}
-                                    </span>
-                                </el-popover>
+                    {{ $t('status.3DPay') }}
+                  </span>
+                  <span v-else-if="scope.row.pay_status === 'canceled'"
+                        class="pay-status pay-status-help"
+                        :class="['ps-' + scope.row.pay_status]">
+                        <el-popover
+                            placement="top"
+                            width="400"
+                            :title="scope.row.merchant_order_no"
+                            trigger="hover"
+                            :content="scope.row.order_reason">
+                            <span slot="reference">
+                                {{ scope.row.pay_status | payStatus }}
                             </span>
+                        </el-popover>
+                  </span>
                   <span v-else class="pay-status" :class="['ps-' + scope.row.pay_status]">
-                                 {{ scope.row.pay_status | payStatus }}
-                            </span>
+                    {{ scope.row.pay_status | payStatus }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -142,9 +145,9 @@
               <el-table-column width="50" fixed="right">
                 <template v-slot="scope">
                   <el-dropdown trigger="click" @command="handleCommand">
-                                      <span class="el-dropdown-link">
-                                          <i class="el-icon-more"></i>
-                                      </span>
+                    <span class="el-dropdown-link">
+                        <i class="el-icon-more"></i>
+                    </span>
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item v-if="scope.row.refunded !== 1 && scope.row.pay_status === 'paid'"
                                         :command="commandVal('refund', scope.row, scope.$index)">

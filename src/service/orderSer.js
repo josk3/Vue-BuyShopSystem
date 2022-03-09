@@ -12,7 +12,7 @@ export function getTimeline(tradeId) {
 }
 
 export function ordersSearch(params) {
-    return post('/orders/search', params);
+    return post('/orders/search/v2', params);
 }
 
 export function ordersDownload(params) {

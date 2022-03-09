@@ -2776,6 +2776,47 @@ const proxy = {
             "request_id": "req_UKvviBFHTC"
         });
     },
+    'POST /api/v1/orders/search/v2': (req, res) => {
+        return res.json({
+            "status": 1,
+            "message": null,
+            "code": null,
+            "i18n": null,
+            "error": {},
+            "data": {
+                "page": {
+                    "total": 7,
+                    "count": 1,
+                    "page_num": 1,
+                    "page_size": 20
+                },
+                list: [
+                    {
+                        "trade_id": "tr_test701220628s97Kj6884J",
+                        "merchant_order_no": "7012220210628125421",
+                        "last4": "3155",
+                        "email": "xxxyyy@gmail.com",
+                        "order_amount": 856325,
+                        "order_currency": "VND",
+                        "settle_amount": 36.82,
+                        "settle_currency": "USD",
+                        "card_brand": "visa",
+                        "pay_status": "paid",
+                        "declined": 0,
+                        "site_url": "www.demo.com",
+                        "ip": "172.17.0.1",
+                        "created_time": 1624856061000,
+                        "payment_time": 1624856099000,
+                        "wtp3d": null,
+                        "order_reason": null,
+                        "refunded": 0,
+                        "fail_message": null
+                    }
+                ]
+            },
+            "request_id": "req_UKvviBFHTC"
+        });
+    },
     'POST /api/v1/delivery/upload': (req, res) => {
         return res.json({
             status: 1,
