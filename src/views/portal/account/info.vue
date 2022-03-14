@@ -379,7 +379,6 @@
                 this.loading = true
                 getMerIdentity().then(res => {
                     const {data} = res
-					console.log("data",data)
                     this.$data.detail = data.detail
                 }).finally(() => {
                     this.loading = false
