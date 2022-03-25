@@ -373,7 +373,7 @@ module.exports = {
         "support_input_one_or_more": "Support to fill in one or more",
         "state_name": "State",
         "add_risk_area": "Add risk area",
-        "risk_area_order_will_block": "Set the risk area transactions will be blocked",
+        "risk_area_order_will_block": "Set the risk area transactions will be blocked. (Customer ip or address)",
         "upload_black_model": "Upload blacklist template",
         "drag_the_file_here_or": "Drag the file here, or",
         "click_on_upload": "Click on the upload",
