@@ -28,9 +28,12 @@
                     prop="batch_id"
                     :label="$t('comm.batch_id')" width="180px">
                   <template v-slot="scope">
-                    <el-button type="text" @click="openSummaryDialog(scope.row.batch_id)">
+                    <el-button type="text" @click="openSummaryDialog(scope.row)">
                       {{ scope.row.batch_id }}
                     </el-button>
+                    <span v-if="scope.row.reason">
+                      <br/>{{$t('comm.remark')}}:{{ scope.row.reason }}
+                    </span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -104,6 +107,9 @@
                                               @click="copy">{{ summaryBatchId }} <font-awesome-icon
               :icon="['far', 'clipboard']"/></span>
           </h6>
+          <p v-if="summaryBatchReason">
+            {{$t('comm.remark')}}:{{summaryBatchReason}}
+          </p>
           <el-table v-if="summaryData.groups"
                     :class="summaryData.groups ? '' : 'wpy-z-table'"
                     :data="summaryData.groups">
@@ -210,6 +216,7 @@ export default {
       loading: false,
       payoutSummaryDialog: false,
       summaryBatchId: '',
+      summaryBatchReason: '',
       summaryData: [],
       searchParams: {
         title: 'nav.settle_search', page: 1,
@@ -257,8 +264,9 @@ export default {
         this.loading = false
       })
     },
-    openSummaryDialog(batchId) {
-      this.summaryBatchId = batchId
+    openSummaryDialog(row) {
+      this.summaryBatchId = row.batch_id
+      this.summaryBatchReason = row.reason
       this.payoutSummaryDialog = true
     },
     getPayoutSummary() {
