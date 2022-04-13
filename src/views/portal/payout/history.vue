@@ -1,6 +1,14 @@
 <template>
     <div v-loading="loading">
         <SearchBox :params="searchParams" @search="search"></SearchBox>
+          <el-alert v-if="is_settleDay && paneName === 'reject'" class="mb-2 rm-1 isSettleDay-remind"
+                    type="remind"
+                    :close-text="$t('payout.remindClose')"
+                    @close=close()
+                    show-icon>
+            <div slot="title" v-html="$t('payout.delivery_reject_submit_help_info')">
+            </div>
+          </el-alert>
         <div class="wrap-tab p-0">
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
                 <div class="row">
@@ -128,6 +136,9 @@
                 </el-form>
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
+                <div v-if="is_settleDay" style="text-align: left" class="text-muted p-0 url-review-help-remind">
+                  <i class="el-icon-info text-blue"></i><b v-html="$t('payout.delivery_reject_submit_help_info')"></b>
+                </div>
                 <el-button size="mini" @click="closeDialog">{{$t('comm.cancel')}}</el-button>
                 <el-button size="mini" type="primary" @click="submitTrackNumber">{{$t('comm.submit')}}</el-button>
             </div>
@@ -182,7 +193,7 @@
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
     import {payoutSearch, applicantHistoryDownload} from "@/service/payoutSer";
-    import {deliveryAdd, deliveryUpload, getTrackBrands} from "@/service/deliverySer";
+    import {deliveryAdd, deliveryUpload, getTrackBrands, isSettleDay} from "@/service/deliverySer";
     import {isEmpty} from "@/utils/validate";
     import {mapState} from "vuex";
 
@@ -221,13 +232,18 @@
                 uploadTrackDialogVisible: false,
                 trackExcelUploadEnable: true,
                 percentage: -1,
+                is_settleDay: false,
             }
         },
         mounted() {
             this.searchParams.payout_status = this.paneName
             this.search();
+            this.isAllowUpdateDelivery();
         },
         methods: {
+            isAllowUpdateDelivery() {
+               this.is_settleDay = isSettleDay();
+            },
             validMsg(name) {
                 return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
             },
@@ -363,5 +379,8 @@
 </script>
 
 <style scoped>
-
+.isSettleDay-remind {
+  background-color: #fbf0f0;
+  color: #e4827f;
+}
 </style>

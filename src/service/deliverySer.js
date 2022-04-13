@@ -11,6 +11,10 @@ export function deliveryDownload(params) {
     return download('/delivery/download', params);
 }
 
+export function isSettleDay() {
+    return post('/delivery/isSettleDay', '');
+}
+
 export function deliveryAdd(params) {
     return post('/delivery/new', params);
 }

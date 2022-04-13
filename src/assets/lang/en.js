@@ -482,6 +482,8 @@ module.exports = {
         "please_select_order": "Please check the order you want to apply for",
         "submit_apply": "Submit apply",
         "refund": "Refund",
+        "delivery_reject_submit_help_info": "The system is generating a settlement table，those orders that have been changed the tracking number will not be settled.",
+        "remindClose": "Got it",
     },
     "label": {
         "last24Hours": "Last 24 Hour",
