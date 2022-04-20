@@ -1,7 +1,7 @@
 <template>
     <div v-loading="loading">
         <SearchBox :params="searchParams" @search="search"></SearchBox>
-          <el-alert v-if="is_settleDay && paneName === 'reject'" class="mb-2 rm-1 isSettleDay-remind"
+          <el-alert v-if="isSettleDay && paneName === 'reject'" class="mb-2 rm-1 isSettleDay-remind"
                     type="remind"
                     :close-text="$t('payout.remindClose')"
                     @close=close()
@@ -136,7 +136,7 @@
                 </el-form>
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
-                <div v-if="is_settleDay" style="text-align: left" class="text-muted p-0 url-review-help-remind">
+                <div v-if="isSettleDay" style="text-align: left" class="text-muted p-0 url-review-help-remind">
                   <i class="el-icon-info text-blue"></i><b v-html="$t('payout.delivery_reject_submit_help_info')"></b>
                 </div>
                 <el-button size="mini" @click="closeDialog">{{$t('comm.cancel')}}</el-button>
@@ -232,7 +232,7 @@
                 uploadTrackDialogVisible: false,
                 trackExcelUploadEnable: true,
                 percentage: -1,
-                is_settleDay: false,
+                isSettleDay: false,
             }
         },
         mounted() {
@@ -242,7 +242,7 @@
         },
         methods: {
             isAllowUpdateDelivery() {
-               this.is_settleDay = isSettleDay();
+               this.isSettleDay = isSettleDay();
             },
             validMsg(name) {
                 return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);

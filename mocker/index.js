@@ -1673,7 +1673,7 @@ const proxy = {
             status: 1,
             message: '测试test',
             data: {
-                is_settleDay: false
+                isSettleDay: false
             }
         });
     },
