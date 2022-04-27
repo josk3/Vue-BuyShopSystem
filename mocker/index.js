@@ -1668,15 +1668,6 @@ const proxy = {
             }
         });
     },
-    'POST /api/v1/delivery/isSettleDay': (req, res) => {
-        return res.json({
-            status: 1,
-            message: '测试test',
-            data: {
-                isSettleDay: false
-            }
-        });
-    },
     'GET /api/v1/delivery/brand/all': (req, res) => {
         return res.json({
             status: 1,
@@ -3358,6 +3349,14 @@ const proxy = {
         return res.json({
             status: 1,
             data: {}
+        })
+    },
+    'POST /api/v1/delivery/is_settle_day': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                is_settle_day: false
+            }
         })
     },
     'POST /api/v1/orders/download': (req, res) => {

@@ -1,14 +1,12 @@
 <template>
     <div v-loading="loading">
         <SearchBox :params="searchParams" @search="search"></SearchBox>
-          <el-alert v-if="isSettleDay && paneName === 'reject'" class="mb-2 rm-1 isSettleDay-remind"
-                    type="remind"
-                    :close-text="$t('payout.remindClose')"
-                    @close=close()
-                    show-icon>
-            <div slot="title" v-html="$t('payout.delivery_reject_submit_help_info')">
-            </div>
-          </el-alert>
+        <el-alert v-if="isSettleDay && paneName === 'reject'" class="mb-2 rm-1 isSettleDay-remind"
+                  type="remind"
+                  :closable="false"
+                  :title="$t('payout.delivery_reject_submit_help_info')"
+                  show-icon>
+        </el-alert>
         <div class="wrap-tab p-0">
             <el-card class="box-card box-pane" shadow="never" :body-style="{ padding: '0px' }">
                 <div class="row">
@@ -136,7 +134,7 @@
                 </el-form>
             </div>
             <div slot="footer" class="dialog-footer" v-loading="loading">
-                <div v-if="isSettleDay" style="text-align: left" class="text-muted p-0 url-review-help-remind">
+                <div v-if="isSettleDay" style="text-align: left;font-size: 12px;" class="text-muted p-0 mb-2">
                   <i class="el-icon-info text-blue"></i><b v-html="$t('payout.delivery_reject_submit_help_info')"></b>
                 </div>
                 <el-button size="mini" @click="closeDialog">{{$t('comm.cancel')}}</el-button>
@@ -193,7 +191,7 @@
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
     import {payoutSearch, applicantHistoryDownload} from "@/service/payoutSer";
-    import {deliveryAdd, deliveryUpload, getTrackBrands, isSettleDay} from "@/service/deliverySer";
+    import {deliveryAdd, deliveryUpload, getTrackBrands, getIsSettleDay} from "@/service/deliverySer";
     import {isEmpty} from "@/utils/validate";
     import {mapState} from "vuex";
 
@@ -238,12 +236,15 @@
         mounted() {
             this.searchParams.payout_status = this.paneName
             this.search();
-            this.isAllowUpdateDelivery();
+            getIsSettleDay().then(res => {
+              const {data} = res
+              this.$data.isSettleDay = data.is_settle_day
+              console.log(data.is_settle_day)
+              console.log(data)
+              this.$data.isSettleDay = true
+            })
         },
         methods: {
-            isAllowUpdateDelivery() {
-               this.isSettleDay = isSettleDay();
-            },
             validMsg(name) {
                 return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
             },

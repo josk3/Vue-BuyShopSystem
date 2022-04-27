@@ -11,7 +11,7 @@ export function deliveryDownload(params) {
     return download('/delivery/download', params);
 }
 
-export function isSettleDay() {
+export function getIsSettleDay() {
     return post('/delivery/is_settle_day', '');
 }
 
