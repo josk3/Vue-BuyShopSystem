@@ -239,9 +239,6 @@
             getIsSettleDay().then(res => {
               const {data} = res
               this.$data.isSettleDay = data.is_settle_day
-              console.log(data.is_settle_day)
-              console.log(data)
-              this.$data.isSettleDay = true
             })
         },
         methods: {
