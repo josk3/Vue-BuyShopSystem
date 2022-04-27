@@ -484,6 +484,8 @@ module.exports = {
         "please_select_order": "请先勾选要申请的订单",
         "submit_apply": "提交申请",
         "refund": "是否退款",
+        "delivery_reject_submit_help_info": "系统正在生成划款表，修改的物流订单不进入此次结算",
+        "remindClose": "知道了",
     },
     "label": {
         "last24Hours": "最近24小时",
