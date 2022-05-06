@@ -199,6 +199,20 @@
                          true-label="1"
                          false-label="0"
                          name="is_virtual"></el-checkbox>
+            <el-popover
+                placement="top-start"
+                width="260"
+                trigger="hover"
+                :content="$t('shop.virtual_notes')">
+              <span slot="reference">
+                <i class="el-icon-warning-outline"></i>
+              </span>
+            </el-popover>
+          </el-form-item>
+          <el-form-item prop="mer_remark" :label="$t('shop.mer_remark')">
+            <el-input v-model="add_shop.mer_remark" :placeholder="$t('shop.input_account')"
+                      class="input-with-select">
+            </el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -356,6 +370,7 @@ export default {
         this.add_shop.return_url = data.return_url
         this.add_shop.is_virtual = data.is_virtual
         this.add_shop.url_protocol = data.url_protocol
+        this.add_shop.mer_remark = data.mer_remark
       }
       this.add_shop.action = action
       this.addShopDialogVisible = true
@@ -368,7 +383,8 @@ export default {
         url_protocol: '',
         site_system: '',
         return_url: '',
-        is_virtual: ''
+        is_virtual: '',
+        mer_remark: ''
       }
     },
     initShopForm() {
