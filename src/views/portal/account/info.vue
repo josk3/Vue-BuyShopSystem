@@ -265,13 +265,26 @@
                     </el-form-item>
                     <el-form-item v-show="add_bank.need_authorize"
                                   :label="$t('bank.authorize_photo')" prop="authorize_photo" style="margin-bottom: 0px;">
-                        <UploadImgOnce  size="md"
-                                       @img="updateAuthorizePhoto($event)"></UploadImgOnce>
+                        <div v-if="!this.add_bank.authorize_photo.disable" :class="cssType">
+                        <el-upload
+                                :class="this.add_bank.authorize_photo.css"
+                                drag
+                                accept="image/*"
+                                action=""
+                                :limit="1"
+                                :on-change="changeImgFile"
+                                :on-remove="removeImgFile"
+                                :auto-upload="false">
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text"><em> {{$t('comm.upload_file_drag_click[1]')}}</em></div>
+                            <div class="el-upload__tip" slot="tip">{{ this.add_bank.authorize_photo.txt }}</div>
+                        </el-upload>
+                        </div>
                         <el-button type="primary" plain><a target="_blank" class="download-trigger" :href="companyAuthorizationTemplate">
                             <i class="el-icon-download"></i>
                             {{$t('comm.template_download')}}</a></el-button>
                     </el-form-item>
-                    <div style="margin-left: 140px;">
+                    <div v-show="add_bank.need_authorize" style="margin-left: 140px;">
                         <div >1.{{$t('comm.download_Authorization_explain')}}。</div>
                         <div >2.{{$t('comm.upload_table_ok')}}</div>
                     </div>
@@ -312,6 +325,16 @@
                 return user.state.user;
             },
         },
+        watch:{
+            update_box_show(newVal){
+                console.log(' enter in');
+                if (newVal === true) {
+                    this.cssType = this.sizeType
+                }else {
+                    this.cssType = this.sizeType + ' hide-box'
+                }
+            },
+        },
         data() {
             var checkIdNum = (rule, value, callback) => {//18位身份证规范检查
                 const reg =/^([1-6][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
@@ -347,6 +370,9 @@
                 ],
                 activeName: 'company',
                 companyAuthorizationTemplate: configs.template.companyAuthorizationPath,
+                update_box_show: true,
+                sizeType: 'md-box-up',
+                cssType: '',
             }
         },
         mounted() {
@@ -489,6 +515,14 @@
                 });
             },
             //-------
+            changeImgFile(e) {
+                this.add_bank.authorize_photo = e.raw;
+                this.update_box_show = false //只给上传一张
+            },
+            removeImgFile() {
+                this.update_box_show = true
+                this.add_bank.authorize_photo = '';
+            },
         },
     }
 </script>
@@ -530,4 +564,5 @@
         font-size: 19px;
         z-index: 2;
     }
+
 </style>
