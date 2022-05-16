@@ -506,6 +506,9 @@ module.exports = {
         "site_url_review_help_info": "The website will be approved within 1 to 3 hours on workingdays, and the result will be sent to you by email.",
         "remindClose": "Got it",
         "site_success": "Successful,The website will be approved within 1 to 3 hours on workingdays, and the result will be sent to you by email.",
+        "mer_remark": "Please note",
+        "input_account": "Please enter your user name and password",
+        "virtual_notes": "If it is virtual product, please provide the user name and password for reviewing the website.",
     },
     "bank": {
         "settle_bank": "Settlement Bank",
