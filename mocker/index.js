@@ -17,7 +17,7 @@ function demoUserInfo() {
                 phone: '13818181818',
                 second_login: '2020-01-01 00:00:00',
                 status: 1,
-                identity_status: 0,
+                identity_status: 1,
                 bank_status: 0,
                 mer_no: '4008',
                 online: true,
@@ -194,6 +194,12 @@ function demoUserInfo() {
                         {
                             "name": "merchant_identity",
                             "path": "/merchant/identity",
+                            "meta": null,
+                            "hidden": false
+                        },
+                        {
+                            "name": "merchant_identity_all",
+                            "path": "/merchant/identityAll",
                             "meta": null,
                             "hidden": false
                         },
@@ -1204,7 +1210,7 @@ const proxy = {
             // '/api/v1/(.*)': 'http://192.168.3.182:8013',
             // '/api/v1/(.*)': 'http://127.0.0.1/',
             // '/images/(.*)': 'http://localhost:8013/',
-            '/api/v1/(.*)': 'http://localhost:8013/',
+            // '/api/v1/(.*)': 'http://localhost:8013/',
         },
         changeHost: true,
         header: {
@@ -1251,6 +1257,7 @@ const proxy = {
     'POST /api/v1/login': (req, res) => {
         const {password, username} = req.body;
         if (password === 'Test123456' && username === 'admin') {
+            return res.json(demoUserInfo());
             if (req.body.valid_sig) {
                 return res.json(demoUserInfo());
             } else {
@@ -3615,26 +3622,27 @@ const proxy = {
                     updated: "2020-08-07 23:53:26",
                     virtual: false,
                     mid_type: '', //company
-                    identity_account_type: '',
+                    identity_account_type: 'personal',
+                    identity_country_type: 'outland',
                     allow_personal: 0,
                 },
-                bank: {
-                    bank_brand: '工商银行',
-                    bank_card_mobile: '1333323232',
-                    bank_id: 'bank_23r23r',
-                    bank_name: '上海工商银行xx支行',
-                    bank_photo: null,
-                    bank_swift_no: null,
-                    card_account_name: '李四一',
-                    card_no: '622988888888888888',
-                    card_type: '1',
-                    card_type_str: "个人",
-                    created: 1597560824000,
-                    disabled: false,
-                    mer_no: '4008',
-                    status: 1,
-                    updated: null,
-                },
+                // bank: {
+                //     bank_brand: '工商银行',
+                //     bank_card_mobile: '1333323232',
+                //     bank_id: 'bank_23r23r',
+                //     bank_name: '上海工商银行xx支行',
+                //     bank_photo: null,
+                //     bank_swift_no: null,
+                //     card_account_name: '李四一',
+                //     card_no: '622988888888888888',
+                //     card_type: '1',
+                //     card_type_str: "个人",
+                //     created: 1597560824000,
+                //     disabled: false,
+                //     mer_no: '4008',
+                //     status: 1,
+                //     updated: null,
+                // },
                 ecm_rule: [
                     {amount: 18, condition_ecm_l: null, condition_ecm_r: 0.01, condition_order_count: 3,},
                     {amount: 40, condition_ecm_l: 0.01, condition_ecm_r: 0.02, condition_order_count: 6,},
@@ -3664,7 +3672,7 @@ const proxy = {
                 detail: {
                     "identity_reason": '图片不清楚',
                     "name": "测试26",
-                    "identity_name": "",
+                    "identity_name": "zz",
                     "identity_photo_a": "wef",
                     "identity_photo_b": null,
                     "identity_bank_photo": null,
@@ -3675,7 +3683,7 @@ const proxy = {
                     "address": null,
                     "zip_code": null,
                     "shop_site": null,
-                    "company_name": null,
+                    "company_name": "zzCompany",
                     "company_identity_photo": null,
                     "company_identity_id": null,
                     "company_start_date": null,
