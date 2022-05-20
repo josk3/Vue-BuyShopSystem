@@ -79,10 +79,6 @@ export const routerUtils = {
         component: () => import('@/views/portal/account/identity'),
         meta: {noCache: true}
     },
-    'merchant_identity_all': {
-        component: () => import('@/views/portal/account/identityAll'),
-        meta: {noCache: true}
-    },
     'active_account': {
         component: () => import('@/views/portal/account/identity'),
         meta: {noCache: true}

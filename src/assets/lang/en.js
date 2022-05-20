@@ -292,6 +292,9 @@ module.exports = {
         "long_effective": "long effective",
         "hint_Supplementary_account_information":"Please improve your account information and submit it to our company for review, so as to facilitate subsequent settlement application  。",
     },
+    "register_form": {
+        "email_or_phone": "Email",
+    },
     "valid": {
         "required_field": "{0} is null",
         "uploaded_field": "请上传{0}",
@@ -336,9 +339,6 @@ module.exports = {
         "sms_valid_code": "Sms Valid Code",
         "you_password_is_simple": "Your current password is relatively simple, please change it for security.",
         "you_password_is_expire": "Your current password has not been changed for a period of time, please change it for security.",
-    },
-    "register_form": {
-        "email_or_phone": "Email",
     },
     "status": {
         "all": "All",
@@ -466,7 +466,6 @@ module.exports = {
         "include_fees": "Include fees",
         "deposit_charge": "Deposit charge",
         "deposit_balance": "Deposit balance",
-
     },
     "settle": {
         "create_time": "Create time",

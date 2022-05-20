@@ -339,7 +339,6 @@ module.exports = {
         "sms_valid_code": "短信验证码",
         "you_password_is_simple": "您当前密码比较简单, 为了安全起见请修改密码。",
         "you_password_is_expire": "您密码已有一段时间未修改, 为了安全起见请修改密码。",
-
     },
     "status": {
         "all": "所有",
@@ -466,7 +465,6 @@ module.exports = {
         "include_fees": "包含了手续费",
         "deposit_charge": "保证金变动",
         "deposit_balance": "保证金余额",
-
     },
     "settle": {
         "create_time": "生成时间",

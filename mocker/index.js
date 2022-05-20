@@ -198,12 +198,6 @@ function demoUserInfo() {
                             "hidden": false
                         },
                         {
-                            "name": "merchant_identity_all",
-                            "path": "/merchant/identityAll",
-                            "meta": null,
-                            "hidden": false
-                        },
-                        {
                             "name": "merchant_setup",
                             "path": "/merchant/setup",
                             "meta": null,
