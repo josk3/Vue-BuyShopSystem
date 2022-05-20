@@ -976,6 +976,9 @@
                     }
                 });
             },
+            updateImg(e, k) {
+                this.detail[k] = e
+            },
         },
     };
 </script>
