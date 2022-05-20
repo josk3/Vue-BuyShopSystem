@@ -962,17 +962,17 @@
                             formData.append(key, params[key]);
                             console.log(key + ": " + params[key] + "; ");
                         });
-                        // updateIdentity(formData)
-                        //     .then(() => {
-                        //         this.$store
-                        //             .dispatch("user/loadUserInfo")
-                        //             .then(() => {
-                        //                 this.loadMerData();
-                        //             });
-                        //     })
-                        //     .finally(() => {
-                        //         this.loading = false;
-                        //     });
+                        updateIdentity(formData)
+                            .then(() => {
+                                this.$store
+                                    .dispatch("user/loadUserInfo")
+                                    .then(() => {
+                                        this.loadMerData();
+                                    });
+                            })
+                            .finally(() => {
+                                this.loading = false;
+                            });
                     }
                 });
             },
