@@ -63,7 +63,7 @@
                     <el-form-item v-if="searchForm.site_url !== undefined" prop="site_url">
                         <el-input size="mini" v-model="searchForm.site_url"
                                   @keyup.native.enter="submitSearch"
-                                  :placeholder="$t('comm.site_url')" clearable></el-input>
+                                  :placeholder="$t('comm.search_site_url')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.decline_type !== undefined" prop="decline_type">
                         <el-select size="mini" v-model="searchForm.decline_type" :placeholder="$t('comm.type')"

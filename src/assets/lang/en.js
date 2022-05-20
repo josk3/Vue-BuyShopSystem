@@ -62,6 +62,7 @@ module.exports = {
         "blacklist_type": "Blacklist Type",
         "blacklist_value": "Blacklist Value",
         "site_url": "Website Url",
+        "search_site_url": "Website Url (Fuzzy queries are not supported)",
         "ip": "IP",
         "order_amount": "Order Amount",
         "payment_time": "Pay Time",
