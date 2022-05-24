@@ -126,7 +126,7 @@
                     <span>{{$t('bank.settle_bank')}}</span>
                 </div>
                 <div class="row">
-                    <div class="col-7">
+                    <div class="col-10">
                         <div v-if="bank" class="info-control-list">
                             <div class="row"><label class="col-4">{{$t('bank.card_type')}}</label>
                                 <div class="col-8"><span>{{bank.card_type_str}}</span></div>
@@ -157,6 +157,7 @@
                                 <el-button type="primary" plain @click="addBankBtn">
                                     {{$t('bank.add_bank')}}
                                 </el-button>
+                                <span style="margin-left:20px;">{{$t('bank.add_bank_tip')}}</span>
                             </div>
                         </div>
                     </div>

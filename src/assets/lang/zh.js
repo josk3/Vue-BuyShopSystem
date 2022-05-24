@@ -220,6 +220,7 @@ module.exports = {
         "email": "邮箱",
         "company_name": "企业名称",
         "identity_name": "姓名",
+        "incorrect_format": "格式不正确",
         "identity_photo_a": "身份证正面",
         "identity_photo_a2": "证件照正面",
         "identity_photo_a_company_tip": "上传最新法定代表人身份证正面彩色照片",
@@ -559,6 +560,7 @@ module.exports = {
     "bank": {
         "settle_bank": "结算银行卡",
         "add_bank": "添加银行卡",
+        "add_bank_tip": "请填写与协议附件商户登记表中账户信息一致",
         "name": "姓名/企业",
         "bank_name": "开户行名称",
         "card_no": "卡号",

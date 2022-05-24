@@ -66,7 +66,7 @@
                                     <el-date-picker v-model="detail.company_expire_date" value-format="yyyy-MM-dd" type="date" :placeholder="$t('comm.select') + $t('user.company_expire_date')"> </el-date-picker>
                                     <el-button size="mini" @click="companyExpireForever" type="text" plain>{{ $t("user.long_effective") }} </el-button>
                                 </el-form-item>
-                                <el-form-item :label="$t('user.company_identity_photo')" prop="company_identity_photo">
+                                <el-form-item :label="$t('user.company_identity_photo')" prop="company_identity_photo" ref="company_identity_photo">
                                     <UploadImgOnce
                                         :txt="$t('comm.upload') + $t('user.company_identity_photo')"
                                         size="sm"
@@ -119,7 +119,7 @@
                                 <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_country">
                                     <el-input :placeholder="$t('user.enter_subsidiary_country')" v-model="detail.subsidiary_country"></el-input>
                                 </el-form-item>
-                                <el-form-item :label="$t('user.company_business_identity_photo')" prop="company_business_identity_photo">
+                                <el-form-item :label="$t('user.company_business_identity_photo')" prop="company_business_identity_photo" ref="company_business_identity_photo">
                                     <UploadImgOnce
                                         :txt="$t('comm.upload') + $t('user.company_business_identity_photo')"
                                         size="sm"
@@ -130,7 +130,7 @@
                                         @img="updateImg($event, 'company_business_identity_photo')"
                                     ></UploadImgOnce>
                                 </el-form-item>
-                                <el-form-item :label="$t('user.company_register_identity_photo')" prop="company_register_identity_photo">
+                                <el-form-item :label="$t('user.company_register_identity_photo')" prop="company_register_identity_photo" ref="company_register_identity_photo">
                                     <UploadImgOnce
                                         :txt="$t('comm.upload') + $t('user.company_register_identity_photo')"
                                         size="sm"
@@ -141,7 +141,7 @@
                                         @img="updateImg($event, 'company_register_identity_photo')"
                                     ></UploadImgOnce>
                                 </el-form-item>
-                                <el-form-item :label="$t('user.company_annual_report_photo')" prop="company_annual_report_photo">
+                                <el-form-item :label="$t('user.company_annual_report_photo')" prop="company_annual_report_photo" ref="company_annual_report_photo">
                                     <UploadImgOnce
                                         :txt="$t('comm.upload') + $t('user.company_annual_report_photo')"
                                         size="sm"
@@ -197,7 +197,7 @@
                                     </el-date-picker>
                                     <el-button size="mini" @click="identityExpireForever" type="text" plain>{{ $t("user.long_effective") }} </el-button>
                                 </el-form-item>
-                                <el-form-item :label="detail.identity_country_type === 'outland' ? $t('user.identity_photo_a2') : $t('user.identity_photo_a')" prop="identity_photo_a">
+                                <el-form-item :label="detail.identity_country_type === 'outland' ? $t('user.identity_photo_a2') : $t('user.identity_photo_a')" prop="identity_photo_a" ref="identity_photo_a">
                                     <UploadImgOnce
                                         :txt="detail.identity_country_type === 'outland' ? $t('comm.upload') + $t('user.identity_photo_a2') : $t('comm.upload') + $t('user.identity_photo_a')"
                                         size="sm"
@@ -212,6 +212,7 @@
                                     v-show="detail.identity_country_type === 'inland' || (detail.identity_country_type === 'outland' && detail.personal_identity === 'identity_id')"
                                     :label="detail.identity_country_type === 'outland' ? $t('user.identity_photo_b2') : $t('user.identity_photo_b')"
                                     prop="identity_photo_b"
+                                    ref="identity_photo_b"
                                 >
                                     <UploadImgOnce
                                         :txt="detail.identity_country_type === 'outland' ? $t('comm.upload') + $t('user.identity_photo_b2') : $t('comm.upload') + $t('user.identity_photo_b')"
@@ -227,6 +228,7 @@
                                     v-show="(detail.identity_account_type === 'personal' && detail.identity_country_type === 'inland') || (detail.identity_country_type === 'outland' && detail.personal_identity === 'identity_id')"
                                     :label="detail.identity_country_type === 'outland' ? $t('user.identity_photo_c2') : $t('user.identity_photo_c')"
                                     prop="identity_photo_c"
+                                    ref="identity_photo_c"
                                 >
                                     <UploadImgOnce
                                         :txt="detail.identity_country_type === 'outland' ? $t('comm.upload') + $t('user.identity_photo_c2') : $t('comm.upload') + $t('user.identity_photo_c')"
@@ -238,7 +240,7 @@
                                         :img_url_tip="detail.identity_country_type === 'outland' ? $t('user.identity_photo_c_outland_tip') : $t('user.identity_photo_c_tip')"
                                     ></UploadImgOnce>
                                 </el-form-item>
-                                <el-form-item v-show="detail.identity_country_type === 'outland' && detail.identity_account_type === 'company' && detail.company_position === 'none'" :label="$t('user.chairman_authorization')" prop="chairman_authorization">
+                                <el-form-item v-show="detail.identity_country_type === 'outland' && detail.identity_account_type === 'company' && detail.company_position === 'none'" :label="$t('user.chairman_authorization')" prop="chairman_authorization" ref="chairman_authorization">
                                     <UploadImgOnce
                                         :txt="$t('comm.upload') + $t('user.chairman_authorization')"
                                         size="sm"
@@ -327,6 +329,36 @@
             },
         },
         data() {
+            var checkEmail = (rule, value, callback) => {
+                //邮箱规范检查
+                const reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkShopSite = (rule, value, callback) => {
+                //域名
+                const reg = /[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkInlandIdNum = (rule, value, callback) => {
+                //18位身份证
+                const reg = /^([1-6][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkInlandPhone = (rule, value, callback) => {
+                //11位手机号
+                const reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkOutlandIdNum = (rule, value, callback) => {
+                //港澳,台湾通行证  护照
+                const reghk = /^[a-zA-Z0-9]{5,21}$/;
+                const reghz = /^[a-zA-Z0-9]{3,21}$/;
+                if (this.detail.personal_identity === "hk_pass") {
+                    this.validReg(reghk, value, rule.field, callback);
+                } else {
+                    this.validReg(reghz, value, rule.field, callback);
+                }
+            };
             return {
                 loading: false,
                 hold_edit: false,
@@ -339,18 +371,14 @@
                 rules: {},
                 //基础
                 rulesA: {
-                    phone: [
-                        {
-                            required: true,
-                            message: this.validMsg("user.phone"),
-                            trigger: "blur",
-                        },
-                    ],
                     email: [
                         {
                             required: true,
-                            type: "email",
                             message: this.validMsg("user.email"),
+                            trigger: "blur",
+                        },
+                        {
+                            validator: checkEmail,
                             trigger: "blur",
                         },
                     ],
@@ -396,6 +424,10 @@
                             message: this.validMsg("user.shop_site"),
                             trigger: "blur",
                         },
+                        {
+                            validator: checkShopSite,
+                            trigger: "blur",
+                        },
                     ],
                     identity_account_type: [
                         {
@@ -408,6 +440,13 @@
                 },
                 //境外
                 rulesAOut: {
+                    phone: [
+                        {
+                            required: true,
+                            message: this.validMsg("user.phone"),
+                            trigger: "blur",
+                        },
+                    ],
                     identity_start_date: [
                         {
                             required: true,
@@ -428,6 +467,7 @@
                             message: this.validMsg("user.identity_number2"),
                             trigger: "blur",
                         },
+                        // { validator: checkOutlandIdNum, trigger: "blur" },
                     ],
                     identity_photo_a: [
                         {
@@ -453,6 +493,14 @@
                 },
                 //境内
                 rulesAIn: {
+                    phone: [
+                        {
+                            required: true,
+                            message: this.validMsg("user.phone"),
+                            trigger: "blur",
+                        },
+                        { validator: checkInlandPhone, trigger: "blur" },
+                    ],
                     identity_start_date: [
                         {
                             required: true,
@@ -473,6 +521,7 @@
                             message: this.validMsg("user.identity_number"),
                             trigger: "blur",
                         },
+                        { validator: checkInlandIdNum, trigger: "blur" },
                     ],
                     identity_photo_a: [
                         {
@@ -891,6 +940,13 @@
             validMsg2(name) {
                 return this.$i18n.t("valid.uploaded_field", [this.$i18n.t(name)]);
             },
+            validReg(reg, value, field, callback) {
+                if (!reg.test(value)) {
+                    return callback(this.$i18n.t("user." + field) + this.$i18n.t("user.incorrect_format"));
+                } else {
+                    callback();
+                }
+            },
             loadMerData() {
                 this.loading = true;
                 getMerInfo()
@@ -964,11 +1020,9 @@
                         });
                         updateIdentity(formData)
                             .then(() => {
-                                this.$store
-                                    .dispatch("user/loadUserInfo")
-                                    .then(() => {
-                                        this.loadMerData();
-                                    });
+                                this.$store.dispatch("user/loadUserInfo").then(() => {
+                                    this.loadMerData();
+                                });
                             })
                             .finally(() => {
                                 this.loading = false;
@@ -977,7 +1031,12 @@
                 });
             },
             updateImg(e, k) {
-                this.detail[k] = e
+                this.detail[k] = e;
+                this.$refs.detail.validateField([k], (formError) => {
+                    if (formError) {
+                        return false;
+                    }
+                });
             },
         },
     };

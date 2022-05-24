@@ -3669,6 +3669,7 @@ const proxy = {
                     "identity_name": "zz",
                     "identity_photo_a": "wef",
                     "identity_photo_b": null,
+                    "identity_photo_c": null,
                     "identity_bank_photo": null,
                     "identity_number": null,
                     "identity_start_date": null,
@@ -3701,6 +3702,11 @@ const proxy = {
                     "identity_photo_a_url": "/mer/id_img?name=wef",
                     "phone": "1333333",
                     "email": "",
+                    "company_identity_photo": null,
+                    "company_business_identity_photo": null,
+                    "company_register_identity_photo": null,
+                    "company_annual_report_photo": null,
+                    "chairman_authorization": null,
                 },
                 "job_type": [
                     {
