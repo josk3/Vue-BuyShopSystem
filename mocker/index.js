@@ -3616,8 +3616,8 @@ const proxy = {
                     updated: "2020-08-07 23:53:26",
                     virtual: false,
                     mid_type: '', //company
-                    identity_account_type: 'personal',
-                    identity_country_type: 'outland',
+                    identity_account_type: 'company',
+                    identity_country_type: 'inland',
                     allow_personal: 0,
                 },
                 // bank: {
@@ -3666,7 +3666,7 @@ const proxy = {
                 detail: {
                     "identity_reason": '图片不清楚',
                     "name": "测试26",
-                    "identity_name": "zz",
+                    "identity_name": "",
                     "identity_photo_a": "wef",
                     "identity_photo_b": null,
                     "identity_photo_c": null,
@@ -3827,6 +3827,23 @@ const proxy = {
                         "text": "未知",
                         "value": "X"
                     }
+                ],
+            }
+        })
+    },
+    'GET /api/v1/merchant/merCurrencyList': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                "currency_list": [
+                    {
+                        "text": "USD",
+                        "value": "USD"
+                    },
+                    {
+                        "text": "CNY",
+                        "value": "CNY"
+                    },
                 ],
             }
         })

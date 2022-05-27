@@ -45,8 +45,8 @@
                                     {{ $t("comm.category") }}
                                 </template>
                                 <el-select v-model="detail.identity_account_type" :placeholder="$t('user.select_type')" @change="typeChange" filterable>
-                                    <el-option v-for="item in typeList" :key="item.value" :label="item.text" :value="item.value">
-                                        <span style="float: left">{{ item.text }}</span>
+                                    <el-option v-for="item in typeList" :key="item.value" :label="$t(item.text)" :value="item.value">
+                                        <span style="float: left">{{ $t(item.text) }}</span>
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -68,7 +68,7 @@
                                 </el-form-item>
                                 <el-form-item :label="$t('user.company_identity_photo')" prop="company_identity_photo" ref="company_identity_photo">
                                     <UploadImgOnce
-                                        :txt="$t('comm.upload') + $t('user.company_identity_photo')"
+                                        :txt="$t('user.upload_company_identity_photo')"
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.company_identity_photo_url)"
@@ -114,14 +114,14 @@
                                     </el-radio-group>
                                 </el-form-item>
                                 <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_name">
-                                    <el-input :placeholder="$t('user.enter_subsidiary_name')" v-model="detail.subsidiary_name"></el-input>
+                                    <el-input :placeholder="validMsg('user.subsidiary_name')" v-model="detail.subsidiary_name"></el-input>
                                 </el-form-item>
                                 <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_country">
-                                    <el-input :placeholder="$t('user.enter_subsidiary_country')" v-model="detail.subsidiary_country"></el-input>
+                                    <el-input :placeholder="validMsg('user.subsidiary_country')" v-model="detail.subsidiary_country"></el-input>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.company_business_identity_photo')" prop="company_business_identity_photo" ref="company_business_identity_photo">
                                     <UploadImgOnce
-                                        :txt="$t('comm.upload') + $t('user.company_business_identity_photo')"
+                                        :txt="$t('user.upload_company_business_identity_photo')"
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.company_business_identity_photo_url)"
@@ -132,7 +132,7 @@
                                 </el-form-item>
                                 <el-form-item :label="$t('user.company_register_identity_photo')" prop="company_register_identity_photo" ref="company_register_identity_photo">
                                     <UploadImgOnce
-                                        :txt="$t('comm.upload') + $t('user.company_register_identity_photo')"
+                                        :txt="$t('user.upload_company_register_identity_photo')"
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.company_register_identity_photo_url)"
@@ -143,7 +143,7 @@
                                 </el-form-item>
                                 <el-form-item :label="$t('user.company_annual_report_photo')" prop="company_annual_report_photo" ref="company_annual_report_photo">
                                     <UploadImgOnce
-                                        :txt="$t('comm.upload') + $t('user.company_annual_report_photo')"
+                                        :txt="$t('user.upload_company_annual_report_photo')"
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.company_annual_report_photo_url)"
@@ -159,8 +159,8 @@
                                         {{ $t("user.company_position") }}
                                     </template>
                                     <el-select v-model="detail.company_position" :placeholder="$t('user.select_type')" @change="companyPositionChange" filterable>
-                                        <el-option v-for="item in companyPositionList" :key="item.value" :label="item.text" :value="item.value">
-                                            <span style="float: left">{{ item.text }}</span>
+                                        <el-option v-for="item in companyPositionList" :key="item.value" :label="$t(item.text)" :value="item.value">
+                                            <span style="float: left">{{ $t(item.text) }}</span>
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
@@ -179,8 +179,8 @@
                                         {{ $t("user.personal_identity") }}
                                     </template>
                                     <el-select v-model="detail.personal_identity" :placeholder="$t('user.select_type')" @change="personalIdentityChange" filterable>
-                                        <el-option v-for="item in personalIdentityList" :key="item.value" :label="item.text" :value="item.value">
-                                            <span style="float: left">{{ item.text }}</span>
+                                        <el-option v-for="item in personalIdentityList" :key="item.value" :label="$t(item.text)" :value="item.value">
+                                            <span style="float: left">{{ $t(item.text) }}</span>
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
@@ -199,7 +199,7 @@
                                 </el-form-item>
                                 <el-form-item :label="detail.identity_country_type === 'outland' ? $t('user.identity_photo_a2') : $t('user.identity_photo_a')" prop="identity_photo_a" ref="identity_photo_a">
                                     <UploadImgOnce
-                                        :txt="detail.identity_country_type === 'outland' ? $t('comm.upload') + $t('user.identity_photo_a2') : $t('comm.upload') + $t('user.identity_photo_a')"
+                                        :txt="detail.identity_country_type === 'outland' ? $t('user.upload_identity_photo_a2') : $t('user.upload_identity_photo_a')"
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.identity_photo_a_url)"
@@ -215,7 +215,7 @@
                                     ref="identity_photo_b"
                                 >
                                     <UploadImgOnce
-                                        :txt="detail.identity_country_type === 'outland' ? $t('comm.upload') + $t('user.identity_photo_b2') : $t('comm.upload') + $t('user.identity_photo_b')"
+                                        :txt="detail.identity_country_type === 'outland' ? $t('user.upload_identity_photo_b2') : $t('user.upload_identity_photo_b')"
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.identity_photo_b_url)"
@@ -231,7 +231,7 @@
                                     ref="identity_photo_c"
                                 >
                                     <UploadImgOnce
-                                        :txt="detail.identity_country_type === 'outland' ? $t('comm.upload') + $t('user.identity_photo_c2') : $t('comm.upload') + $t('user.identity_photo_c')"
+                                        :txt="detail.identity_country_type === 'outland' ? $t('user.upload_identity_photo_c2') : $t('user.upload_identity_photo_c')"
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.identity_photo_c_url)"
@@ -242,7 +242,7 @@
                                 </el-form-item>
                                 <el-form-item v-show="detail.identity_country_type === 'outland' && detail.identity_account_type === 'company' && detail.company_position === 'none'" :label="$t('user.chairman_authorization')" prop="chairman_authorization" ref="chairman_authorization">
                                     <UploadImgOnce
-                                        :txt="$t('comm.upload') + $t('user.chairman_authorization')"
+                                        :txt="$t('user.upload_chairman_authorization')"
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.chairman_authorization_url)"
@@ -364,8 +364,8 @@
                 hold_edit: false,
                 info: {},
                 detail: {
-                    identity_country_type: "",
-                    identity_account_type: "",
+                    identity_country_type: "inland",
+                    identity_account_type: "company",
                     is_own_subsidiary: false,
                 },
                 rules: {},
@@ -664,21 +664,21 @@
                     is_own_subsidiary: [
                         {
                             required: true,
-                            message: this.$i18n.t("user.is_own_subsidiary"),
+                            message: this.validMsg("user.is_own_subsidiary"),
                             trigger: "change",
                         },
                     ],
                     subsidiary_name: [
                         {
                             required: true,
-                            message: this.$i18n.t("user.enter_subsidiary_name"),
+                            message: this.validMsg("user.subsidiary_name"),
                             trigger: "blur",
                         },
                     ],
                     subsidiary_country: [
                         {
                             required: true,
-                            message: this.$i18n.t("user.enter_subsidiary_country"),
+                            message: this.validMsg("user.subsidiary_country"),
                             trigger: "blur",
                         },
                     ],
@@ -740,27 +740,27 @@
                     ],
                 },
                 typeList: [
-                    { value: "personal", text: this.$i18n.t("user.personal") },
-                    { value: "company", text: this.$i18n.t("user.company") },
+                    { value: "personal", text: "user.personal" },
+                    { value: "company", text: "user.company" },
                 ],
                 companyPositionList: [
-                    { value: "chairman", text: this.$i18n.t("user.chairman") },
+                    { value: "chairman", text: "user.chairman" },
                     {
                         value: "shareholder",
-                        text: this.$i18n.t("user.shareholder"),
+                        text: "user.shareholder",
                     },
-                    { value: "none", text: this.$i18n.t("user.none") },
+                    { value: "none", text: "user.none" },
                 ],
                 personalIdentityList: [
                     {
                         value: "identity_id",
-                        text: this.$i18n.t("user.identity_id"),
+                        text: "user.identity_id",
                     },
                     {
                         value: "passport",
-                        text: this.$i18n.t("user.passport"),
+                        text: "user.passport",
                     },
-                    { value: "hk_pass", text: this.$i18n.t("user.hk_pass") },
+                    { value: "hk_pass", text: "user.hk_pass" },
                 ],
                 jobType: [],
                 businessType: [],
@@ -816,14 +816,14 @@
                     this.resetRule("subsidiary_name", [
                         {
                             required: true,
-                            message: this.$i18n.t("user.enter_subsidiary_name"),
+                            message: this.validMsg("user.subsidiary_name"),
                             trigger: "blur",
                         },
                     ]);
                     this.resetRule("subsidiary_country", [
                         {
                             required: true,
-                            message: this.$i18n.t("user.enter_subsidiary_country"),
+                            message: this.validMsg("user.subsidiary_country"),
                             trigger: "blur",
                         },
                     ]);
@@ -966,7 +966,7 @@
                     .then((res) => {
                         const { data } = res;
                         let detailData = data.detail;
-                        detailData.identity_country_type = "outland"; // 初始值
+                        detailData.identity_country_type = "inland"; // 初始值
                         detailData.identity_account_type = "company"; //初始值
                         detailData.is_own_subsidiary = false;
                         detailData.company_position = "chairman";

@@ -6,9 +6,9 @@
         <div v-else class="col-6">
             <div class="" slot="tip">
                 {{ $t("user.please_follow")
-                }}<el-popover placement="top" width="350" trigger="click">
+                }} <el-popover placement="top" width="350" trigger="click">
                     <img class="img-up-once" height="200" :src="img_url_demo" alt="img" /><span class="text-blue" style="cursor:pointer;" slot="reference">{{ $t("user.sample_template") }}</span> </el-popover
-                >{{ img_url_tip }}
+                >,{{ img_url_tip }}
             </div>
             <el-upload :class="css" drag accept="image/*" action="" :limit="1" :on-change="changeImgFile" :on-remove="removeImgFile" :auto-upload="false">
                 <i class="el-icon-upload"></i>
