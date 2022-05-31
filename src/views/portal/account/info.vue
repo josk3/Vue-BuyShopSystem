@@ -330,7 +330,7 @@
                                     <span slot="reference">{{ $t("bank.name") }} <i class="el-icon-warning-outline"></i></span>
                                 </el-popover>
                             </template>
-                            <el-input v-model="add_bank.name"></el-input>
+                            <el-input v-model="add_bank.name" :disabled="disable_name"></el-input>
                         </el-form-item>
                         <el-form-item :label="$t('bank.bank_card_currency')" prop="bank_card_currency">
                             <el-select v-model="add_bank.bank_card_currency" :placeholder="$t('comm.please_select')" filterable>
@@ -348,7 +348,7 @@
                                     <span slot="reference">{{ $t("bank.name") }} <i class="el-icon-warning-outline"></i></span>
                                 </el-popover>
                             </template>
-                            <el-input v-model="add_bank.name"></el-input>
+                            <el-input v-model="add_bank.name" :disabled="disable_name"></el-input>
                         </el-form-item>
                         <el-form-item prop="bank_name">
                             <template slot="label">
@@ -492,6 +492,7 @@
                 //-
                 addBankDialogVisible: false,
                 add_bank: this.initBankFormObj(),
+                disable_name: true,
                 rules: {},
                 //境内及境外个人
                 rulesA: {
@@ -558,21 +559,20 @@
                 sizeType: "sm-box-up",
                 cssType: "",
                 payeeTypeList: [
-                    { value: "own", text: "bank.own_personal_account" },
+                    { value: "own", text: "bank.own_company_account" },
                     { value: "third", text: "bank.third_account" },
                 ],
                 payeePersonalTypeList: [
                     { value: "own", text: "bank.own_personal_account" },
-                    { value: "third", text: "bank.third_account" },
+                    // { value: "third", text: "bank.third_account" },
                 ],
                 payeeCompanyTypeList: [
                     { value: "own", text: "bank.own_company_account" },
                     { value: "third", text: "bank.third_account" },
                 ],
-                accountTypeList: [
-                    { value: "personal", text: "user.personal", disabled: false },
-                    { value: "company", text: "user.company", disabled: false },
-                ],
+                accountTypeList: [{ value: "company", text: "user.company", disabled: false }],
+                accountPersonalTypeList: [{ value: "personal", text: "user.personal", disabled: false }],
+                accountCompanyTypeList: [{ value: "company", text: "user.company", disabled: false }],
                 currency_list: [{ value: "USD", text: "USD" }],
             };
         },
@@ -636,7 +636,7 @@
                         this.loading = false;
                     });
             },
-            loadCurrencyList(){
+            loadCurrencyList() {
                 this.loading = true;
                 getMerCurrencyList()
                     .then((res) => {
@@ -685,6 +685,8 @@
                         if (this.add_bank.payee_type === "third") {
                             //third
                             this.updateThirdAccountType();
+                            this.add_bank.name = "";
+                            this.disable_name = false;
                             if (this.add_bank.card_account_type === "company") {
                                 this.rules = Object.assign(this.rulesOTC, this.rulesE, this.rulesD, this.rulesC);
                             } else {
@@ -693,9 +695,12 @@
                         } else {
                             //own
                             this.updateOwnAccountType();
+                            this.disable_name = true;
                             if (this.add_bank.card_account_type === "company") {
+                                this.add_bank.name = this.detail.company_name;
                                 this.rules = Object.assign(this.rulesOOC, this.rulesE, this.rulesD);
                             } else {
+                                this.add_bank.name = this.detail.identity_name;
                                 this.rules = Object.assign(this.rulesOOP, this.rulesD, this.rulesB, this.rulesA);
                             }
                         }
@@ -704,6 +709,8 @@
                         if (this.add_bank.payee_type === "third") {
                             //third
                             this.updateThirdAccountType();
+                            this.add_bank.name = "";
+                            this.disable_name = false;
                             if (this.add_bank.card_account_type === "company") {
                                 this.rules = Object.assign(this.rulesITC, this.rulesC, this.rulesA);
                             } else {
@@ -712,9 +719,12 @@
                         } else {
                             //own
                             this.updateOwnAccountType();
+                            this.disable_name = true;
                             if (this.add_bank.card_account_type === "company") {
+                                this.add_bank.name = this.detail.company_name;
                                 this.rules = this.rulesA;
                             } else {
+                                this.add_bank.name = this.detail.identity_name;
                                 this.rules = Object.assign(this.rulesB, this.rulesA);
                             }
                         }
@@ -724,22 +734,17 @@
                 }
             },
             updateThirdAccountType() {
+                this.accountTypeList = this.accountPersonalTypeList;
                 if (this.detail.identity_account_type === "company") {
-                    this.accountTypeList[0].disabled = false;
-                    this.accountTypeList[1].disabled = false;
-                } else {
-                    this.accountTypeList[0].disabled = false;
-                    this.accountTypeList[1].disabled = true;
+                    this.add_bank.card_account_type = "personal";
                 }
             },
             updateOwnAccountType() {
                 if (this.detail.identity_account_type === "company") {
-                    this.accountTypeList[0].disabled = true;
-                    this.accountTypeList[1].disabled = false;
+                    this.accountTypeList = this.accountCompanyTypeList;
                     this.add_bank.card_account_type = "company";
                 } else {
-                    this.accountTypeList[0].disabled = false;
-                    this.accountTypeList[1].disabled = true;
+                    this.accountTypeList = this.accountPersonalTypeList;
                     this.add_bank.card_account_type = "personal";
                 }
             },
@@ -811,8 +816,18 @@
             },
             //-------
             changeImgFile(e) {
-                this.add_bank.authorize_photo = e.raw;
-                this.update_box_show = false; //只给上传一张
+                const isLt500K = e.raw.size / 1024 < 500;
+                if (isLt500K) {
+                    this.add_bank.authorize_photo = e.raw;
+                    this.update_box_show = false; //只给上传一张
+                } else {
+                    this.$message.error(this.$i18n.t("user.upload_exceed_tip"));
+                    for (var i = 0; i < fileList.length; i++) {
+                        if (fileList[i].uid == e.uid) {
+                            fileList.splice(i, 1);
+                        }
+                    }
+                }
             },
             removeImgFile() {
                 this.update_box_show = true;

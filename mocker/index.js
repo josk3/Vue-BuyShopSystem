@@ -3666,7 +3666,7 @@ const proxy = {
                 detail: {
                     "identity_reason": '图片不清楚',
                     "name": "测试26",
-                    "identity_name": "",
+                    "identity_name": "zz",
                     "identity_photo_a": "wef",
                     "identity_photo_b": null,
                     "identity_photo_c": null,

@@ -4,18 +4,25 @@
             --
         </div>
         <div v-else class="col-6">
-            <div class="" slot="tip">
-                {{ $t("user.please_follow")
-                }} <el-popover placement="top" width="350" trigger="click">
+            <div class="" slot="tip" v-if="accept_pdf === true">
+                {{ $t("user.please_follow") }}
+                <a target="_blank" class="download-trigger text-blue" :href="img_url_demo"> {{ $t("user.sample_template") }}</a>
+                ,{{ img_url_tip }}
+            </div>
+            <div class="" slot="tip" v-else>
+                {{ $t("user.please_follow") }}
+                <el-popover placement="top" width="350" trigger="click">
                     <img class="img-up-once" height="200" :src="img_url_demo" alt="img" /><span class="text-blue" style="cursor:pointer;" slot="reference">{{ $t("user.sample_template") }}</span> </el-popover
                 >,{{ img_url_tip }}
             </div>
-            <el-upload :class="css" drag accept="image/*" action="" :limit="1" :on-change="changeImgFile" :on-remove="removeImgFile" :auto-upload="false">
+            <el-upload :class="css" drag :accept="accept_pdf === true ? 'image/*,.pdf' : 'image/*'" action="" :limit="1" :on-change="changeImgFile" :on-remove="removeImgFile" :auto-upload="false">
                 <i class="el-icon-upload"></i>
                 <div class="el-upload__text">
                     {{ $t("comm.upload_file_drag_click[0]") }}
                     <em> {{ $t("comm.upload_file_drag_click[1]") }}</em>
                 </div>
+                <div class="el-upload__tip" slot="tip" v-if="accept_pdf === true">{{ $t("bank.upload_authorize_photo_tip") }}</div>
+                <div class="el-upload__tip" slot="tip" v-else>{{ $t("user.upload_picture_tip") }}</div>
                 <div class="el-upload__tip" slot="tip">{{ txt }}</div>
             </el-upload>
         </div>
@@ -32,7 +39,7 @@
 
     export default {
         name: "UploadImgOnce", //上传一个图片文件
-        props: ["txt", "size", "css", "img_url", "disable", "img_url_tip", "img_url_demo"],
+        props: ["txt", "size", "css", "img_url", "disable", "img_url_tip", "img_url_demo", "accept_pdf"],
         data() {
             return {
                 loading: false,
@@ -63,10 +70,20 @@
             checkImgUrl(val) {
                 if (!isEmpty(val) && val !== "--") this.is_show = true;
             },
-            changeImgFile(e) {
-                this.is_show = false;
-                this.$emit("img", e.raw);
-                this.update_box_show = false; //只给上传一张
+            changeImgFile(e, fileList) {
+                const isLt500K = e.raw.size / 1024 < 500;
+                if (isLt500K) {
+                    this.is_show = false;
+                    this.$emit("img", e.raw);
+                    this.update_box_show = false; //只给上传一张
+                } else {
+                    this.$message.error(this.$i18n.t("user.upload_exceed_tip"));
+                    for (var i = 0; i < fileList.length; i++) {
+                        if (fileList[i].uid == e.uid) {
+                            fileList.splice(i, 1);
+                        }
+                    }
+                }
             },
             removeImgFile() {
                 this.update_box_show = true;

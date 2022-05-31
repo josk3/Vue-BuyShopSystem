@@ -220,7 +220,7 @@
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.identity_photo_b_url)"
                                         @img="updateImg($event, 'identity_photo_b')"
-                                        :img_url_demo="fullImgUrl(detail.identity_photo_b_demo_url)"
+                                        :img_url_demo="detail.identity_photo_b_demo_url"
                                         :img_url_tip="setIdentityPhotoTipB()"
                                     ></UploadImgOnce>
                                 </el-form-item>
@@ -236,7 +236,7 @@
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.identity_photo_c_url)"
                                         @img="updateImg($event, 'identity_photo_c')"
-                                        :img_url_demo="fullImgUrl(detail.identity_photo_c_demo_url)"
+                                        :img_url_demo="detail.identity_photo_c_demo_url"
                                         :img_url_tip="detail.identity_country_type === 'outland' ? $t('user.identity_photo_c_outland_tip') : $t('user.identity_photo_c_tip')"
                                     ></UploadImgOnce>
                                 </el-form-item>
@@ -247,8 +247,9 @@
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.chairman_authorization_url)"
                                         @img="updateImg($event, 'chairman_authorization')"
-                                        :img_url_demo="fullImgUrl(detail.chairman_authorization_demo_url)"
+                                        :img_url_demo="detail.chairman_authorization_demo_url"
                                         :img_url_tip="$t('user.chairman_authorization_tip')"
+                                        :accept_pdf="true"
                                     ></UploadImgOnce>
                                 </el-form-item>
                                 <hr />
@@ -838,14 +839,14 @@
             getPhotoDemoA() {
                 if (this.detail.identity_country_type === "outland") {
                     if (this.detail.personal_identity === "passport") {
-                        return this.fullImgUrl(this.detail.identity_photo_a_passport_demo_url);
+                        return this.detail.identity_photo_a_passport_demo_url;
                     } else if (this.detail.personal_identity === "hk_pass") {
-                        return this.fullImgUrl(this.detail.identity_photo_a_hk_demo_url);
+                        return this.detail.identity_photo_a_hk_demo_url;
                     } else {
-                        return this.fullImgUrl(this.detail.identity_photo_a_id_demo_url);
+                        return this.detail.identity_photo_a_id_demo_url;
                     }
                 } else {
-                    return this.fullImgUrl(this.detail.identity_photo_a_id_demo_url);
+                    return this.detail.identity_photo_a_id_demo_url;
                 }
             },
             setIdentityPhotoTipA() {
