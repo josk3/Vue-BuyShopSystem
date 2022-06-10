@@ -141,51 +141,51 @@
             <!--            -->
             <el-card class="box-card wpy-card mb-2" shadow="never" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
-                    <span>{{ $t("bank.settle_bank") }}</span>
+                    <span>{{ $t("bank.settle_bank") }}</span> <small v-show="add_bank.status !== 0"> {{ add_bank.status | identityStatus }}</small>
                 </div>
                 <div class="row">
                     <div class="col-10">
-                        <div v-if="bank" class="info-control-list">
+                        <div v-if="add_bank.status === 1" class="info-control-list">
                             <div class="row">
                                 <label class="col-4">{{ $t("bank.card_type") }}</label>
                                 <div class="col-8">
-                                    <span>{{ bank.card_type_str }}</span>
+                                    <span>{{ add_bank.card_type_str }}</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <label class="col-4">{{ $t("bank.name") }}</label>
                                 <div class="col-8">
-                                    <span>{{ bank.card_account_name }}</span>
+                                    <span>{{ add_bank.card_account_name }}</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <label class="col-4">{{ $t("bank.bank_name") }}</label>
                                 <div class="col-8">
-                                    <span>{{ bank.bank_name }}</span>
+                                    <span>{{ add_bank.bank_name }}</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <label class="col-4">{{ $t("bank.card_no") }}</label>
                                 <div class="col-8">
-                                    <ShowMoreBtn :txt="bank.card_no"></ShowMoreBtn>
+                                    <ShowMoreBtn :txt="add_bank.card_no"></ShowMoreBtn>
                                 </div>
                             </div>
                             <div class="row">
                                 <label class="col-4">{{ $t("bank.card_identity_number") }}</label>
                                 <div class="col-8">
-                                    <span>{{ bank.card_identity_number }}</span>
+                                    <span>{{ add_bank.card_identity_number }}</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <label class="col-4">{{ $t("bank.bank_card_mobile") }}</label>
                                 <div class="col-8">
-                                    <span>{{ bank.bank_card_mobile }}</span>
+                                    <span>{{ add_bank.bank_card_mobile }}</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <label class="col-4">{{ $t("comm.created") }}</label>
                                 <div class="col-8">
-                                    <span>{{ bank.created | toDay }}</span>
+                                    <span>{{ add_bank.created | toDay }}</span>
                                 </div>
                             </div>
                         </div>
@@ -243,10 +243,8 @@
             <div>
                 <div style="display:flex;justify-content:center;">
                     <el-radio-group v-model="add_bank.card_country_type" @change="typeChange" style="margin-top:20px;">
-                        <el-radio-button label="inland">
-                            {{ $t("bank.inland_bank_account") }}
-                        </el-radio-button>
-                        <el-radio-button label="outland">{{ $t("bank.outland_bank_account") }}</el-radio-button>
+                        <el-radio-button label="inland" :disabled="detail.card_country_type !== 'inland'">{{ $t("bank.inland_bank_account") }} </el-radio-button>
+                        <el-radio-button label="outland" :disabled="detail.card_country_type !== 'outland'">{{ $t("bank.outland_bank_account") }}</el-radio-button>
                     </el-radio-group>
                 </div>
                 <el-form ref="add_bank" :model="add_bank" :show-message="false" :rules="rules" label-width="140px" class="pl-1 pr-3 pt-3 pb-0">
@@ -279,13 +277,26 @@
                         </template>
                         <el-input v-model="add_bank.card_company_register_address"></el-input>
                     </el-form-item>
-                    <el-form-item prop="bank_country" v-show="add_bank.card_country_type === 'outland'">
+                    <el-form-item prop="bank_country" v-show="add_bank.card_country_type === 'outland' && add_bank.card_account_type === 'company'">
                         <template slot="label">
                             <el-popover placement="top-start" width="240" trigger="hover" :content="$t('bank.bank_country_tip')">
                                 <span slot="reference">{{ $t("bank.bank_country") }} <i class="el-icon-warning-outline"></i></span>
                             </el-popover>
                         </template>
-                        <el-input v-model="add_bank.bank_country"></el-input>
+                        <div style="display:flex;">
+                            <el-select v-model="select_country" :placeholder="$t('comm.country_name')" value-key="iso2" @change="selectCountry" filterable clearable>
+                                <el-option v-for="item in area_all_list" :key="item.iso2" :label="item.name + ' (' + item.iso2 + ')'" :value="item">
+                                    <span style="float: left">{{ item.name }}</span>
+                                    <span style="float: right; color: #8492a6; font-size: 13px">{{ item.iso2 }}</span>
+                                </el-option>
+                            </el-select>
+                            <el-select v-if="area_states_list" v-model="select_state" :placeholder="$t('risk.state_name')" :validate-event="false" value-key="id" @change="selectState" filterable clearable style="margin-left:5px;">
+                                <el-option v-for="state in area_states_list" :key="state.id" :label="state.name + ' (' + state.state_code + ')'" :value="state">
+                                    <span style="float: left">{{ state.name }}</span>
+                                    <span style="float: right; color: #8492a6; font-size: 13px">{{ state.state_code }}</span>
+                                </el-option>
+                            </el-select>
+                        </div>
                     </el-form-item>
 
                     <div class="outland_company" v-show="add_bank.card_country_type === 'outland' && add_bank.card_account_type === 'company'">
@@ -358,7 +369,36 @@
                             </template>
                             <el-input v-model="add_bank.bank_name"></el-input>
                         </el-form-item>
-                        <el-form-item prop="bank_address">
+                        <el-form-item prop="bank_country" v-if="add_bank.card_country_type === 'outland'">
+                            <template slot="label">
+                                <el-popover placement="top-start" width="240" trigger="hover" :content="$t('bank.bank_country_tip')">
+                                    <span slot="reference">{{ $t("bank.bank_country2") }} <i class="el-icon-warning-outline"></i></span>
+                                </el-popover>
+                            </template>
+                            <div style="display:flex;">
+                                <el-select v-model="select_country" :placeholder="$t('comm.country_name')" value-key="iso2" @change="selectCountry" filterable clearable>
+                                    <el-option v-for="item in area_all_list" :key="item.iso2" :label="item.name + ' (' + item.iso2 + ')'" :value="item">
+                                        <span style="float: left">{{ item.name }}</span>
+                                        <span style="float: right; color: #8492a6; font-size: 13px">{{ item.iso2 }}</span>
+                                    </el-option>
+                                </el-select>
+                                <el-select v-if="area_states_list" v-model="select_state" :placeholder="$t('risk.state_name')" :validate-event="false" value-key="id" @change="selectState" filterable clearable style="margin-left:5px;">
+                                    <el-option v-for="state in area_states_list" :key="state.id" :label="state.name + ' (' + state.state_code + ')'" :value="state">
+                                        <span style="float: left">{{ state.name }}</span>
+                                        <span style="float: right; color: #8492a6; font-size: 13px">{{ state.state_code }}</span>
+                                    </el-option>
+                                </el-select>
+                            </div>
+                        </el-form-item>
+                        <el-form-item prop="bank_country" v-else>
+                            <template slot="label">
+                                <el-popover placement="top-start" width="240" trigger="hover" :content="$t('bank.bank_country_tip2')">
+                                    <span slot="reference">{{ $t("bank.bank_country2") }} <i class="el-icon-warning-outline"></i></span>
+                                </el-popover>
+                            </template>
+                            <el-cascader v-model="select_province" @change="handleInlandCountryChange" :options="inland_area_all_list" :props="{ value: 'code', label: 'name' }"> </el-cascader>
+                        </el-form-item>
+                        <el-form-item prop="bank_address" v-show="add_bank.card_country_type === 'outland'">
                             <template slot="label">
                                 <el-popover placement="top-start" width="240" trigger="hover" :content="$t('bank.bank_address_tip')">
                                     <span slot="reference">{{ $t("bank.bank_address") }} <i class="el-icon-warning-outline"></i></span>
@@ -412,7 +452,7 @@
                             <div :class="cssType">
                                 <div class="" slot="tip">
                                     {{ $t("comm.download") }}
-                                    <a target="_blank" class="download-trigger text-blue" :href="add_bank.card_country_type === 'outland' ? companyAuthorizationTemplate : companyAuthorizationTemplate"> {{ $t("user.sample_template") }}</a>
+                                    <a target="_blank" class="download-trigger text-blue" :href="companyAuthorizationTemplate"> {{ $t("user.sample_template") }}</a>
                                     {{ $t("comm.download_Authorization_explain[1]") }}
                                 </div>
                                 <div class="col-10" style="padding-left:0;">
@@ -447,6 +487,7 @@
     import ShowMoreBtn from "@/components/ShowMoreBtn";
     import { addBank, getMerIdentity, getMerInfo, getMerCurrencyList } from "@/service/merchantSer";
     import { isEmpty } from "@/utils/validate";
+    import { getAreaJsonData, getInlandAreaJsonData } from "@/service/riskAreaSer";
 
     export default {
         name: "merchant_info",
@@ -454,7 +495,7 @@
         computed: {
             //watch跟踪数据变化, 重点user, configs
             ...mapState({
-                menus: (state) => state.user.menus,
+                menus: state => state.user.menus,
             }),
             configs() {
                 return configs;
@@ -482,6 +523,15 @@
                     callback();
                 }
             };
+            var checkInlandPhone = (rule, value, callback) => {
+                //11位手机号
+                const reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+                if (!reg.test(value)) {
+                    return callback(this.$message.error(this.$i18n.t("bank.bank_card_mobile") + this.$i18n.t("user.incorrect_format")));
+                } else {
+                    callback();
+                }
+            };
             return {
                 loading: false,
                 hold_edit: false,
@@ -491,22 +541,28 @@
                 other_info: {},
                 //-
                 addBankDialogVisible: false,
-                add_bank: this.initBankFormObj(),
+                add_bank: {},
                 disable_name: true,
+                select_country: null,
+                select_state: null, //当前选择值
+                area_all_list: [], //所有国家数据
+                area_states_list: {}, //对应国家所有洲省数据
+                inland_area_all_list: [],
+                select_province: null,
                 rules: {},
                 //境内及境外个人
                 rulesA: {
-                    card_country_type: [{ required: true, message: "", trigger: "change" }],
-                    payee_type: [{ required: true, message: "", trigger: "change" }],
-                    card_account_type: [{ required: true, message: "", trigger: "change" }],
+                    card_country_type: [{ required: true, message: "", trigger: "blur" }],
+                    payee_type: [{ required: true, message: "", trigger: "blur" }],
+                    card_account_type: [{ required: true, message: "", trigger: "blur" }],
                     name: [{ required: true, message: "", trigger: "blur" }],
                     bank_name: [{ required: true, message: "", trigger: "blur" }],
-                    bank_address: [{ required: true, message: "", trigger: "blur" }],
+                    bank_country: [{ required: true, message: "", trigger: "blur" }],
+                    // bank_address: [{ required: true, message: "", trigger: "blur" }],
                     card_no: [{ required: true, message: "", trigger: "blur" }],
 
                     bank_branch: [{ required: true, message: "", trigger: "blur" }],
                     inter_bank_no: [{ required: true, message: "", trigger: "blur" }],
-                    bank_card_mobile: [{ required: true, message: "", trigger: "blur" }],
                 },
                 //个人
                 rulesB: {
@@ -522,22 +578,31 @@
                 },
                 //境外
                 rulesD: {
-                    bank_country: [{ required: true, message: "", trigger: "blur" }],
+                    bank_address: [{ required: true, message: "", trigger: "blur" }],
+                    bank_card_mobile: [{ required: true, message: "", trigger: "blur" }],
                 },
                 //境外企业
                 rulesE: {
-                    card_country_type: [{ required: true, message: "", trigger: "change" }],
-                    payee_type: [{ required: true, message: "", trigger: "change" }],
-                    card_account_type: [{ required: true, message: "", trigger: "change" }],
+                    card_country_type: [{ required: true, message: "", trigger: "blur" }],
+                    payee_type: [{ required: true, message: "", trigger: "blur" }],
+                    card_account_type: [{ required: true, message: "", trigger: "blur" }],
                     name: [{ required: true, message: "", trigger: "blur" }],
                     bank_name: [{ required: true, message: "", trigger: "blur" }],
-                    bank_address: [{ required: true, message: "", trigger: "blur" }],
+                    bank_country: [{ required: true, message: "", trigger: "blur" }],
+                    // bank_address: [{ required: true, message: "", trigger: "blur" }],
                     card_no: [{ required: true, message: "", trigger: "blur" }],
 
                     card_company_register_address: [{ required: true, message: "", trigger: "blur" }],
                     route_mode: [{ required: true, message: "", trigger: "blur" }],
-                    bank_swift_no: [{ required: true, message: "", trigger: "change" }],
+                    bank_swift_no: [{ required: true, message: "", trigger: "blur" }],
                     bank_card_currency: [{ required: true, message: "", trigger: "blur" }],
+                },
+                //境内
+                rulesF: {
+                    bank_card_mobile: [
+                        { required: true, message: "", trigger: "blur" },
+                        { validator: checkInlandPhone, trigger: "blur" },
+                    ],
                 },
                 //境外第三方企业
                 rulesOTC: {},
@@ -554,7 +619,7 @@
 
                 //
                 ecmRuleData: [],
-                companyAuthorizationTemplate: configs.template.companyAuthorizationPath,
+                companyAuthorizationTemplate: configs.template.settleBasePath + "结算账户委托授权书-个人（最终）.pdf",
                 update_box_show: true,
                 sizeType: "sm-box-up",
                 cssType: "",
@@ -589,14 +654,14 @@
             loadMerInfo() {
                 this.loading = true;
                 getMerInfo()
-                    .then((res) => {
+                    .then(res => {
                         const { data } = res;
                         this.$data.info = data.info;
                         this.$data.other_info = data.other_info;
-                        this.$data.bank = data.bank;
+                        this.$data.add_bank = data.bank;
                         this.$data.ecmRuleData = data.ecm_rule;
 
-                        if (isEmpty(data.bank)) {
+                        if (this.add_bank.status !== 1) {
                             this.loadIdentity();
                             this.loadCurrencyList();
                         }
@@ -608,29 +673,40 @@
             loadIdentity() {
                 this.loading = true;
                 getMerIdentity()
-                    .then((res) => {
+                    .then(res => {
                         const { data } = res;
                         let detailData = data.detail;
-                        detailData.identity_country_type = "inland"; // 初始值
-                        detailData.identity_account_type = "personal"; //初始值
-
+                        detailData.card_country_type = "inland"; // 初始值
+                        detailData.card_account_type = "company"; //初始值
                         this.$data.detail = detailData;
-                        if (!isEmpty(this.$data.info.identity_account_type)) {
+                        this.$data.add_bank.payee_type = "own";
+                        this.$data.add_bank.route_mode = "SWIFT";
+                        if (!isEmpty(this.$data.info.card_account_type)) {
                             //type数据在info
-                            if (this.$data.info.identity_account_type === "company") {
-                                this.$data.detail.identity_account_type = "company";
+                            if (this.$data.info.card_account_type === "company") {
+                                this.$data.detail.card_account_type = "company";
+                                this.$data.add_bank.card_account_type = "company";
+                                 this.payeeTypeList = this.payeeCompanyTypeList;
                             } else {
-                                this.$data.detail.identity_account_type = "personal";
+                                this.$data.detail.card_account_type = "personal";
+                                this.$data.add_bank.card_account_type = "personal";
+                                this.payeeTypeList = this.payeePersonalTypeList;
                             }
                         }
-                        if (!isEmpty(this.$data.info.identity_country_type)) {
+                        if (!isEmpty(this.$data.info.card_country_type)) {
                             //type数据在info
-                            if (this.$data.info.identity_country_type === "outland") {
-                                this.$data.detail.identity_country_type = "outland";
+                            if (this.$data.info.card_country_type === "inland") {
+                                this.$data.detail.card_country_type = "inland";
+                                this.$data.add_bank.card_country_type = "inland";
                             } else {
-                                this.$data.detail.identity_country_type = "inland";
+                                this.$data.detail.card_country_type = "outland";
+                                this.$data.add_bank.card_country_type = "outland";
                             }
                         }
+
+                        // console.log(this.detail);
+                        console.log(this.$data.add_bank);
+                        this.typeChange();
                     })
                     .finally(() => {
                         this.loading = false;
@@ -639,7 +715,7 @@
             loadCurrencyList() {
                 this.loading = true;
                 getMerCurrencyList()
-                    .then((res) => {
+                    .then(res => {
                         const { data } = res;
                         this.$data.currency_list = data.currency_list;
                     })
@@ -659,37 +735,84 @@
                     }
                 });
             },
+            handleInlandCountryChange(value) {
+                if (isEmpty(value)) {
+                    this.select_province = null;
+                } else {
+                    this.add_bank.bank_state = value[0];
+                    this.add_bank.bank_city = value[1];
+                }
+            },
+            getProvinceJson() {
+                if (isEmpty(this.inland_area_all_list) || this.inland_area_all_list.length <= 0) {
+                    this.$data.loading = true;
+                    getInlandAreaJsonData()
+                        .then(res => {
+                            const { data } = res;
+                            this.$data.inland_area_all_list = data;
+                        })
+                        .finally(() => {
+                            this.$data.loading = false;
+                        });
+                }
+            },
+            selectCountry(val) {
+                let allState = {
+                    id: 0,
+                    name: "All",
+                    state_code: "all",
+                };
+                this.add_bank.bank_country = val.iso2;
+                this.select_state = null;
+                if (isEmpty(val)) {
+                    this.area_states_list = [];
+                    this.add_bank.bank_state = "";
+                } else {
+                    if (isEmpty(val.states) || val.states.length <= 0) {
+                        this.area_states_list = [allState];
+                        this.select_state = allState;
+                        this.add_bank.bank_state = allState.state_code;
+                    } else {
+                        this.area_states_list = val.states;
+                    }
+                }
+            },
+            selectState(val) {
+                this.add_bank.bank_state = val.state_code;
+            },
+            getCountryJson() {
+                if (isEmpty(this.area_all_list) || this.area_all_list.length <= 0) {
+                    this.$data.loading = true;
+                    getAreaJsonData()
+                        .then(res => {
+                            const { data } = res;
+                            this.$data.area_all_list = data;
+                        })
+                        .finally(() => {
+                            this.$data.loading = false;
+                        });
+                }
+            },
             openBankDialog(action) {
                 this.initBankForm();
                 this.loadMerInfo();
-                //
-                if (this.detail.identity_country_type === "outland") {
-                    this.add_bank.card_country_type = "outland";
-                } else {
-                    this.add_bank.card_country_type = "inland";
-                }
-                if (this.detail.identity_account_type === "personal") {
-                    this.add_bank.card_account_type = "personal";
-                    this.payeeTypeList = this.payeePersonalTypeList;
-                } else {
-                    this.add_bank.card_account_type = "company";
-                    this.payeeTypeList = this.payeeCompanyTypeList;
-                }
-                this.typeChange();
+
                 this.add_bank.action = action;
                 this.addBankDialogVisible = true;
             },
             typeChange() {
                 if (!isEmpty(this.add_bank) && !isEmpty(this.add_bank.card_country_type) && !isEmpty(this.add_bank.payee_type) && !isEmpty(this.add_bank.card_account_type)) {
                     if (this.add_bank.card_country_type === "outland") {
+                        this.getCountryJson();
                         if (this.add_bank.payee_type === "third") {
                             //third
                             this.updateThirdAccountType();
-                            this.add_bank.name = "";
                             this.disable_name = false;
                             if (this.add_bank.card_account_type === "company") {
+                                this.add_bank.name = this.detail.company_name;
                                 this.rules = Object.assign(this.rulesOTC, this.rulesE, this.rulesD, this.rulesC);
                             } else {
+                                this.add_bank.name = this.detail.identity_name;
                                 this.rules = Object.assign(this.rulesOTP, this.rulesD, this.rulesC, this.rulesB, this.rulesA);
                             }
                         } else {
@@ -706,15 +829,17 @@
                         }
                     } else {
                         // 境内
+                        this.getProvinceJson();
                         if (this.add_bank.payee_type === "third") {
                             //third
                             this.updateThirdAccountType();
-                            this.add_bank.name = "";
                             this.disable_name = false;
                             if (this.add_bank.card_account_type === "company") {
-                                this.rules = Object.assign(this.rulesITC, this.rulesC, this.rulesA);
+                                this.add_bank.name = this.detail.company_name;
+                                this.rules = Object.assign(this.rulesITC, this.rulesF, this.rulesC, this.rulesA);
                             } else {
-                                this.rules = Object.assign(this.rulesITP, this.rulesB, this.rulesC, this.rulesA);
+                                this.add_bank.name = this.detail.identity_name;
+                                this.rules = Object.assign(this.rulesITP, this.rulesF, this.rulesB, this.rulesC, this.rulesA);
                             }
                         } else {
                             //own
@@ -722,10 +847,10 @@
                             this.disable_name = true;
                             if (this.add_bank.card_account_type === "company") {
                                 this.add_bank.name = this.detail.company_name;
-                                this.rules = this.rulesA;
+                                this.rules = Object.assign(this.rulesF, this.rulesA);
                             } else {
                                 this.add_bank.name = this.detail.identity_name;
-                                this.rules = Object.assign(this.rulesB, this.rulesA);
+                                this.rules = Object.assign(this.rulesF, this.rulesB, this.rulesA);
                             }
                         }
                     }
@@ -735,12 +860,12 @@
             },
             updateThirdAccountType() {
                 this.accountTypeList = this.accountPersonalTypeList;
-                if (this.detail.identity_account_type === "company") {
+                if (this.detail.card_account_type === "company") {
                     this.add_bank.card_account_type = "personal";
                 }
             },
             updateOwnAccountType() {
-                if (this.detail.identity_account_type === "company") {
+                if (this.detail.card_account_type === "company") {
                     this.accountTypeList = this.accountCompanyTypeList;
                     this.add_bank.card_account_type = "company";
                 } else {
@@ -767,12 +892,14 @@
                     authorization_relation: "",
                     card_country_type: "inland",
                     payee_type: "own",
-                    card_account_type: "personal",
+                    card_account_type: "company",
                     bank_country: "",
                     card_company_register_address: "",
                     route_mode: "SWIFT",
                     bank_swift_no: "",
                     bank_card_currency: "",
+                    bank_state: "",
+                    bank_city: "",
                 };
             },
             initBankForm() {
@@ -783,7 +910,11 @@
                 this.$refs.add_bank.resetFields(); //重置
             },
             submitAddBank() {
-                this.$refs["add_bank"].validate((valid) => {
+                if ((this.add_bank.card_country_type === "outland" && this.detail.card_country_type !== "outland") || (this.add_bank.card_country_type === "inland" && this.detail.card_country_type !== "inland")) {
+                    this.$message.error("land type error!");
+                    return;
+                }
+                this.$refs["add_bank"].validate(valid => {
                     if (!valid) {
                         return false;
                     } else {
@@ -796,7 +927,7 @@
                                 this.$data.loading = true;
                                 let formData = new FormData();
                                 let params = this.add_bank;
-                                Object.keys(params).forEach((key) => {
+                                Object.keys(params).forEach(key => {
                                     //把json转成FormData
                                     formData.append(key, params[key]);
                                 });
@@ -815,7 +946,7 @@
                 });
             },
             //-------
-            changeImgFile(e) {
+            changeImgFile(e, fileList) {
                 const isLt500K = e.raw.size / 1024 < 500;
                 if (isLt500K) {
                     this.add_bank.authorize_photo = e.raw;

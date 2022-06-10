@@ -3,7 +3,7 @@
         <div v-if="disable === true">
             --
         </div>
-        <div v-else class="col-6">
+        <div v-else class="col-12">
             <div class="" slot="tip" v-if="accept_pdf === true">
                 {{ $t("user.please_follow") }}
                 <a target="_blank" class="download-trigger text-blue" :href="img_url_demo"> {{ $t("user.sample_template") }}</a>
@@ -11,24 +11,28 @@
             </div>
             <div class="" slot="tip" v-else>
                 {{ $t("user.please_follow") }}
-                <el-popover placement="top" width="350" trigger="click">
-                    <img class="img-up-once" height="200" :src="img_url_demo" alt="img" /><span class="text-blue" style="cursor:pointer;" slot="reference">{{ $t("user.sample_template") }}</span> </el-popover
+                <el-popover placement="top" trigger="click">
+                    <img class="img-up-once" height="400" :src="img_url_demo" alt="img" /><span class="text-blue" style="cursor:pointer;" slot="reference">{{ $t("user.sample_template") }}</span> </el-popover
                 >,{{ img_url_tip }}
             </div>
-            <el-upload :class="css" drag :accept="accept_pdf === true ? 'image/*,.pdf' : 'image/*'" action="" :limit="1" :on-change="changeImgFile" :on-remove="removeImgFile" :auto-upload="false">
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">
-                    {{ $t("comm.upload_file_drag_click[0]") }}
-                    <em> {{ $t("comm.upload_file_drag_click[1]") }}</em>
+            <div style="display:flex;">
+                <div class="col-6" style="padding-left:0px;padding-right:0px;">
+                    <el-upload :class="css" drag :accept="accept_pdf === true ? 'image/*,.pdf' : 'image/*'" action="" :limit="1" :on-change="changeImgFile" :on-remove="removeImgFile" :auto-upload="false">
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">
+                            {{ $t("comm.upload_file_drag_click[0]") }}
+                            <em> {{ $t("comm.upload_file_drag_click[1]") }}</em>
+                        </div>
+                        <div class="el-upload__tip el-upload__tip1" slot="tip" v-if="accept_pdf === true">{{ $t("bank.upload_authorize_photo_tip") }}</div>
+                        <div class="el-upload__tip el-upload__tip1" slot="tip" v-else>{{ $t("user.upload_picture_tip") }}</div>
+                        <div class="el-upload__tip" slot="tip">{{ txt }}</div>
+                    </el-upload>
                 </div>
-                <div class="el-upload__tip" slot="tip" v-if="accept_pdf === true">{{ $t("bank.upload_authorize_photo_tip") }}</div>
-                <div class="el-upload__tip" slot="tip" v-else>{{ $t("user.upload_picture_tip") }}</div>
-                <div class="el-upload__tip" slot="tip">{{ txt }}</div>
-            </el-upload>
-        </div>
-        <div class="col-6">
-            <div v-if="is_show">
-                <img class="img-up-once" height="150" :src="img_url" alt="img" />
+                <div class="col-6">
+                    <div v-if="is_show">
+                        <img class="img-up-once" height="150" :src="img_url" alt="img" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -96,6 +100,9 @@
 <style>
     .upload-img-once .el-upload__tip {
         line-height: 12px;
+    }
+
+    .upload-img-once .el-upload__tip1 {
         margin-top: 0;
     }
 

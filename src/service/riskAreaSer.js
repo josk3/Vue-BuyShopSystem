@@ -26,3 +26,7 @@ export function riskAreaAdd(params) {
 export function getAreaJsonData() {
     return localJson('/json/countries+states.json');
 }
+
+export function getInlandAreaJsonData() {
+    return localJson('/json/province+city.json');
+}

@@ -72,7 +72,7 @@
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.company_identity_photo_url)"
-                                        :img_url_demo="detail.company_identity_photo_demo_url"
+                                        :img_url_demo="company_identity_photo_demo_url"
                                         :img_url_tip="$t('user.upload_company_identity_photo_tip')"
                                         @img="updateImg($event, 'company_identity_photo')"
                                     ></UploadImgOnce>
@@ -107,10 +107,10 @@
                                 <el-form-item :label="$t('user.company_register_country')" prop="company_register_country">
                                     <el-input v-model="detail.company_register_country"></el-input>
                                 </el-form-item>
-                                <el-form-item :label="$t('user.is_own_subsidiary')" prop="is_own_subsidiary">
+                                <el-form-item :label="$t('user.is_own_subsidiary')" prop="is_own_subsidiary" style="margin-bottom:0px;">
                                     <el-radio-group v-model="detail.is_own_subsidiary" @change="showSubsidiary">
-                                        <el-radio :label="true">{{ $t("status.yes") }}</el-radio>
-                                        <el-radio :label="false">{{ $t("status.no") }}</el-radio>
+                                        <el-radio :label="true" style="line-height:36px;">{{ $t("status.yes") }}</el-radio>
+                                        <el-radio :label="false" style="line-height:36px;">{{ $t("status.no") }}</el-radio>
                                     </el-radio-group>
                                 </el-form-item>
                                 <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_name">
@@ -125,7 +125,7 @@
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.company_business_identity_photo_url)"
-                                        :img_url_demo="detail.company_business_identity_photo_demo_url"
+                                        :img_url_demo="company_business_identity_photo_demo_url"
                                         :img_url_tip="$t('user.company_business_identity_photo_tip')"
                                         @img="updateImg($event, 'company_business_identity_photo')"
                                     ></UploadImgOnce>
@@ -136,7 +136,7 @@
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.company_register_identity_photo_url)"
-                                        :img_url_demo="detail.company_register_identity_photo_demo_url"
+                                        :img_url_demo="company_register_identity_photo_demo_url"
                                         :img_url_tip="$t('user.company_register_identity_photo_tip')"
                                         @img="updateImg($event, 'company_register_identity_photo')"
                                     ></UploadImgOnce>
@@ -147,7 +147,7 @@
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.company_annual_report_photo_url)"
-                                        :img_url_demo="detail.company_annual_report_photo_demo_url"
+                                        :img_url_demo="company_annual_report_photo_demo_url"
                                         :img_url_tip="$t('user.company_annual_report_photo_tip')"
                                         @img="updateImg($event, 'company_annual_report_photo')"
                                     ></UploadImgOnce>
@@ -171,7 +171,13 @@
                                     <el-input v-model="detail.identity_name"></el-input>
                                 </el-form-item>
                                 <el-form-item v-show="detail.identity_country_type === 'outland' && detail.identity_account_type === 'personal'" :label="$t('user.belong_what_country')" prop="belong_what_country">
-                                    <el-input v-model="detail.belong_what_country"></el-input>
+                                    <!-- <el-input v-model="detail.belong_what_country"></el-input> -->
+                                    <el-select v-model="select_country" :placeholder="$t('comm.country_name')" value-key="iso2" @change="selectCountry" filterable clearable>
+                                        <el-option v-for="item in area_all_list" :key="item.iso2" :label="item.name + ' (' + item.iso2 + ')'" :value="item">
+                                            <span style="float: left">{{ item.name }}</span>
+                                            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.iso2 }}</span>
+                                        </el-option>
+                                    </el-select>
                                 </el-form-item>
 
                                 <el-form-item prop="personal_identity" v-show="detail.identity_country_type === 'outland'">
@@ -220,7 +226,7 @@
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.identity_photo_b_url)"
                                         @img="updateImg($event, 'identity_photo_b')"
-                                        :img_url_demo="detail.identity_photo_b_demo_url"
+                                        :img_url_demo="identity_photo_b_demo_url"
                                         :img_url_tip="setIdentityPhotoTipB()"
                                     ></UploadImgOnce>
                                 </el-form-item>
@@ -236,7 +242,7 @@
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.identity_photo_c_url)"
                                         @img="updateImg($event, 'identity_photo_c')"
-                                        :img_url_demo="detail.identity_photo_c_demo_url"
+                                        :img_url_demo="identity_photo_c_demo_url"
                                         :img_url_tip="detail.identity_country_type === 'outland' ? $t('user.identity_photo_c_outland_tip') : $t('user.identity_photo_c_tip')"
                                     ></UploadImgOnce>
                                 </el-form-item>
@@ -247,7 +253,7 @@
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.chairman_authorization_url)"
                                         @img="updateImg($event, 'chairman_authorization')"
-                                        :img_url_demo="detail.chairman_authorization_demo_url"
+                                        :img_url_demo="chairman_authorization_demo_url"
                                         :img_url_tip="$t('user.chairman_authorization_tip')"
                                         :accept_pdf="true"
                                     ></UploadImgOnce>
@@ -314,13 +320,14 @@
     import UploadImgOnce from "@/components/UploadImgOnce";
     import { isEmpty } from "@/utils/validate";
     import { i18n } from "element-ui/lib/locale";
+    import { getAreaJsonData } from "@/service/riskAreaSer";
     export default {
         name: "merchant_identity",
         components: { UploadImgOnce },
         computed: {
             //watch跟踪数据变化, 重点user, configs
             ...mapState({
-                menus: (state) => state.user.menus,
+                menus: state => state.user.menus,
             }),
             configs() {
                 return configs;
@@ -369,6 +376,19 @@
                     identity_account_type: "company",
                     is_own_subsidiary: false,
                 },
+                select_country: null,
+                area_all_list: [], //所有国家数据
+                company_identity_photo_demo_url: configs.template.settleBasePath + "营业执照.jpg",
+                company_business_identity_photo_demo_url: configs.template.settleBasePath + "商业登记证.jpg",
+                company_register_identity_photo_demo_url: configs.template.settleBasePath + "企业注册证书.jpg",
+                company_annual_report_photo_demo_url: configs.template.settleBasePath + "法团成立表格-3.jpg",
+                identity_photo_a_passport_demo_url: configs.template.settleBasePath + "护照.jpg",
+                identity_photo_a_hk_demo_url: configs.template.settleBasePath + "港澳通行证.jpg",
+                identity_photo_a_id_demo_url: configs.template.settleBasePath + "%E5%A2%83%E5%86%85_%E8%BA%AB%E4%BB%BD%E8%AF%81%E6%AD%A3%E9%9D%A2%2B.jpg",
+                identity_photo_b_demo_url: configs.template.settleBasePath + "境内_身份证反面.jpg",
+                identity_photo_c_demo_url: configs.template.settleBasePath + "境内_手持身份证.jpg",
+                chairman_authorization_demo_url: configs.template.settleBasePath + "董事授权书.pdf",
+                
                 rules: {},
                 //基础
                 rulesA: {
@@ -839,14 +859,14 @@
             getPhotoDemoA() {
                 if (this.detail.identity_country_type === "outland") {
                     if (this.detail.personal_identity === "passport") {
-                        return this.detail.identity_photo_a_passport_demo_url;
+                        return this.identity_photo_a_passport_demo_url;
                     } else if (this.detail.personal_identity === "hk_pass") {
-                        return this.detail.identity_photo_a_hk_demo_url;
+                        return this.identity_photo_a_hk_demo_url;
                     } else {
-                        return this.detail.identity_photo_a_id_demo_url;
+                        return this.identity_photo_a_id_demo_url;
                     }
                 } else {
-                    return this.detail.identity_photo_a_id_demo_url;
+                    return this.identity_photo_a_id_demo_url;
                 }
             },
             setIdentityPhotoTipA() {
@@ -875,6 +895,22 @@
                 if (isEmpty(path)) return null;
                 return configs.imgBaseUrl + path;
             },
+            selectCountry(val) {
+                this.detail.belong_what_country = val.iso2;
+            },
+            getCountryJson() {
+                if (isEmpty(this.area_all_list) || this.area_all_list.length <= 0) {
+                    this.$data.loading = true;
+                    getAreaJsonData()
+                        .then(res => {
+                            const { data } = res;
+                            this.$data.area_all_list = data;
+                        })
+                        .finally(() => {
+                            this.$data.loading = false;
+                        });
+                }
+            },
             typeChange() {
                 console.log("identity_country_type:" + this.detail.identity_country_type);
                 let detail = this.detail;
@@ -890,6 +926,7 @@
                             }
                         } else {
                             this.rules = Object.assign(this.rulesD, this.rulesAOut, this.rulesA);
+                            this.getCountryJson();
                         }
                     } else {
                         if (this.detail.identity_account_type === "company") {
@@ -951,7 +988,7 @@
             loadMerData() {
                 this.loading = true;
                 getMerInfo()
-                    .then((res) => {
+                    .then(res => {
                         const { data } = res;
                         this.$data.info = data.info;
                         this.$data.hold_edit = data.info.identity_validated || data.info.identity_status === 2;
@@ -964,7 +1001,7 @@
             loadIdentityData() {
                 this.loading = true;
                 getMerIdentity()
-                    .then((res) => {
+                    .then(res => {
                         const { data } = res;
                         let detailData = data.detail;
                         detailData.identity_country_type = "inland"; // 初始值
@@ -1007,14 +1044,14 @@
                 this.detail.company_expire_date = "9999-12-31";
             },
             submitDetail() {
-                this.$refs["detail"].validate((valid) => {
+                this.$refs["detail"].validate(valid => {
                     if (!valid) {
                         return false;
                     } else {
                         this.loading = true;
                         let formData = new FormData();
                         let params = this.detail;
-                        Object.keys(params).forEach((key) => {
+                        Object.keys(params).forEach(key => {
                             //把json转成FormData
                             formData.append(key, params[key]);
                             console.log(key + ": " + params[key] + "; ");
@@ -1033,7 +1070,7 @@
             },
             updateImg(e, k) {
                 this.detail[k] = e;
-                this.$refs.detail.validateField([k], (formError) => {
+                this.$refs.detail.validateField([k], formError => {
                     if (formError) {
                         return false;
                     }
@@ -1042,4 +1079,9 @@
         },
     };
 </script>
-<style scoped></style>
+<style scoped>
+    ::v-deep .el-radio-button--medium .el-radio-button__inner {
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+</style>
