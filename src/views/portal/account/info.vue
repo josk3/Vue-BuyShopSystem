@@ -141,11 +141,11 @@
             <!--            -->
             <el-card class="box-card wpy-card mb-2" shadow="never" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
-                    <span>{{ $t("bank.settle_bank") }}</span> <small v-show="add_bank.status !== 0"> {{ add_bank.status | identityStatus }}</small>
+                    <span>{{ $t("bank.settle_bank") }}</span>  <small v-show="add_bank.status === 1 || add_bank.status === 2 || add_bank.status === 3"> <i class="el-icon-info text-blue"></i> {{ add_bank.status | identityStatus }}</small>
                 </div>
                 <div class="row">
                     <div class="col-10">
-                        <div v-if="add_bank.status === 1" class="info-control-list">
+                        <div v-if="add_bank.status === 1 || add_bank.status === 2" class="info-control-list">
                             <div class="row">
                                 <label class="col-4">{{ $t("bank.card_type") }}</label>
                                 <div class="col-8">
@@ -277,14 +277,14 @@
                         </template>
                         <el-input v-model="add_bank.card_company_register_address"></el-input>
                     </el-form-item>
-                    <el-form-item prop="bank_country" v-show="add_bank.card_country_type === 'outland' && add_bank.card_account_type === 'company'">
+                    <el-form-item prop="select_country" v-show="add_bank.card_country_type === 'outland' && add_bank.card_account_type === 'company'">
                         <template slot="label">
                             <el-popover placement="top-start" width="240" trigger="hover" :content="$t('bank.bank_country_tip')">
                                 <span slot="reference">{{ $t("bank.bank_country") }} <i class="el-icon-warning-outline"></i></span>
                             </el-popover>
                         </template>
                         <div style="display:flex;">
-                            <el-select v-model="select_country" :placeholder="$t('comm.country_name')" value-key="iso2" @change="selectCountry" filterable clearable>
+                            <el-select v-model="add_bank.select_country" :placeholder="$t('comm.country_name')" value-key="iso2" @change="selectCountry" filterable clearable>
                                 <el-option v-for="item in area_all_list" :key="item.iso2" :label="item.name + ' (' + item.iso2 + ')'" :value="item">
                                     <span style="float: left">{{ item.name }}</span>
                                     <span style="float: right; color: #8492a6; font-size: 13px">{{ item.iso2 }}</span>
@@ -369,14 +369,14 @@
                             </template>
                             <el-input v-model="add_bank.bank_name"></el-input>
                         </el-form-item>
-                        <el-form-item prop="bank_country" v-if="add_bank.card_country_type === 'outland'">
+                        <el-form-item prop="select_country" v-if="add_bank.card_country_type === 'outland'">
                             <template slot="label">
                                 <el-popover placement="top-start" width="240" trigger="hover" :content="$t('bank.bank_country_tip')">
                                     <span slot="reference">{{ $t("bank.bank_country2") }} <i class="el-icon-warning-outline"></i></span>
                                 </el-popover>
                             </template>
                             <div style="display:flex;">
-                                <el-select v-model="select_country" :placeholder="$t('comm.country_name')" value-key="iso2" @change="selectCountry" filterable clearable>
+                                <el-select v-model="add_bank.select_country" :placeholder="$t('comm.country_name')" value-key="iso2" @change="selectCountry" filterable clearable>
                                     <el-option v-for="item in area_all_list" :key="item.iso2" :label="item.name + ' (' + item.iso2 + ')'" :value="item">
                                         <span style="float: left">{{ item.name }}</span>
                                         <span style="float: right; color: #8492a6; font-size: 13px">{{ item.iso2 }}</span>
@@ -390,13 +390,13 @@
                                 </el-select>
                             </div>
                         </el-form-item>
-                        <el-form-item prop="bank_country" v-else>
+                        <el-form-item prop="select_province" v-else>
                             <template slot="label">
                                 <el-popover placement="top-start" width="240" trigger="hover" :content="$t('bank.bank_country_tip2')">
                                     <span slot="reference">{{ $t("bank.bank_country2") }} <i class="el-icon-warning-outline"></i></span>
                                 </el-popover>
                             </template>
-                            <el-cascader v-model="select_province" @change="handleInlandCountryChange" :options="inland_area_all_list" :props="{ value: 'code', label: 'name' }"> </el-cascader>
+                            <el-cascader v-model="add_bank.select_province" @change="handleInlandCountryChange" :options="inland_area_all_list" :props="{ value: 'code', label: 'name' }" clearable> </el-cascader>
                         </el-form-item>
                         <el-form-item prop="bank_address" v-show="add_bank.card_country_type === 'outland'">
                             <template slot="label">
@@ -543,22 +543,18 @@
                 addBankDialogVisible: false,
                 add_bank: {},
                 disable_name: true,
-                select_country: null,
                 select_state: null, //当前选择值
                 area_all_list: [], //所有国家数据
                 area_states_list: {}, //对应国家所有洲省数据
                 inland_area_all_list: [],
-                select_province: null,
                 rules: {},
                 //境内及境外个人
                 rulesA: {
-                    card_country_type: [{ required: true, message: "", trigger: "blur" }],
-                    payee_type: [{ required: true, message: "", trigger: "blur" }],
-                    card_account_type: [{ required: true, message: "", trigger: "blur" }],
+                    card_country_type: [{ required: true, message: "", trigger: "change" }],
+                    payee_type: [{ required: true, message: "", trigger: "change" }],
+                    card_account_type: [{ required: true, message: "", trigger: "change" }],
                     name: [{ required: true, message: "", trigger: "blur" }],
                     bank_name: [{ required: true, message: "", trigger: "blur" }],
-                    bank_country: [{ required: true, message: "", trigger: "blur" }],
-                    // bank_address: [{ required: true, message: "", trigger: "blur" }],
                     card_no: [{ required: true, message: "", trigger: "blur" }],
 
                     bank_branch: [{ required: true, message: "", trigger: "blur" }],
@@ -578,6 +574,7 @@
                 },
                 //境外
                 rulesD: {
+                    select_country: [{ required: true, message: "", trigger: "change" }],
                     bank_address: [{ required: true, message: "", trigger: "blur" }],
                     bank_card_mobile: [{ required: true, message: "", trigger: "blur" }],
                 },
@@ -588,8 +585,6 @@
                     card_account_type: [{ required: true, message: "", trigger: "blur" }],
                     name: [{ required: true, message: "", trigger: "blur" }],
                     bank_name: [{ required: true, message: "", trigger: "blur" }],
-                    bank_country: [{ required: true, message: "", trigger: "blur" }],
-                    // bank_address: [{ required: true, message: "", trigger: "blur" }],
                     card_no: [{ required: true, message: "", trigger: "blur" }],
 
                     card_company_register_address: [{ required: true, message: "", trigger: "blur" }],
@@ -599,6 +594,7 @@
                 },
                 //境内
                 rulesF: {
+                    select_province: [{ required: true, message: "", trigger: "change" }],
                     bank_card_mobile: [
                         { required: true, message: "", trigger: "blur" },
                         { validator: checkInlandPhone, trigger: "blur" },
@@ -658,7 +654,9 @@
                         const { data } = res;
                         this.$data.info = data.info;
                         this.$data.other_info = data.other_info;
-                        this.$data.add_bank = data.bank;
+                        if(!isEmpty(data.bank)){
+                            this.$data.add_bank = data.bank;
+                        }
                         this.$data.ecmRuleData = data.ecm_rule;
 
                         if (this.add_bank.status !== 1) {
@@ -704,8 +702,6 @@
                             }
                         }
 
-                        // console.log(this.detail);
-                        console.log(this.$data.add_bank);
                         this.typeChange();
                     })
                     .finally(() => {
@@ -737,7 +733,7 @@
             },
             handleInlandCountryChange(value) {
                 if (isEmpty(value)) {
-                    this.select_province = null;
+                    this.add_bank.select_province = null;
                 } else {
                     this.add_bank.bank_state = value[0];
                     this.add_bank.bank_city = value[1];
@@ -794,8 +790,12 @@
                 }
             },
             openBankDialog(action) {
-                this.initBankForm();
-                this.loadMerInfo();
+                if(isEmpty(this.add_bank) || isEmpty(this.add_bank.status)){
+                    this.initBankForm();
+                    this.loadMerInfo();
+                }else{
+                    this.typeChange();
+                }
 
                 this.add_bank.action = action;
                 this.addBankDialogVisible = true;
@@ -907,6 +907,7 @@
             },
             closeBankDialog() {
                 this.addBankDialogVisible = false;
+                this.select_state = null;
                 this.$refs.add_bank.resetFields(); //重置
             },
             submitAddBank() {
