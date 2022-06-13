@@ -113,10 +113,10 @@
                                         <el-radio :label="false" style="line-height:36px;">{{ $t("status.no") }}</el-radio>
                                     </el-radio-group>
                                 </el-form-item>
-                                <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_name">
+                                <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_name" :rules="detail.is_own_subsidiary ? {required: true,message: this.validMsg('user.subsidiary_name'),trigger: 'blur'}:{}">
                                     <el-input :placeholder="validMsg('user.subsidiary_name')" v-model="detail.subsidiary_name"></el-input>
                                 </el-form-item>
-                                <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_country">
+                                <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_country" :rules="detail.is_own_subsidiary ? {required: true,message: this.validMsg('user.subsidiary_country'),trigger: 'blur'}:{}">
                                     <el-input :placeholder="validMsg('user.subsidiary_country')" v-model="detail.subsidiary_country"></el-input>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.company_business_identity_photo')" prop="company_business_identity_photo" ref="company_business_identity_photo">
@@ -172,7 +172,7 @@
                                 </el-form-item>
                                 <el-form-item v-show="detail.identity_country_type === 'outland' && detail.identity_account_type === 'personal'" :label="$t('user.belong_what_country')" prop="belong_what_country">
                                     <!-- <el-input v-model="detail.belong_what_country"></el-input> -->
-                                    <el-select v-model="select_country" :placeholder="$t('comm.country_name')" value-key="iso2" @change="selectCountry" filterable clearable>
+                                    <el-select v-model="detail.select_country" :placeholder="$t('comm.country_name')" value-key="iso2" @change="selectCountry" filterable clearable>
                                         <el-option v-for="item in area_all_list" :key="item.iso2" :label="item.name + ' (' + item.iso2 + ')'" :value="item">
                                             <span style="float: left">{{ item.name }}</span>
                                             <span style="float: right; color: #8492a6; font-size: 13px">{{ item.iso2 }}</span>
@@ -375,8 +375,8 @@
                     identity_country_type: "inland",
                     identity_account_type: "company",
                     is_own_subsidiary: false,
+                    select_country: null,
                 },
-                select_country: null,
                 area_all_list: [], //所有国家数据
                 company_identity_photo_demo_url: configs.template.settleBasePath + "营业执照.jpg",
                 company_business_identity_photo_demo_url: configs.template.settleBasePath + "商业登记证.jpg",
@@ -388,7 +388,7 @@
                 identity_photo_b_demo_url: configs.template.settleBasePath + "境内_身份证反面.jpg",
                 identity_photo_c_demo_url: configs.template.settleBasePath + "境内_手持身份证.jpg",
                 chairman_authorization_demo_url: configs.template.settleBasePath + "董事授权书.pdf",
-                
+
                 rules: {},
                 //基础
                 rulesA: {
@@ -912,7 +912,7 @@
                 }
             },
             typeChange() {
-                console.log("identity_country_type:" + this.detail.identity_country_type);
+                // console.log("identity_country_type:" + this.detail.identity_country_type);
                 let detail = this.detail;
                 if (!isEmpty(detail) && !isEmpty(detail.identity_account_type) && !isEmpty(detail.identity_country_type)) {
                     if (this.detail.identity_country_type === "outland") {
@@ -1054,7 +1054,7 @@
                         Object.keys(params).forEach(key => {
                             //把json转成FormData
                             formData.append(key, params[key]);
-                            console.log(key + ": " + params[key] + "; ");
+                            // console.log(key + ": " + params[key] + "; ");
                         });
                         updateIdentity(formData)
                             .then(() => {
