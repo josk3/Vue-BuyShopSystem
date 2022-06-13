@@ -170,7 +170,7 @@
                                 <el-form-item v-show="detail.identity_country_type === 'inland' || detail.identity_account_type === 'personal'" :label="detail.identity_account_type === 'company' ? $t('user.legal_person') : $t('user.identity_name')" prop="identity_name">
                                     <el-input v-model="detail.identity_name"></el-input>
                                 </el-form-item>
-                                <el-form-item v-show="detail.identity_country_type === 'outland' && detail.identity_account_type === 'personal'" :label="$t('user.belong_what_country')" prop="belong_what_country">
+                                <el-form-item v-show="detail.identity_country_type === 'outland' && detail.identity_account_type === 'personal'" :label="$t('user.belong_what_country')" prop="select_country">
                                     <!-- <el-input v-model="detail.belong_what_country"></el-input> -->
                                     <el-select v-model="detail.select_country" :placeholder="$t('comm.country_name')" value-key="iso2" @change="selectCountry" filterable clearable>
                                         <el-option v-for="item in area_all_list" :key="item.iso2" :label="item.name + ' (' + item.iso2 + ')'" :value="item">
@@ -644,11 +644,11 @@
                 },
                 //境外个人
                 rulesD: {
-                    belong_what_country: [
+                    select_country: [
                         {
                             required: true,
                             message: this.validMsg("user.belong_what_country"),
-                            trigger: "blur",
+                            trigger: "change",
                         },
                     ],
                     personal_identity: [
