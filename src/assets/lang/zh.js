@@ -388,6 +388,7 @@ module.exports = {
         "refundFail": "退款失败",
         "manual": "人工",
         "reverseDeposit": "冲正保证金",
+        "reverseTrade": "冲正交易款",
     },
     "account": {
         "need_valid_identity_before": "请先完成账户激活认证",
