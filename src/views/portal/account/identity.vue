@@ -113,11 +113,18 @@
                                         <el-radio :label="false" style="line-height:36px;">{{ $t("status.no") }}</el-radio>
                                     </el-radio-group>
                                 </el-form-item>
-                                <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_name" :rules="detail.is_own_subsidiary ? {required: true,message: this.validMsg('user.subsidiary_name'),trigger: 'blur'}:{}">
+                                <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_name" :rules="detail.is_own_subsidiary ? { required: true, message: this.validMsg('user.subsidiary_name'), trigger: 'blur' } : {}">
                                     <el-input :placeholder="validMsg('user.subsidiary_name')" v-model="detail.subsidiary_name"></el-input>
                                 </el-form-item>
-                                <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_country" :rules="detail.is_own_subsidiary ? {required: true,message: this.validMsg('user.subsidiary_country'),trigger: 'blur'}:{}">
+                                <el-form-item v-show="detail.is_own_subsidiary === true" prop="subsidiary_country" :rules="detail.is_own_subsidiary ? { required: true, message: this.validMsg('user.subsidiary_country'), trigger: 'blur' } : {}">
                                     <el-input :placeholder="validMsg('user.subsidiary_country')" v-model="detail.subsidiary_country"></el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('user.out_company_start_date')" prop="out_company_start_date">
+                                    <el-date-picker v-model="detail.out_company_start_date" value-format="yyyy-MM-dd" type="date" :placeholder="$t('comm.select') + $t('user.out_company_start_date')"> </el-date-picker>
+                                </el-form-item>
+                                <el-form-item :label="$t('user.out_company_expire_date')" prop="out_company_expire_date">
+                                    <el-date-picker v-model="detail.out_company_expire_date" value-format="yyyy-MM-dd" type="date" :placeholder="$t('comm.select') + $t('user.out_company_expire_date')"> </el-date-picker>
+                                    <el-button size="mini" @click="outCompanyExpireForever" type="text" plain>{{ $t("user.long_effective") }} </el-button>
                                 </el-form-item>
                                 <el-form-item :label="$t('user.company_business_identity_photo')" prop="company_business_identity_photo" ref="company_business_identity_photo">
                                     <UploadImgOnce
@@ -703,6 +710,20 @@
                             trigger: "blur",
                         },
                     ],
+                    out_company_start_date: [
+                        {
+                            required: true,
+                            message: this.validMsg("user.out_company_start_date"),
+                            trigger: "blur",
+                        },
+                    ],
+                    out_company_expire_date: [
+                        {
+                            required: true,
+                            message: this.validMsg("user.out_company_expire_date"),
+                            trigger: "blur",
+                        },
+                    ],
                     company_business_identity_photo: [
                         {
                             required: true,
@@ -1043,6 +1064,9 @@
             companyExpireForever() {
                 this.detail.company_expire_date = "9999-12-31";
             },
+            outCompanyExpireForever() {
+                this.detail.out_company_expire_date = "9999-12-31";
+            },
             submitDetail() {
                 this.$refs["detail"].validate(valid => {
                     if (!valid) {
@@ -1083,5 +1107,18 @@
     ::v-deep .el-radio-button--medium .el-radio-button__inner {
         padding-left: 60px;
         padding-right: 60px;
+    }
+    .el-form-item {
+        margin-bottom: 30px;
+    }
+    ::v-deep .el-form-item--medium .el-form-item__label {
+        line-height: 1;
+        padding-top: 8px;
+    }
+    ::v-deep .el-form-item--medium .el-form-item__content {
+        line-height: 1;
+    }
+    ::v-deep label{
+        margin-bottom: 0rem;
     }
 </style>

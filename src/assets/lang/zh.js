@@ -277,6 +277,8 @@ module.exports = {
         "is_own_subsidiary": "是否存在子公司",
         "subsidiary_name": "子公司企业名称",
         "subsidiary_country": "子公司注册地",
+        "out_company_start_date": "企业商业登记证有效期起始",
+        "out_company_expire_date": "企业商业登记证有效期终止",
         "company_business_identity_photo": "企业商业登记证",
         "upload_company_business_identity_photo": "上传企业商业登记证",
         "company_business_identity_photo_tip": "上传企业最新商业登记彩色照片",

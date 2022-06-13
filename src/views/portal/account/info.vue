@@ -141,7 +141,7 @@
             <!--            -->
             <el-card class="box-card wpy-card mb-2" shadow="never" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
-                    <span>{{ $t("bank.settle_bank") }}</span>  <small v-show="add_bank.status === 1 || add_bank.status === 2 || add_bank.status === 3"> <i class="el-icon-info text-blue"></i> {{ add_bank.status | identityStatus }}</small>
+                    <span>{{ $t("bank.settle_bank") }}</span> <small v-show="add_bank.status === 1 || add_bank.status === 2 || add_bank.status === 3"> <i class="el-icon-info text-blue"></i> {{ add_bank.status | identityStatus }}</small>
                 </div>
                 <div class="row">
                     <div class="col-10">
@@ -654,7 +654,7 @@
                         const { data } = res;
                         this.$data.info = data.info;
                         this.$data.other_info = data.other_info;
-                        if(!isEmpty(data.bank)){
+                        if (!isEmpty(data.bank)) {
                             this.$data.add_bank = data.bank;
                         }
                         this.$data.ecmRuleData = data.ecm_rule;
@@ -684,7 +684,17 @@
                             if (this.$data.info.card_account_type === "company") {
                                 this.$data.detail.card_account_type = "company";
                                 this.$data.add_bank.card_account_type = "company";
-                                 this.payeeTypeList = this.payeeCompanyTypeList;
+                                this.payeeTypeList = this.payeeCompanyTypeList;
+                            } else {
+                                this.$data.detail.card_account_type = "personal";
+                                this.$data.add_bank.card_account_type = "personal";
+                                this.payeeTypeList = this.payeePersonalTypeList;
+                            }
+                        } else {
+                            if (this.$data.info.identity_account_type === "company") {
+                                this.$data.detail.card_account_type = "company";
+                                this.$data.add_bank.card_account_type = "company";
+                                this.payeeTypeList = this.payeeCompanyTypeList;
                             } else {
                                 this.$data.detail.card_account_type = "personal";
                                 this.$data.add_bank.card_account_type = "personal";
@@ -694,6 +704,14 @@
                         if (!isEmpty(this.$data.info.card_country_type)) {
                             //type数据在info
                             if (this.$data.info.card_country_type === "inland") {
+                                this.$data.detail.card_country_type = "inland";
+                                this.$data.add_bank.card_country_type = "inland";
+                            } else {
+                                this.$data.detail.card_country_type = "outland";
+                                this.$data.add_bank.card_country_type = "outland";
+                            }
+                        }else{
+                            if (this.$data.info.identity_country_type === "inland") {
                                 this.$data.detail.card_country_type = "inland";
                                 this.$data.add_bank.card_country_type = "inland";
                             } else {
@@ -790,10 +808,10 @@
                 }
             },
             openBankDialog(action) {
-                if(isEmpty(this.add_bank) || isEmpty(this.add_bank.status)){
+                if (isEmpty(this.add_bank) || isEmpty(this.add_bank.status)) {
                     this.initBankForm();
                     this.loadMerInfo();
-                }else{
+                } else {
                     this.typeChange();
                 }
 
