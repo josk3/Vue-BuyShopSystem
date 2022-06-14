@@ -930,20 +930,6 @@
                 this.$refs.add_bank.resetFields(); //重置
             },
             submitAddBank() {
-                this.$confirm(this.$i18n.t("bank.upload_authorize_success_tip").toString(), "", {
-                    confirmButtonText: this.$i18n.t("comm.sure").toString(),
-                    type: "warning",
-                    showCancelButton: false,
-                    showClose: false,
-                    closeOnClickModal: false,
-                    closeOnPressEscape: false,
-                })
-                    .then(() => {
-                        this.loadMerInfo();
-                        this.closeBankDialog();
-                    })
-                    .catch(() => {
-                    });
                 if ((this.add_bank.card_country_type === "outland" && this.detail.card_country_type !== "outland") || (this.add_bank.card_country_type === "inland" && this.detail.card_country_type !== "inland")) {
                     this.$message.error("land type error!");
                     return;
@@ -968,8 +954,21 @@
                                 addBank(formData)
                                     .then(() => {
                                         this.$message.success(this.$i18n.t("comm.success").toString());
-                                        this.loadMerInfo();
-                                        this.closeBankDialog();
+                                        if (this.add_bank.payee_type === "third") {
+                                            this.$confirm(this.$i18n.t("bank.upload_authorize_success_tip").toString(), "", {
+                                                confirmButtonText: this.$i18n.t("comm.sure").toString(),
+                                                type: "warning",
+                                                showCancelButton: false,
+                                                showClose: false,
+                                                closeOnClickModal: false,
+                                                closeOnPressEscape: false,
+                                            })
+                                                .then(() => {
+                                                    this.loadMerInfo();
+                                                    this.closeBankDialog();
+                                                })
+                                                .catch(() => {});
+                                        }
                                     })
                                     .finally(() => {
                                         this.$data.loading = false;
