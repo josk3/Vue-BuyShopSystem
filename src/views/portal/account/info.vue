@@ -247,7 +247,7 @@
                         <el-radio-button label="outland" :disabled="detail.card_country_type !== 'outland'">{{ $t("bank.outland_bank_account") }}</el-radio-button>
                     </el-radio-group>
                 </div>
-                <el-form ref="add_bank" :model="add_bank" :show-message="false" :rules="rules" label-width="140px" class="pl-1 pr-3 pt-3 pb-0">
+                <el-form ref="add_bank" :model="add_bank" :show-message="false" :rules="rules" label-width="165px" class="pl-1 pr-3 pt-3 pb-0">
                     <el-form-item prop="payee_type">
                         <template slot="label">
                             {{ $t("bank.payee_type") }}
@@ -450,21 +450,22 @@
 
                         <el-form-item :label="$t('bank.authorize_photo')" prop="authorize_photo">
                             <div :class="cssType">
-                                <div class="" slot="tip">
+                                <div class="top_tip" slot="tip">
                                     {{ $t("comm.download") }}
                                     <a target="_blank" class="download-trigger text-blue" :href="companyAuthorizationTemplate"> {{ $t("user.sample_template") }}</a>
                                     {{ $t("comm.download_Authorization_explain[1]") }}
                                 </div>
-                                <div class="col-10" style="padding-left:0;">
+                                <div class="col-10" style="padding-left:0;padding-top: 8px;">
                                     <el-upload drag accept="image/*,.pdf" action="" :limit="1" :on-change="changeImgFile" :on-remove="removeImgFile" :auto-upload="false">
                                         <i class="el-icon-upload"></i>
                                         <div class="el-upload__text">
                                             {{ $t("comm.upload_file_drag_click[0]") }}
                                             <em> {{ $t("comm.upload_file_drag_click[1]") }}</em>
                                         </div>
-                                        <div class="el-upload__tip el-upload__tip1" slot="tip">{{ $t("bank.upload_authorize_photo_tip") }}</div>
+                                        <div class="el-upload__tip" slot="tip">{{ $t("bank.upload_authorize_photo_tip") }}</div>
                                         <div class="el-upload__tip" slot="tip">1.{{ $t("comm.download_Authorization_explain[0]") }}{{ $t("comm.download_Authorization_explain[1]") }}</div>
-                                        <div class="el-upload__tip" slot="tip">2.{{ $t("comm.upload_table_ok") }}</div>
+                                        <div class="el-upload__tip" slot="tip">2.{{ $t("bank.upload_Authorization_explain") }}</div>
+                                        <div class="el-upload__tip" slot="tip">3.{{ $t("comm.upload_table_ok") }}</div>
                                     </el-upload>
                                 </div>
                             </div>
@@ -710,7 +711,7 @@
                                 this.$data.detail.card_country_type = "outland";
                                 this.$data.add_bank.card_country_type = "outland";
                             }
-                        }else{
+                        } else {
                             if (this.$data.info.identity_country_type === "inland") {
                                 this.$data.detail.card_country_type = "inland";
                                 this.$data.add_bank.card_country_type = "inland";
@@ -929,6 +930,20 @@
                 this.$refs.add_bank.resetFields(); //重置
             },
             submitAddBank() {
+                this.$confirm(this.$i18n.t("bank.upload_authorize_success_tip").toString(), "", {
+                    confirmButtonText: this.$i18n.t("comm.sure").toString(),
+                    type: "warning",
+                    showCancelButton: false,
+                    showClose: false,
+                    closeOnClickModal: false,
+                    closeOnPressEscape: false,
+                })
+                    .then(() => {
+                        this.loadMerInfo();
+                        this.closeBankDialog();
+                    })
+                    .catch(() => {
+                    });
                 if ((this.add_bank.card_country_type === "outland" && this.detail.card_country_type !== "outland") || (this.add_bank.card_country_type === "inland" && this.detail.card_country_type !== "inland")) {
                     this.$message.error("land type error!");
                     return;
@@ -987,7 +1002,7 @@
     };
 </script>
 
-<style>
+<style scoped>
     .ecm-list-table tr {
         border: 0;
     }
@@ -1024,18 +1039,36 @@
         font-size: 19px;
         z-index: 2;
     }
-    .el-upload-dragger {
+    ::v-deep .el-upload-dragger {
         width: 150px;
         height: 150px;
     }
-    .el-upload-dragger .el-icon-upload {
+    ::v-deep .el-upload-dragger .el-icon-upload {
         line-height: 30px;
         margin-top: 20px;
+    }
+    .top_tip {
+        margin-top: 8px;
     }
     .el-upload__tip {
         line-height: 12px;
     }
     .el-upload__tip1 {
         margin-top: 0;
+    }
+    ::v-deep .el-upload-dragger .el-upload__text {
+        margin-top: 10px;
+        word-break: keep-all;
+    }
+    ::v-deep .el-form-item--medium .el-form-item__label {
+        line-height: 1;
+        padding-top: 8px;
+        word-break: keep-all;
+    }
+    ::v-deep .el-form-item--medium .el-form-item__content {
+        line-height: 1;
+    }
+    ::v-deep .hide-box .el-upload-dragger {
+        display: none;
     }
 </style>

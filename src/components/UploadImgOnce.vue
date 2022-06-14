@@ -4,18 +4,18 @@
             --
         </div>
         <div v-else class="col-12">
-            <div class="" slot="tip" v-if="accept_pdf === true">
+            <div class="top_tip" slot="tip" v-if="accept_pdf === true">
                 {{ $t("user.please_follow") }}
                 <a target="_blank" class="download-trigger text-blue" :href="img_url_demo"> {{ $t("user.sample_template") }}</a>
                 ,{{ img_url_tip }}
             </div>
-            <div class="" slot="tip" v-else>
+            <div class="top_tip" slot="tip" v-else>
                 {{ $t("user.please_follow") }}
                 <el-popover placement="top" trigger="click">
                     <img class="img-up-once" height="400" :src="img_url_demo" alt="img" /><span class="text-blue" style="cursor:pointer;" slot="reference">{{ $t("user.sample_template") }}</span> </el-popover
                 >,{{ img_url_tip }}
             </div>
-            <div style="display:flex;">
+            <div style="display:flex;padding-top: 8px;">
                 <div class="col-6" style="padding-left:0px;padding-right:0px;">
                     <el-upload :class="css" drag :accept="accept_pdf === true ? 'image/*,.pdf' : 'image/*'" action="" :limit="1" :on-change="changeImgFile" :on-remove="removeImgFile" :auto-upload="false">
                         <i class="el-icon-upload"></i>
@@ -23,8 +23,8 @@
                             {{ $t("comm.upload_file_drag_click[0]") }}
                             <em> {{ $t("comm.upload_file_drag_click[1]") }}</em>
                         </div>
-                        <div class="el-upload__tip el-upload__tip1" slot="tip" v-if="accept_pdf === true">{{ $t("bank.upload_authorize_photo_tip") }}</div>
-                        <div class="el-upload__tip el-upload__tip1" slot="tip" v-else>{{ $t("user.upload_picture_tip") }}</div>
+                        <div class="el-upload__tip" slot="tip" v-if="accept_pdf === true">{{ $t("bank.upload_authorize_photo_tip") }}</div>
+                        <div class="el-upload__tip" slot="tip" v-else>{{ $t("user.upload_picture_tip") }}</div>
                         <div class="el-upload__tip" slot="tip">{{ txt }}</div>
                     </el-upload>
                 </div>
@@ -98,6 +98,10 @@
     };
 </script>
 <style>
+    .top_tip {
+        margin-top: 8px;
+    }
+
     .upload-img-once .el-upload__tip {
         line-height: 12px;
     }
@@ -109,6 +113,7 @@
     .sm-box-up .el-upload-dragger {
         width: 150px;
         height: 150px;
+        word-break: keep-all;
     }
 
     .sm-box-up .el-upload-dragger .el-icon-upload {
@@ -123,5 +128,10 @@
     .img-up-once {
         min-height: 30px;
         min-width: 30px;
+    }
+</style>
+<style scoped>
+    ::v-deep .el-upload-dragger .el-upload__text {
+        margin-top: 10px;
     }
 </style>

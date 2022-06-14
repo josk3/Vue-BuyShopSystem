@@ -121,7 +121,7 @@ module.exports = {
         "trade_settled": "交易款是否结算",
         "deposit_settled": "保证金是否结算",
         "category": "类别",
-        "download_Authorization_explain": ["下载模版表格","并填写对应委托授权书信息。"],
+        "download_Authorization_explain": ["下载模版表格","并填写对应业务款指示交付通知书信息。"],
         "upload_table_ok":"上传表格，完成。",
     },
     "nav": {
@@ -602,7 +602,7 @@ module.exports = {
         "bank_card_mobile": "银行预留手机号",
         "card_identity_number": "收款人证件号",
         "bank_photo": "手持银行卡照片",
-        "authorize_photo": "委托授权书",
+        "authorize_photo": "业务款指示交付通知书",
         "card_id_error_message": "收款人证件号不符合规范",
         "inland_bank_account": "境内银行账户",
         "outland_bank_account": "境外银行账户",
@@ -619,6 +619,8 @@ module.exports = {
         "bank_swift_no_tip": "银行识别代码",
         "bank_card_currency": "账户币种",
         "upload_authorize_photo_tip": "只能上传图片和pdf文件,且不超过500kb",
+        "upload_Authorization_explain": "业务款指示交付通知书需扫描件形式",
+        "upload_authorize_success_tip": "请将《业务款指示交付通知书》原件寄回我司（详细收件地址可联系客服），我司将以原件对收款账户信息进行审核，审核通过后方可进行结算申请~",
     },
 
     "home": {

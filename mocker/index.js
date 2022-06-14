@@ -3619,7 +3619,7 @@ const proxy = {
                     identity_account_type: 'personal',
                     identity_country_type: 'outland',
                     allow_personal: 0,
-                    card_account_type: 'personal',
+                    card_account_type: 'company',
                     card_country_type: 'inland',
                 },
                 bank: {
@@ -3636,7 +3636,7 @@ const proxy = {
                     created: 1597560824000,
                     disabled: false,
                     mer_no: '4008',
-                    status: 2,
+                    status: 3,
                     updated: null,
                 },
                 ecm_rule: [

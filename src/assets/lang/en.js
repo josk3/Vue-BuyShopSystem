@@ -618,6 +618,8 @@ module.exports = {
         "bank_swift_no_tip": "Bank identification code",
         "bank_card_currency": "Account currency",
         "upload_authorize_photo_tip": "Only images and PDF files can be uploaded, and the maximum size is 500KB",
+        "upload_Authorization_explain": "业务款指示交付通知书需扫描件形式",
+        "upload_authorize_success_tip": "请将《业务款指示交付通知书》原件寄回我司（详细收件地址可联系客服），我司将以原件对收款账户信息进行审核，审核通过后方可进行结算申请~",
     },
 
     "home": {
