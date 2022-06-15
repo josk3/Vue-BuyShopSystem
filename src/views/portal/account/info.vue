@@ -968,6 +968,9 @@
                                                     this.closeBankDialog();
                                                 })
                                                 .catch(() => {});
+                                        } else {
+                                            this.loadMerInfo();
+                                            this.closeBankDialog();
                                         }
                                     })
                                     .finally(() => {
@@ -1051,6 +1054,7 @@
     }
     .el-upload__tip {
         line-height: 12px;
+        word-break: break-word;
     }
     .el-upload__tip1 {
         margin-top: 0;

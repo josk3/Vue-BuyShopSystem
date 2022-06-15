@@ -479,14 +479,14 @@
                         {
                             required: true,
                             message: this.validMsg("user.identity_start_date2"),
-                            trigger: "blur",
+                            trigger: "change",
                         },
                     ],
                     identity_expire_date: [
                         {
                             required: true,
                             message: this.validMsg("user.identity_expire_date2"),
-                            trigger: "blur",
+                            trigger: "change",
                         },
                     ],
                     identity_number: [
@@ -533,14 +533,14 @@
                         {
                             required: true,
                             message: this.validMsg("user.identity_start_date"),
-                            trigger: "blur",
+                            trigger: "change",
                         },
                     ],
                     identity_expire_date: [
                         {
                             required: true,
                             message: this.validMsg("user.identity_expire_date"),
-                            trigger: "blur",
+                            trigger: "change",
                         },
                     ],
                     identity_number: [
@@ -562,13 +562,6 @@
                         {
                             required: true,
                             message: this.validMsg2("user.identity_photo_b"),
-                            trigger: "change",
-                        },
-                    ],
-                    identity_photo_c: [
-                        {
-                            required: true,
-                            message: this.validMsg2("user.identity_photo_c"),
                             trigger: "change",
                         },
                     ],
@@ -600,14 +593,14 @@
                         {
                             required: true,
                             message: this.validMsg("user.company_start_date"),
-                            trigger: "blur",
+                            trigger: "change",
                         },
                     ],
                     company_expire_date: [
                         {
                             required: true,
                             message: this.validMsg("user.company_expire_date"),
-                            trigger: "blur",
+                            trigger: "change",
                         },
                     ],
                     company_scope: [
@@ -641,6 +634,13 @@
                 },
                 //境内个人
                 rulesC: {
+                    identity_photo_c: [
+                        {
+                            required: true,
+                            message: this.validMsg2("user.identity_photo_c"),
+                            trigger: "change",
+                        },
+                    ],
                     address: [
                         {
                             required: true,
@@ -714,14 +714,14 @@
                         {
                             required: true,
                             message: this.validMsg("user.out_company_start_date"),
-                            trigger: "blur",
+                            trigger: "change",
                         },
                     ],
                     out_company_expire_date: [
                         {
                             required: true,
                             message: this.validMsg("user.out_company_expire_date"),
-                            trigger: "blur",
+                            trigger: "change",
                         },
                     ],
                     company_business_identity_photo: [
@@ -818,24 +818,26 @@
         methods: {
             personalIdentityChange() {
                 //身份id时需要反面和手持照片，其余两种不需要
-                if (this.detail.personal_identity === "passport" || this.detail.personal_identity === "hk_pass") {
-                    this.resetRule("identity_photo_b", []);
-                    this.resetRule("identity_photo_c", []);
-                } else {
-                    this.resetRule("identity_photo_b", [
-                        {
-                            required: true,
-                            message: this.validMsg2("user.identity_photo_b2"),
-                            trigger: "change",
-                        },
-                    ]);
-                    this.resetRule("identity_photo_c", [
-                        {
-                            required: true,
-                            message: this.validMsg2("user.identity_photo_c2"),
-                            trigger: "change",
-                        },
-                    ]);
+                if (this.detail.identity_country_type === "outland") {
+                    if (this.detail.personal_identity === "passport" || this.detail.personal_identity === "hk_pass") {
+                        this.resetRule("identity_photo_b", []);
+                        this.resetRule("identity_photo_c", []);
+                    } else {
+                        this.resetRule("identity_photo_b", [
+                            {
+                                required: true,
+                                message: this.validMsg2("user.identity_photo_b2"),
+                                trigger: "change",
+                            },
+                        ]);
+                        this.resetRule("identity_photo_c", [
+                            {
+                                required: true,
+                                message: this.validMsg2("user.identity_photo_c2"),
+                                trigger: "change",
+                            },
+                        ]);
+                    }
                 }
             },
             companyPositionChange() {
@@ -959,7 +961,7 @@
                                     trigger: "blur",
                                 },
                             ]);
-                            this.resetRule("identity_photo_c", []);
+                            // this.resetRule("identity_photo_c", []);
                             // this.resetRule("address", [
                             //     {
                             //         required: true,
@@ -1118,7 +1120,7 @@
     ::v-deep .el-form-item--medium .el-form-item__content {
         line-height: 1;
     }
-    ::v-deep label{
+    ::v-deep label {
         margin-bottom: 0rem;
     }
 </style>
