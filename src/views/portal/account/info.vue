@@ -577,7 +577,6 @@
                 rulesD: {
                     select_country: [{ required: true, message: "", trigger: "change" }],
                     bank_address: [{ required: true, message: "", trigger: "blur" }],
-                    bank_card_mobile: [{ required: true, message: "", trigger: "blur" }],
                 },
                 //境外企业
                 rulesE: {
@@ -591,7 +590,7 @@
                     card_company_register_address: [{ required: true, message: "", trigger: "blur" }],
                     route_mode: [{ required: true, message: "", trigger: "blur" }],
                     bank_swift_no: [{ required: true, message: "", trigger: "blur" }],
-                    bank_card_currency: [{ required: true, message: "", trigger: "blur" }],
+                    bank_card_currency: [{ required: true, message: "", trigger: "change" }],
                 },
                 //境内
                 rulesF: {
@@ -602,9 +601,13 @@
                     ],
                 },
                 //境外第三方企业
-                rulesOTC: {},
+                rulesOTC: {
+                    bank_card_mobile: [{ required: true, message: "", trigger: "blur" }],
+                },
                 //境外第三方个人
-                rulesOTP: {},
+                rulesOTP: {
+                    bank_card_mobile: [{ required: true, message: "", trigger: "blur" }],
+                },
                 //境外自己企业
                 rulesOOC: {},
                 //境外自己个人
@@ -616,7 +619,7 @@
 
                 //
                 ecmRuleData: [],
-                companyAuthorizationTemplate: configs.template.settleBasePath + "结算账户委托授权书-个人（最终）.pdf",
+                companyAuthorizationTemplate: configs.template.settleBasePath + "%E4%B8%9A%E5%8A%A1%E6%AC%BE%E6%8C%87%E7%A4%BA%E4%BA%A4%E4%BB%98%E9%80%9A%E7%9F%A5%E4%B9%A6-%E5%A2%83%E5%86%85%E4%BC%81%E4%B8%9A%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8.pdf",
                 update_box_show: true,
                 sizeType: "sm-box-up",
                 cssType: "",
