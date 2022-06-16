@@ -561,7 +561,7 @@
                     bank_branch: [{ required: true, message: "", trigger: "blur" }],
                     inter_bank_no: [{ required: true, message: "", trigger: "blur" }],
                 },
-                //个人
+                //境内个人
                 rulesB: {
                     card_identity_number: [
                         { required: true, message: "", trigger: "blur" },
@@ -605,11 +605,14 @@
                 //境外第三方个人
                 rulesOTP: {
                     bank_card_mobile: [{ required: true, message: "", trigger: "blur" }],
+                    card_identity_number: [{ required: true, message: "", trigger: "blur" }],
                 },
                 //境外自己企业
                 rulesOOC: {},
                 //境外自己个人
-                rulesOOP: {},
+                rulesOOP: {
+                    card_identity_number: [{ required: true, message: "", trigger: "blur" }],
+                },
                 //境内第三方企业
                 rulesITC: {},
                 //境内第三方个人
@@ -833,7 +836,7 @@
                                 this.rules = Object.assign(this.rulesOTC, this.rulesE, this.rulesD, this.rulesC);
                             } else {
                                 this.add_bank.name = this.detail.identity_name;
-                                this.rules = Object.assign(this.rulesOTP, this.rulesD, this.rulesC, this.rulesB, this.rulesA);
+                                this.rules = Object.assign(this.rulesOTP, this.rulesD, this.rulesC, this.rulesA);
                             }
                         } else {
                             //own
@@ -844,7 +847,7 @@
                                 this.rules = Object.assign(this.rulesOOC, this.rulesE, this.rulesD);
                             } else {
                                 this.add_bank.name = this.detail.identity_name;
-                                this.rules = Object.assign(this.rulesOOP, this.rulesD, this.rulesB, this.rulesA);
+                                this.rules = Object.assign(this.rulesOOP, this.rulesD, this.rulesA);
                             }
                         }
                     } else {
