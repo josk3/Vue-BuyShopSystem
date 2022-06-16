@@ -617,6 +617,10 @@
                 rulesITC: {},
                 //境内第三方个人
                 rulesITP: {},
+                //境内自己个人
+                rulesIOP: {},
+                //境内自己企业
+                rulesIOC: {},
 
                 //
                 ecmRuleData: [],
@@ -870,10 +874,10 @@
                             this.disable_name = true;
                             if (this.add_bank.card_account_type === "company") {
                                 this.add_bank.name = this.detail.company_name;
-                                this.rules = Object.assign(this.rulesF, this.rulesA);
+                                this.rules = Object.assign(this.rulesIOC, this.rulesF, this.rulesA);
                             } else {
                                 this.add_bank.name = this.detail.identity_name;
-                                this.rules = Object.assign(this.rulesF, this.rulesB, this.rulesA);
+                                this.rules = Object.assign(this.rulesIOP, this.rulesF, this.rulesB, this.rulesA);
                             }
                         }
                     }
