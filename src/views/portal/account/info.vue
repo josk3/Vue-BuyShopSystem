@@ -601,9 +601,7 @@
                     ],
                 },
                 //境外第三方企业
-                rulesOTC: {
-                    bank_card_mobile: [{ required: true, message: "", trigger: "blur" }],
-                },
+                rulesOTC: {},
                 //境外第三方个人
                 rulesOTP: {
                     bank_card_mobile: [{ required: true, message: "", trigger: "blur" }],
