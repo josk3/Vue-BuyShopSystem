@@ -146,12 +146,12 @@
                 <div class="row">
                     <div class="col-10">
                         <div v-if="add_bank.status === 1 || add_bank.status === 2" class="info-control-list">
-                            <div class="row">
+                            <!-- <div class="row">
                                 <label class="col-4">{{ $t("bank.card_type") }}</label>
                                 <div class="col-8">
                                     <span>{{ add_bank.card_type_str }}</span>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <label class="col-4">{{ $t("bank.name") }}</label>
                                 <div class="col-8">
@@ -836,10 +836,14 @@
                             this.updateThirdAccountType();
                             this.disable_name = false;
                             if (this.add_bank.card_account_type === "company") {
-                                this.add_bank.name = this.detail.company_name;
+                                if (!isEmpty(this.detail.company_name)) {
+                                    this.add_bank.name = this.detail.company_name;
+                                }
                                 this.rules = Object.assign(this.rulesOTC, this.rulesE, this.rulesD, this.rulesC);
                             } else {
-                                this.add_bank.name = this.detail.identity_name;
+                                if (!isEmpty(this.detail.identity_name)) {
+                                    this.add_bank.name = this.detail.identity_name;
+                                }
                                 this.rules = Object.assign(this.rulesOTP, this.rulesD, this.rulesC, this.rulesA);
                             }
                         } else {
@@ -849,14 +853,16 @@
                             if (this.add_bank.card_account_type === "company") {
                                 if (isEmpty(this.detail.company_name)) {
                                     this.disable_name = false;
+                                } else {
+                                    this.add_bank.name = this.detail.company_name;
                                 }
-                                this.add_bank.name = this.detail.company_name;
                                 this.rules = Object.assign(this.rulesOOC, this.rulesE, this.rulesD);
                             } else {
                                 if (isEmpty(this.detail.identity_name)) {
                                     this.disable_name = false;
+                                } else {
+                                    this.add_bank.name = this.detail.identity_name;
                                 }
-                                this.add_bank.name = this.detail.identity_name;
                                 this.rules = Object.assign(this.rulesOOP, this.rulesD, this.rulesA);
                             }
                         }
@@ -868,10 +874,14 @@
                             this.updateThirdAccountType();
                             this.disable_name = false;
                             if (this.add_bank.card_account_type === "company") {
-                                this.add_bank.name = this.detail.company_name;
+                                if (!isEmpty(this.detail.company_name)) {
+                                    this.add_bank.name = this.detail.company_name;
+                                }
                                 this.rules = Object.assign(this.rulesITC, this.rulesF, this.rulesC, this.rulesA);
                             } else {
-                                this.add_bank.name = this.detail.identity_name;
+                                if (!isEmpty(this.detail.identity_name)) {
+                                    this.add_bank.name = this.detail.identity_name;
+                                }
                                 this.rules = Object.assign(this.rulesITP, this.rulesF, this.rulesB, this.rulesC, this.rulesA);
                             }
                         } else {
@@ -881,14 +891,16 @@
                             if (this.add_bank.card_account_type === "company") {
                                 if (isEmpty(this.detail.company_name)) {
                                     this.disable_name = false;
+                                } else {
+                                    this.add_bank.name = this.detail.company_name;
                                 }
-                                this.add_bank.name = this.detail.company_name;
                                 this.rules = Object.assign(this.rulesIOC, this.rulesF, this.rulesA);
                             } else {
                                 if (isEmpty(this.detail.identity_name)) {
                                     this.disable_name = false;
+                                } else {
+                                    this.add_bank.name = this.detail.identity_name;
                                 }
-                                this.add_bank.name = this.detail.identity_name;
                                 this.rules = Object.assign(this.rulesIOP, this.rulesF, this.rulesB, this.rulesA);
                             }
                         }
