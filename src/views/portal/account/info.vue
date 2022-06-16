@@ -170,13 +170,13 @@
                                     <ShowMoreBtn :txt="add_bank.card_no"></ShowMoreBtn>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" v-show="add_bank.card_identity_number">
                                 <label class="col-4">{{ $t("bank.card_identity_number") }}</label>
                                 <div class="col-8">
                                     <span>{{ add_bank.card_identity_number }}</span>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" v-show="add_bank.bank_card_mobile">
                                 <label class="col-4">{{ $t("bank.bank_card_mobile") }}</label>
                                 <div class="col-8">
                                     <span>{{ add_bank.bank_card_mobile }}</span>
