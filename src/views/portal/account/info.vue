@@ -847,9 +847,15 @@
                             this.updateOwnAccountType();
                             this.disable_name = true;
                             if (this.add_bank.card_account_type === "company") {
+                                if (isEmpty(this.detail.company_name)) {
+                                    this.disable_name = false;
+                                }
                                 this.add_bank.name = this.detail.company_name;
                                 this.rules = Object.assign(this.rulesOOC, this.rulesE, this.rulesD);
                             } else {
+                                if (isEmpty(this.detail.identity_name)) {
+                                    this.disable_name = false;
+                                }
                                 this.add_bank.name = this.detail.identity_name;
                                 this.rules = Object.assign(this.rulesOOP, this.rulesD, this.rulesA);
                             }
@@ -873,9 +879,15 @@
                             this.updateOwnAccountType();
                             this.disable_name = true;
                             if (this.add_bank.card_account_type === "company") {
+                                if (isEmpty(this.detail.company_name)) {
+                                    this.disable_name = false;
+                                }
                                 this.add_bank.name = this.detail.company_name;
                                 this.rules = Object.assign(this.rulesIOC, this.rulesF, this.rulesA);
                             } else {
+                                if (isEmpty(this.detail.identity_name)) {
+                                    this.disable_name = false;
+                                }
                                 this.add_bank.name = this.detail.identity_name;
                                 this.rules = Object.assign(this.rulesIOP, this.rulesF, this.rulesB, this.rulesA);
                             }
