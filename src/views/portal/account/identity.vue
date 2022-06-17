@@ -32,10 +32,10 @@
                     <div class="col-8">
                         <div style="display:flex;justify-content:center;">
                             <el-radio-group :disabled="hold_edit" v-model="detail.identity_country_type" @change="typeChange" style="margin-top:20px;">
-                                <el-radio-button label="inland">
+                                <el-radio-button label="inland" :disabled="inland_disabled">
                                     {{ $t("user.inland") }}
                                 </el-radio-button>
-                                <el-radio-button label="outland">{{ $t("user.outland") }}</el-radio-button>
+                                <el-radio-button label="outland" :disabled="outland_disabled">{{ $t("user.outland") }}</el-radio-button>
                             </el-radio-group>
                         </div>
 
@@ -377,6 +377,8 @@
             return {
                 loading: false,
                 hold_edit: false,
+                inland_disabled: false,
+                outland_disabled: false,
                 info: {},
                 detail: {
                     identity_country_type: "inland",
@@ -785,6 +787,8 @@
                     { value: "personal", text: "user.personal" },
                     { value: "company", text: "user.company" },
                 ],
+                typeCompanyList: [{ value: "company", text: "user.company" }],
+                typePersonalList: [{ value: "personal", text: "user.personal" }],
                 companyPositionList: [
                     { value: "chairman", text: "user.chairman" },
                     {
@@ -1041,17 +1045,26 @@
                             //type数据在info
                             if (this.$data.info.identity_account_type === "company") {
                                 this.$data.detail.identity_account_type = "company";
+                                this.typeList = this.typeCompanyList;
                             } else {
                                 this.$data.detail.identity_account_type = "personal";
+                                this.typeList = this.typePersonalList;
                             }
                         }
                         if (!isEmpty(this.$data.info.identity_country_type)) {
                             //type数据在info
                             if (this.$data.info.identity_country_type === "inland") {
                                 this.$data.detail.identity_country_type = "inland";
+                                this.inland_disabled = false;
+                                this.outland_disabled = true;
                             } else {
                                 this.$data.detail.identity_country_type = "outland";
+                                this.inland_disabled = true;
+                                this.outland_disabled = false;
                             }
+                        } else {
+                            this.inland_disabled = false;
+                            this.outland_disabled = false;
                         }
                         this.typeChange();
                         this.dataLoaded = true;
@@ -1070,6 +1083,10 @@
                 this.detail.out_company_expire_date = "9999-12-31";
             },
             submitDetail() {
+                if ((this.info.identity_country_type === "outland" && this.detail.identity_country_type !== "outland") || (this.info.identity_country_type === "inland" && this.detail.identity_country_type !== "inland")) {
+                    this.$message.error("land type error!");
+                    return;
+                }
                 this.$refs["detail"].validate(valid => {
                     if (!valid) {
                         return false;
