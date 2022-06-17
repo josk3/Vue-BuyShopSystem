@@ -452,7 +452,7 @@
                             <div :class="cssType">
                                 <div class="top_tip" slot="tip">
                                     {{ $t("comm.download") }}
-                                    <a target="_blank" class="download-trigger text-blue" :href="companyAuthorizationTemplate"> {{ $t("user.sample_template") }}</a>
+                                    <a target="_blank" class="download-trigger text-blue" :href="add_bank.card_country_type === 'outland' ? companyAuthorizationTemplate : companyAuthorizationTemplate"> {{ $t("user.sample_template") }}</a>
                                     {{ $t("comm.download_Authorization_explain[1]") }}
                                 </div>
                                 <div class="col-10" style="padding-left:0;padding-top: 8px;">

@@ -10,10 +10,15 @@
                 ,{{ img_url_tip }}
             </div>
             <div class="top_tip" slot="tip" v-else>
-                {{ $t("user.please_follow") }}
-                <el-popover placement="top" trigger="click">
-                    <img class="img-up-once" height="400" :src="img_url_demo" alt="img" /><span class="text-blue" style="cursor:pointer;" slot="reference">{{ $t("user.sample_template") }}</span> </el-popover
-                >,{{ img_url_tip }}
+                <div v-if="img_url_demo !== null">
+                    {{ $t("user.please_follow") }}
+                    <el-popover placement="top" trigger="click">
+                        <img class="img-up-once" height="400" :src="img_url_demo" alt="img" /><span class="text-blue" style="cursor:pointer;" slot="reference">{{ $t("user.sample_template") }}</span> </el-popover
+                    >,{{ img_url_tip }}
+                </div>
+                <div v-else>
+                    {{ img_url_tip }}
+                </div>
             </div>
             <div style="display:flex;padding-top: 8px;">
                 <div class="col-6" style="padding-left:0px;padding-right:0px;">

@@ -165,7 +165,8 @@
                                     <template slot="label">
                                         {{ $t("user.company_position") }}
                                     </template>
-                                    <el-select v-model="detail.company_position" :placeholder="$t('user.select_type')" @change="companyPositionChange" filterable>
+                                    <el-select v-model="detail.company_position" :placeholder="$t('user.select_type')" filterable>
+                                        <!-- @change="companyPositionChange"  -->
                                         <el-option v-for="item in companyPositionList" :key="item.value" :label="$t(item.text)" :value="item.value">
                                             <span style="float: left">{{ $t(item.text) }}</span>
                                         </el-option>
@@ -233,7 +234,7 @@
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.identity_photo_b_url)"
                                         @img="updateImg($event, 'identity_photo_b')"
-                                        :img_url_demo="identity_photo_b_demo_url"
+                                        :img_url_demo="detail.identity_country_type === 'outland' ? null : identity_photo_b_demo_url"
                                         :img_url_tip="setIdentityPhotoTipB()"
                                     ></UploadImgOnce>
                                 </el-form-item>
@@ -249,22 +250,23 @@
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.identity_photo_c_url)"
                                         @img="updateImg($event, 'identity_photo_c')"
-                                        :img_url_demo="identity_photo_c_demo_url"
+                                        :img_url_demo="detail.identity_country_type === 'outland' ? null : identity_photo_c_demo_url"
                                         :img_url_tip="detail.identity_country_type === 'outland' ? $t('user.identity_photo_c_outland_tip') : $t('user.identity_photo_c_tip')"
                                     ></UploadImgOnce>
                                 </el-form-item>
-                                <el-form-item v-show="detail.identity_country_type === 'outland' && detail.identity_account_type === 'company' && detail.company_position === 'none'" :label="$t('user.chairman_authorization')" prop="chairman_authorization" ref="chairman_authorization">
+                                <!-- 董事授权书先不要了 -->
+                                <!-- <el-form-item v-show="detail.identity_country_type === 'outland' && detail.identity_account_type === 'company' && detail.company_position === 'none'" :label="$t('user.chairman_authorization')" prop="chairman_authorization" ref="chairman_authorization">
                                     <UploadImgOnce
                                         :txt="$t('user.upload_chairman_authorization')"
                                         size="sm"
                                         :disable="hold_edit"
                                         :img_url="fullImgUrl(detail.chairman_authorization_url)"
                                         @img="updateImg($event, 'chairman_authorization')"
-                                        :img_url_demo="chairman_authorization_demo_url"
+                                        :img_url_demo="detail.identity_country_type === 'outland' ? chairman_authorization_demo_url : chairman_authorization_demo_url"
                                         :img_url_tip="$t('user.chairman_authorization_tip')"
                                         :accept_pdf="true"
                                     ></UploadImgOnce>
-                                </el-form-item>
+                                </el-form-item> -->
                                 <hr />
                             </div>
                             <!-- 境外企业 地址电话-->
@@ -754,13 +756,13 @@
                             trigger: "change",
                         },
                     ],
-                    chairman_authorization: [
-                        {
-                            required: true,
-                            message: this.validMsg2("user.chairman_authorization"),
-                            trigger: "change",
-                        },
-                    ],
+                    // chairman_authorization: [
+                    //     {
+                    //         required: true,
+                    //         message: this.validMsg2("user.chairman_authorization"),
+                    //         trigger: "change",
+                    //     },
+                    // ],
                     company_register_address: [
                         {
                             required: true,
@@ -844,20 +846,20 @@
                     }
                 }
             },
-            companyPositionChange() {
-                //以上都不是的情况需要董事授权书
-                if (this.detail.company_position === "none") {
-                    this.resetRule("chairman_authorization", [
-                        {
-                            required: true,
-                            message: this.$i18n.t("user.chairman_authorization"),
-                            trigger: "change",
-                        },
-                    ]);
-                } else {
-                    this.resetRule("chairman_authorization", []);
-                }
-            },
+            // companyPositionChange() {
+            //     //以上都不是的情况需要董事授权书
+            //     if (this.detail.company_position === "none") {
+            //         this.resetRule("chairman_authorization", [
+            //             {
+            //                 required: true,
+            //                 message: this.$i18n.t("user.chairman_authorization"),
+            //                 trigger: "change",
+            //             },
+            //         ]);
+            //     } else {
+            //         this.resetRule("chairman_authorization", []);
+            //     }
+            // },
             showSubsidiary(val) {
                 this.detail.is_own_subsidiary = val;
                 if (this.detail.is_own_subsidiary === true && this.detail.identity_country_type === "outland" && this.detail.identity_account_type === "company") {
@@ -890,7 +892,7 @@
                     } else if (this.detail.personal_identity === "hk_pass") {
                         return this.identity_photo_a_hk_demo_url;
                     } else {
-                        return this.identity_photo_a_id_demo_url;
+                        return null;
                     }
                 } else {
                     return this.identity_photo_a_id_demo_url;
@@ -994,7 +996,7 @@
                         }
                     }
                     this.personalIdentityChange();
-                    this.companyPositionChange();
+                    // this.companyPositionChange();
                 } else {
                     this.rules = this.rulesA;
                 }
