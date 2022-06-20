@@ -452,7 +452,7 @@
                             <div :class="cssType">
                                 <div class="top_tip" slot="tip">
                                     {{ $t("comm.download") }}
-                                    <a target="_blank" class="download-trigger text-blue" :href="add_bank.card_country_type === 'outland' ? companyAuthorizationTemplate : companyAuthorizationTemplate"> {{ $t("user.sample_template") }}</a>
+                                    <a target="_blank" class="download-trigger text-blue" :href="add_bank.card_country_type === 'outland' ? outCompanyAuthorizationTemplate : companyAuthorizationTemplate"> {{ $t("user.sample_template") }}</a>
                                     {{ $t("comm.download_Authorization_explain[1]") }}
                                 </div>
                                 <div class="col-10" style="padding-left:0;padding-top: 8px;">
@@ -625,6 +625,7 @@
                 //
                 ecmRuleData: [],
                 companyAuthorizationTemplate: configs.template.settleBasePath + "%E4%B8%9A%E5%8A%A1%E6%AC%BE%E6%8C%87%E7%A4%BA%E4%BA%A4%E4%BB%98%E9%80%9A%E7%9F%A5%E4%B9%A6-%E5%A2%83%E5%86%85%E4%BC%81%E4%B8%9A%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8.pdf",
+                outCompanyAuthorizationTemplate: configs.template.settleBasePath + "Settlement%20Authorization%20Letter.pdf",
                 update_box_show: true,
                 sizeType: "sm-box-up",
                 cssType: "",
