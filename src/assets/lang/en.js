@@ -390,6 +390,7 @@ module.exports = {
         "refundFail": "Refund fail",
         "manual": "Manual",
         "reverseDeposit": "Reverse deposit",
+        "reverseTrade": "Reverse trade",
     },
     "account": {
         "need_valid_identity_before": "Please complete the account activation verification first",
@@ -595,6 +596,7 @@ module.exports = {
         "card_no": "Bank account number",
         "card_no2": "Bank account number",
         "card_no_tip": "Bank card number",
+        "card_no_placeholder": "Please add the Bank Card for settlement",
         "card_type": "Type of card",
         "inter_bank_no": "The inter-bank number",
         "inter_bank_no_tip": "Bank code",

@@ -333,7 +333,7 @@
                                     <span slot="reference">{{ $t("bank.card_no2") }} <i class="el-icon-warning-outline"></i></span>
                                 </el-popover>
                             </template>
-                            <el-input v-model="add_bank.card_no"></el-input>
+                            <el-input v-model="add_bank.card_no" :placeholder="$t('bank.card_no_placeholder')"></el-input>
                         </el-form-item>
                         <el-form-item prop="name">
                             <template slot="label">
@@ -342,13 +342,6 @@
                                 </el-popover>
                             </template>
                             <el-input v-model="add_bank.name" :disabled="disable_name"></el-input>
-                        </el-form-item>
-                        <el-form-item :label="$t('bank.bank_card_currency')" prop="bank_card_currency">
-                            <el-select v-model="add_bank.bank_card_currency" :placeholder="$t('comm.please_select')" filterable>
-                                <el-option v-for="item in currency_list" :key="item.value" :label="item.text" :value="item.value">
-                                    <span style="float: left">{{ item.text }}</span>
-                                </el-option>
-                            </el-select>
                         </el-form-item>
                     </div>
 
@@ -420,7 +413,7 @@
                                     <span slot="reference">{{ $t("bank.card_no") }} <i class="el-icon-warning-outline"></i></span>
                                 </el-popover>
                             </template>
-                            <el-input v-model="add_bank.card_no"></el-input>
+                            <el-input v-model="add_bank.card_no" :placeholder="add_bank.card_country_type === 'outland' ? $t('bank.card_no_placeholder') : ''"></el-input>
                         </el-form-item>
                         <el-form-item prop="inter_bank_no">
                             <template slot="label">
@@ -486,7 +479,7 @@
     import user from "@/store/modules/user";
     import { mapState } from "vuex";
     import ShowMoreBtn from "@/components/ShowMoreBtn";
-    import { addBank, getMerIdentity, getMerInfo, getMerCurrencyList } from "@/service/merchantSer";
+    import { addBank, getMerIdentity, getMerInfo } from "@/service/merchantSer";
     import { isEmpty } from "@/utils/validate";
     import { getAreaJsonData, getInlandAreaJsonData } from "@/service/riskAreaSer";
 
@@ -590,7 +583,6 @@
                     card_company_register_address: [{ required: true, message: "", trigger: "blur" }],
                     route_mode: [{ required: true, message: "", trigger: "blur" }],
                     bank_swift_no: [{ required: true, message: "", trigger: "blur" }],
-                    bank_card_currency: [{ required: true, message: "", trigger: "change" }],
                 },
                 //境内
                 rulesF: {
@@ -644,7 +636,6 @@
                 accountTypeList: [{ value: "company", text: "user.company", disabled: false }],
                 accountPersonalTypeList: [{ value: "personal", text: "user.personal", disabled: false }],
                 accountCompanyTypeList: [{ value: "company", text: "user.company", disabled: false }],
-                currency_list: [{ value: "USD", text: "USD" }],
             };
         },
         mounted() {
@@ -671,7 +662,6 @@
 
                         if (this.add_bank.status !== 1) {
                             this.loadIdentity();
-                            this.loadCurrencyList();
                         }
                     })
                     .finally(() => {
@@ -731,17 +721,6 @@
                         }
 
                         this.typeChange();
-                    })
-                    .finally(() => {
-                        this.loading = false;
-                    });
-            },
-            loadCurrencyList() {
-                this.loading = true;
-                getMerCurrencyList()
-                    .then(res => {
-                        const { data } = res;
-                        this.$data.currency_list = data.currency_list;
                     })
                     .finally(() => {
                         this.loading = false;
@@ -949,7 +928,6 @@
                     card_company_register_address: "",
                     route_mode: "SWIFT",
                     bank_swift_no: "",
-                    bank_card_currency: "",
                     bank_state: "",
                     bank_city: "",
                 };

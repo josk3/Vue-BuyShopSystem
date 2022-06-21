@@ -11,10 +11,6 @@ export function getMerIdentity() {
     return get('/merchant/identity', ''); //当前登录状态下的mer
 }
 
-export function getMerCurrencyList() {
-    return get('/merchant/merCurrencyList', ''); //当前登录状态下的mer
-}
-
 export function updateIdentity(params) {
     return upload('/merchant/update/identity', params);
 }

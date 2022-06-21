@@ -596,6 +596,7 @@ module.exports = {
         "card_no": "开户行账号",
         "card_no2": "银行账号",
         "card_no_tip": "开户银行的银行卡卡号",
+        "card_no_placeholder": "请添加结算币种的银行卡",
         "card_type": "卡类型",
         "inter_bank_no": "开户行联行号",
         "inter_bank_no_tip": "银行行号(编号)",

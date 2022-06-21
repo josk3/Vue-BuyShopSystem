@@ -3833,23 +3833,6 @@ const proxy = {
             }
         })
     },
-    'GET /api/v1/merchant/merCurrencyList': (req, res) => {
-        return res.json({
-            status: 1,
-            data: {
-                "currency_list": [
-                    {
-                        "text": "USD",
-                        "value": "USD"
-                    },
-                    {
-                        "text": "CNY",
-                        "value": "CNY"
-                    },
-                ],
-            }
-        })
-    },
     'POST /api/v1/merchant/update/identity': (req, res) => {
         return res.json({
             status: 1,
