@@ -331,6 +331,7 @@ module.exports = {
         "refundFail": "退款失败",
         "manual": "人工",
         "reverseDeposit": "冲正保证金",
+        "reverseTrade": "冲正交易款",
     },
     "account": {
         "need_valid_identity_before": "请先完成账户激活认证",
@@ -509,6 +510,9 @@ module.exports = {
         "site_url_review_help_info": "网站审核会在<strong>工作日</strong>1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
         "remindClose": "知道了",
         "site_success": "提交成功，网站审核会在工作日1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
+        "mer_remark": "备注",
+        "input_account": "请输入用户名和密码",
+        "virtual_notes": "访问时需要特殊需求，比如用户名和密码等，请写好备注.",
     },
     "bank": {
         "settle_bank": "结算银行卡",
