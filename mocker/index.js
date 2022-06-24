@@ -17,7 +17,7 @@ function demoUserInfo() {
                 phone: '13818181818',
                 second_login: '2020-01-01 00:00:00',
                 status: 1,
-                identity_status: 0,
+                identity_status: 1,
                 bank_status: 0,
                 mer_no: '4008',
                 online: true,
@@ -1204,7 +1204,7 @@ const proxy = {
             // '/api/v1/(.*)': 'http://192.168.3.182:8013',
             // '/api/v1/(.*)': 'http://127.0.0.1/',
             // '/images/(.*)': 'http://localhost:8013/',
-            '/api/v1/(.*)': 'http://localhost:8013/',
+            // '/api/v1/(.*)': 'http://localhost:8013/',
         },
         changeHost: true,
         header: {
@@ -1251,6 +1251,7 @@ const proxy = {
     'POST /api/v1/login': (req, res) => {
         const {password, username} = req.body;
         if (password === 'Test123456' && username === 'admin') {
+            return res.json(demoUserInfo());
             if (req.body.valid_sig) {
                 return res.json(demoUserInfo());
             } else {
@@ -3615,8 +3616,11 @@ const proxy = {
                     updated: "2020-08-07 23:53:26",
                     virtual: false,
                     mid_type: '', //company
-                    identity_account_type: '',
+                    identity_account_type: 'personal',
+                    identity_country_type: 'outland',
                     allow_personal: 0,
+                    card_account_type: 'company',
+                    card_country_type: 'inland',
                 },
                 bank: {
                     bank_brand: '工商银行',
@@ -3632,7 +3636,7 @@ const proxy = {
                     created: 1597560824000,
                     disabled: false,
                     mer_no: '4008',
-                    status: 1,
+                    status: 3,
                     updated: null,
                 },
                 ecm_rule: [
@@ -3664,9 +3668,10 @@ const proxy = {
                 detail: {
                     "identity_reason": '图片不清楚',
                     "name": "测试26",
-                    "identity_name": "",
+                    "identity_name": "zz",
                     "identity_photo_a": "wef",
                     "identity_photo_b": null,
+                    "identity_photo_c": null,
                     "identity_bank_photo": null,
                     "identity_number": null,
                     "identity_start_date": null,
@@ -3675,7 +3680,7 @@ const proxy = {
                     "address": null,
                     "zip_code": null,
                     "shop_site": null,
-                    "company_name": null,
+                    "company_name": "zzCompany",
                     "company_identity_photo": null,
                     "company_identity_id": null,
                     "company_start_date": null,
@@ -3699,6 +3704,11 @@ const proxy = {
                     "identity_photo_a_url": "/mer/id_img?name=wef",
                     "phone": "1333333",
                     "email": "",
+                    "company_identity_photo": null,
+                    "company_business_identity_photo": null,
+                    "company_register_identity_photo": null,
+                    "company_annual_report_photo": null,
+                    "chairman_authorization": null,
                 },
                 "job_type": [
                     {
