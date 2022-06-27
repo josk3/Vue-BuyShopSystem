@@ -691,14 +691,16 @@
                                 this.payeeTypeList = this.payeePersonalTypeList;
                             }
                         } else {
-                            if (this.$data.info.identity_account_type === "company") {
-                                this.$data.detail.card_account_type = "company";
-                                this.$data.add_bank.card_account_type = "company";
-                                this.payeeTypeList = this.payeeCompanyTypeList;
-                            } else {
-                                this.$data.detail.card_account_type = "personal";
-                                this.$data.add_bank.card_account_type = "personal";
-                                this.payeeTypeList = this.payeePersonalTypeList;
+                            if (!isEmpty(this.$data.info.identity_account_type)) {
+                                if (this.$data.info.identity_account_type === "company") {
+                                    this.$data.detail.card_account_type = "company";
+                                    this.$data.add_bank.card_account_type = "company";
+                                    this.payeeTypeList = this.payeeCompanyTypeList;
+                                } else {
+                                    this.$data.detail.card_account_type = "personal";
+                                    this.$data.add_bank.card_account_type = "personal";
+                                    this.payeeTypeList = this.payeePersonalTypeList;
+                                }
                             }
                         }
                         if (!isEmpty(this.$data.info.card_country_type)) {
@@ -711,12 +713,14 @@
                                 this.$data.add_bank.card_country_type = "inland";
                             }
                         } else {
-                            if (this.$data.info.identity_country_type === "outland") {
-                                this.$data.detail.card_country_type = "outland";
-                                this.$data.add_bank.card_country_type = "outland";
-                            } else {
-                                this.$data.detail.card_country_type = "inland";
-                                this.$data.add_bank.card_country_type = "inland";
+                            if (!isEmpty(this.$data.info.identity_country_type)) {
+                                if (this.$data.info.identity_country_type === "outland") {
+                                    this.$data.detail.card_country_type = "outland";
+                                    this.$data.add_bank.card_country_type = "outland";
+                                } else {
+                                    this.$data.detail.card_country_type = "inland";
+                                    this.$data.add_bank.card_country_type = "inland";
+                                }
                             }
                         }
 
