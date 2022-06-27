@@ -703,20 +703,20 @@
                         }
                         if (!isEmpty(this.$data.info.card_country_type)) {
                             //type数据在info
-                            if (this.$data.info.card_country_type === "inland") {
-                                this.$data.detail.card_country_type = "inland";
-                                this.$data.add_bank.card_country_type = "inland";
-                            } else {
+                            if (this.$data.info.card_country_type === "outland") {
                                 this.$data.detail.card_country_type = "outland";
                                 this.$data.add_bank.card_country_type = "outland";
+                            } else {
+                                this.$data.detail.card_country_type = "inland";
+                                this.$data.add_bank.card_country_type = "inland";
                             }
                         } else {
-                            if (this.$data.info.identity_country_type === "inland") {
-                                this.$data.detail.card_country_type = "inland";
-                                this.$data.add_bank.card_country_type = "inland";
-                            } else {
+                            if (this.$data.info.identity_country_type === "outland") {
                                 this.$data.detail.card_country_type = "outland";
                                 this.$data.add_bank.card_country_type = "outland";
+                            } else {
+                                this.$data.detail.card_country_type = "inland";
+                                this.$data.add_bank.card_country_type = "inland";
                             }
                         }
 

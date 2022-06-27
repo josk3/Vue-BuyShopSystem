@@ -1055,14 +1055,14 @@
                         }
                         if (!isEmpty(this.$data.info.identity_country_type)) {
                             //type数据在info
-                            if (this.$data.info.identity_country_type === "inland") {
-                                this.$data.detail.identity_country_type = "inland";
-                                this.inland_disabled = false;
-                                this.outland_disabled = true;
-                            } else {
+                            if (this.$data.info.identity_country_type === "outland") {
                                 this.$data.detail.identity_country_type = "outland";
                                 this.inland_disabled = true;
                                 this.outland_disabled = false;
+                            } else {
+                                this.$data.detail.identity_country_type = "inland";
+                                this.inland_disabled = false;
+                                this.outland_disabled = true;
                             }
                         } else {
                             this.inland_disabled = false;
