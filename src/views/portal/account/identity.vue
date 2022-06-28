@@ -356,6 +356,11 @@
                 const reg = /[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/;
                 this.validReg(reg, value, rule.field, callback);
             };
+            var checkInlandName = (rule, value, callback) => {
+                //只能汉字
+                const reg = /^[\u4e00-\u9fa5]*$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
             var checkInlandIdNum = (rule, value, callback) => {
                 //18位身份证
                 const reg = /^([1-6][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
@@ -364,6 +369,11 @@
             var checkInlandPhone = (rule, value, callback) => {
                 //11位手机号
                 const reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkOutlandPhone = (rule, value, callback) => {
+                //数字就行
+                const reg = /^[0-9]*$/;
                 this.validReg(reg, value, rule.field, callback);
             };
             var checkOutlandIdNum = (rule, value, callback) => {
@@ -414,13 +424,6 @@
                             trigger: "blur",
                         },
                     ],
-                    identity_name: [
-                        {
-                            required: true,
-                            message: this.validMsg("user.identity_name"),
-                            trigger: "blur",
-                        },
-                    ],
                     //identity_bank_photo: [{required: true, message: this.validMsg('user.identity_bank_photo'),trigger: 'change'},],
                     // company_address: [
                     //     {
@@ -447,6 +450,10 @@
                         {
                             required: true,
                             message: this.validMsg("user.zip_code"),
+                            trigger: "blur",
+                        },
+                        {
+                            validator: checkOutlandPhone,
                             trigger: "blur",
                         },
                     ],
@@ -476,6 +483,14 @@
                         {
                             required: true,
                             message: this.validMsg("user.phone"),
+                            trigger: "blur",
+                        },
+                        { validator: checkOutlandPhone, trigger: "blur" },
+                    ],
+                    identity_name: [
+                        {
+                            required: true,
+                            message: this.validMsg("user.identity_name"),
                             trigger: "blur",
                         },
                     ],
@@ -572,12 +587,24 @@
                 },
                 //境内公司
                 rulesB: {
+                    identity_name: [
+                        {
+                            required: true,
+                            message: this.validMsg("user.legal_person"),
+                            trigger: "blur",
+                        },
+                        {
+                            validator: checkInlandName,
+                            trigger: "blur",
+                        },
+                    ],
                     company_name: [
                         {
                             required: true,
                             message: this.validMsg("user.company_name"),
                             trigger: "blur",
                         },
+                        { validator: checkInlandName, trigger: "blur" },
                     ],
                     company_identity_photo: [
                         {
@@ -638,6 +665,17 @@
                 },
                 //境内个人
                 rulesC: {
+                    identity_name: [
+                        {
+                            required: true,
+                            message: this.validMsg("user.identity_name"),
+                            trigger: "blur",
+                        },
+                        {
+                            validator: checkInlandName,
+                            trigger: "blur",
+                        },
+                    ],
                     identity_photo_c: [
                         {
                             required: true,
@@ -947,7 +985,7 @@
                     if (this.detail.identity_country_type === "outland") {
                         if (this.detail.identity_account_type === "company") {
                             this.rules = Object.assign(this.rulesE, this.rulesAOut, this.rulesA);
-                            this.resetRule("identity_name", []);
+                            // this.resetRule("identity_name", []);
                             if (this.detail.is_own_subsidiary === false) {
                                 //参数默认是false 校验默认是true
                                 this.resetRule("subsidiary_name", []);
@@ -960,13 +998,13 @@
                     } else {
                         if (this.detail.identity_account_type === "company") {
                             this.rules = Object.assign(this.rulesB, this.rulesAIn, this.rulesA);
-                            this.resetRule("identity_name", [
-                                {
-                                    required: true,
-                                    message: this.validMsg("user.legal_person"),
-                                    trigger: "blur",
-                                },
-                            ]);
+                            // this.resetRule("identity_name", [
+                            //     {
+                            //         required: true,
+                            //         message: this.validMsg("user.legal_person"),
+                            //         trigger: "blur",
+                            //     },
+                            // ]);
                             // this.resetRule("identity_photo_c", []);
                             // this.resetRule("address", [
                             //     {
@@ -979,13 +1017,13 @@
                             // ]);
                         } else {
                             this.rules = Object.assign(this.rulesC, this.rulesAIn, this.rulesA);
-                            this.resetRule("identity_name", [
-                                {
-                                    required: true,
-                                    message: this.validMsg("user.identity_name"),
-                                    trigger: "blur",
-                                },
-                            ]);
+                            // this.resetRule("identity_name", [
+                            //     {
+                            //         required: true,
+                            //         message: this.validMsg("user.identity_name"),
+                            //         trigger: "blur",
+                            //     },
+                            // ]);
                             // this.resetRule("address", [
                             //     {
                             //         required: true,

@@ -243,11 +243,11 @@
             <div>
                 <div style="display:flex;justify-content:center;">
                     <el-radio-group v-model="add_bank.card_country_type" @change="typeChange" style="margin-top:20px;">
-                        <el-radio-button label="inland" :disabled="detail.card_country_type !== 'inland'">{{ $t("bank.inland_bank_account") }} </el-radio-button>
-                        <el-radio-button label="outland" :disabled="detail.card_country_type !== 'outland'">{{ $t("bank.outland_bank_account") }}</el-radio-button>
+                        <el-radio-button label="inland" :disabled="inland_disabled">{{ $t("bank.inland_bank_account") }} </el-radio-button>
+                        <el-radio-button label="outland" :disabled="outland_disabled">{{ $t("bank.outland_bank_account") }}</el-radio-button>
                     </el-radio-group>
                 </div>
-                <el-form ref="add_bank" :model="add_bank" :show-message="false" :rules="rules" label-width="165px" class="pl-1 pr-3 pt-3 pb-0">
+                <el-form ref="add_bank" :model="add_bank" :show-message="true" :rules="rules" label-width="165px" class="pl-1 pr-3 pt-3 pb-0">
                     <el-form-item prop="payee_type">
                         <template slot="label">
                             {{ $t("bank.payee_type") }}
@@ -317,7 +317,7 @@
                             <el-input v-model="add_bank.bank_name"></el-input>
                         </el-form-item>
                         <el-form-item :label="$t('bank.route_mode')" prop="route_mode">
-                            <el-input v-model="add_bank.route_mode"></el-input>
+                            <el-input v-model="add_bank.route_mode" disabled></el-input>
                         </el-form-item>
                         <el-form-item prop="bank_swift_no">
                             <template slot="label">
@@ -511,20 +511,22 @@
             var checkIdNum = (rule, value, callback) => {
                 //18位身份证规范检查
                 const reg = /^([1-6][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
-                if (!reg.test(value)) {
-                    return callback(this.$message.error(this.$i18n.t("bank.card_id_error_message").toString()));
-                } else {
-                    callback();
-                }
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkInlandName = (rule, value, callback) => {
+                //只能汉字
+                const reg = /^[\u4e00-\u9fa5]*$/;
+                this.validReg(reg, value, rule.field, callback);
             };
             var checkInlandPhone = (rule, value, callback) => {
                 //11位手机号
                 const reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
-                if (!reg.test(value)) {
-                    return callback(this.$message.error(this.$i18n.t("bank.bank_card_mobile") + this.$i18n.t("user.incorrect_format")));
-                } else {
-                    callback();
-                }
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkOutlandPhone = (rule, value, callback) => {
+                //数字就行
+                const reg = /^[0-9]*$/;
+                this.validReg(reg, value, rule.field, callback);
             };
             return {
                 loading: false,
@@ -537,6 +539,8 @@
                 addBankDialogVisible: false,
                 add_bank: {},
                 disable_name: true,
+                inland_disabled: false,
+                outland_disabled: false,
                 select_state: null, //当前选择值
                 area_all_list: [], //所有国家数据
                 area_states_list: {}, //对应国家所有洲省数据
@@ -544,75 +548,91 @@
                 rules: {},
                 //境内及境外个人
                 rulesA: {
-                    card_country_type: [{ required: true, message: "", trigger: "change" }],
-                    payee_type: [{ required: true, message: "", trigger: "change" }],
-                    card_account_type: [{ required: true, message: "", trigger: "change" }],
-                    name: [{ required: true, message: "", trigger: "blur" }],
-                    bank_name: [{ required: true, message: "", trigger: "blur" }],
-                    card_no: [{ required: true, message: "", trigger: "blur" }],
+                    card_country_type: [{ required: true, message: this.validMsg("comm.type"), trigger: "change" }],
+                    payee_type: [{ required: true, message: this.validMsg("bank.payee_type"), trigger: "change" }],
+                    card_account_type: [{ required: true, message: this.validMsg("bank.payee_account_type"), trigger: "change" }],
+                    bank_name: [{ required: true, message: this.validMsg("bank.bank_name"), trigger: "blur" }],
+                    card_no: [{ required: true, message: this.validMsg("bank.card_no"), trigger: "blur" }],
 
-                    bank_branch: [{ required: true, message: "", trigger: "blur" }],
-                    inter_bank_no: [{ required: true, message: "", trigger: "blur" }],
+                    bank_branch: [{ required: true, message: this.validMsg("bank.bank_branch"), trigger: "blur" }],
+                    inter_bank_no: [{ required: true, message: this.validMsg("bank.inter_bank_no"), trigger: "blur" }],
                 },
                 //境内个人
                 rulesB: {
                     card_identity_number: [
-                        { required: true, message: "", trigger: "blur" },
+                        { required: true, message: this.validMsg("bank.card_identity_number"), trigger: "blur" },
                         { validator: checkIdNum, trigger: "blur" },
                     ],
                 },
                 //第三方
                 rulesC: {
-                    authorization_relation: [{ required: true, message: "", trigger: "blur" }],
-                    authorize_photo: [{ required: true, message: "", trigger: "change" }],
+                    authorization_relation: [{ required: true, message: this.validMsg("bank.authorization_relation"), trigger: "blur" }],
+                    authorize_photo: [{ required: true, message: this.validMsg2("bank.authorize_photo"), trigger: "change" }],
                 },
-                //境外
+                //境外个人
                 rulesD: {
-                    select_country: [{ required: true, message: "", trigger: "change" }],
-                    bank_address: [{ required: true, message: "", trigger: "blur" }],
+                    bank_address: [{ required: true, message: this.validMsg("bank.bank_address"), trigger: "blur" }],
+                    name: [{ required: true, message: this.validMsg("bank.name"), trigger: "blur" }],
+                    bank_card_mobile: [
+                        { required: true, message: this.validMsg("bank.bank_card_mobile"), trigger: "blur" },
+                        { validator: checkOutlandPhone, trigger: "blur" },
+                    ],
+                    card_identity_number: [{ required: true, message: this.validMsg("bank.card_identity_number"), trigger: "blur" }],
+                    select_country: [{ required: true, message: this.validMsg("bank.bank_country2"), trigger: "change" }],
                 },
                 //境外企业
                 rulesE: {
-                    card_country_type: [{ required: true, message: "", trigger: "blur" }],
-                    payee_type: [{ required: true, message: "", trigger: "blur" }],
-                    card_account_type: [{ required: true, message: "", trigger: "blur" }],
-                    name: [{ required: true, message: "", trigger: "blur" }],
-                    bank_name: [{ required: true, message: "", trigger: "blur" }],
-                    card_no: [{ required: true, message: "", trigger: "blur" }],
+                    card_country_type: [{ required: true, message: this.validMsg("comm.type"), trigger: "blur" }],
+                    payee_type: [{ required: true, message: this.validMsg("bank.payee_type"), trigger: "blur" }],
+                    card_account_type: [{ required: true, message: this.validMsg("bank.payee_account_type"), trigger: "blur" }],
+                    name: [{ required: true, message: this.validMsg("bank.name"), trigger: "blur" }],
+                    bank_name: [{ required: true, message: this.validMsg("bank.bank_name"), trigger: "blur" }],
+                    card_no: [{ required: true, message: this.validMsg("bank.card_no"), trigger: "blur" }],
+                    select_country: [{ required: true, message: this.validMsg("bank.bank_country"), trigger: "change" }],
+                    bank_address: [{ required: true, message: this.validMsg("bank.bank_address"), trigger: "blur" }],
 
-                    card_company_register_address: [{ required: true, message: "", trigger: "blur" }],
-                    route_mode: [{ required: true, message: "", trigger: "blur" }],
-                    bank_swift_no: [{ required: true, message: "", trigger: "blur" }],
+                    card_company_register_address: [{ required: true, message: this.validMsg("user.company_register_address"), trigger: "blur" }],
+                    route_mode: [{ required: true, message: this.validMsg("bank.route_mode"), trigger: "blur" }],
+                    bank_swift_no: [{ required: true, message: this.validMsg("bank.bank_swift_no"), trigger: "blur" }],
                 },
                 //境内
                 rulesF: {
-                    select_province: [{ required: true, message: "", trigger: "change" }],
+                    select_province: [{ required: true, message: this.validMsg("bank.bank_country2"), trigger: "change" }],
                     bank_card_mobile: [
-                        { required: true, message: "", trigger: "blur" },
+                        { required: true, message: this.validMsg("bank.bank_card_mobile"), trigger: "blur" },
                         { validator: checkInlandPhone, trigger: "blur" },
                     ],
                 },
                 //境外第三方企业
                 rulesOTC: {},
                 //境外第三方个人
-                rulesOTP: {
-                    bank_card_mobile: [{ required: true, message: "", trigger: "blur" }],
-                    card_identity_number: [{ required: true, message: "", trigger: "blur" }],
-                },
+                rulesOTP: {},
                 //境外自己企业
                 rulesOOC: {},
                 //境外自己个人
-                rulesOOP: {
-                    card_identity_number: [{ required: true, message: "", trigger: "blur" }],
-                },
+                rulesOOP: {},
                 //境内第三方企业
-                rulesITC: {},
+                rulesITC: {
+                    name: [
+                        { required: true, message: this.validMsg("bank.name"), trigger: "blur" },
+                        { validator: checkInlandName, trigger: "blur" },
+                    ],
+                },
                 //境内第三方个人
-                rulesITP: {},
+                rulesITP: {
+                    name: [
+                        { required: true, message: this.validMsg("bank.name"), trigger: "blur" },
+                        { validator: checkInlandName, trigger: "blur" },
+                    ],
+                },
                 //境内自己个人
-                rulesIOP: {},
+                rulesIOP: {
+                    name: [{ required: true, message: this.validMsg("bank.name"), trigger: "blur" }],
+                },
                 //境内自己企业
-                rulesIOC: {},
+                rulesIOC: {
+                    name: [{ required: true, message: this.validMsg("bank.name"), trigger: "blur" }],
+                },
 
                 //
                 ecmRuleData: [],
@@ -708,19 +728,32 @@
                             if (this.$data.info.card_country_type === "outland") {
                                 this.$data.detail.card_country_type = "outland";
                                 this.$data.add_bank.card_country_type = "outland";
+                                this.inland_disabled = true;
+                                this.outland_disabled = false;
                             } else {
                                 this.$data.detail.card_country_type = "inland";
                                 this.$data.add_bank.card_country_type = "inland";
+                                this.inland_disabled = false;
+                                this.outland_disabled = true;
                             }
                         } else {
                             if (!isEmpty(this.$data.info.identity_country_type)) {
                                 if (this.$data.info.identity_country_type === "outland") {
                                     this.$data.detail.card_country_type = "outland";
                                     this.$data.add_bank.card_country_type = "outland";
+                                    this.inland_disabled = true;
+                                    this.outland_disabled = false;
                                 } else {
                                     this.$data.detail.card_country_type = "inland";
                                     this.$data.add_bank.card_country_type = "inland";
+                                    this.inland_disabled = false;
+                                    this.outland_disabled = true;
                                 }
+                            } else {
+                                this.$data.detail.card_country_type = "inland";
+                                this.$data.add_bank.card_country_type = "inland";
+                                this.inland_disabled = false;
+                                this.outland_disabled = false;
                             }
                         }
 
@@ -821,12 +854,12 @@
                             this.disable_name = false;
                             if (this.add_bank.card_account_type === "company") {
                                 if (!isEmpty(this.detail.company_name)) {
-                                    this.add_bank.name = this.detail.company_name;
+                                    this.$set(this.add_bank, "name", this.detail.company_name);
                                 }
-                                this.rules = Object.assign(this.rulesOTC, this.rulesE, this.rulesD, this.rulesC);
+                                this.rules = Object.assign(this.rulesOTC, this.rulesE, this.rulesC);
                             } else {
                                 if (!isEmpty(this.detail.identity_name)) {
-                                    this.add_bank.name = this.detail.identity_name;
+                                    this.$set(this.add_bank, "name", this.detail.identity_name);
                                 }
                                 this.rules = Object.assign(this.rulesOTP, this.rulesD, this.rulesC, this.rulesA);
                             }
@@ -838,14 +871,14 @@
                                 if (isEmpty(this.detail.company_name)) {
                                     this.disable_name = false;
                                 } else {
-                                    this.add_bank.name = this.detail.company_name;
+                                    this.$set(this.add_bank, "name", this.detail.company_name);
                                 }
-                                this.rules = Object.assign(this.rulesOOC, this.rulesE, this.rulesD);
+                                this.rules = Object.assign(this.rulesOOC, this.rulesE);
                             } else {
                                 if (isEmpty(this.detail.identity_name)) {
                                     this.disable_name = false;
                                 } else {
-                                    this.add_bank.name = this.detail.identity_name;
+                                    this.$set(this.add_bank, "name", this.detail.identity_name);
                                 }
                                 this.rules = Object.assign(this.rulesOOP, this.rulesD, this.rulesA);
                             }
@@ -859,12 +892,12 @@
                             this.disable_name = false;
                             if (this.add_bank.card_account_type === "company") {
                                 if (!isEmpty(this.detail.company_name)) {
-                                    this.add_bank.name = this.detail.company_name;
+                                    this.$set(this.add_bank, "name", this.detail.company_name);
                                 }
                                 this.rules = Object.assign(this.rulesITC, this.rulesF, this.rulesC, this.rulesA);
                             } else {
                                 if (!isEmpty(this.detail.identity_name)) {
-                                    this.add_bank.name = this.detail.identity_name;
+                                    this.$set(this.add_bank, "name", this.detail.identity_name);
                                 }
                                 this.rules = Object.assign(this.rulesITP, this.rulesF, this.rulesB, this.rulesC, this.rulesA);
                             }
@@ -876,14 +909,14 @@
                                 if (isEmpty(this.detail.company_name)) {
                                     this.disable_name = false;
                                 } else {
-                                    this.add_bank.name = this.detail.company_name;
+                                    this.$set(this.add_bank, "name", this.detail.company_name);
                                 }
                                 this.rules = Object.assign(this.rulesIOC, this.rulesF, this.rulesA);
                             } else {
                                 if (isEmpty(this.detail.identity_name)) {
                                     this.disable_name = false;
                                 } else {
-                                    this.add_bank.name = this.detail.identity_name;
+                                    this.$set(this.add_bank, "name", this.detail.identity_name);
                                 }
                                 this.rules = Object.assign(this.rulesIOP, this.rulesF, this.rulesB, this.rulesA);
                             }
@@ -954,45 +987,45 @@
                         return false;
                     } else {
                         //
-                        if (this.add_bank.need_authorize && isEmpty(this.add_bank.authorize_photo)) {
-                            this.$message.error(this.$i18n.t("valid.uploaded_field", [this.$i18n.t("bank.authorize_photo")]));
-                        } else {
-                            if (this.add_bank.action === "add") {
-                                //暂时不得修改，只能人工修改
-                                this.$data.loading = true;
-                                let formData = new FormData();
-                                let params = this.add_bank;
-                                Object.keys(params).forEach(key => {
-                                    //把json转成FormData
-                                    formData.append(key, params[key]);
-                                });
-                                addBank(formData)
-                                    .then(() => {
-                                        this.$message.success(this.$i18n.t("comm.success").toString());
-                                        if (this.add_bank.payee_type === "third") {
-                                            this.$confirm(this.$i18n.t("bank.upload_authorize_success_tip").toString(), "", {
-                                                confirmButtonText: this.$i18n.t("comm.sure").toString(),
-                                                type: "warning",
-                                                showCancelButton: false,
-                                                showClose: false,
-                                                closeOnClickModal: false,
-                                                closeOnPressEscape: false,
+                        // if (!isEmpty(this.add_bank.authorization_relation) && isEmpty(this.add_bank.authorize_photo)) {
+                        //     this.$message.error(this.$i18n.t("valid.uploaded_field", [this.$i18n.t("bank.authorize_photo")]));
+                        // } else {
+                        if (this.add_bank.action === "add") {
+                            //暂时不得修改，只能人工修改
+                            this.$data.loading = true;
+                            let formData = new FormData();
+                            let params = this.add_bank;
+                            Object.keys(params).forEach(key => {
+                                //把json转成FormData
+                                formData.append(key, params[key]);
+                            });
+                            addBank(formData)
+                                .then(() => {
+                                    this.$message.success(this.$i18n.t("comm.success").toString());
+                                    if (this.add_bank.payee_type === "third") {
+                                        this.$confirm(this.$i18n.t("bank.upload_authorize_success_tip").toString(), "", {
+                                            confirmButtonText: this.$i18n.t("comm.sure").toString(),
+                                            type: "warning",
+                                            showCancelButton: false,
+                                            showClose: false,
+                                            closeOnClickModal: false,
+                                            closeOnPressEscape: false,
+                                        })
+                                            .then(() => {
+                                                this.loadMerInfo();
+                                                this.closeBankDialog();
                                             })
-                                                .then(() => {
-                                                    this.loadMerInfo();
-                                                    this.closeBankDialog();
-                                                })
-                                                .catch(() => {});
-                                        } else {
-                                            this.loadMerInfo();
-                                            this.closeBankDialog();
-                                        }
-                                    })
-                                    .finally(() => {
-                                        this.$data.loading = false;
-                                    });
-                            }
+                                            .catch(() => {});
+                                    } else {
+                                        this.loadMerInfo();
+                                        this.closeBankDialog();
+                                    }
+                                })
+                                .finally(() => {
+                                    this.$data.loading = false;
+                                });
                         }
+                        // }
                     }
                 });
             },
@@ -1014,6 +1047,19 @@
             removeImgFile() {
                 this.update_box_show = true;
                 this.add_bank.authorize_photo = "";
+            },
+            validMsg(name) {
+                return this.$i18n.t("valid.required_field", [this.$i18n.t(name)]);
+            },
+            validMsg2(name) {
+                return this.$i18n.t("valid.uploaded_field", [this.$i18n.t(name)]);
+            },
+            validReg(reg, value, field, callback) {
+                if (!reg.test(value)) {
+                    return callback(this.$i18n.t("bank." + field) + this.$i18n.t("user.incorrect_format"));
+                } else {
+                    callback();
+                }
             },
         },
     };
