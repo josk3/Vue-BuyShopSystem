@@ -487,13 +487,6 @@
                         },
                         { validator: checkOutlandPhone, trigger: "blur" },
                     ],
-                    identity_name: [
-                        {
-                            required: true,
-                            message: this.validMsg("user.identity_name"),
-                            trigger: "blur",
-                        },
-                    ],
                     identity_start_date: [
                         {
                             required: true,
@@ -693,6 +686,13 @@
                 },
                 //境外个人
                 rulesD: {
+                    identity_name: [
+                        {
+                            required: true,
+                            message: this.validMsg("user.identity_name"),
+                            trigger: "blur",
+                        },
+                    ],
                     select_country: [
                         {
                             required: true,
