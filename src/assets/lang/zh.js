@@ -579,7 +579,7 @@ module.exports = {
         "name": "账户名称",
         "name_tip": "银行开户所属的账户名称",
         "name_tip2": "收款人账户名称",
-        "bank_name": "开户行",
+        "bank_name": "开户银行",
         "bank_name2": "开户银行名称",
         "bank_name_tip": "办理开户手续的银行营业网点",
         "bank_name_tip2": "开通账户银行的名称",

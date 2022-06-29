@@ -255,7 +255,7 @@
                         this.risk_area_form.country_name = !isEmpty(countryObj) ? countryObj.iso2 : ''
                         this.risk_area_form.state_name = !isEmpty(stateObj) ? stateObj.state_code : ''
                         if (isEmpty(this.risk_area_form.state_name)) {
-                            this.$message.error('请选择洲省')
+                            this.$message.error(this.$i18n.t("comm.please_select") + this.$i18n.t("risk.state_name"));
                         } else {
                             this.$data.loading = true
                             this.risk_area_form.select_state = null

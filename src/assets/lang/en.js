@@ -219,7 +219,7 @@ module.exports = {
         "email": "Email",
         "company_name": "Company Name",
         "identity_name": "Name",
-        "incorrect_format": "Incorrect Format",
+        "incorrect_format": " Incorrect Format",
         "identity_photo_a": "The front view of ID card",
         "upload_identity_photo_a": "Upload the front view of ID card photo",
         "identity_photo_a2": "The front view of ID card",
