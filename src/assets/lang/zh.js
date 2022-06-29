@@ -62,6 +62,7 @@ module.exports = {
         "blacklist_type": "黑名单类型",
         "blacklist_value": "黑名单值",
         "site_url": "网址",
+        "search_site_url": "网址(不支持模糊查询)",
         "ip": "IP",
         "order_amount": "订单金额",
         "payment_time": "交易时间",
