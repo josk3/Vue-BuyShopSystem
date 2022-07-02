@@ -12,7 +12,7 @@ export function payoutApply(params) {
 }
 
 export function payoutSearch(params) {
-    return post('/payout/search', params);
+    return post('/payout/search/v2', params);
 }
 
 /**
