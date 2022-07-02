@@ -4,7 +4,7 @@ import {post,download} from '@/utils/request'
  * 退款
  */
 export function refundSearch(params) {
-    return post('/refund/search', params);
+    return post('/refund/search/v2', params);
 }
 
 export function applyRefund(params) {

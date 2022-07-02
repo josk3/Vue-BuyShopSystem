@@ -41,7 +41,7 @@
                   :label="$t('comm.merchant_order_no')">
               </el-table-column>
               <el-table-column
-                  prop="customer.email"
+                  prop="customer_email"
                   :show-overflow-tooltip="true"
                   :label="$t('comm.email')">
               </el-table-column>

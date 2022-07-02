@@ -1408,6 +1408,20 @@ const proxy = {
             }
         });
     },
+    'POST /api/v1/refund/search/v2': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                page: { //后端方法 _pageSetRes(..)
+                    count: 5,
+                    page_num: req.body.page * 1 || 1,
+                    page_size: 20,
+                    total: 50,
+                },
+                list: demoOrderInfoRefund(),
+            }
+        });
+    },
     'POST /api/v1/refund/apply': (req, res) => {
         return res.json({
             status: 1,
