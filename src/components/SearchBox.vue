@@ -21,7 +21,7 @@
                     <el-form-item v-if="searchForm.merchant_order_no !== undefined" prop="merchant_order_no">
                         <el-input size="mini" v-model="searchForm.merchant_order_no"
                                   @keyup.native.enter="submitSearch"
-                                  :placeholder="$t('comm.merchant_order_no')" clearable></el-input>
+                                  :placeholder="searchForm.title == 'nav.trade_manage' ? $t('comm.merchant_order_no_like_left') : $t('comm.merchant_order_no')" clearable></el-input>
                     </el-form-item>
                     <el-form-item v-if="searchForm.pay_status !== undefined" prop="pay_status">
                         <el-select size="mini" v-model="searchForm.pay_status" :placeholder="$t('comm.status')"

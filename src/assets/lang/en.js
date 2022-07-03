@@ -56,6 +56,7 @@ module.exports = {
         "batch_id": "Batch ID",
         "trade_or_batch_id": "Trade ID/Batch ID",
         "merchant_order_no": "Order No",
+        "merchant_order_no_like_left": "Order No(Fuzzy search%, xxx%)",
         "country_name": "Country",
         "email": "Email",
         "phone": "Phone",
