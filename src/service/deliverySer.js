@@ -4,7 +4,7 @@ import {post, get, upload, download} from '@/utils/request'
  * 物流
  */
 export function deliverySearch(params) {
-    return post('/delivery/search', params);
+    return post('/delivery/search/v2', params);
 }
 
 export function deliveryDownload(params) {
