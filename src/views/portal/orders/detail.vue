@@ -16,7 +16,7 @@
                             <el-button v-else-if="order.pay_status === 'pending'" class="float-right" size="mini"
                                        @click="openCancelPendingDialog">
                                 <i class="el-icon-refresh-right"></i>
-                                {{$t('order.cancel_pending')}}
+                                {{$t('order.cancel_order')}}
                             </el-button>
                         </div>
                         <div class="text-left">
