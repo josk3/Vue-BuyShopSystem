@@ -301,6 +301,10 @@ export default {
       ordersDownload(this.searchParams).then(() => {
         this.$message.success(this.$i18n.t('comm.success').toString())
         this.search();
+      }).catch((res) => {
+        if (!isEmpty(res.response) && !isEmpty(res.response.headers['x-error-msg'])) {
+          this.$message.error((decodeURIComponent(res.response.headers['x-error-msg'])))
+        }
       }).finally(() => {
         this.$data.loading = false
       })

@@ -32,7 +32,7 @@
                       {{ scope.row.batch_id }}
                     </el-button>
                     <span v-if="scope.row.reason">
-                      <br/>{{$t('comm.remark')}}:{{ scope.row.reason }}
+                      <br/>{{ $t('comm.remark') }}:{{ scope.row.reason }}
                     </span>
                   </template>
                 </el-table-column>
@@ -108,7 +108,7 @@
               :icon="['far', 'clipboard']"/></span>
           </h6>
           <p v-if="summaryBatchReason">
-            {{$t('comm.remark')}}:{{summaryBatchReason}}
+            {{ $t('comm.remark') }}:{{ summaryBatchReason }}
           </p>
           <el-table v-if="summaryData.groups"
                     :class="summaryData.groups ? '' : 'wpy-z-table'"
@@ -168,7 +168,9 @@
             <el-breadcrumb separator="/">
               <el-breadcrumb-item>
                 <i class="el-icon-arrow-left text-blue"></i> <strong class="pointer"
-                                                                     @click="toPayoutList">{{ $t('nav.settle_search') }}</strong>
+                                                                     @click="toPayoutList">{{
+                  $t('nav.settle_search')
+                }}</strong>
               </el-breadcrumb-item>
               <el-breadcrumb-item>{{ $t('comm.batch_id') }} {{ searchViewDetail.batch_id }}
               </el-breadcrumb-item>
@@ -313,6 +315,10 @@ export default {
       this.loading = true
       settleDetailDownload({'batch_id': batchId}).then(() => {
         this.$message.success(this.$i18n.t('comm.success').toString())
+      }).catch((res) => {
+        if (!isEmpty(res.response) && !isEmpty(res.response.headers['x-error-msg'])) {
+          this.$message.error((decodeURIComponent(res.response.headers['x-error-msg'])))
+        }
       }).finally(() => {
         this.loading = false
       })

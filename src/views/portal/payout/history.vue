@@ -335,6 +335,10 @@
                 this.loading = true
                 applicantHistoryDownload(this.searchParams).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
+                }).catch((res) => {
+                  if (!isEmpty(res.response) && !isEmpty(res.response.headers['x-error-msg'])) {
+                    this.$message.error((decodeURIComponent(res.response.headers['x-error-msg'])))
+                  }
                 }).finally(() => {
                     this.loading = false
                 })
