@@ -1123,10 +1123,6 @@
                 this.detail.out_company_expire_date = "9999-12-31";
             },
             submitDetail() {
-                if ((this.info.identity_country_type === "outland" && this.detail.identity_country_type !== "outland") || (this.info.identity_country_type === "inland" && this.detail.identity_country_type !== "inland")) {
-                    this.$message.error("land type error!");
-                    return;
-                }
                 this.$refs["detail"].validate(valid => {
                     if (!valid) {
                         return false;

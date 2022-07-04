@@ -538,6 +538,7 @@ module.exports = {
         "confirm_apply_refund": "Confirm refund apply",
         "submit_refund": "Submit refund",
         "cancel_pending": "Cancel pending",
+        "cancel_order": "Cancel order",
     },
     "payout": {
         "delivery_reject": "Delivery aberrant",

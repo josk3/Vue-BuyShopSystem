@@ -978,10 +978,6 @@
                 this.$refs.add_bank.resetFields(); //重置
             },
             submitAddBank() {
-                if ((this.add_bank.card_country_type === "outland" && this.detail.card_country_type !== "outland") || (this.add_bank.card_country_type === "inland" && this.detail.card_country_type !== "inland")) {
-                    this.$message.error("land type error!");
-                    return;
-                }
                 this.$refs["add_bank"].validate(valid => {
                     if (!valid) {
                         return false;

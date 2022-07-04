@@ -538,6 +538,7 @@ module.exports = {
         "confirm_apply_refund": "确实提交退款操作",
         "submit_refund": "提交退款",
         "cancel_pending": "取消待处理",
+        "cancel_order": "取消订单",
     },
     "payout": {
         "delivery_reject": "问题单",
