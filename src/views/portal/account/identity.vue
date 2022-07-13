@@ -290,7 +290,7 @@
                             <el-form-item :label="$t('user.email')" prop="email">
                                 <el-input v-model="detail.email" type="email"></el-input>
                             </el-form-item>
-                            <el-form-item v-show="detail.identity_account_type === 'personal'" :label="$t('user.address')" prop="address">
+                            <el-form-item v-show="detail.identity_account_type === 'personal'" :label="$t('user.personal_address')" prop="address">
                                 <el-input v-model="detail.address"></el-input>
                             </el-form-item>
                             <el-form-item v-show="detail.identity_country_type === 'inland' && detail.identity_account_type === 'company'" :label="$t('user.company_address')" prop="company_address">
@@ -679,7 +679,7 @@
                     address: [
                         {
                             required: true,
-                            message: this.validMsg("user.address"),
+                            message: this.validMsg("user.personal_address"),
                             trigger: "blur",
                         },
                     ],
@@ -710,7 +710,7 @@
                     address: [
                         {
                             required: true,
-                            message: this.validMsg("user.address"),
+                            message: this.validMsg("user.personal_address"),
                             trigger: "blur",
                         },
                     ],

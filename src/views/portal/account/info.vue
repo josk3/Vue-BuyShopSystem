@@ -523,9 +523,14 @@
                 const reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
                 this.validReg(reg, value, rule.field, callback);
             };
-            var checkOutlandPhone = (rule, value, callback) => {
+            var checkNum = (rule, value, callback) => {
                 //数字就行
                 const reg = /^[0-9]*$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkInlandInterBankNo = (rule, value, callback) => {
+                //12位数字
+                const reg = /^[0-9]{12}$/;
                 this.validReg(reg, value, rule.field, callback);
             };
             return {
@@ -552,10 +557,11 @@
                     payee_type: [{ required: true, message: this.validMsg("bank.payee_type"), trigger: "change" }],
                     card_account_type: [{ required: true, message: this.validMsg("bank.payee_account_type"), trigger: "change" }],
                     bank_name: [{ required: true, message: this.validMsg("bank.bank_name"), trigger: "blur" }],
-                    card_no: [{ required: true, message: this.validMsg("bank.card_no"), trigger: "blur" }],
-
+                    card_no: [
+                        { required: true, message: this.validMsg("bank.card_no"), trigger: "blur" },
+                        { validator: checkNum, trigger: "blur" },
+                    ],
                     bank_branch: [{ required: true, message: this.validMsg("bank.bank_branch"), trigger: "blur" }],
-                    inter_bank_no: [{ required: true, message: this.validMsg("bank.inter_bank_no"), trigger: "blur" }],
                 },
                 //境内个人
                 rulesB: {
@@ -575,10 +581,11 @@
                     name: [{ required: true, message: this.validMsg("bank.name"), trigger: "blur" }],
                     bank_card_mobile: [
                         { required: true, message: this.validMsg("bank.bank_card_mobile"), trigger: "blur" },
-                        { validator: checkOutlandPhone, trigger: "blur" },
+                        { validator: checkNum, trigger: "blur" },
                     ],
                     card_identity_number: [{ required: true, message: this.validMsg("bank.card_identity_number"), trigger: "blur" }],
                     select_country: [{ required: true, message: this.validMsg("bank.bank_country2"), trigger: "change" }],
+                    inter_bank_no: [{ required: true, message: this.validMsg("bank.inter_bank_no"), trigger: "blur" }],
                 },
                 //境外企业
                 rulesE: {
@@ -601,6 +608,10 @@
                     bank_card_mobile: [
                         { required: true, message: this.validMsg("bank.bank_card_mobile"), trigger: "blur" },
                         { validator: checkInlandPhone, trigger: "blur" },
+                    ],
+                    inter_bank_no: [
+                        { required: true, message: this.validMsg("bank.inter_bank_no"), trigger: "blur" },
+                        { validator: checkInlandInterBankNo, trigger: "blur" },
                     ],
                 },
                 //境外第三方企业

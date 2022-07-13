@@ -253,6 +253,7 @@ module.exports = {
         "identity_expire_date2": "证件有效期终止",
         "qq": "QQ",
         "address": "地址",
+        "personal_address": "实际经营地址",
         "zip_code": "邮编",
         "shop_site": "店铺网址",
         "company_identity_photo": "企业营业执照",
