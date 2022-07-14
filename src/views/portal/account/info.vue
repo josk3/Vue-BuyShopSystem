@@ -653,7 +653,7 @@
                 sizeType: "sm-box-up",
                 cssType: "",
                 payeeTypeList: [
-                    { value: "own", text: "bank.own_company_account" },
+                    { value: "own_company", text: "bank.own_company_account" },
                     { value: "third", text: "bank.third_account" },
                 ],
                 payeePersonalTypeList: [
@@ -661,7 +661,7 @@
                     // { value: "third", text: "bank.third_account" },
                 ],
                 payeeCompanyTypeList: [
-                    { value: "own", text: "bank.own_company_account" },
+                    { value: "own_company", text: "bank.own_company_account" },
                     { value: "third", text: "bank.third_account" },
                 ],
                 accountTypeList: [{ value: "company", text: "user.company", disabled: false }],
@@ -708,7 +708,7 @@
                         detailData.card_country_type = "inland"; // 初始值
                         detailData.card_account_type = "company"; //初始值
                         this.$data.detail = detailData;
-                        this.$data.add_bank.payee_type = "own";
+                        this.$data.add_bank.payee_type = "own_company";
                         this.$data.add_bank.route_mode = "SWIFT";
                         if (!isEmpty(this.$data.info.card_account_type)) {
                             //type数据在info
@@ -719,6 +719,7 @@
                             } else {
                                 this.$data.detail.card_account_type = "personal";
                                 this.$data.add_bank.card_account_type = "personal";
+                                this.$data.add_bank.payee_type = "own";
                                 this.payeeTypeList = this.payeePersonalTypeList;
                             }
                         } else {
@@ -730,6 +731,7 @@
                                 } else {
                                     this.$data.detail.card_account_type = "personal";
                                     this.$data.add_bank.card_account_type = "personal";
+                                    this.$data.add_bank.payee_type = "own";
                                     this.payeeTypeList = this.payeePersonalTypeList;
                                 }
                             }
@@ -764,7 +766,7 @@
                                 this.$data.detail.card_country_type = "inland";
                                 this.$data.add_bank.card_country_type = "inland";
                                 this.inland_disabled = false;
-                                this.outland_disabled = false;
+                                this.outland_disabled = true;
                             }
                         }
 
@@ -970,7 +972,7 @@
                     authorize_photo: "",
                     authorization_relation: "",
                     card_country_type: "inland",
-                    payee_type: "own",
+                    payee_type: "own_company",
                     card_account_type: "company",
                     bank_country: "",
                     card_company_register_address: "",
