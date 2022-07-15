@@ -376,6 +376,19 @@
                 const reg = /^[0-9]*$/;
                 this.validReg(reg, value, rule.field, callback);
             };
+            var checkInlandCompanyPhone = (rule, value, callback) => {
+                const reg = /^[0-9]{5,15}$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkInlandCompanyIdentityId  = (rule, value, callback) => {
+                //国内统一社会信用代码
+                const reg = /^[^_IOZSVa-z\W]{2}\d{6}[^_IOZSVa-z\W]{10}$/g;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkNameFour = (rule, value, callback) => {
+                const reg = /^(?![A-Za-z0-9]+$)[\u4e00-\u9fa5A-Za-z0-9]{4,}$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
             var checkOutlandIdNum = (rule, value, callback) => {
                 //港澳,台湾通行证  护照
                 const reghk = /^[a-zA-Z0-9]{5,21}$/;
@@ -612,6 +625,7 @@
                             message: this.validMsg("user.company_identity_id"),
                             trigger: "blur",
                         },
+                        { validator: checkInlandCompanyIdentityId, trigger: "blur" },
                     ],
                     company_start_date: [
                         {
@@ -640,6 +654,7 @@
                             message: this.validMsg("user.company_phone"),
                             trigger: "blur",
                         },
+                        { validator: checkInlandCompanyPhone, trigger: "blur" },
                     ],
                     company_register_address: [
                         {
@@ -647,6 +662,7 @@
                             message: this.validMsg("user.company_register_address"),
                             trigger: "blur",
                         },
+                        { validator: checkNameFour, trigger: "blur" },
                     ],
                     company_address: [
                         {
@@ -654,6 +670,7 @@
                             message: this.validMsg("user.company_address"),
                             trigger: "blur",
                         },
+                        { validator: checkNameFour, trigger: "blur" },
                     ],
                 },
                 //境内个人
@@ -682,6 +699,7 @@
                             message: this.validMsg("user.personal_address"),
                             trigger: "blur",
                         },
+                        { validator: checkNameFour, trigger: "blur" },
                     ],
                 },
                 //境外个人

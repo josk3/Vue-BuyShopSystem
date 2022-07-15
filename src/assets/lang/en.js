@@ -579,6 +579,7 @@ module.exports = {
     "bank": {
         "settle_bank": "Settlement Bank",
         "add_bank": "Add Settlement Bank",
+        "add_bank_account": "Add Settlement Bank Info",
         "add_bank_tip": "Please fill in the account information consistent with the merchant registration form attached to the agreement",
         "name": "Account name",
         "name_tip": "Beneficiary's name of account with Bank",
@@ -613,7 +614,8 @@ module.exports = {
         "outland_bank_account": "Overseas bank accounts",
         "payee_type": "Beneficiary type",
         "own_personal_account": "Bank account of the contractor",
-        "third_account": "Third-party beneficiary account",
+        "third_account_inland": "Third-party beneficiary account",
+        "third_account_outland": "Third-party bank account",
         "own_company_account": "Company bank account",
         "payee_account_type": "Type of beneficiary account",
         "authorization_relation": "Authorization relationship",
