@@ -290,7 +290,7 @@
                             <el-form-item :label="$t('user.email')" prop="email">
                                 <el-input v-model="detail.email" type="email"></el-input>
                             </el-form-item>
-                            <el-form-item v-show="detail.identity_account_type === 'personal'" :label="$t('user.address')" prop="address">
+                            <el-form-item v-show="detail.identity_account_type === 'personal'" :label="$t('user.personal_address')" prop="address">
                                 <el-input v-model="detail.address"></el-input>
                             </el-form-item>
                             <el-form-item v-show="detail.identity_country_type === 'inland' && detail.identity_account_type === 'company'" :label="$t('user.company_address')" prop="company_address">
@@ -374,6 +374,19 @@
             var checkOutlandPhone = (rule, value, callback) => {
                 //数字就行
                 const reg = /^[0-9]*$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkInlandCompanyPhone = (rule, value, callback) => {
+                const reg = /^[0-9]{5,15}$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkInlandCompanyIdentityId  = (rule, value, callback) => {
+                //国内统一社会信用代码
+                const reg = /^[^_IOZSVa-z\W]{2}\d{6}[^_IOZSVa-z\W]{10}$/g;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkNameFour = (rule, value, callback) => {
+                const reg = /^(?![A-Za-z0-9]+$)[\u4e00-\u9fa5A-Za-z0-9]{4,}$/;
                 this.validReg(reg, value, rule.field, callback);
             };
             var checkOutlandIdNum = (rule, value, callback) => {
@@ -612,6 +625,7 @@
                             message: this.validMsg("user.company_identity_id"),
                             trigger: "blur",
                         },
+                        { validator: checkInlandCompanyIdentityId, trigger: "blur" },
                     ],
                     company_start_date: [
                         {
@@ -640,6 +654,7 @@
                             message: this.validMsg("user.company_phone"),
                             trigger: "blur",
                         },
+                        { validator: checkInlandCompanyPhone, trigger: "blur" },
                     ],
                     company_register_address: [
                         {
@@ -647,6 +662,7 @@
                             message: this.validMsg("user.company_register_address"),
                             trigger: "blur",
                         },
+                        { validator: checkNameFour, trigger: "blur" },
                     ],
                     company_address: [
                         {
@@ -654,6 +670,7 @@
                             message: this.validMsg("user.company_address"),
                             trigger: "blur",
                         },
+                        { validator: checkNameFour, trigger: "blur" },
                     ],
                 },
                 //境内个人
@@ -679,9 +696,10 @@
                     address: [
                         {
                             required: true,
-                            message: this.validMsg("user.address"),
+                            message: this.validMsg("user.personal_address"),
                             trigger: "blur",
                         },
+                        { validator: checkNameFour, trigger: "blur" },
                     ],
                 },
                 //境外个人
@@ -710,7 +728,7 @@
                     address: [
                         {
                             required: true,
-                            message: this.validMsg("user.address"),
+                            message: this.validMsg("user.personal_address"),
                             trigger: "blur",
                         },
                     ],

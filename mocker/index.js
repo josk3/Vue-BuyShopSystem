@@ -3668,7 +3668,7 @@ const proxy = {
                     bank_brand: '工商银行',
                     bank_card_mobile: '1333323232',
                     bank_id: 'bank_23r23r',
-                    bank_name: '上海工商银行xx支行',
+                    bank_name: '',
                     bank_photo: null,
                     bank_swift_no: null,
                     card_account_name: '李四一',
