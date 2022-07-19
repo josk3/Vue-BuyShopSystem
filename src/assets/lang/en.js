@@ -560,6 +560,7 @@ module.exports = {
         "return_url": "Callback url",
         "site_system": "System",
         "is_virtual": "Is virtual product",
+        "is_restricted": "An account or password is required to access the website",
         "is_a_virtual": "Virtual",
         "add_site": "Add Site/Shop",
         "protocol": "Protocol",
@@ -573,7 +574,7 @@ module.exports = {
         "remindClose": "Got it",
         "site_success": "Successful,The website will be approved within 1 to 3 hours on workingdays, and the result will be sent to you by email.",
         "mer_remark": "Please note",
-        "input_account": "Please enter your user name and password",
+        "input_account": "For example: userName and password",
         "virtual_notes": "If special requirements, please note the user name and password.",
     },
     "bank": {

@@ -199,6 +199,15 @@
                          true-label="1"
                          false-label="0"
                          name="is_virtual"></el-checkbox>
+          </el-form-item>
+          <el-form-item prop="is_restricted">
+            <el-checkbox :label="$t('shop.is_restricted')"
+                         :checked="add_shop.is_restricted === 1 || add_shop.is_restricted === '1'"
+                         v-model="add_shop.is_restricted"
+                         true-label="1"
+                         false-label="0"
+                         name="is_restricted"
+                         @change="noteDisable"></el-checkbox>
             <el-popover
                 placement="top-start"
                 width="260"
@@ -209,7 +218,7 @@
               </span>
             </el-popover>
           </el-form-item>
-          <el-form-item prop="mer_remark" :label="$t('shop.mer_remark')">
+          <el-form-item prop="mer_remark" :label="$t('shop.mer_remark')" v-show="has_remark">
             <el-input v-model="add_shop.mer_remark" :placeholder="$t('shop.input_account')"
                       class="input-with-select">
             </el-input>
@@ -262,6 +271,7 @@ export default {
       addShopDialogVisible: false,
       site_sys_list: [],
       customer_return_url: ['Other', 'Java', 'Php', 'Asp', 'PHP'],
+      has_remark: false,
       rules: {
         site_url: [
           {required: true, message: this.validMsg('shop.domain'), trigger: 'blur'},
@@ -370,6 +380,7 @@ export default {
         this.add_shop.return_url = data.return_url
         this.add_shop.is_virtual = data.is_virtual
         this.add_shop.url_protocol = data.url_protocol
+        this.add_shop.is_restricted = data.is_restricted
         this.add_shop.mer_remark = data.mer_remark
       }
       this.add_shop.action = action
@@ -384,7 +395,8 @@ export default {
         site_system: '',
         return_url: '',
         is_virtual: '',
-        mer_remark: ''
+        mer_remark: '',
+        is_restricted: ''
       }
     },
     initShopForm() {
@@ -426,7 +438,9 @@ export default {
         }
       });
     },
-
+    noteDisable() {
+        this.has_remark = !this.has_remark
+    },
   },
 }
 </script>
@@ -453,5 +467,9 @@ export default {
   text-align: left;
   font-size: 14px;
   float: left;
+}
+
+.el-form-item {
+  margin-bottom: 12px;
 }
 </style>
