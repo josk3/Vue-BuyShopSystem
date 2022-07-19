@@ -154,7 +154,7 @@
               </el-popover>
             </template>
             <el-input v-model="add_shop.site_url" :placeholder="$t('shop.domain')"
-                      class="input-with-select">
+                      class="input-with-select add_web_site">
               <el-select v-model="add_shop.url_protocol" slot="prepend"
                          :placeholder="$t('shop.http_protocol')"
                          filterable>
@@ -210,7 +210,7 @@
                          @change="noteDisable"></el-checkbox>
             <el-popover
                 placement="top-start"
-                width="260"
+                width="300"
                 trigger="hover"
                 :content="$t('shop.virtual_notes')">
               <span slot="reference">
@@ -220,7 +220,7 @@
           </el-form-item>
           <el-form-item prop="mer_remark" :label="$t('shop.mer_remark')" v-show="has_remark">
             <el-input v-model="add_shop.mer_remark" :placeholder="$t('shop.input_account')"
-                      class="input-with-select">
+                      class="input-with-select add_web_site">
             </el-input>
           </el-form-item>
         </el-form>
@@ -469,7 +469,10 @@ export default {
   float: left;
 }
 
-.el-form-item {
-  margin-bottom: 12px;
+.md-dialog {
+  width: 520px;
+}
+.add_web_site {
+  width: 330px;
 }
 </style>
