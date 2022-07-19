@@ -6,7 +6,8 @@ import {
 import {
 	getToken,
 	removeToken,
-	setToken
+	setToken,
+	removeIdentityMessageboxID
 } from '@/service/auth/token'
 import router, {
 	resetRouter
@@ -161,8 +162,8 @@ const actions = {
 				commit('SET_TOKEN', '')
 				commit('SET_MENUS', [])
 				commit('SET_PERMISSIONS', [])
+				removeIdentityMessageboxID()
 				removeToken()
-				Cookies.remove('showIdentityMessagebox')
 				resetRouter()
 				resolve()
 			}).catch(error => {

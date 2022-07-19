@@ -330,7 +330,7 @@
     import { isEmpty } from "@/utils/validate";
     import { i18n } from "element-ui/lib/locale";
     import { getAreaJsonData } from "@/service/riskAreaSer";
-	import Cookies from 'js-cookie';
+	import { setIdentityMessageboxID,getIdentityMessageboxID } from '@/service/auth/token'
     export default {
         name: "merchant_identity",
         components: { UploadImgOnce },
@@ -877,7 +877,7 @@
         mounted() {
             this.rules = this.rulesA;
             this.loadMerData();
-			if (Cookies.get('showIdentityMessagebox') != 'false' && Cookies.get('showIdentityMessagebox') != false) {
+			if (getIdentityMessageboxID() != false && getIdentityMessageboxID() != 'false') {
 				this.open()
 			}
         },
@@ -888,7 +888,7 @@
 					confirmButtonClass: 'messageBox_bt',
 					center: true,
 					callback: action => {
-						Cookies.set('showIdentityMessagebox', false)
+						setIdentityMessageboxID(false)
 					}
 				})
 			},
