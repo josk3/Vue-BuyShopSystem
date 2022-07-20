@@ -1250,7 +1250,7 @@ const proxy = {
     },
     'POST /api/v1/login': (req, res) => {
         const {password, username} = req.body;
-        if (password === 'Test123456' && username === 'admin') {
+        if (password === 'justTest' && username === 'admin') {
             return res.json(demoUserInfo());
             if (req.body.valid_sig) {
                 return res.json(demoUserInfo());
