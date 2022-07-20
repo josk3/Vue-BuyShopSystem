@@ -385,6 +385,7 @@ export default {
       }
       this.add_shop.action = action
       this.addShopDialogVisible = true
+      this.has_remark = false
     },
     initShopFormObj() {
       return {
