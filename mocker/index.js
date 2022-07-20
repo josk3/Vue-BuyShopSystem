@@ -1,5 +1,16 @@
 const delay = require('mocker-api/lib/delay');
 
+const proxyUrlSetting = {
+    // Turn a path string such as `/user/:name` into a regular expression.
+    // https://www.npmjs.com/package/path-to-regexp
+    //'/api/v1/(.*)': 'https://portal.wintopay.com/'
+    // '/api/v1/(.*)': 'https://165.wtpdev.com:38013',
+    // '/api/v1/(.*)': 'http://192.168.3.182:8013',
+    // '/api/v1/(.*)': 'http://127.0.0.1/',
+    // '/images/(.*)': 'http://localhost:8013/',
+    '/api/v1/(.*)': 'http://localhost:8013/',
+}
+
 function demoUserInfo() {
     return {
         status: 1,
@@ -1190,22 +1201,12 @@ function demoSettleList(req) {
     ];
 }
 
-
 const proxy = {
     // Priority processing.
     // apiMocker(app, path, option)
     // This is the option parameter setting for apiMocker
     _proxy: {
-        proxy: {
-            // Turn a path string such as `/user/:name` into a regular expression.
-            // https://www.npmjs.com/package/path-to-regexp
-            //'/api/v1/(.*)': 'https://portal.wintopay.com/'
-            // '/api/v1/(.*)': 'https://165.wtpdev.com:38013',
-            // '/api/v1/(.*)': 'http://192.168.3.182:8013',
-            // '/api/v1/(.*)': 'http://127.0.0.1/',
-            // '/images/(.*)': 'http://localhost:8013/',
-            '/api/v1/(.*)': 'http://localhost:8013/',
-        },
+        proxy: proxyUrlSetting,
         changeHost: true,
         header: {
             'Access-Control-Allow-Headers': '*',
@@ -1249,8 +1250,8 @@ const proxy = {
         });
     },
     'POST /api/v1/login': (req, res) => {
-        const {password, username} = req.body;
-        if (password === 'justTest' && username === 'admin') {
+        const {username} = req.body;
+        if (username === 'admin') {
             return res.json(demoUserInfo());
             if (req.body.valid_sig) {
                 return res.json(demoUserInfo());
