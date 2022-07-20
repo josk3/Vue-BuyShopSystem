@@ -438,8 +438,18 @@ export default {
         }
       });
     },
-    noteDisable() {
-        this.has_remark = !this.has_remark
+    noteDisable(val) {
+        this.add_shop.is_restricted = val
+        if (val === "1" ) {
+          this.has_remark = true
+          this.resetRule("mer_remark", [{required: true, message: this.validMsg('shop.mer_remark'), trigger: 'blur'}])
+        } else {
+          this.has_remark = false
+          this.resetRule("mer_remark", [])
+        }
+    },
+    resetRule(prop, rule) {
+      this.$set(this.rules, prop, rule);
     },
   },
 }
