@@ -574,7 +574,7 @@ module.exports = {
         "remindClose": "Got it",
         "site_success": "Successful,The website will be approved within 1 to 3 hours on workingdays, and the result will be sent to you by email.",
         "mer_remark": "Please note",
-        "input_account": "For example: userName and password",
+        "input_account": "For example: username and password",
         "virtual_notes": "If you need permission to view the submitted website, please provide access information  (such as user name and password) to help our audit staff to review; If not, please ignore.",
     },
     "bank": {
