@@ -192,21 +192,23 @@
               <template slot="prepend">{{ add_shop.url_protocol }}://</template>
             </el-input>
           </el-form-item>
-          <el-form-item prop="is_virtual">
+          <el-form-item prop="is_virtual" class="virtualStyle">
             <el-checkbox :label="$t('shop.is_virtual')"
                          :checked="add_shop.is_virtual === 1 || add_shop.is_virtual === '1'"
                          v-model="add_shop.is_virtual"
                          true-label="1"
                          false-label="0"
-                         name="is_virtual"></el-checkbox>
+                         name="is_virtual"
+                         class="remarkStyle"></el-checkbox>
           </el-form-item>
-          <el-form-item prop="is_restricted">
+          <el-form-item prop="is_restricted" class="restrictedStyle">
             <el-checkbox :label="$t('shop.is_restricted')"
                          :checked="add_shop.is_restricted === 1 || add_shop.is_restricted === '1'"
                          v-model="add_shop.is_restricted"
                          true-label="1"
                          false-label="0"
                          name="is_restricted"
+                         class="remarkStyle"
                          @change="noteDisable"></el-checkbox>
             <el-popover
                 placement="top-start"
@@ -485,5 +487,17 @@ export default {
 }
 .add_web_site {
   width: 330px;
+}
+.virtualStyle {
+  margin-bottom: 0px;
+}
+.restrictedStyle {
+  margin-bottom: 15px;
+}
+.remarkStyle {
+  line-height: 19px;
+}
+.el-icon-warning-outline {
+  margin-left: 2px;
 }
 </style>
