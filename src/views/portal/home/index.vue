@@ -19,15 +19,15 @@
                     <div class="row p-0">
                         <div class="col-11 row">
                             <div class="col-4 item">
-                                <i class="el-icon-info text-blue"></i> {{$t('home.this_month_ecm')}} {{ user.monitor_ecm
+                                <i class="el-icon-info text-blue"></i> {{$t('home.this_month_ecm')}} {{ ecmRateText(user.monitor_ecm)
                                 }}
                             </div>
                             <div class="col-4 item">
-                                <i class="el-icon-info text-blue"></i> {{$t('home.total_ecm')}} {{ user.total_ecm }}
+                                <i class="el-icon-info text-blue"></i> {{$t('home.total_ecm')}} {{ ecmRateText(user.total_ecm) }}
                             </div>
                             <div class="col-4 item">
                                 <i class="el-icon-info text-blue"></i> {{$t('home.last_month_ecm')}} {{
-                                user.last_monthly_ecm }}
+                                ecmRateText(user.last_monthly_ecm) }}
                             </div>
                         </div>
                         <div class="col-1" v-if="user.notice_count > 0">
@@ -266,7 +266,9 @@
                 }).finally(() => {
                 })
             },
-
+            ecmRateText (rate) {
+                return (rate * 100).toFixed(2) + '%';//显示2位小数点
+            }
         },
     }
 </script>
