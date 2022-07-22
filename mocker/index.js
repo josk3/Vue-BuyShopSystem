@@ -3437,6 +3437,8 @@ const proxy = {
                         updated: '',
                         is_virtual: 0,
                         operator_name: '张三',
+                        is_restricted: 1,
+                        mer_remark: '用户名：aaa 密码：aaa',
                     },
                     {
                         site_id: 'wfljw342f2',
@@ -3450,6 +3452,8 @@ const proxy = {
                         is_virtual: 0,
                         url_protocol: 'https',
                         operator_name: '张三',
+                        is_restricted: 0,
+                        mer_remark: '',
                     },
                     {
                         site_id: 'wfljw342f2',
@@ -3463,6 +3467,8 @@ const proxy = {
                         is_virtual: 1,
                         url_protocol: 'https',
                         operator_name: '张三',
+                        is_restricted: 1,
+                        mer_remark: '用户名：ccc 密码：ccc',
                     },
                 ]
             }

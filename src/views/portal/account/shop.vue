@@ -126,7 +126,7 @@
       </el-skeleton>
     </div>
     <!--    d    -->
-    <el-dialog custom-class="wpy-dialog md-dialog bg-body"
+    <el-dialog custom-class="wpy-dialog md-dialog bg-body shop-dialog"
                @close="closeShopDialog"
                :show-close="false" :close-on-click-modal="false"
                :title="$t('shop.add_site')"
@@ -216,7 +216,7 @@
                 trigger="hover"
                 :content="$t('shop.virtual_notes')">
               <span slot="reference">
-                <i class="el-icon-warning-outline"></i>
+                <i class="el-icon-warning-outline el-icon-warning-outline-shop"></i>
               </span>
             </el-popover>
           </el-form-item>
@@ -399,7 +399,7 @@ export default {
         return_url: '',
         is_virtual: '',
         mer_remark: '',
-        is_restricted: ''
+        is_restricted: '',
       }
     },
     initShopForm() {
@@ -442,13 +442,12 @@ export default {
       });
     },
     noteDisable(val) {
-        this.add_shop.is_restricted = val
         if (val === "1" ) {
           this.has_remark = true
-          this.resetRule("mer_remark", [{required: true, message: this.validMsg('shop.mer_remark'), trigger: 'blur'}])
+          this.resetRule("mer_remark", [{required: true, message: this.validMsg('shop.mer_remark'), trigger: 'blur'}]);
         } else {
           this.has_remark = false
-          this.resetRule("mer_remark", [])
+          this.resetRule("mer_remark", []);
         }
     },
     resetRule(prop, rule) {
@@ -482,22 +481,28 @@ export default {
   float: left;
 }
 
-.md-dialog {
+.shop-dialog {
   width: 520px;
 }
+
 .add_web_site {
   width: 330px;
 }
+
 .virtualStyle {
   margin-bottom: 0px;
 }
+
 .restrictedStyle {
   margin-bottom: 15px;
 }
+
 .remarkStyle {
   line-height: 19px;
 }
-.el-icon-warning-outline {
+
+.el-icon-warning-outline-shop {
   margin-left: 2px;
 }
+
 </style>
