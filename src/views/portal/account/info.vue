@@ -80,7 +80,7 @@
                             <div class="row">
                                 <label class="col-4">{{ $t("account.ecm_current_month") }}</label>
                                 <div class="col-8">
-                                    <span>{{ info.monitor_ecm | nullToLine }}</span>
+                                    <span>{{ ecmRateText(info.monitor_ecm) | nullToLine }}</span>
                                 </div>
                             </div>
                             <div class="row">
@@ -92,7 +92,7 @@
                             <div class="row">
                                 <label class="col-4">{{ $t("account.ecm_account") }}</label>
                                 <div class="col-8">
-                                    <span>{{ info.total_ecm | nullToLine }}</span>
+                                    <span>{{ ecmRateText(info.total_ecm) | nullToLine }}</span>
                                 </div>
                             </div>
                             <div class="row">
@@ -104,7 +104,7 @@
                             <div class="row">
                                 <label class="col-4">{{ $t("account.ecm_last_month") }}</label>
                                 <div class="col-8">
-                                    <span>{{ info.last_monthly_ecm | nullToLine }}</span>
+                                    <span>{{ ecmRateText(info.last_monthly_ecm) | nullToLine }}</span>
                                 </div>
                             </div>
                             <div class="row mb-0">
@@ -1126,6 +1126,9 @@
                     callback();
                 }
             },
+            ecmRateText (rate) {
+                return (rate * 100).toFixed(2) + '%';//显示2位小数点
+            }
         },
     };
 </script>
