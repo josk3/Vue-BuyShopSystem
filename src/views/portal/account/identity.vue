@@ -877,7 +877,8 @@
         mounted() {
             this.rules = this.rulesA;
             this.loadMerData();
-			if (getIdentityMessageboxID() != false && getIdentityMessageboxID() != 'false') {
+			//激活页面弹出
+			if (getIdentityMessageboxID() != false && getIdentityMessageboxID() != 'false' && this.$route.meta.name == "merchant_identity") {
 				this.open()
 			}
         },
