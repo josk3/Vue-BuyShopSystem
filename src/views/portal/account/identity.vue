@@ -894,6 +894,7 @@
 					}
 				})
 			},
+			
             personalIdentityChange() {
                 //身份id时需要反面和手持照片，其余两种不需要
                 if (this.detail.identity_country_type === "outland") {
