@@ -196,8 +196,8 @@
             <el-checkbox :label="$t('shop.is_virtual')"
                          :checked="add_shop.is_virtual === 1 || add_shop.is_virtual === '1'"
                          v-model="add_shop.is_virtual"
-                         true-label="1"
-                         false-label="0"
+                         :true-label=1
+                         :false-label=0
                          name="is_virtual"
                          class="remarkStyle"></el-checkbox>
           </el-form-item>
@@ -205,8 +205,8 @@
             <el-checkbox :label="$t('shop.is_restricted')"
                          :checked="add_shop.is_restricted === 1 || add_shop.is_restricted === '1'"
                          v-model="add_shop.is_restricted"
-                         true-label="1"
-                         false-label="0"
+                         :true-label=1
+                         :false-label=0
                          name="is_restricted"
                          class="remarkStyle"
                          @change="noteDisable"></el-checkbox>
@@ -446,7 +446,7 @@ export default {
       });
     },
     noteDisable(val) {
-        if (val === "1" ) {
+        if (val === "1" || val === 1 ) {
           this.has_remark = true
           this.resetRule("mer_remark", [{required: true, message: this.validMsg('shop.mer_remark'), trigger: 'blur'}]);
         } else {
