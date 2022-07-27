@@ -1,6 +1,7 @@
 <template>
     <div v-loading="loading">
         <div class="row">
+			<!-- <el-button type="text" @click="open">点击打开 Message Box</el-button> -->
             <div class="col-12 mb-2">
                 <el-card shadow="always" class="box-card" :body-style="{ padding: '0px' }">
                     <div class="text-muted p-0 p-3">
@@ -878,10 +879,13 @@
         mounted() {
             this.rules = this.rulesA;
             this.loadMerData();
-			//激活页面弹出
-			if (getIdentityMessageboxID() != false && getIdentityMessageboxID() != 'false' && this.$route.meta.name == "merchant_identity") {
-				this.open()
-			}
+			// 仅在整个视图都被渲染之后才会运行的代码
+			this.$nextTick(function () {
+				//激活页面弹出
+				 if (getIdentityMessageboxID() != false && getIdentityMessageboxID() != 'false' && this.$route.meta.name == "merchant_identity") {
+					this.open()
+				}
+			})
         },
         methods: {
 			open() {
