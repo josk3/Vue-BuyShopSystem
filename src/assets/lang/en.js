@@ -310,7 +310,8 @@ module.exports = {
         "legal_person" : "legal person",
         "long_effective": "long effective",
         "hint_Supplementary_account_information":"Please complete the following information to submit it for review which will be used for settlement application.  It does not affect the use of other functions of the system.",
-    },
+    
+	},
     "register_form": {
         "email_or_phone": "Email",
     },

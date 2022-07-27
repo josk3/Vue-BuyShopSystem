@@ -162,6 +162,7 @@ const actions = {
 				commit('SET_TOKEN', '')
 				commit('SET_MENUS', [])
 				commit('SET_PERMISSIONS', [])
+				
 				removeIdentityMessageboxID()
 				removeToken()
 				resetRouter()

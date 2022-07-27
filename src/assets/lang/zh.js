@@ -310,7 +310,8 @@ module.exports = {
         "legal_person": "法定代表人",
         "long_effective": "长期有效",
         "hint_Supplementary_account_information":"商户进入系统后台请先完善激活认证信息，提交我司审核，用于后续结算申请。不影响系统其他功能的使用。",
-    },
+    
+	},
     "register_form": {
         "email_or_phone": "手机号", //字面上优化让用户使用手机号,英文使用email
     },
