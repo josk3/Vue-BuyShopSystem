@@ -387,7 +387,11 @@ export default {
       }
       this.add_shop.action = action
       this.addShopDialogVisible = true
-      this.has_remark = false
+      if (this.add_shop.is_restricted === 1 || this.add_shop.is_restricted === '1') {
+        this.has_remark = true
+      } else {
+        this.has_remark = false
+      }
     },
     initShopFormObj() {
       return {
