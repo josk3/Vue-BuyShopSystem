@@ -379,6 +379,7 @@ module.exports = {
         "invalid": "Invalid",
         "valid": "Valid",
         "3DPay": "3DPay",
+        "declined_cancel": "chargeback cancel",
     },
     "kind": {
         "settle": "Settle",
