@@ -81,7 +81,7 @@ export const routerUtils = {
     },
     'active_account': {
         component: () => import('@/views/portal/account/identity'),
-        meta: {noCache: true}
+        meta: {noCache: true,name:'merchant_identity'}
     },
     'merchant_setup': {
         component: () => import('@/views/portal/account/setup'),

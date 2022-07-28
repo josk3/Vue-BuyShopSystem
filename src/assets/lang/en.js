@@ -1,3 +1,4 @@
+
 module.exports = {
     "portal": {
         "title": "Merchant Portal",
@@ -308,8 +309,9 @@ module.exports = {
         "input_often_email_to_receive_notice": "Please use often email address to receive notices",
         "legal_person" : "legal person",
         "long_effective": "long effective",
-        "hint_Supplementary_account_information":"Please improve your account information and submit it to our company for review, so as to facilitate subsequent settlement application.",
-    },
+        "hint_Supplementary_account_information":"Please complete the following information to submit it for review which will be used for settlement application.  It does not affect the use of other functions of the system.",
+    
+	},
     "register_form": {
         "email_or_phone": "Email",
     },
@@ -734,7 +736,7 @@ module.exports = {
         "restrict_dispute_msg_file2": "A total of three files were selected",
         "restrict_dispute_msg_file3": "Six files, out of limit!",
         "sure_to_remove": "Sure to remove",
-        "warm_prompt":"warm prompt",
+        "warm_prompt":"Kindly Reminder",
         "warm_prompt_one":"The background does not have the function of email forwarding, please contact the cardholder by yourself, and add the reply to the complaint background, so that our staff can follow up.",
         "warm_prompt_two":"Please note that in order to reduce the unnecessary loss brought to the merchant by the refusal of payment and affect the use of the channel, the complaint order that is not processed within 2 working days will be subject to compulsory refund processing！",
         "error_msg_img_size":"Only images or Excel spreadsheets can be uploaded and no more than 5MB",

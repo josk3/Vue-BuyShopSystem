@@ -1,3 +1,4 @@
+
 module.exports = {
     "portal": {
         "title": "商户后台",
@@ -308,8 +309,9 @@ module.exports = {
         "input_often_email_to_receive_notice": "请填写常用的邮箱, 便于接收通知",
         "legal_person": "法定代表人",
         "long_effective": "长期有效",
-        "hint_Supplementary_account_information":"请完善您的账户信息，提交我司审核，以便于后续结算申请。",
-    },
+        "hint_Supplementary_account_information":"商户进入系统后台请先完善激活认证信息，提交我司审核，用于后续结算申请。不影响系统其他功能的使用。",
+    
+	},
     "register_form": {
         "email_or_phone": "手机号", //字面上优化让用户使用手机号,英文使用email
     },
@@ -776,3 +778,4 @@ module.exports = {
         "other_workers": "不便分类的其他劳动者",
     }
 }
+
