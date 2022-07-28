@@ -560,7 +560,7 @@ module.exports = {
         "return_url": "返回网址",
         "site_system": "网站系统",
         "is_virtual": "是否虚拟产品",
-        "is_restricted": "访问网站产品是否有限制",
+        "is_restricted": "该网站有做了IP或密码保护限制访问",
         "is_a_virtual": "虚拟产品",
         "add_site": "增加网站",
         "protocol": "协议",

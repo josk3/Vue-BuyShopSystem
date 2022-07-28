@@ -560,7 +560,7 @@ module.exports = {
         "return_url": "Callback url",
         "site_system": "System",
         "is_virtual": "Is virtual product",
-        "is_restricted": "An account or password is required to access the website",
+        "is_restricted": "The web site has made IP or password protection to restrict access",
         "is_a_virtual": "Virtual",
         "add_site": "Add Site/Shop",
         "protocol": "Protocol",
