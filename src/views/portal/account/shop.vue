@@ -126,7 +126,7 @@
       </el-skeleton>
     </div>
     <!--    d    -->
-    <el-dialog custom-class="wpy-dialog md-dialog bg-body"
+    <el-dialog custom-class="wpy-dialog md-dialog bg-body shop-dialog"
                @close="closeShopDialog"
                :show-close="false" :close-on-click-modal="false"
                :title="$t('shop.add_site')"
@@ -154,7 +154,7 @@
               </el-popover>
             </template>
             <el-input v-model="add_shop.site_url" :placeholder="$t('shop.domain')"
-                      class="input-with-select">
+                      class="input-with-select add_web_site">
               <el-select v-model="add_shop.url_protocol" slot="prepend"
                          :placeholder="$t('shop.http_protocol')"
                          filterable>
@@ -192,26 +192,37 @@
               <template slot="prepend">{{ add_shop.url_protocol }}://</template>
             </el-input>
           </el-form-item>
-          <el-form-item prop="is_virtual">
+          <el-form-item prop="is_virtual" class="virtualStyle">
             <el-checkbox :label="$t('shop.is_virtual')"
                          :checked="add_shop.is_virtual === 1 || add_shop.is_virtual === '1'"
                          v-model="add_shop.is_virtual"
-                         true-label="1"
-                         false-label="0"
-                         name="is_virtual"></el-checkbox>
+                         :true-label=1
+                         :false-label=0
+                         name="is_virtual"
+                         class="remarkStyle"></el-checkbox>
+          </el-form-item>
+          <el-form-item prop="is_restricted" class="restrictedStyle">
+            <el-checkbox :label="$t('shop.is_restricted')"
+                         :checked="add_shop.is_restricted === 1 || add_shop.is_restricted === '1'"
+                         v-model="add_shop.is_restricted"
+                         :true-label=1
+                         :false-label=0
+                         name="is_restricted"
+                         class="remarkStyle"
+                         @change="noteDisable"></el-checkbox>
             <el-popover
                 placement="top-start"
-                width="260"
+                width="300"
                 trigger="hover"
                 :content="$t('shop.virtual_notes')">
               <span slot="reference">
-                <i class="el-icon-warning-outline"></i>
+                <i class="el-icon-warning-outline el-icon-warning-outline-shop"></i>
               </span>
             </el-popover>
           </el-form-item>
-          <el-form-item prop="mer_remark" :label="$t('shop.mer_remark')">
+          <el-form-item prop="mer_remark" :label="$t('shop.mer_remark')" v-show="has_remark">
             <el-input v-model="add_shop.mer_remark" :placeholder="$t('shop.input_account')"
-                      class="input-with-select">
+                      class="input-with-select add_web_site">
             </el-input>
           </el-form-item>
         </el-form>
@@ -262,6 +273,7 @@ export default {
       addShopDialogVisible: false,
       site_sys_list: [],
       customer_return_url: ['Other', 'Java', 'Php', 'Asp', 'PHP'],
+      has_remark: false,
       rules: {
         site_url: [
           {required: true, message: this.validMsg('shop.domain'), trigger: 'blur'},
@@ -370,10 +382,16 @@ export default {
         this.add_shop.return_url = data.return_url
         this.add_shop.is_virtual = data.is_virtual
         this.add_shop.url_protocol = data.url_protocol
+        this.add_shop.is_restricted = data.is_restricted
         this.add_shop.mer_remark = data.mer_remark
       }
       this.add_shop.action = action
       this.addShopDialogVisible = true
+      if (this.add_shop.is_restricted === 1 || this.add_shop.is_restricted === '1') {
+        this.has_remark = true
+      } else {
+        this.has_remark = false
+      }
     },
     initShopFormObj() {
       return {
@@ -384,7 +402,8 @@ export default {
         site_system: '',
         return_url: '',
         is_virtual: '',
-        mer_remark: ''
+        mer_remark: '',
+        is_restricted: '',
       }
     },
     initShopForm() {
@@ -426,7 +445,18 @@ export default {
         }
       });
     },
-
+    noteDisable(val) {
+        if (val === "1" || val === 1 ) {
+          this.has_remark = true
+          this.resetRule("mer_remark", [{required: true, message: this.validMsg('shop.mer_remark'), trigger: 'blur'}]);
+        } else {
+          this.has_remark = false
+          this.resetRule("mer_remark", []);
+        }
+    },
+    resetRule(prop, rule) {
+      this.$set(this.rules, prop, rule);
+    },
   },
 }
 </script>
@@ -454,4 +484,29 @@ export default {
   font-size: 14px;
   float: left;
 }
+
+.shop-dialog {
+  width: 520px;
+}
+
+.add_web_site {
+  width: 330px;
+}
+
+.virtualStyle {
+  margin-bottom: 0px;
+}
+
+.restrictedStyle {
+  margin-bottom: 15px;
+}
+
+.remarkStyle {
+  line-height: 19px;
+}
+
+.el-icon-warning-outline-shop {
+  margin-left: 2px;
+}
+
 </style>
