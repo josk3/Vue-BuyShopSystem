@@ -562,6 +562,7 @@ module.exports = {
         "return_url": "返回网址",
         "site_system": "网站系统",
         "is_virtual": "是否虚拟产品",
+        "is_restricted": "该网站有做了IP或密码保护限制访问",
         "is_a_virtual": "虚拟产品",
         "add_site": "增加网站",
         "protocol": "协议",
@@ -575,8 +576,8 @@ module.exports = {
         "remindClose": "知道了",
         "site_success": "提交成功，网站审核会在工作日1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
         "mer_remark": "备注",
-        "input_account": "请输入用户名和密码",
-        "virtual_notes": "访问时需要特殊需求，比如用户名和密码等，请写好备注.",
+        "input_account": "如: 用户名和密码",
+        "virtual_notes": "若您提交的网站访问时需要权限才能查看，需您提供访问网站产品的权限设置（如：用户名、密码），便于我司审核网站人员对网站产品的审核。如若不需要则不需要提供。",
     },
     "bank": {
         "settle_bank": "结算银行账户",
