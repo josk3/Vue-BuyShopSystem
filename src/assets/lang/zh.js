@@ -381,6 +381,7 @@ module.exports = {
         "invalid": "未认证",
         "valid": "已认证",
         "3DPay": "3D支付中",
+        "declined_cancel": "拒付已撤销",
     },
     "kind": {
         "settle": "结算",

@@ -66,6 +66,15 @@
                         </template>
                     </el-table-column>
                     <el-table-column
+                            prop="pay_status"
+                            width="150px"
+                            :label="$t('kind.chargeback')">
+                        <template v-slot="scope">
+                            <span :class="'declined-' + scope.row.declined">{{ scope.row.declined | declinedStatus }}</span>
+                            <span style="color:green" v-if="scope.row.chargeback_cancel && scope.row.chargeback_cancel === 1"> {{ $t('status.declined_cancel') }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
                             prop="settled"
                             :show-overflow-tooltip="true"
                             :label="$t('kind.settle')">
