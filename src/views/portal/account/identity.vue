@@ -880,23 +880,31 @@
             this.rules = this.rulesA;
             this.loadMerData();
 			// 仅在整个视图都被渲染之后才会运行的代码
-			this.$nextTick(function () {
-				//激活页面弹出
-				 if (getIdentityMessageboxID() != false && getIdentityMessageboxID() != 'false' && this.$route.meta.name == "merchant_identity") {
-					this.open()
-				}
-			})
+			// this.$nextTick(function () {
+			// 	//激活页面弹出
+			// 	 if (getIdentityMessageboxID() != false && getIdentityMessageboxID() != 'false' && this.$route.meta.name == "merchant_identity") {
+			// 		this.open()
+			// 	}
+			// })
         },
         methods: {
 			open() {
-				this.$alert(this.$t("user.hint_Supplementary_account_information"), this.$t('dispute.warm_prompt'), {
-					confirmButtonText: this.$t('comm.sure'),
-					confirmButtonClass: 'messageBox_bt',
-					center: true,
-					callback: action => {
-						setIdentityMessageboxID(false)
-					}
-				})
+				//是否从激活页面进去且是否登录第一次进入这个页面
+				if (getIdentityMessageboxID() != false && getIdentityMessageboxID() != 'false' && this.$route.meta.name == "merchant_identity") {
+					//是否未认证
+					if (this.$data.info.identity_status == 0 || this.$data.info.identity_status == '0') {
+						this.$alert(this.$t("user.hint_Supplementary_account_information"), this.$t('dispute.warm_prompt'), {
+							confirmButtonText: this.$t('comm.sure'),
+							confirmButtonClass: 'messageBox_bt',
+							center: true,
+							callback: action => {
+								setIdentityMessageboxID(false)
+							}
+						})
+					} 
+				}
+				
+				
 			},
 			
             personalIdentityChange() {
@@ -1099,6 +1107,7 @@
                         this.$data.info = data.info;
                         this.$data.hold_edit = data.info.identity_validated || data.info.identity_status === 2;
                         this.loadIdentityData();
+						this.open()
                     })
                     .finally(() => {
                         this.loading = false;
