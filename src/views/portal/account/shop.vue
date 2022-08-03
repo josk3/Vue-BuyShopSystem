@@ -486,11 +486,11 @@ export default {
 }
 
 .shop-dialog {
-  width: 575px;
+  width: 520px;
 }
 
 .add_web_site {
-  width: 350px;
+  width: 330px;
 }
 
 .virtualStyle {
