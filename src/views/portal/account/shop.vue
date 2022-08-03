@@ -208,7 +208,7 @@
                          :true-label=1
                          :false-label=0
                          name="is_restricted"
-                         class="remarkStyle"
+                         class="remarkStyle restrictedSt"
                          @change="noteDisable"></el-checkbox>
             <el-popover
                 placement="top-start"
@@ -498,7 +498,7 @@ export default {
 }
 
 .restrictedStyle {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .remarkStyle {
@@ -509,4 +509,13 @@ export default {
   margin-left: 2px;
 }
 
+</style>
+
+<style scoped>
+.remarkStyle :deep .el-checkbox__label{
+  max-width: 280px;
+  word-break: keep-all;
+  white-space: pre-wrap;
+  vertical-align: top;
+}
 </style>
