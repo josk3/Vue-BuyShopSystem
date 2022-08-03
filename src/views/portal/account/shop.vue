@@ -208,7 +208,7 @@
                          :true-label=1
                          :false-label=0
                          name="is_restricted"
-                         class="remarkStyle restrictedSt"
+                         class="remarkStyle"
                          @change="noteDisable"></el-checkbox>
             <el-popover
                 placement="top-start"
