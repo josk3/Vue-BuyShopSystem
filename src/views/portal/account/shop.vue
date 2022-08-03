@@ -512,7 +512,7 @@ export default {
 </style>
 
 <style scoped>
-.remarkStyle :deep .el-checkbox__label{
+.remarkStyle ::v-deep .el-checkbox__label{
   max-width: 320px;
   word-break: keep-all;
   white-space: pre-wrap;
