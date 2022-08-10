@@ -498,7 +498,7 @@ export default {
 }
 
 .restrictedStyle {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .remarkStyle {
@@ -509,4 +509,13 @@ export default {
   margin-left: 2px;
 }
 
+</style>
+
+<style scoped>
+.remarkStyle :deep(.el-checkbox__label) {
+  max-width: 305px;
+  word-break: keep-all;
+  white-space: pre-wrap;
+  vertical-align: top;
+}
 </style>
