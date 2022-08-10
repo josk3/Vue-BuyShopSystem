@@ -7017,8 +7017,7 @@
             },
             {
                 "code": "419001",
-                "name": "济源市",
-                "children": []
+                "name": "济源市"
             }
         ]
     },
@@ -7502,23 +7501,19 @@
             },
             {
                 "code": "429004",
-                "name": "仙桃市",
-                "children": []
+                "name": "仙桃市"
             },
             {
                 "code": "429005",
-                "name": "潜江市",
-                "children": []
+                "name": "潜江市"
             },
             {
                 "code": "429006",
-                "name": "天门市",
-                "children": []
+                "name": "天门市"
             },
             {
                 "code": "429021",
-                "name": "神农架林区",
-                "children": []
+                "name": "神农架林区"
             }
         ]
     },
@@ -8638,13 +8633,11 @@
             },
             {
                 "code": "441900",
-                "name": "东莞市",
-                "children": []
+                "name": "东莞市"
             },
             {
                 "code": "442000",
-                "name": "中山市",
-                "children": []
+                "name": "中山市"
             },
             {
                 "code": "445100",
@@ -9302,88 +9295,71 @@
             },
             {
                 "code": "460300",
-                "name": "三沙市",
-                "children": []
+                "name": "三沙市"
             },
             {
                 "code": "460400",
-                "name": "儋州市",
-                "children": []
+                "name": "儋州市"
             },
             {
                 "code": "469001",
-                "name": "五指山市",
-                "children": []
+                "name": "五指山市"
             },
             {
                 "code": "469002",
-                "name": "琼海市",
-                "children": []
+                "name": "琼海市"
             },
             {
                 "code": "469005",
-                "name": "文昌市",
-                "children": []
+                "name": "文昌市"
             },
             {
                 "code": "469006",
-                "name": "万宁市",
-                "children": []
+                "name": "万宁市"
             },
             {
                 "code": "469007",
-                "name": "东方市",
-                "children": []
+                "name": "东方市"
             },
             {
                 "code": "469021",
-                "name": "定安县",
-                "children": []
+                "name": "定安县"
             },
             {
                 "code": "469022",
-                "name": "屯昌县",
-                "children": []
+                "name": "屯昌县"
             },
             {
                 "code": "469023",
-                "name": "澄迈县",
-                "children": []
+                "name": "澄迈县"
             },
             {
                 "code": "469024",
-                "name": "临高县",
-                "children": []
+                "name": "临高县"
             },
             {
                 "code": "469025",
-                "name": "白沙黎族自治县",
-                "children": []
+                "name": "白沙黎族自治县"
             },
             {
                 "code": "469026",
-                "name": "昌江黎族自治县",
-                "children": []
+                "name": "昌江黎族自治县"
             },
             {
                 "code": "469027",
-                "name": "乐东黎族自治县",
-                "children": []
+                "name": "乐东黎族自治县"
             },
             {
                 "code": "469028",
-                "name": "陵水黎族自治县",
-                "children": []
+                "name": "陵水黎族自治县"
             },
             {
                 "code": "469029",
-                "name": "保亭黎族苗族自治县",
-                "children": []
+                "name": "保亭黎族苗族自治县"
             },
             {
                 "code": "469030",
-                "name": "琼中黎族苗族自治县",
-                "children": []
+                "name": "琼中黎族苗族自治县"
             }
         ]
     },
@@ -12321,8 +12297,7 @@
             },
             {
                 "code": "620200",
-                "name": "嘉峪关市",
-                "children": []
+                "name": "嘉峪关市"
             },
             {
                 "code": "620300",
@@ -13538,53 +13513,43 @@
             },
             {
                 "code": "659001",
-                "name": "石河子市",
-                "children": []
+                "name": "石河子市"
             },
             {
                 "code": "659002",
-                "name": "阿拉尔市",
-                "children": []
+                "name": "阿拉尔市"
             },
             {
                 "code": "659003",
-                "name": "图木舒克市",
-                "children": []
+                "name": "图木舒克市"
             },
             {
                 "code": "659004",
-                "name": "五家渠市",
-                "children": []
+                "name": "五家渠市"
             },
             {
                 "code": "659005",
-                "name": "北屯市",
-                "children": []
+                "name": "北屯市"
             },
             {
                 "code": "659006",
-                "name": "铁门关市",
-                "children": []
+                "name": "铁门关市"
             },
             {
                 "code": "659007",
-                "name": "双河市",
-                "children": []
+                "name": "双河市"
             },
             {
                 "code": "659008",
-                "name": "可克达拉市",
-                "children": []
+                "name": "可克达拉市"
             },
             {
                 "code": "659009",
-                "name": "昆玉市",
-                "children": []
+                "name": "昆玉市"
             },
             {
                 "code": "659010",
-                "name": "胡杨河市",
-                "children": []
+                "name": "胡杨河市"
             }
         ]
     },
