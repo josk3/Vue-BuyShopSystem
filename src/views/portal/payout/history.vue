@@ -36,6 +36,12 @@
                     <el-table-column
                             prop="trade_id"
                             :label="$t('comm.trade_id')" width="210px">
+                      <template v-slot="scope">
+                        <router-link :to="{name: 'order_detail',params:{id:scope.row.trade_id}}"
+                                     class="btn-link">
+                          {{ scope.row.trade_id }}
+                        </router-link>
+                      </template>
                     </el-table-column>
                     <el-table-column
                             prop="merchant_order_no"
@@ -211,7 +217,7 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.payout_history', page: 1,
-                    trade_id: '', merchant_order_no: '', site_url: ''
+                    trade_id: '', merchant_order_no: '', email: '', site_url: ''
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'submitted', //默认
