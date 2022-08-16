@@ -107,6 +107,10 @@
                                         :command="commandVal('edit', scope.row, scope.$index)">
                         <i class="el-icon-edit"></i> {{ $t('comm.edit') }}
                       </el-dropdown-item>
+                      <el-dropdown-item v-show="scope.row.status === 1"
+                                        :command="commandVal('edit_site', scope.row, scope.$index)">
+                        <i class="el-icon-edit"></i> {{ $t('comm.edit') }}
+                      </el-dropdown-item>
                       <el-dropdown-item v-if="scope.row.status === 1"
                                         :command="commandVal('close', scope.row, scope.$index)">
                         <i class="el-icon-turn-off"></i> {{ $t('comm.close') }}
@@ -235,6 +239,80 @@
         <el-button size="mini" type="primary" @click="submitAddShop">{{ $t('shop.submit_site') }}</el-button>
       </div>
     </el-dialog>
+    <el-dialog custom-class="wpy-dialog md-dialog bg-body shop-dialog"
+               @close="closeEditShopDialog"
+               :show-close="false" :close-on-click-modal="false"
+               :title="$t('shop.edit_site')"
+               :loading="loading"
+               :visible.sync="editShopDialogVisible">
+      <div>
+        <el-card shadow="hover" class="box-card p-2"
+                 :body-style="{ padding: '0px' }">
+          <div class="text-muted p-0">
+            <i class="el-icon-info text-blue"></i> {{ $t('shop.site_url_www_help_info') }}
+          </div>
+        </el-card>
+        <el-form ref="edit_shop"
+                 :model="edit_shop"
+                 :rules="rules" label-width="110px" class="p-1 pt-3 pb-0">
+          <el-form-item prop="site_url">
+            <template slot="label">
+              <el-popover
+                  placement="top-start"
+                  width="260"
+                  trigger="hover"
+                  :content="$t('shop.choose_http_or_https')">
+                                <span slot="reference">{{ $t('shop.site_url') }}
+                                    <i class="el-icon-warning-outline"></i></span>
+              </el-popover>
+            </template>
+            <el-input v-model="edit_shop.site_url" :placeholder="$t('shop.domain')"
+                      class="input-with-select add_web_site web_site_col" readonly>
+              <el-select v-model="edit_shop.url_protocol" slot="prepend"
+                         class="url_protocol_col"
+                         :placeholder="$t('shop.http_protocol')"
+                         filterable>
+                <el-option label="http" value="http"><span style="float: left">http</span></el-option>
+                <el-option label="https" value="https"><span style="float: left">https</span>
+                </el-option>
+              </el-select>
+            </el-input>
+          </el-form-item>
+          <el-form-item :label="$t('shop.site_system')" prop="site_system">
+            <el-select v-model="edit_shop.site_system" :placeholder="$t('shop.site_system')"
+                       filterable>
+              <el-option
+                  v-for="item in site_sys_list"
+                  :key="item.value"
+                  :label="item.text"
+                  :value="item.value">
+                <span style="float: left">{{ item.text }}</span>
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item v-show="customer_return_url.includes(edit_shop.site_system)"
+                        prop="return_url">
+            <template slot="label">
+              <el-popover
+                  placement="top-start"
+                  width="260"
+                  trigger="hover"
+                  :content="$t('shop.callback_url_info')">
+                                <span slot="reference">{{ $t('shop.return_url') }}
+                                    <i class="el-icon-warning-outline"></i></span>
+              </el-popover>
+            </template>
+            <el-input v-model="edit_shop.return_url" :placeholder="$t('shop.return_url')">
+              <template slot="prepend">{{ edit_shop.url_protocol }}://</template>
+            </el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="mini" @click="closeEditShopDialog()">{{ $t('comm.cancel') }}</el-button>
+        <el-button size="mini" type="primary" @click="submitEditShop">{{ $t('shop.sure') }}</el-button>
+      </div>
+    </el-dialog>
 
   </div>
 </template>
@@ -243,7 +321,7 @@
 import configs from '@/configs'
 import SearchBox from "@/components/SearchBox";
 import Pagination from "@/components/Pagination";
-import {addShop, closeShop, getSiteSystemList, openShop, resubmit, shopSearch, updateShop} from "@/service/shopSer";
+import {addShop, closeShop, getSiteSystemList, openShop, resubmit, shopSearch, updateShop, updateWebSite} from "@/service/shopSer";
 import {isEmpty} from "@/utils/validate";
 
 export default {
@@ -270,7 +348,9 @@ export default {
       tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
       paneName: 'all', //默认
       add_shop: this.initShopFormObj(),
+      edit_shop: this.initEditShopFormObj(),
       addShopDialogVisible: false,
+      editShopDialogVisible: false,
       site_sys_list: [],
       customer_return_url: ['Other', 'Java', 'Php', 'Asp', 'PHP'],
       has_remark: false,
@@ -356,6 +436,9 @@ export default {
           }).finally(() => {
             this.$data.loading = false
           })
+          break;
+        case 'edit_site':
+          this.openEditShopDialog('edit_site', row)
           break;
       }
     },
@@ -457,6 +540,62 @@ export default {
     resetRule(prop, rule) {
       this.$set(this.rules, prop, rule);
     },
+
+    openEditShopDialog(action, item) {
+      this.$data.loading = true
+      getSiteSystemList().then(res => {
+        const {data} = res
+        this.$data.site_sys_list = data.list
+        this.renderEditShopDialog(action, item)
+      }).finally(() => {
+        this.$data.loading = false
+      })
+    },
+    renderEditShopDialog(action, data) {
+      this.initEditShopFormObj()
+      if (!isEmpty(data)) {
+        this.edit_shop.site_id = data.site_id
+        this.edit_shop.site_url = data.site_url
+        this.edit_shop.site_system = data.site_system
+        this.edit_shop.return_url = data.return_url
+        this.edit_shop.url_protocol = data.url_protocol
+      }
+      this.edit_shop.action = action
+      this.editShopDialogVisible = true
+    },
+    initEditShopFormObj() {
+      return {
+        action: '',
+        site_id: '',
+        site_url: '',
+        url_protocol: '',
+        site_system: '',
+        return_url: '',
+      }
+    },
+    closeEditShopDialog() {
+      this.editShopDialogVisible = false
+      this.$refs.edit_shop.resetFields();//重置
+    },
+    submitEditShop() {
+      this.$refs['edit_shop'].validate((valid) => {
+        if (isEmpty(this.edit_shop.url_protocol)) {
+          this.$message.error(this.validMsg('shop.http_protocol'))
+        }
+        if (!valid) {
+          return false;
+        } else {
+          this.$data.loading = true
+          updateWebSite(this.edit_shop).then(() => {
+            this.$message.success(this.$i18n.t('shop.success').toString())
+            this.closeEditShopDialog()
+            this.search('enable')
+          }).finally(() => {
+            this.$data.loading = false
+          })
+        }
+      });
+    },
   },
 }
 </script>
@@ -517,5 +656,14 @@ export default {
   word-break: keep-all;
   white-space: pre-wrap;
   vertical-align: top;
+}
+
+.url_protocol_col :deep(.el-input__inner){
+  color: #606266 !important;
+}
+
+.web_site_col :deep(.el-input__inner) {
+  background-color: #F5F7FA;
+  color: #909399;
 }
 </style>

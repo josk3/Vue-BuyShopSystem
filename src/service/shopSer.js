@@ -20,6 +20,10 @@ export function updateShop(params) {
     return post('/shop/update', params);
 }
 
+export function updateWebSite(params) {
+    return post('/shop/update_web_site', params);
+}
+
 export function closeShop(params) {
     return post('/shop/close', params);
 }
