@@ -55,7 +55,7 @@
                                   type="error"
                                   effect="dark">
                             <div slot="title">
-                                请先认证激活您的账号,
+                                {{$t('settle.settle_tips1')}},
                                 <router-link :to="{name:'active_account'}" class="btn-link">
                                     <svg-icon icon-class="active_account"/> {{ $t('nav.active_account') }}
                                 </router-link>
@@ -65,7 +65,7 @@
                                   type="warning"
                                   effect="dark">
                             <div slot="title">
-                                请先绑定您的结算银行卡,
+                                 {{$t('settle.settle_tips2')}},
                                 <router-link :to="{name:'merchant_info'}" class="btn-link">
                                     <svg-icon icon-class="account_manage"/> {{ $t('nav.merchant_info') }}
                                 </router-link>

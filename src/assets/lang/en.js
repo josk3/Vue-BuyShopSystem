@@ -500,6 +500,8 @@ module.exports = {
         "batch_id_detail": "Payout detail",
         "sure": "OK",
         "batch_upload_reject":"batch upload reject",
+		"settle_tips1":"Please complete the following information to activate your account",
+		"settle_tips2":"Please add your bank card for settlement",
     },
     "order": {
         "trade_id_and_order_no": "TradeId/OrderNo",
