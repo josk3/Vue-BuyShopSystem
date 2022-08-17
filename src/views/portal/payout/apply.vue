@@ -47,7 +47,7 @@
                             </el-step>
                         </el-steps>
                         <p v-if="tabData.can_apply_order_time && tabData.page.total == 0" class="mb-1">
-                            <small>*可提交: 支付时间在{{tabData.can_apply_order_time}}之前的订单。</small>
+                            <small>*{{$t('settle.settle_dateTip_start')}} {{tabData.can_apply_order_time}}{{$t('settle.settle_dateTip_last')}}</small>
                         </p>
                     </div>
                     <div v-if="this.user.is_master">
