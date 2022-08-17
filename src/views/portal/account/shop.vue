@@ -589,7 +589,7 @@ export default {
           updateWebSite(this.edit_shop).then(() => {
             this.$message.success(this.$i18n.t('shop.success').toString())
             this.closeEditShopDialog()
-            this.search('enable')
+            this.search()
           }).finally(() => {
             this.$data.loading = false
           })
