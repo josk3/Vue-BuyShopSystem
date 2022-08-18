@@ -500,6 +500,10 @@ module.exports = {
         "sure": "确 定",
         "debt_amount": "负债金额",
         "batch_upload_reject":"批量上传问题单",
+		"settle_tips1":"请先认证激活您的账号",
+		"settle_tips2":"请先绑定您的结算银行卡",
+		"settle_dateTip_start":"可提交: 支付时间在",
+		"settle_dateTip_last":"之前的订单。",
     },
     "order": {
         "trade_id_and_order_no": "流水号/订单号",
