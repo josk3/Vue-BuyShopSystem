@@ -3529,6 +3529,12 @@ const proxy = {
             data: {}
         })
     },
+    'POST /api/v1/shop/update_web_site': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
     'POST /api/v1/merchant/role/search': (req, res) => {
         return res.json({
             status: 1,
