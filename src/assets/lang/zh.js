@@ -126,6 +126,8 @@ module.exports = {
         "category": "类别",
         "download_Authorization_explain": ["下载模版表格","并填写对应业务款指示交付通知书信息。"],
         "upload_table_ok":"上传表格，完成。",
+
+        "download_need_date_one_month": "下载请选择日期且在1个月区间范围",
     },
     "nav": {
         "home": "主页",

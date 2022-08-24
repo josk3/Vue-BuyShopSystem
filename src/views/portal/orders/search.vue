@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SearchBox :params="searchParams" @search="search"></SearchBox>
+    <SearchBox :params="searchParams" :red_item_class="redItemClass" @search="search"></SearchBox>
     <div class="wrap-tab p-0">
       <el-skeleton :rows="15" animated :loading="loading">
         <template>
@@ -186,7 +186,7 @@ import Pagination from "@/components/Pagination";
 import {ordersDownload, ordersSearch} from "@/service/orderSer";
 import {mapState} from "vuex";
 import CancelPendingDialog from "@/components/CancelPendingDialog";
-import {isEmpty} from "@/utils/validate";
+import {isArray, isEmpty} from "@/utils/validate";
 import {parseTime} from "@/utils";
 
 export default {
@@ -215,15 +215,16 @@ export default {
         ip: '',
         card_brand: ''
       },
+      redItemClass: [],
       tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
       paneName: 'paid', //默认 从all改为paid(应需求)
     }
   },
   mounted() {
     this.searchParams.pay_status = this.paneName
-    //默认页面搜索近三个月数据
+    //默认页面搜索近1个月数据
     const currentTime = new Date().getTime()
-    this.searchParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 90, '{y}-{m}-{d}')
+    this.searchParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 31, '{y}-{m}-{d}')
       , parseTime(currentTime, '{y}-{m}-{d}')]
     this.search();
   },
@@ -245,7 +246,13 @@ export default {
       }
       this.search(page.page_num)
     },
+    getDifferDay(startDate, endDate) {
+      let startTime = new Date(Date.parse(startDate)).getTime();
+      let endTime = new Date(Date.parse(endDate)).getTime();
+      return Math.abs((startTime - endTime)) / (1000 * 60 * 60 * 24);
+    },
     search(pageNum) {
+      this.redItemClass = [];
       if (this.searchParams.pay_status === '' || this.searchParams.pay_status === null) {
         this.paneName = 'all'
       }
@@ -292,6 +299,16 @@ export default {
       }
     },
     downOrders() {
+      this.redItemClass = [];
+      ///要有日期且在1个月内
+      let searchData = this.searchParams.search_date;
+      if (isEmpty(searchData) || !isArray(searchData)
+          || searchData.length !== 2
+          || this.getDifferDay(this.searchParams.search_date[0], this.searchParams.search_date[1]) > 32) {
+        this.$message.error(this.$i18n.t('comm.download_need_date_one_month').toString())
+        this.redItemClass.push('search_date');
+        return;
+      }
       //页面效果,正在加载中
       this.$data.loading = true
       //搜索栏状态重置,判断

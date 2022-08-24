@@ -111,6 +111,7 @@
                     <el-form-item v-if="searchForm.search_date !== undefined" prop="start_date">
                         <el-date-picker
                                 v-model="searchForm.search_date"
+                                :class="formItemClass('search_date')"
                                 type="daterange"
                                 size="mini"
                                 value-format="yyyy-MM-dd"
@@ -174,9 +175,11 @@
 
 <script>
 
+import {isArray, isEmpty} from "@/utils/validate";
+
     export default {
         name: "SearchBox",
-        props: ['params'],
+        props: ['params', 'red_item_class'],
         data() {
             return {
                 searchForm: this.params,
@@ -248,6 +251,13 @@
         },
         watch: {},
         methods: {
+          formItemClass(name) {
+            if (!isEmpty(this.red_item_class) && isArray(this.red_item_class)) {
+              if (this.red_item_class.includes(name)) {
+                return 'border-danger';
+              }
+            }
+          },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },

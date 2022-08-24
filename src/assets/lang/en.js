@@ -126,6 +126,8 @@ module.exports = {
         "category" : "category",
         "download_Authorization_explain": ["Download the template form","and fill in the corresponding 'Notice of Entrustment for Collection of Business Funds'."],
         "upload_table_ok":"Upload the form.",
+
+        "download_need_date_one_month": "To download, please select a date and be within a 1-month interval",
     },
     "nav": {
         "home": "Home",
