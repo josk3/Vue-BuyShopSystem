@@ -300,15 +300,18 @@ export default {
     },
     downOrders() {
       this.redItemClass = [];
-      ///要有日期且在1个月内
-      let searchData = this.searchParams.search_date;
-      if (isEmpty(searchData) || !isArray(searchData)
-          || searchData.length !== 2
-          || this.getDifferDay(this.searchParams.search_date[0], this.searchParams.search_date[1]) > 32) {
-        this.$message.error(this.$i18n.t('comm.download_need_date_one_month').toString())
-        this.redItemClass.push('search_date');
-        return;
+      ///要有日期且在1个月内 (如果搜索条件有流水号或邮箱可不限制)
+      if (isEmpty(this.searchParams.email) && isEmpty(this.searchParams.trade_id)) {
+        let searchData = this.searchParams.search_date;
+        if (isEmpty(searchData) || !isArray(searchData)
+            || searchData.length !== 2
+            || this.getDifferDay(this.searchParams.search_date[0], this.searchParams.search_date[1]) > 32) {
+          this.$message.error(this.$i18n.t('comm.download_need_date_one_month').toString())
+          this.redItemClass.push('search_date');
+          return;
+        }
       }
+
       //页面效果,正在加载中
       this.$data.loading = true
       //搜索栏状态重置,判断
