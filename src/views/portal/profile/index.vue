@@ -204,6 +204,17 @@
             },
         },
         data() {
+            var checkEmail = (rule, value, callback) => {
+                if(isEmpty(value)){
+                    return callback(this.validMsg('user.email'));
+                }
+                const reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+                if (!reg.test(value)) {
+                    return callback(this.$i18n.t("user.email") + this.$i18n.t("user.incorrect_format"));
+                } else {
+                    callback();
+                }
+            };
             return {
                 loading: false,
                 update_pwd: {old_pwd: '', new_pwd: ''},
@@ -222,7 +233,7 @@
                 updateEmailData: '',
                 wait_valid_email: false,
                 rulesEmail: {
-                    email: [{required: true, type: 'email', message: this.validMsg('user.email'), trigger: 'blur'},],
+                    email: [{required: true, validator: checkEmail, trigger: 'blur'}],
                 },
                 updatePwdWithSafe: false,
                 updatePwdWithSafeForm: {'new_pwd': ''},

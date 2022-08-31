@@ -307,8 +307,8 @@ module.exports = {
         "upload_picture_tip":"只能上传图片格式文件,且不超过500kb。",
         "upload_exceed_tip":"文件大小不能超过500kb",
         //email
-        "complete_input_email": "请完善邮箱信息",
-        "input_often_email_to_receive_notice": "请填写常用的邮箱, 便于接收通知",
+        "complete_input_email": "请完善邮箱信息，便于接收邮件通知。",
+        "input_often_email_to_receive_notice": "请填写常用的邮箱，便于接收邮件通知。",
         "legal_person": "法定代表人",
         "long_effective": "长期有效",
         "hint_Supplementary_account_information":"商户进入系统后台请先完善激活认证信息，提交我司审核，用于后续结算申请。不影响系统其他功能的使用。",
