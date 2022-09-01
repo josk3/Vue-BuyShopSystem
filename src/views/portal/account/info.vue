@@ -80,7 +80,7 @@
               <div class="row">
                 <label class="col-4">{{ $t("account.ecm_current_month") }}</label>
                 <div class="col-8">
-                  <span>{{ ecmRateText(info.monitor_ecm) | nullToLine }}</span>
+                  <div v-html="ecmRateHtml(info.monitor_ecm)"></div>
                 </div>
               </div>
               <div class="row">
@@ -92,7 +92,7 @@
               <div class="row">
                 <label class="col-4">{{ $t("account.ecm_account") }}</label>
                 <div class="col-8">
-                  <span>{{ ecmRateText(info.total_ecm) | nullToLine }}</span>
+                  <div v-html="ecmRateHtml(info.total_ecm)"></div>
                 </div>
               </div>
               <div class="row">
@@ -104,7 +104,7 @@
               <div class="row">
                 <label class="col-4">{{ $t("account.ecm_last_month") }}</label>
                 <div class="col-8">
-                  <span>{{ ecmRateText(info.last_monthly_ecm) | nullToLine }}</span>
+                  <div v-html="ecmRateHtml(info.last_monthly_ecm)"></div>
                 </div>
               </div>
               <div class="row mb-0">
@@ -524,6 +524,7 @@ import {mapState} from "vuex";
 import ShowMoreBtn from "@/components/ShowMoreBtn";
 import {addBank, getMerIdentity, getMerInfo} from "@/service/merchantSer";
 import {isEmpty} from "@/utils/validate";
+import {math} from "@/utils/math";
 import {getAreaJsonData, getInlandAreaJsonData} from "@/service/riskAreaSer";
 
 export default {
@@ -1179,7 +1180,23 @@ export default {
       }
     },
     ecmRateText(rate) {
-      return (rate * 100) + '%';//显示2位小数点
+      return (rate * 100) + '%';//显示2位小数点 (暂时弃用)
+    },
+    ecmRateHtml(rate) {
+      if (!isEmpty(rate)) {
+        let rateNum = math.multiply(rate, 100)
+        if (rateNum > 1) {
+          if (rateNum.toString().indexOf('.') !== -1) {
+            return '<span class="ecm-rate-a">' + rateNum.toString().substring(0, rateNum.toString().indexOf('.')) + '</span>'
+                + '<span class="ecm-rate-b">' + rateNum.toString().substring(rateNum.toString().indexOf('.')) + '%</span>';
+          } else {
+            return '<span class="ecm-rate-a">' + rateNum + '</span>%';
+          }
+        } else {
+          return rateNum + '%';//显示所有小数点
+        }
+      }
+      return '';
     }
   },
 };
