@@ -158,7 +158,7 @@
                       </el-dropdown-item>
                       <el-dropdown-item v-if="scope.row.pay_status === 'pending'"
                                         :command="commandVal('cancel_pending', scope.row)">
-                        {{ $t('order.cancel_pending') }}
+                        {{ $t('order.cancel_order') }}
                       </el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
