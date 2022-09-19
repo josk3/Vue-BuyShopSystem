@@ -56,7 +56,8 @@
     "color-string": "^1.9.1",
     "browserslist": "^4.21.2",
     "scss-tokenizer": "^0.4.2",
-    "async": "^3.2.4"
+    "async": "^3.2.4",
+    "mathjs": "^11.1.0"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
