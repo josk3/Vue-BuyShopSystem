@@ -60,6 +60,10 @@
                 <el-table-column
                         prop="dispute_type"
                         :label="$t('dispute.dispute_type')">
+                    <template v-slot="scope">
+                      {{scope.row.dispute_type}}<br/>
+                      {{scope.row.dispute_child_type}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                         width="120"
