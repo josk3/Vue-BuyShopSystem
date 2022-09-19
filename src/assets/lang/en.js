@@ -424,6 +424,8 @@ module.exports = {
         "notice_dispute_to_merchant": "Receive a notification if a payment is disputed.",
         "notice_chargeback_to_merchant": "Receive a notification if a payment is chargeback.",
         "pwd_will_send_this_email": "Password will be sent to this email.",
+        "has_send_active_email": "An email has been sent to you activate your mailbox.",
+        "login_mail_and_click_activate_link": "Please log on your mailbox clicking the link to complete the activation.",
         "login_mail_and_click_valid_link": "Please login your mailbox to open the email to complete the authentication",
         "will_expire_remind": "Reminder of expiry services: please contact customer service to complete the renewal work.",
         "remindClose": "Got it",
