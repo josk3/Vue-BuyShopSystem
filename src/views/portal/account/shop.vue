@@ -22,7 +22,6 @@
                   <el-tab-pane :label="$t('comm.enable')" name="enable"></el-tab-pane>
                   <el-tab-pane :label="$t('comm.close')" name="close"></el-tab-pane>
                   <el-tab-pane :label="$t('comm.review_reject')" name="review_reject"></el-tab-pane>
-                  <el-tab-pane :label="$t('status.disabled')" name="disable"></el-tab-pane>
                 </el-tabs>
               </div>
               <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
