@@ -98,7 +98,8 @@
               </el-table-column>
               <el-table-column width="50" fixed="right">
                 <template v-slot="scope">
-                  <el-dropdown v-show="scope.row.status !== 2" trigger="click" @command="handleCommand">
+                  <el-dropdown v-show="![-1,0,2].includes(scope.row.status)" trigger="click"
+                               @command="handleCommand">
                                       <span class="el-dropdown-link">
                                           <i class="el-icon-more"></i>
                                       </span>
