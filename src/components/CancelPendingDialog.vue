@@ -3,7 +3,7 @@
         <!--    d    -->
         <el-dialog custom-class="wpy-dialog sm-dialog"
                    :show-close="false" :close-on-click-modal="false"
-                   :title="$t('order.cancel_pending')"
+                   :title="$t('order.cancel_order')"
                    :visible.sync="cancelPendingDialogVisible">
             <div>
                 <el-form ref="cancel_pending"
@@ -22,7 +22,7 @@
             <div slot="footer" class="dialog-footer" v-loading="loading">
                 <el-button size="mini" @click="closeDialog()">{{$t('comm.cancel')}}</el-button>
                 <el-button size="mini" type="primary" @click="submitCancelPending" class="ml-3">
-                    {{$t('comm.sure')}}-{{$t('order.cancel_pending')}}
+                    {{$t('comm.sure')}}-{{$t('order.cancel_order')}}
                 </el-button>
             </div>
         </el-dialog>
