@@ -391,6 +391,10 @@ export function shopStatus(val) {
             return i18n.t('status.review_reject')
         case 4:
             return i18n.t('comm.close')
+        case -1:
+            return i18n.t('comm.del')
+        case 0:
+            return i18n.t('status.disabled')
     }
 }
 

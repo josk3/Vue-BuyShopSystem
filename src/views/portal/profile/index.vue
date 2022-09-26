@@ -28,7 +28,7 @@
                             </div>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" @click="submitUpdateEmail">{{$t('comm.save')}}</el-button>
+                            <el-button type="primary" @click="submitUpdateEmail" v-text="resend ? $t('login.resolver_email_fail[1]') : $t('comm.save')"></el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -232,6 +232,7 @@
                 update_email: {uid: '', email: '', action: ''},
                 updateEmailData: '',
                 wait_valid_email: false,
+                resend: false,
                 rulesEmail: {
                     email: [{required: true, validator: checkEmail, trigger: 'blur'}],
                 },
@@ -286,7 +287,15 @@
                 getUserInfo().then(res => {
                     const {data} = res
                     this.$data.user_info = data.user
-                    if (isEmpty(data.user.email) || data.user.email_valid === false) this.$data.canChangeEmail = true
+                    if (isEmpty(data.user.email)){
+                        this.$data.canChangeEmail = true
+                    } else {
+                        if (data.user.email_valid === false){
+                            this.update_email.email = data.user.email
+                            this.$data.canChangeEmail = true
+                            this.$data.resend = true
+                        }
+                    }
                 }).finally(() => {
                     this.loading = false
                 })

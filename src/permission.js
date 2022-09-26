@@ -46,7 +46,7 @@ router.beforeEach(async (to, from, next) => {
 
                 const hasMenus = store.getters.menus && store.getters.menus.length > 0
                 if (hasMenus) {
-                    if (!isEmpty(user.state) && !isEmpty(user.state.user) && (user.state.user.online === false || isEmpty(user.state.user.email))) {
+                    if (!isEmpty(user.state) && !isEmpty(user.state.user) && (user.state.user.online === false || isEmpty(user.state.user.email) || user.state.user.email_valid === false)) {
                         //vue-router 3.1.0+ push/replace cause NavigationDuplicated error 
                         //https://github.com/ElemeFE/element/issues/17044
                         if (to.path === configs.homePath || to.path === configs.profilePath) {

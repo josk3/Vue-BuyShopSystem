@@ -213,7 +213,7 @@
         },
         methods: {
             onlyOnlineCanUse() {
-                if (isEmpty(this.user.email)) {
+                if (isEmpty(this.user.email) || this.user.email_valid === false) {
                     //引导用户填写邮箱
                     this.$router.push({name: 'profile', params: {user_init_email: 1}})
                 } else {

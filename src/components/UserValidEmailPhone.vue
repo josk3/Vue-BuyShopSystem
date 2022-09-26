@@ -10,10 +10,10 @@
             <div>
                 <div class="mb-4 font-weight-bold">{{$t('user.mer_no')}} {{ userData.mer_no }}</div>
                 <p class="mb-1">
-                    <small><i class="el-icon-circle-check"></i>{{$t('login.has_send_active_email')}}</small>
+                    <small><i class="el-icon-circle-check"></i><span v-text="kind === 'update_email' ? $t('account.has_send_active_email') : $t('login.has_send_active_email')"></span></small>
                 </p>
                 <p class="mb-2">
-                    <i class="el-icon-info text-yellow"></i>{{$t('account.login_mail_and_click_valid_link')}}
+                    <i class="el-icon-info text-yellow"></i><span v-text="kind === 'update_email' ? $t('account.login_mail_and_click_activate_link') : $t('account.login_mail_and_click_valid_link')"></span>
                 </p>
                 <p class="mb-3">
                     {{ userData.email }}
