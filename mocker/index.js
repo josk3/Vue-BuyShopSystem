@@ -217,6 +217,12 @@ function demoUserInfo() {
                             "hidden": false
                         },
                         {
+                            "name": "can_add_service_email",
+                            "path": "/merchant/can_add_service_email",
+                            "meta": null,
+                            "hidden": true
+                        },
+                        {
                             "name": "merchant_users",
                             "path": "/merchant/users",
                             "meta": null,
@@ -251,7 +257,8 @@ function demoUserInfo() {
             permissions: [
                 "home_trade_report",
                 "can_view_balance",
-                "delivery_download"
+                "delivery_download",
+                "can_add_service_email"
             ],
         }
     };

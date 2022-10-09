@@ -175,6 +175,7 @@ module.exports = {
         "home_trade_report": "网站最近交易图表",
         "delivery_download": "物流下载",
         "dispute_detail": "争议详情",
+        "can_add_service_email": "客服邮箱设置",
         "404": "404",
         "401": "401",
         "terms": "条款",

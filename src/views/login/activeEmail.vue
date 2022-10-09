@@ -56,13 +56,14 @@
                 loading: false,
                 ok: false,
                 merNo: '',
-                form: {uid: '', code: ''},
+                form: {uid: '', code: '', type: ''},
                 currentToken: '',
             }
         },
         mounted() {
             this.form.code = this.$route.query.code
             this.form.uid = this.$route.query.uid
+            this.form.type = this.$route.query.type
             this.submitActiveEmail();
             this.currentToken = getToken();
         },

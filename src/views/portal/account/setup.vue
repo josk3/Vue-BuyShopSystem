@@ -11,7 +11,7 @@
                 </el-card>
             </div>
         </div>
-        <div class="wrap-tab p-0">
+        <div class="wrap-tab p-0" v-if="permCustomEmail">
             <el-card class="box-card wpy-card mb-2" shadow="always" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
                     <span>{{ $t("account.service_email_settings") }} </span>
@@ -76,10 +76,6 @@
         </div>
         <!--    d    -->
         <el-dialog custom-class="md-dialog" :close-on-click-modal="false" :title="$t('account.update_email')" :visible.sync="changeEmailDialogVisible">
-            <!-- <div class="row pl-5 pt-2" v-if="wait_valid_email">
-                <UserValidEmailPhone :user_info="updateEmailData" kind="update_email" @success="validUpdateEmailOK"></UserValidEmailPhone>
-            </div> -->
-            <!-- v-else -->
             <div>
                 <el-form ref="update_email" :model="update_email" :rules="rulesEmail" class="form" @close="closeEmailDialog" @submit.native.prevent="submitUpdateEmail('update_email')">
                     <p>{{ $t("account.enter_email") }}</p>
@@ -104,6 +100,7 @@
     import { getUserInfo, updateServiceStaffEmail } from "@/service/userSer";
     import UserValidEmailPhone from "@/components/UserValidEmailPhone.vue";
     import { isEmpty } from "@/utils/validate";
+    import { hasPermission } from "@/service/userSer";
 
     export default {
         name: "merchant_setup",
@@ -113,6 +110,7 @@
             ...mapState({
                 lang: state => state.app.lang, //多语言
                 menus: state => state.user.menus,
+                permissions: state => state.user.permissions,
             }),
             configs() {
                 return configs;
@@ -146,11 +144,15 @@
                     email: [{ required: true, validator: checkEmail, trigger: "blur" }],
                 },
                 changeEmailDialogVisible: false,
+                permCustomEmail: false,
             };
         },
         mounted() {
             this.loadSetupData();
-            this.loadSetupData2();
+            this.permCustomEmail = hasPermission(configs.perm.can_add_service_email, this.permissions);
+            if (this.permCustomEmail) {
+                this.loadSetupData2();
+            }
         },
         methods: {
             validMsg(name) {

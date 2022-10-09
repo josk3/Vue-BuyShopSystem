@@ -175,6 +175,7 @@ module.exports = {
         "home_trade_report": "Order Report",
         "delivery_download": "Deliver Download",
         "dispute_detail": "Dispute Detail",
+        "can_add_service_email": "Customer Service Email Settings",
         "404": "404",
         "401": "401",
         "terms": "Terms",
