@@ -73,6 +73,10 @@ export function updateEmail(data) {
     return post('/email/update', data);
 }
 
+export function updateServiceStaffEmail(data) {
+    return post('/service_staff_email/update', data);
+}
+
 export function updatePwdWithSafe(data) {
     return post('/password/update_with_safe', data);
 }

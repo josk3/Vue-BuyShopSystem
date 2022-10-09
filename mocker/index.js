@@ -8,7 +8,7 @@ const proxyUrlSetting = {
     // '/api/v1/(.*)': 'http://192.168.3.182:8013',
     // '/api/v1/(.*)': 'http://127.0.0.1/',
     // '/images/(.*)': 'http://localhost:8013/',
-    '/api/v1/(.*)': 'http://localhost:8013/',
+    // '/api/v1/(.*)': 'http://localhost:8013/',
 }
 
 function demoUserInfo() {
@@ -25,6 +25,8 @@ function demoUserInfo() {
                 is_master: true,
                 email: 'ljef@wintopay.cn',
                 email_valid: true,
+                service_staff_email: 'test@wintopay.cn',
+                service_staff_email_valid: false,
                 phone: '13818181818',
                 second_login: '2020-01-01 00:00:00',
                 status: 1,
@@ -1368,6 +1370,9 @@ const proxy = {
         });
     },
     'POST /api/v1/email/update': (req, res) => {
+        return res.json(demoUserInfo());
+    },
+    'POST /api/v1/service_staff_email/update': (req, res) => {
         return res.json(demoUserInfo());
     },
     'POST /api/v1/verify_code/resend_phone': (req, res) => {
