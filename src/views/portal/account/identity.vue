@@ -360,8 +360,13 @@
                 this.validReg(reg, value, rule.field, callback);
             };
             var checkInlandName = (rule, value, callback) => {
-                //只能汉字
-                const reg = /^[\u4e00-\u9fa5]*$/;
+                //汉字 或 汉字+"·"+汉字
+                const reg = /^[\u4e00-\u9fa5]{1,20}(·[\u4e00-\u9fa5]{1,20})*$/;
+                this.validReg(reg, value, rule.field, callback);
+            };
+            var checkInlandCompanyName  = (rule, value, callback) => {
+                //汉字 或 汉字+括号
+                const reg = /^(?![\(\)\（\）]+$)[\(\)\（\）\u4e00-\u9fa5]{2,}$/;
                 this.validReg(reg, value, rule.field, callback);
             };
             var checkInlandIdNum = (rule, value, callback) => {
@@ -389,7 +394,7 @@
                 this.validReg(reg, value, rule.field, callback);
             };
             var checkNameFour = (rule, value, callback) => {
-                const reg = /^(?![A-Za-z0-9]+$)[\u4e00-\u9fa5A-Za-z0-9]{4,}$/;
+                const reg = /^(?![\(\)\（\）A-Za-z0-9_-]+$)[\(\)\（\）\u4e00-\u9fa5A-Za-z0-9_-]{4,}$/;
                 this.validReg(reg, value, rule.field, callback);
             };
             var checkOutlandIdNum = (rule, value, callback) => {
@@ -613,7 +618,7 @@
                             message: this.validMsg("user.company_name"),
                             trigger: "blur",
                         },
-                        { validator: checkInlandName, trigger: "blur" },
+                        { validator: checkInlandCompanyName, trigger: "blur" },
                     ],
                     company_identity_photo: [
                         {
