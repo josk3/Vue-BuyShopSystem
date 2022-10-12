@@ -309,7 +309,7 @@ module.exports = {
         //email
         "complete_input_email": "Please advise email address below for receiving notifications.",
         "input_often_email_to_receive_notice": "Please fill in the frequently used email to avoid not receiving notifications.",
-        "legal_person" : "legal person",
+        "legal_person" : "Legal person",
         "long_effective": "long effective",
         "hint_Supplementary_account_information":"Please complete the following information to submit it for review which will be used for settlement application.  It does not affect the use of other functions of the system.",
     
