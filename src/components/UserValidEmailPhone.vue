@@ -209,7 +209,7 @@
                 })
             },
             convertReqData() {
-                return  {kind: this.kind, uid: this.userData.uid, valid_sig: this.userData.valid_sig}
+                return  {kind: this.kind, uid: this.userData.uid, valid_sig: this.userData.valid_sig, type: this.userData.emailType}
             },
 
             //---

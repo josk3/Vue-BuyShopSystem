@@ -208,6 +208,7 @@
                                 const { data } = res;
                                 this.$data.updateEmailData = data;
                                 this.$data.updateEmailData.user.email = newEmail;
+                                this.$data.updateEmailData.user.emailType = "service_staff_email";
                             })
                             .finally(() => {
                                 this.$data.loading = false;
