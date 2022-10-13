@@ -711,9 +711,9 @@ module.exports = {
         "close_ticket": "Close ticket",
     },
     "dispute": {
-        "untreated": "untreated",
-        "underway": "underway",
-        "complete": "complete",
+        "untreated": "Untreated",
+        "underway": "Underway",
+        "complete": "Complete",
         "dispute_no": "Dispute No",
         "dispute_status": "Dispute Status",
         "dispute_type": "Dispute Type",
