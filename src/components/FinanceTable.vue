@@ -26,6 +26,14 @@
                 </template>
             </el-table-column>
             <el-table-column
+                prop="site_url"
+                :show-overflow-tooltip="true"
+                :label="$t('comm.site_url')">
+              <template v-slot="scope">
+                {{scope.row.site_url | nullToLine}}
+              </template>
+            </el-table-column>
+            <el-table-column
                     prop="order_amount"
                     :show-overflow-tooltip="true"
                     :label="$t('comm.order_amount')">
@@ -80,7 +88,7 @@
             </el-table-column>
             <el-table-column
                     v-if="tab_data.kind != 'deposit'"
-                    min-width="100px"
+                    min-width="80px"
                     prop="charge">
                 <template slot="header">
                     <span slot="reference">{{$t('finance.balance_charge')}}</span>
@@ -93,7 +101,7 @@
             </el-table-column>
             <el-table-column
                     v-if="tab_data.kind == 'deposit' && page_kind == 'settle'"
-                    min-width="100px"
+                    min-width="80px"
                     prop="deposit_charge">
                 <template slot="header">
                     <span slot="reference">
