@@ -68,7 +68,7 @@
 </template>
 
 <script>
-    import {activePhone, resendVerifyCodeEmail, resendVerifyCodePhone} from "@/service/userSer";
+    import {activePhone, resendVerifyCodeEmail, resendStaffVerifyCodeEmail, resendVerifyCodePhone} from "@/service/userSer";
     import {mapState} from "vuex";
     import configs from "@/configs";
     import AliValidCode from "@/components/AliValidCode";
@@ -194,22 +194,38 @@
                 this.loading = true
                 this.errorMsg = ''
                 this.confirmResendDialog = false
-                resendVerifyCodeEmail(this.convertReqData()).then(() => {
-                    this.$message.success(this.$i18n.t('comm.success').toString())
-                    this.getCoded()
-                }).catch((res) => {
-                    if (res.code === configs.apiCode.needValidCode) {
-                        //验证码
-                        this.resendEmailBtn()
-                    } else {
-                        this.$data.errorMsg = res.message
-                    }
-                }).finally(() => {
-                    this.loading = false
-                })
+                if(this.userData.emailType === "service_staff_email"){
+                    resendStaffVerifyCodeEmail(this.convertReqData()).then(() => {
+                        this.$message.success(this.$i18n.t('comm.success').toString())
+                        this.getCoded()
+                    }).catch((res) => {
+                        if (res.code === configs.apiCode.needValidCode) {
+                            //验证码
+                            this.resendEmailBtn()
+                        } else {
+                            this.$data.errorMsg = res.message
+                        }
+                    }).finally(() => {
+                        this.loading = false
+                    })
+                } else {
+                    resendVerifyCodeEmail(this.convertReqData()).then(() => {
+                        this.$message.success(this.$i18n.t('comm.success').toString())
+                        this.getCoded()
+                    }).catch((res) => {
+                        if (res.code === configs.apiCode.needValidCode) {
+                            //验证码
+                            this.resendEmailBtn()
+                        } else {
+                            this.$data.errorMsg = res.message
+                        }
+                    }).finally(() => {
+                        this.loading = false
+                    })
+                }
             },
             convertReqData() {
-                return  {kind: this.kind, uid: this.userData.uid, valid_sig: this.userData.valid_sig, type: this.userData.emailType}
+                return  {kind: this.kind, uid: this.userData.uid, valid_sig: this.userData.valid_sig}
             },
 
             //---

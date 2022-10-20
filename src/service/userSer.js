@@ -36,6 +36,10 @@ export function resendVerifyCodeEmail(data) {
     return postHandleError('/verify_code/resend_email', data);
 }
 
+export function resendStaffVerifyCodeEmail(data) {
+    return postHandleError('/verify_code/resend_staff_email', data);
+}
+
 export function resendVerifyCodePhone(data) {
     return postHandleError('/verify_code/resend_phone', data);
 }
@@ -46,6 +50,10 @@ export function activePhone(data) {
 
 export function activeEmail(data) {
     return post('/active/email', data);
+}
+
+export function activeStaffEmail(data) {
+    return post('/active/staff_email', data);
 }
 
 export function forgetPwd(data) {

@@ -36,7 +36,7 @@
 <script>
     import configs from "@/configs";
     import {mapState} from "vuex";
-    import {activeEmail} from "@/service/userSer";
+    import {activeEmail, activeStaffEmail} from "@/service/userSer";
     import {getToken} from "@/service/auth/token";
 
     export default {
@@ -64,7 +64,11 @@
             this.form.code = this.$route.query.code
             this.form.uid = this.$route.query.uid
             this.form.type = this.$route.query.type
-            this.submitActiveEmail();
+            if(this.form.type === "service_staff_email"){
+                this.submitActiveStaffEmail();
+            } else {
+                this.submitActiveEmail();
+            }
             this.currentToken = getToken();
         },
         methods: {
@@ -81,7 +85,19 @@
                     this.loading = false
                 })
             },
-
+            submitActiveStaffEmail() {
+                this.loading = true
+                this.errorMsg = ''
+                activeStaffEmail(this.form).then((res) => {
+                    this.$data.ok = true
+                    this.$data.merNo = res.data.mer_no
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).catch((e) => {
+                    this.$data.errorMsg = e.message
+                }).finally(() => {
+                    this.loading = false
+                })
+            },
         },
 
     }
