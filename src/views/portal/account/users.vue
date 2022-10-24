@@ -4,6 +4,7 @@
             <el-card class="box-card" shadow="hover" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
                     <strong>{{$t('user.user_role')}}</strong>
+                    <small style="padding-left: 10px; color: gray">{{$t('user.user_role_limit')}}</small>
                     <el-button style="float: right; padding: 3px 0" type="text" @click="addRoleBtn">{{$t('user.add_role')}}</el-button>
                 </div>
                 <el-table
@@ -77,6 +78,9 @@
                                     <el-dropdown-item :command="commandVal('userSite', scope.row, scope.$index)">
                                         <i class="el-icon-view"></i> 分配网站权限
                                     </el-dropdown-item>
+                                    <el-dropdown-item :command="commandVal('deleteRole', scope.row, scope.$index)">
+                                      <i class="el-icon-delete"></i> {{$t('comm.del')}}
+                                    </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </template>
@@ -88,6 +92,7 @@
             <el-card class="box-card" shadow="hover" :body-style="{ padding: '0px' }">
                 <div slot="header" class="clearfix">
                     <strong>{{$t('user.mer_user')}}</strong>
+                    <small  style="padding-left: 10px; color: gray">{{$t('user.mer_user_limit')}}</small>
                     <el-button style="float: right; padding: 3px 0" type="text" @click="addUserBtn">{{$t('user.add_user')}}</el-button>
                 </div>
                 <el-table stripe
@@ -161,6 +166,9 @@
                                     </el-dropdown-item>
                                     <el-dropdown-item :command="commandVal('enableUser', scope.row, scope.$index)">
                                         <i class="el-icon-open"></i> {{$t('comm.enable')}}
+                                    </el-dropdown-item>
+                                    <el-dropdown-item :command="commandVal('deleteUser', scope.row, scope.$index)">
+                                      <i class="el-icon-delete"></i> {{$t('comm.del')}}
                                     </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
@@ -270,7 +278,9 @@
         roleSearch,
         updateRole,
         updateUser,
-        userSearch
+        userSearch,
+        deleteRole,
+        deleteUser
     } from "@/service/merchantSer";
 
     export default {
@@ -393,6 +403,24 @@
                             this.loading = false
                         })
                         break;
+                    case 'deleteRole':
+                        this.loading = true
+                        deleteRole(row).then(() => {
+                          this.$message.success(this.$i18n.t('comm.success').toString())
+                          this.roleSearch()
+                        }).finally(() => {
+                          this.loading = false
+                        })
+                        break;
+                    case 'deleteUser':
+                        this.loading = true
+                        deleteUser(row).then(() => {
+                          this.$message.success(this.$i18n.t('comm.success').toString())
+                          this.userSearch()
+                        }).finally(() => {
+                          this.loading = false
+                        })
+                        break;
                 }
             },
             //---role
@@ -483,7 +511,8 @@
                 this.$data.loading = true
                 roleSearch({}).then(res => { //先加载组数据
                     const {data} = res
-                    this.$data.role_list = data.list
+                    console.log(res)
+                    this.$data.role_list = data.role_list
                     this.renderUserDialog(action, item)
                 }).finally(() => {
                     this.$data.loading = false

@@ -219,6 +219,8 @@ module.exports = {
         "personal": "Personal",
         "company": "Company",
         "select_type": "Please choose",
+        "user_role_limit": "Only 20 groups can be added.",
+        "mer_user_limit": "Only 50 sub-account can be added.",
 
         "phone": "Phone",
         "email": "Email",
