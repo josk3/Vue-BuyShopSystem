@@ -511,7 +511,6 @@
                 this.$data.loading = true
                 roleSearch({}).then(res => { //先加载组数据
                     const {data} = res
-                    console.log(res)
                     this.$data.role_list = data.role_list
                     this.renderUserDialog(action, item)
                 }).finally(() => {
