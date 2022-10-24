@@ -280,7 +280,7 @@
         updateUser,
         userSearch,
         deleteRole,
-        deleteUser
+        deleteUser, rolesListSearch
     } from "@/service/merchantSer";
 
     export default {
@@ -509,7 +509,7 @@
             },
             openUserDialog(action, item) {
                 this.$data.loading = true
-                roleSearch({}).then(res => { //先加载组数据
+                rolesListSearch({}).then(res => { //先加载组list
                     const {data} = res
                     this.$data.role_list = data.role_list
                     this.renderUserDialog(action, item)

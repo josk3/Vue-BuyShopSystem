@@ -1435,6 +1435,12 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/merchant/rolesList/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        });
+    },
     'POST /api/v1/merchant/role/site/save': (req, res) => {
         return res.json({
             status: 1,

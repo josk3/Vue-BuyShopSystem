@@ -85,3 +85,7 @@ export function saveUserSite(params) {
 export function deleteUser(params) {
     return post('/merchant/user/delete', params);
 }
+
+export function rolesListSearch(params) {
+    return post('/merchant/rolesList/search', params);
+}
