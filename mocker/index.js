@@ -1447,6 +1447,12 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/merchant/rolesList/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        });
+    },
     'POST /api/v1/merchant/role/site/save': (req, res) => {
         return res.json({
             status: 1,
@@ -4083,6 +4089,12 @@ const proxy = {
             data: {}
         })
     },
+    'POST /api/v1/merchant/role/delete': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
     'POST /api/v1/merchant/user/add': (req, res) => {
         return res.json({
             status: 1,
@@ -4090,6 +4102,12 @@ const proxy = {
         })
     },
     'POST /api/v1/merchant/user/update': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
+    'POST /api/v1/merchant/user/delete': (req, res) => {
         return res.json({
             status: 1,
             data: {}
