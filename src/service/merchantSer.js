@@ -50,6 +50,10 @@ export function updateRole(params) {
     return post('/merchant/role/update', params);
 }
 
+export function deleteRole(params) {
+    return post('/merchant/role/delete', params);
+}
+
 export function userSearch(params) {
     return post('/merchant/user/search', params);
 }
@@ -76,4 +80,12 @@ export function roleUserSiteSearch(params) {
 
 export function saveUserSite(params) {
     return post('/merchant/role/site/save', params);
+}
+
+export function deleteUser(params) {
+    return post('/merchant/user/delete', params);
+}
+
+export function rolesListSearch(params) {
+    return post('/merchant/rolesList/search', params);
 }
