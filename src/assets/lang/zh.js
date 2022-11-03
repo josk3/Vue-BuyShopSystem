@@ -219,6 +219,8 @@ module.exports = {
         "personal": "个人",
         "company": "企业",
         "select_type": "请选择类型",
+        "user_role_limit": "用户组限制只能添加20个",
+        "mer_user_limit": "子用户限制只能添加50个",
 
         "phone": "联系手机号",
         "email": "邮箱",
