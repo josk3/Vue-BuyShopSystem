@@ -556,6 +556,7 @@ module.exports = {
         "delivery_reject": "Delivery aberrant",
         "payout_apply": "Settlement Apply",
         "payout_apply_help_info": "To apply for settlement, the logistics order number must be uploaded first",
+        "please_add_bank_card": "Please add a bank card in advance,and then you can submit settlement application only after approval.",
         "please_select_order": "Please check the order you want to apply for",
         "submit_apply": "Submit apply",
         "refund": "Refund",
