@@ -186,19 +186,21 @@
         },
         methods: {
             submitApply() {
-                if (isEmpty(this.selected) || this.selected.length <= 0) {
-                    this.$message.error(this.$i18n.t('payout.please_select_order').toString())
+                if (this.user.bank_status != 1) {
+                    this.$message.warning(this.$i18n.t('payout.please_add_bank_card').toString())
                 } else {
-                    this.$data.loading = true
-                    payoutApply({'tradeIds': this.selected}).then(() => {
-                        this.$message.success(this.$i18n.t('comm.success').toString())
-                        this.selected = []
-                        this.search()
-                    }).catch((e) => {
-                        this.$message.error(e.message)
-                    }).finally(() => {
-                        this.$data.loading = false
-                    })
+                    if (isEmpty(this.selected) || this.selected.length <= 0) {
+                        this.$message.error(this.$i18n.t('payout.please_select_order').toString())
+                    } else {
+                        this.$data.loading = true
+                        payoutApply({'tradeIds': this.selected}).then(() => {
+                            this.$message.success(this.$i18n.t('comm.success').toString())
+                            this.selected = []
+                            this.search()
+                        }).finally(() => {
+                            this.$data.loading = false
+                        })
+                    }
                 }
             },
             handleTableSelect(val) {

@@ -563,6 +563,7 @@ module.exports = {
         "delivery_reject": "问题单",
         "payout_apply": "结算申请",
         "payout_apply_help_info": "申请结算必须先上传物流单号",
+        "please_add_bank_card": "请先提交结算银行卡，通过审核后，才能提交结算申请。",
         "please_select_order": "请先勾选要申请的订单",
         "submit_apply": "提交申请",
         "refund": "是否退款",
