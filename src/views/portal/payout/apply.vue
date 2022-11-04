@@ -197,8 +197,6 @@
                             this.$message.success(this.$i18n.t('comm.success').toString())
                             this.selected = []
                             this.search()
-                        }).catch((e) => {
-                            this.$message.error(e.message)
                         }).finally(() => {
                             this.$data.loading = false
                         })
