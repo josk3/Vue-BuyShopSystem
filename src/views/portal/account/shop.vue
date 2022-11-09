@@ -361,7 +361,7 @@ export default {
       site_sys_list: [],
       customer_return_url: ['Other', 'Java', 'Php', 'Asp', 'PHP'],
       has_remark: false,
-      return_url_size: {},
+      return_url_size: {minRows: 3},
       rules: {
         site_url: [
           {required: true, message: this.validMsg('shop.domain'), trigger: 'blur'},
@@ -380,18 +380,9 @@ export default {
   },
   mounted() {
     this.searchParams.status = this.paneName
-    this.setReturnUrlSize();
     this.search();
   },
   methods: {
-    setReturnUrlSize(){
-        console.log(this.lang)
-        if (this.lang === 'zn') {
-          this.return_url_size.minRows = 2;
-        } else {
-          this.return_url_size.minRows = 3;
-        }
-    },
     validMsg(name) {
       return this.$i18n.t('valid.required_field', [this.$i18n.t(name)]);
     },
