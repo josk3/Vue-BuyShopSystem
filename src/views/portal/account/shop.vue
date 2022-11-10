@@ -326,15 +326,11 @@ import SearchBox from "@/components/SearchBox";
 import Pagination from "@/components/Pagination";
 import {addShop, closeShop, getSiteSystemList, openShop, resubmit, shopSearch, updateShop, updateWebSite} from "@/service/shopSer";
 import {isEmpty} from "@/utils/validate";
-import {mapState} from "vuex";
 
 export default {
   name: "merchant_shop",
   components: {SearchBox, Pagination},
   computed: { //watch跟踪数据变化, 重点user, configs
-    ...mapState({
-      lang: state => state.app.lang,//多语言
-    }),
     configs() {
       return configs;
     },
