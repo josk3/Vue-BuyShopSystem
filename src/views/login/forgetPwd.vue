@@ -13,12 +13,12 @@
                     <div v-if="!useEmail">
                         <div class="mb-12 mt-2 mb-4">
                             <el-form ref="phone_form"
-                                     :model="forgetPhoneForm" :rules="rules" label-width="100px">
-                                <el-form-item :label="$t('login.sms_valid_code')" prop="phone_code">
+                                     :model="forgetPhoneForm" :rules="rules" label-width="120px">
+                                <el-form-item :label="$t('login.sms_valid_code')" prop="phone_code" style="white-space:nowrap;">
                                     <el-input type="phone" v-model="forgetPhoneForm.phone_code"
                                               :placeholder="$t('login.sms_valid_code')" name="phone_code"></el-input>
                                 </el-form-item>
-                                <el-form-item :label="$t('user.new_password')" prop="new_pwd">
+                                <el-form-item :label="$t('user.new_password')" prop="new_pwd" style="white-space:nowrap;">
                                     <el-input type="password" v-model="forgetPhoneForm.new_pwd"
                                               :placeholder="$t('user.new_password')" name="password-wpy"></el-input>
                                 </el-form-item>
@@ -217,6 +217,8 @@
                         if (!isEmpty(this.$refs['phone_form'])) {
                             this.$refs['phone_form'].clearValidate();//重置
                         }
+                    } else {
+                        this.$data.useEmail = true
                     }
                     this.showValidCode('reset')
                 }
