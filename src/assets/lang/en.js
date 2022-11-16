@@ -598,7 +598,7 @@ module.exports = {
         "mer_remark": "Please note",
         "input_account": "For example: username and password",
         "virtual_notes": "If you need permission to view the submitted website, please provide access information  (such as user name and password) to help our audit staff to review; If not, please ignore.",
-        "port_number_limit": "The URL with the special port number won't be identified.  such as the format with colon.  The 80 /443 port number will only be supported in the URL currently."
+        "port_number_limit": "The URL with the special port number won't be identified.   The 80 /443 port number will only be supported in the URL currently."
     },
     "bank": {
         "settle_bank": "Settlement Bank",
