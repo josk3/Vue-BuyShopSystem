@@ -9,11 +9,11 @@
                 </el-alert>
                 <p class="mb-3">{{ $t('login.reset_new_pwd') }}</p>
                 <el-form ref="reset" :model="form"
-                         :rules="rules" label-width="100px">
-                    <el-form-item :label="$t('login.new_password')" prop="new_pwd">
+                         :rules="rules" label-width="135px">
+                    <el-form-item :label="$t('login.new_password')" prop="new_pwd" style="white-space:nowrap;">
                         <el-input type="password" v-model="form.new_pwd"></el-input>
                     </el-form-item>
-                    <el-form-item :label="$t('login.confirm_new_password')" prop="confirm_new_pwd">
+                    <el-form-item :label="$t('login.confirm_new_password')" prop="confirm_new_pwd" style="white-space:nowrap;">
                         <el-input type="password" v-model="form.confirm_new_pwd"></el-input>
                     </el-form-item>
                 </el-form>
@@ -59,7 +59,7 @@
         data() {
             var pwdAgainCheck = async(rule, value, callback) => {
                 if(this.form.new_pwd !== this.form.confirm_new_pwd){
-                    return callback(new Error('两次输入密码不一致！'));
+                    return callback(new Error(this.$i18n.t('login.password_different').toString()));
                 }
                 callback();
             };
