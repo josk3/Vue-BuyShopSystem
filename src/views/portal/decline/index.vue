@@ -125,7 +125,7 @@
                 loading: false,
                 searchParams: {
                     title: 'nav.decline_manage', page: 1,
-                    trade_id: '', merchant_order_no: '', decline_type: '', search_date: '',
+                    trade_id: '', merchant_order_no: '', site_url: '', decline_type: '', search_date: '',
                 },
                 tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
                 paneName: 'all', //默认
