@@ -80,6 +80,7 @@ module.exports = {
         "fees": "手续费",
         "processing_fees": "处理费",
         "summary_total": "小计",
+        "test_card": "测试卡",
 
         "trade_balance": "交易款",
         "deposit_balance": "保证金",
