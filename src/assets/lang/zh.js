@@ -358,6 +358,7 @@ module.exports = {
         "reset_new_pwd": "设置新密码",
         "new_password": "新密码",
         "confirm_new_password": "确认新密码",
+        "password_different": "两次输入密码不一致！",
         "register_right_now": "立即创建您的账号",
         "reg_terms": ["我已阅读同意", "服务条款"],
         "remember_you_merchant_no": "请记下您的商户号，登录时使用",

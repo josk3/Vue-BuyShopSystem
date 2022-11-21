@@ -358,6 +358,7 @@ module.exports = {
         "reset_new_pwd": "Set new password",
         "new_password": "New password",
         "confirm_new_password": "Confirm password",
+        "password_different": "The password that you input is not consistent with the previous one!",
         "register_right_now": "Register Now",
         "reg_terms": ["I read agree", "Service Terms"],
         "remember_you_merchant_no": "Remember you merchant ID",
