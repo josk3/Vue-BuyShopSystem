@@ -577,6 +577,7 @@ module.exports = {
         "deposit_apply": "保证金结算申请",
         "deposit_apply_history": "保证金申请记录",
         "has_apply_or_nothing_deposit": "是否已经提交申请或无可结算保证金",
+        "deposit_apply_cancel": "保证金申请已撤消",
     },
     "label": {
         "last24Hours": "最近24小时",

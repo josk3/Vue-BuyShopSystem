@@ -552,8 +552,10 @@ export function depositApplyStatus(status) {
             return i18n.t('comm.has_apply_wait_review');
         case "deposit_apply_pass":
             return i18n.t('comm.pass');
-            case "deposit_apply_reject":
+        case "deposit_apply_reject":
             return i18n.t('comm.reject');
+        case "deposit_apply_cancel":
+            return i18n.t('payout.deposit_apply_cancel');
         default:
             return status;
     }
