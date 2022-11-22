@@ -545,6 +545,35 @@ export function settleTitle(title) {
     }
 }
 
+export function depositApplyStatus(status) {
+    if (isEmpty(status)) return '--';
+    switch (status) {
+        case "deposit_apply":
+            return i18n.t('comm.has_apply_wait_review');
+        case "deposit_apply_pass":
+            return i18n.t('comm.pass');
+            case "deposit_apply_reject":
+            return i18n.t('comm.reject');
+        default:
+            return status;
+    }
+}
+
+export function currencySymbol(currency) {
+    switch (currency) {
+        case 'CNY':
+            return '¥';
+        case 'USD':
+            return '$';
+        case 'EUR':
+            return '€';
+        case 'JPY':
+            return '¥(日元)';
+        default:
+            return currency;
+    }
+}
+
 /**
  * 激活账户行业/职业类型
  */
