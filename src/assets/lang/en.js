@@ -81,6 +81,7 @@ module.exports = {
         "fees": "Fee",
         "processing_fees": "Processing fees",
         "summary_total": "total",
+        "test_card": "Test",
 
         "trade_balance": "Order Income Balance",
         "deposit_balance": "Deposit Balance",
