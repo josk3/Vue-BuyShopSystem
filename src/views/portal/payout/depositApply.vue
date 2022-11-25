@@ -13,7 +13,7 @@
             <el-col :span="18">
               <el-card v-for="summaryData in previewData.list" shadow="never"
                        :key="summaryData.currency"
-                       class="search-box wpy-card box-card mb-2">
+                       class="search-box wpy-card box-card mb-2" style="background-color: rgb(233, 239, 244)">
                 <div slot="header" class="clearfix">
                   <span>{{ summaryData.currency }}</span>
                 </div>
@@ -30,44 +30,68 @@
                     <el-table-column property="deposit_charge"
                                      :label="$t('comm.deposit_balance')"></el-table-column>
                   </el-table>
+
+                  <div v-if="summaryData.payout" class="box-white">
+                    <ul class="table-billing-total">
+                      <li>
+                        <span>
+                          <strong>{{ $t('comm.summary_total') }}</strong>
+                            <small>({{ $t('payout.settle_table_item_list_total') }})</small>
+                        </span>
+                        <span class="bill-amount">
+                          {{ summaryData.payout.total|numberToLocalStr }} {{ summaryData.currency|currencySymbol }}
+                        </span>
+                      </li>
+                      <li v-if="!checkIsEmpty(summaryData.payout.debt_amount)">
+                        <span>
+                          <strong>{{ $t('settle.debt_amount') }}</strong>
+                        </span>
+                        <span class="bill-amount">
+                          <span>
+                            {{ summaryData.payout.debt_amount|numberToLocalStr }}
+                             {{ summaryData.currency|currencySymbol }}
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        <span>
+                          <strong>{{ $t('settle.payout_fees') }}</strong>
+                        </span>
+                        <span class="bill-amount">
+                          <span>
+                            {{ summaryData.payout.fees|numberToLocalStr }} {{ summaryData.currency|currencySymbol }}
+                          </span>
+                        </span>
+                      </li>
+                      <li>
+                        <hr class="pt-1 pb-1">
+                        <span>
+                          <strong>{{ $t('payout.predict_net_amount') }}:</strong>
+                        </span>
+                        <span class="bill-amount" style="font-size: 21px; color: rgb(0, 0, 0);">
+                          {{ summaryData.payout.net_amount|numberToLocalStr }} {{ summaryData.currency|currencySymbol }}
+                          <small>{{ summaryData.currency }}</small>
+                        </span>
+                      </li>
+                    </ul>
+                    <p class="text-center">
+                      <el-button v-if="summaryData.payout.fees === 0"
+                                 @click="submitApply(summaryData.currency)"
+                                 type="primary" size="small">
+                        {{ $t('payout.submit_apply') }}
+                      </el-button>
+                      <el-popconfirm v-else
+                                     @confirm="submitApply(summaryData.currency)"
+                                     :title="$t('settle.payout_fees') + ' : ' + summaryData.payout.fees + ' '+summaryData.currency">
+                        <el-button type="primary" size="small" slot="reference">
+                          {{ $t('payout.submit_apply') }}
+                          ({{ $t('settle.payout_fees') }}
+                          {{ summaryData.payout.fees }}{{ summaryData.currency|currencySymbol }})
+                        </el-button>
+                      </el-popconfirm>
+                    </p>
+                  </div>
                 </div>
-                <div v-if="summaryData.payout">
-                  <el-descriptions class="margin-top" :column="1" size="small">
-                    <el-descriptions-item :label="$t('settle.payout_fees')">
-                      {{ summaryData.payout.fees }} {{ summaryData.currency|currencySymbol }}
-                    </el-descriptions-item>
-                    <el-descriptions-item :label="$t('settle.payout_total')">
-                      {{ summaryData.payout.total }} {{ summaryData.currency|currencySymbol }}
-                    </el-descriptions-item>
-                    <el-descriptions-item v-if="!checkIsEmpty(summaryData.payout.debt_amount)"
-                                          :label="$t('settle.debt_amount')">
-                      {{ summaryData.payout.debt_amount }} {{ summaryData.currency|currencySymbol }}
-                      <br/>
-                      <span>
-                          {{ $t('settle.net_amount') }}:
-                        {{ summaryData.payout.net_amount }} {{ summaryData.currency|currencySymbol }}
-                      </span>
-                    </el-descriptions-item>
-                    <el-descriptions-item v-else
-                                          :label="$t('settle.net_amount')">
-                      {{ summaryData.payout.total + summaryData.payout.fees }} {{ summaryData.currency|currencySymbol }}
-                    </el-descriptions-item>
-                  </el-descriptions>
-                </div>
-                <p class="text-center">
-                  <el-button v-if="summaryData.payout.fees === 0"
-                             @click="submitApply(summaryData.currency)"
-                             type="primary" size="small">
-                    {{ $t('payout.submit_apply') }}
-                  </el-button>
-                  <el-popconfirm v-else
-                                 @confirm="submitApply(summaryData.currency)"
-                                 :title="$t('settle.payout_fees') + ' : ' + summaryData.payout.fees + ' '+summaryData.currency">
-                    <el-button type="primary" size="small" slot="reference">
-                      {{ $t('payout.submit_apply') }}
-                    </el-button>
-                  </el-popconfirm>
-                </p>
               </el-card>
             </el-col>
             <el-col :span="6">
@@ -125,7 +149,7 @@
                 :label="$t('settle.net_amount')">
               <template v-slot="scope">
                 <span v-if="scope.row.batch_id">
-                  {{$t('comm.batch_id')}} : <br/><b>{{ scope.row.batch_id }}</b>
+                  {{ $t('comm.batch_id') }} : <br/><b>{{ scope.row.batch_id }}</b>
                 </span>
                 <span v-else>{{ scope.row.net_amount }}</span>
               </template>
@@ -260,4 +284,31 @@ export default {
 </script>
 
 <style scoped>
+.box-white {
+  padding: 8px;
+  background-color: #fff;
+  border-radius: 6px;
+  margin-bottom: 9px;
+}
+
+.table-billing-total {
+  margin: 0;
+  padding: 10px 35px;
+  font-size: 13px;
+}
+
+.table-billing-total li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.table-billing-total li span small {
+  color: #999999;
+}
+
+.table-billing-total .bill-amount {
+  float: right;
+  font-weight: 600;
+  color: #5c5c5c;
+}
 </style>

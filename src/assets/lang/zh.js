@@ -579,6 +579,8 @@ module.exports = {
         "deposit_apply_history": "保证金申请记录",
         "has_apply_or_nothing_deposit": "是否已经提交申请或无可结算保证金",
         "deposit_apply_cancel": "保证金申请已撤消",
+        "settle_table_item_list_total": "划款表各明目汇总",
+        "predict_net_amount": "预计金额",
     },
     "label": {
         "last24Hours": "最近24小时",

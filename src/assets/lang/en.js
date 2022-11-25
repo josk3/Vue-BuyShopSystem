@@ -580,6 +580,8 @@ module.exports = {
         "deposit_apply_history": "Apply history",
         "has_apply_or_nothing_deposit": "Whether the deposit has been submitted or there is no clearing deposit",
         "deposit_apply_cancel": "Deposit apply canceled",
+        "settle_table_item_list_total": "list total",
+        "predict_net_amount": "Predict amount",
     },
     "label": {
         "last24Hours": "Last 24 Hour",
