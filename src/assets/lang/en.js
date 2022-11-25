@@ -42,6 +42,7 @@ module.exports = {
         "submit": "Submit",
         "type": "Type",
         "view_detail": "View Detail",
+        "view": "View",
         "batch_upload": "Batch upload",
         "batch_auto_virtual_ship": "Virtual order auto input",
         "batch_auto_virtual_ship_help_ifo": "Confirm virtual order auto input",
@@ -129,6 +130,10 @@ module.exports = {
         "upload_table_ok":"Upload the form.",
 
         "download_need_date_one_month": "To download, please select a date and be within a 1-month interval",
+        "not_find_record": "Not find record",
+        "settle_day": "Settle day",
+        "reject": "Reject",
+        "has_apply_wait_review": "Wait review",
     },
     "nav": {
         "home": "Home",
@@ -200,6 +205,7 @@ module.exports = {
         "userName": "UserName",
         "createdFmt": "Time",
         "merchant_user_loginHistory": "UserLoginHistory",
+        "deposit_apply": "Deposit apply",
     },
     "user": { //跟用户相关
         "name": "Name or Company",
@@ -570,6 +576,10 @@ module.exports = {
         "submit_apply": "Submit apply",
         "refund": "Refund",
         "delivery_reject_submit_help_info": "The system is generating a settlement table，those orders that have been changed the tracking number will not be settled.",
+        "deposit_apply": "Deposit settle apply",
+        "deposit_apply_history": "Apply history",
+        "has_apply_or_nothing_deposit": "Whether the deposit has been submitted or there is no clearing deposit",
+        "deposit_apply_cancel": "Deposit apply canceled",
     },
     "label": {
         "last24Hours": "Last 24 Hour",

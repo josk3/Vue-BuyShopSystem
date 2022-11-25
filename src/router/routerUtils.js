@@ -23,6 +23,10 @@ export const routerUtils = {
         component: () => import('@/views/portal/payout/history'),
         meta: {icon: 'user', noCache: true}
     },
+    'deposit_apply': {
+        component: () => import('@/views/portal/payout/depositApply'),
+        meta: {noCache: true}
+    },
     'decline_manage': {
         component: () => import('@/views/portal/decline'),
         meta: {noCache: true}
