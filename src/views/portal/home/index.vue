@@ -219,9 +219,7 @@ export default {
       if (this.permViewBalance) this.getBalances()
       this.$data.loadingLastTrade = true
     })
-    if (this.user.is_master) {
-      this.getRemainingDay()
-    }
+    this.getTradeLimitAlertAndRemainingDay(this.user.is_master)
   },
   methods: {
     onlyOnlineCanUse() {
@@ -261,22 +259,26 @@ export default {
     goAnnounceDetail(row) {
       this.$router.push({name: 'announce_detail', params: {id: row.nid}})
     },
-    getRemainingDay() {
+    getTradeLimitAlertAndRemainingDay(isMaster) {
       this.willExpire = false
       this.monthTradeLimitAlert = false
       getMerInfo({'page': 'home'}).then(res => {
         const {data} = res
-        this.$data.info = data.info
-        this.$data.info.expire_date = data.info.expire_date
         this.$data.monthTradeLimitAlert = data.month_trade_limit_alert
-        let expireTime = new Date(this.info.expire_date).getTime()
-        const currentTime = new Date().getTime()
-        let lastTime = expireTime - currentTime
-        let remainingDay = lastTime / (1000 * 60 * 60 * 24);
-        if ((31 <= remainingDay && remainingDay < 32) || (7 <= remainingDay && remainingDay < 8)) {
-          this.willExpire = true
+
+        if (isMaster) {
+          this.$data.info = data.info
+          this.$data.info.expire_date = data.info.expire_date
+          let expireTime = new Date(this.info.expire_date).getTime()
+          const currentTime = new Date().getTime()
+          let lastTime = expireTime - currentTime
+          let remainingDay = lastTime / (1000 * 60 * 60 * 24);
+          if ((31 <= remainingDay && remainingDay < 32) || (7 <= remainingDay && remainingDay < 8)) {
+            this.willExpire = true
+          }
+          this.remainingDays = Math.floor(remainingDay)
         }
-        this.remainingDays = Math.floor(remainingDay)
+
       }).finally(() => {
       })
     },
