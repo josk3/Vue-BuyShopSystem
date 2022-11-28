@@ -3743,6 +3743,7 @@ const proxy = {
                     {amount: 40, condition_ecm_l: 0.01, condition_ecm_r: 0.02, condition_order_count: 6,},
                     {amount: 100, condition_ecm_l: 0.02, condition_ecm_r: 0.03, condition_order_count: 9,},
                 ],
+                month_trade_limit_alert: false,
             }
         })
     },
