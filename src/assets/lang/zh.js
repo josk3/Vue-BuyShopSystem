@@ -450,6 +450,7 @@ module.exports = {
         "will_expire_remind": "商户到期提醒（可联系客服完成续费工作）",
         "remindClose": "知道了",
         "remainingDays": "天后",
+        "monthTradeLimitAlertTxt": "月交易额度提醒: 当前月份交易额度使用超过90%，望知晓。",
     },
     "risk": {
         "fingerprint": "卡ID",

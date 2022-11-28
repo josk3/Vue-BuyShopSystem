@@ -450,6 +450,7 @@ module.exports = {
         "will_expire_remind": "Reminder of expiry services: please contact customer service to complete the renewal work.",
         "remindClose": "Got it",
         "remainingDays": " days later",
+        "monthTradeLimitAlertTxt": "Reminder of monthly trading quota: the current monthly trading quota is more than 90%.",
     },
     "risk": {
         "fingerprint": "Card ID",
