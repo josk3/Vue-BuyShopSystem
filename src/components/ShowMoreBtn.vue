@@ -4,9 +4,9 @@
             {{ getHalf() }}
             <el-button v-show="!is_show" size="mini" @click="show" plain>{{$t('comm.click_show')}}</el-button>
         </div>
-        <div v-else>
-            {{ txt }}
-        </div>
+		<code v-else class="Md5code">
+			{{ txt }})
+		</code>
     </div>
 </template>
 
@@ -40,8 +40,19 @@
             },
             show() {
                 this.is_show = true
-            },
+            }
         },
 
     }
 </script>
+
+<style>
+	.Md5code{
+		 color: #303133;
+	     -webkit-font-smoothing: antialiased;
+	     text-rendering: optimizeLegibility;
+	     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+	     font-size: 13px;
+	}
+	
+</style>
