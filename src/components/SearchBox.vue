@@ -117,9 +117,9 @@
                 size="mini"
                 value-format="yyyy-MM-dd"
                 unlink-panels
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
+                :range-separator="$t('comm.to')"
+                :start-placeholder="$t('comm.start_date')"
+                :end-placeholder="$t('comm.end_date')"
                 :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
@@ -215,7 +215,7 @@ export default {
       ],
       pickerOptions: {
         shortcuts: [{
-          text: '最近一周',
+          text: this.$i18n.t("comm.latest_week"),
           onClick(picker) {
             const end = new Date();
             const start = new Date();
@@ -223,7 +223,7 @@ export default {
             picker.$emit('pick', [start, end]);
           }
         }, {
-          text: '最近一个月',
+          text: this.$i18n.t("comm.latest_month"),
           onClick(picker) {
             const end = new Date();
             const start = new Date();
@@ -231,7 +231,7 @@ export default {
             picker.$emit('pick', [start, end]);
           }
         }, {
-          text: '最近三个月',
+          text: this.$i18n.t("comm.latest_three_months"),
           onClick(picker) {
             const end = new Date();
             const start = new Date();
