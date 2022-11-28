@@ -9,7 +9,6 @@ const proxyUrlSetting = {
     // '/api/v1/(.*)': 'http://127.0.0.1/',
     // '/images/(.*)': 'http://localhost:8013/',
     //'/api/v1/(.*)': 'http://localhost:8013/',
-	   '/api/v1/(.*)': 'https://139.wtpdev.com:38001',
 }
 
 function demoUserInfo() {
