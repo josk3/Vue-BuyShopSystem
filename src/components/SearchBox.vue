@@ -113,6 +113,7 @@
             <el-date-picker
                 v-model="searchForm.search_date"
                 :class="formItemClass('search_date')"
+                :clearable="searchDateCanClear"
                 type="daterange"
                 size="mini"
                 value-format="yyyy-MM-dd"
@@ -180,9 +181,11 @@ import {isArray, isEmpty} from "@/utils/validate";
 
 export default {
   name: "SearchBox",
-  props: ['params', 'red_item_class'],
+  props: ['params', 'red_item_class', 'date_clearable'],
   data() {
     return {
+      ///clearable默认为true
+      searchDateCanClear: isEmpty(this.date_clearable) ? true : this.date_clearable,
       searchForm: this.params,
       blacklistTypeList: [
         {value: 'fingerprint'},
