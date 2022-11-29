@@ -340,6 +340,15 @@ export default {
       if (this.$data.customer_return_url.includes(this.$data.add_shop.site_system) && isEmpty(value)) {
         callback(new Error(this.$i18n.t('shop.return_url').toString()));
       }
+      const ind = this.add_shop.return_url.indexOf(":")
+      if (ind !== -1) {
+        const ruleA = /^(80|443)$/g;
+        const ruleB = /^(80\/|443\/)[A-Za-z0-9./_?=&-]\*$/g;
+        const portStr = this.add_shop.return_url.substring(ind+1)
+        if (!ruleA.test(portStr) && !ruleB.test(portStr)) {
+          callback(new Error(this.validMsg('shop.port_number_limit')));
+        }
+      }
       callback();
     };
     return {
