@@ -335,6 +335,7 @@ module.exports = {
             "only_en_number_email": "A-z,Number,Email",
             "min_length_7": "Min length 7",
             "length_4_20": "Length 4-20",
+            "length_out_of_limit": "Length out of limit",
             "input_valid_email_or_phone": "Invalid email",
         },
         "fail": {

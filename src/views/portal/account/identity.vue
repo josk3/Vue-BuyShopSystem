@@ -655,6 +655,11 @@
                             message: this.validMsg("user.company_scope"),
                             trigger: "blur",
                         },
+                        {
+                            max: 385,
+                            message: this.$i18n.t('valid.bad.length_out_of_limit'),
+                            trigger: "blur",
+                        },
                     ],
                     company_phone: [
                         {
