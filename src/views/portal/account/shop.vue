@@ -342,10 +342,9 @@ export default {
       }
       const ind = this.add_shop.return_url.indexOf(":")
       if (ind !== -1) {
-        const ruleA = /^(80|443)$/g;
-        const ruleB = /^(80\/|443\/)[A-Za-z0-9./_?=&-]\*$/g;
+        const portRule = /^(80|443)(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/g;
         const portStr = this.add_shop.return_url.substring(ind+1)
-        if (!ruleA.test(portStr) && !ruleB.test(portStr)) {
+        if (!portRule.test(portStr)) {
           callback(new Error(this.validMsg('shop.port_number_limit')));
         }
       }
