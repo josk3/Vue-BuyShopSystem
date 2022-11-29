@@ -8,7 +8,7 @@ const proxyUrlSetting = {
     // '/api/v1/(.*)': 'http://192.168.3.182:8013',
     // '/api/v1/(.*)': 'http://127.0.0.1/',
     // '/images/(.*)': 'http://localhost:8013/',
-    // '/api/v1/(.*)': 'http://localhost:8013/',
+    '/api/v1/(.*)': 'http://localhost:8013/',
 }
 
 function demoUserInfo() {
@@ -113,6 +113,11 @@ function demoUserInfo() {
                         {
                             "name": "payout_history",
                             "path": "/payout/history",
+                            "meta": null,
+                            "hidden": false
+                        },{
+                            "name": "deposit_apply",
+                            "path": "/deposit/apply",
                             "meta": null,
                             "hidden": false
                         }
@@ -1483,6 +1488,27 @@ const proxy = {
         return res.json({
             status: 1,
             message: '提交申请成功',
+            data: {}
+        });
+    },
+    'POST /api/v1/deposit/apply/preview_summary': (req, res) => {
+        return res.json({
+            status: 1,
+            message: 'ok',
+            data: { settle_day: ''}
+        });
+    },
+    'POST /api/v1/deposit/apply/submit': (req, res) => {
+        return res.json({
+            status: 1,
+            message: 'ok',
+            data: {}
+        });
+    },
+    'POST /api/v1/deposit/apply/search': (req, res) => {
+        return res.json({
+            status: 1,
+            message: 'ok',
             data: {}
         });
     },
@@ -3717,6 +3743,7 @@ const proxy = {
                     {amount: 40, condition_ecm_l: 0.01, condition_ecm_r: 0.02, condition_order_count: 6,},
                     {amount: 100, condition_ecm_l: 0.02, condition_ecm_r: 0.03, condition_order_count: 9,},
                 ],
+                month_trade_limit_alert: false,
             }
         })
     },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SearchBox :params="searchParams" @search="search"></SearchBox>
+    <SearchBox :params="searchParams" :date_clearable="false" @search="search"></SearchBox>
     <div class="wrap-tab p-0">
       <el-skeleton :rows="15" animated :loading="loading">
         <template>
@@ -39,6 +39,7 @@ import SearchBox from "@/components/SearchBox";
 import {financeDownload, financeSearch} from "@/service/financeSer";
 import {isEmpty} from "@/utils/validate";
 import FinanceTable from "@/components/FinanceTable";
+import {parseTime} from "@/utils";
 
 export default {
   name: "finance",
@@ -67,6 +68,10 @@ export default {
       }
     }
     this.searchParams.finance_status = this.paneName
+    //默认页面搜索近1个月数据
+    const currentTime = new Date().getTime()
+    this.searchParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 31, '{y}-{m}-{d}')
+      , parseTime(currentTime, '{y}-{m}-{d}')]
     this.search();
   },
   methods: {

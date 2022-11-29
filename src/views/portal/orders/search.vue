@@ -44,6 +44,7 @@
                   width="160"
                   :label="$t('order.card_and_email')">
                 <template v-slot="scope">
+                            <span v-if="scope.row.card_kind === 'test'" class="test-w-icon">{{ $t('comm.test_card') }}</span>
                             <span v-if="scope.row.last4">
                                 •••• {{ scope.row.last4 }}<br/>
                             </span>
@@ -213,7 +214,8 @@ export default {
         email: '',
         site_url: '',
         ip: '',
-        card_brand: ''
+        card_brand: '',
+        card_kind: ''
       },
       redItemClass: [],
       tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
@@ -333,6 +335,12 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.test-w-icon{
+  background-color: #4063e7;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px;
+  border-radius: 2px;
+}
 </style>

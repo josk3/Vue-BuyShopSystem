@@ -545,6 +545,54 @@ export function settleTitle(title) {
     }
 }
 
+export function depositApplyStatus(status) {
+    if (isEmpty(status)) return '--';
+    switch (status) {
+        case "deposit_apply":
+            return i18n.t('comm.has_apply_wait_review');
+        case "deposit_apply_pass":
+            return i18n.t('comm.pass');
+        case "deposit_apply_reject":
+            return i18n.t('comm.reject');
+        case "deposit_apply_cancel":
+            return i18n.t('payout.deposit_apply_cancel');
+        default:
+            return status;
+    }
+}
+
+export function numberToLocalStr(value) {
+    if (isEmpty(value)) return '';
+    // 获取整数部分
+    const intPart = Math.trunc(value)
+    // 整数部分处理，增加,
+    const intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
+    // 预定义小数部分
+    let floatPart = ''
+    // 将数值截取为小数部分和整数部分
+    const valueArray = value.toString().split('.')
+    if (valueArray.length === 2) { // 有小数部分
+        floatPart = valueArray[1].toString() // 取得小数部分
+        return intPartFormat + '.' + floatPart
+    }
+    return intPartFormat + floatPart
+}
+
+export function currencySymbol(currency) {
+    switch (currency) {
+        case 'CNY':
+            return '¥';
+        case 'USD':
+            return '$';
+        case 'EUR':
+            return '€';
+        case 'JPY':
+            return '¥(日元)';
+        default:
+            return currency;
+    }
+}
+
 /**
  * 激活账户行业/职业类型
  */

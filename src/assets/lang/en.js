@@ -42,6 +42,7 @@ module.exports = {
         "submit": "Submit",
         "type": "Type",
         "view_detail": "View Detail",
+        "view": "View",
         "batch_upload": "Batch upload",
         "batch_auto_virtual_ship": "Virtual order auto input",
         "batch_auto_virtual_ship_help_ifo": "Confirm virtual order auto input",
@@ -80,6 +81,7 @@ module.exports = {
         "fees": "Fee",
         "processing_fees": "Processing fees",
         "summary_total": "total",
+        "test_card": "Test",
 
         "trade_balance": "Order Income Balance",
         "deposit_balance": "Deposit Balance",
@@ -128,6 +130,10 @@ module.exports = {
         "upload_table_ok":"Upload the form.",
 
         "download_need_date_one_month": "To download, please select a date and be within a 1-month interval",
+        "not_find_record": "Not find record",
+        "settle_day": "Settle day",
+        "reject": "Reject",
+        "has_apply_wait_review": "Wait review",
     },
     "nav": {
         "home": "Home",
@@ -199,6 +205,7 @@ module.exports = {
         "userName": "UserName",
         "createdFmt": "Time",
         "merchant_user_loginHistory": "UserLoginHistory",
+        "deposit_apply": "Deposit apply",
     },
     "user": { //跟用户相关
         "name": "Name or Company",
@@ -357,6 +364,7 @@ module.exports = {
         "reset_new_pwd": "Set new password",
         "new_password": "New password",
         "confirm_new_password": "Confirm password",
+        "password_different": "The password that you input is not consistent with the previous one!",
         "register_right_now": "Register Now",
         "reg_terms": ["I read agree", "Service Terms"],
         "remember_you_merchant_no": "Remember you merchant ID",
@@ -437,6 +445,7 @@ module.exports = {
         "will_expire_remind": "Reminder of expiry services: please contact customer service to complete the renewal work.",
         "remindClose": "Got it",
         "remainingDays": " days later",
+        "monthTradeLimitAlertTxt": "Reminder of monthly trading quota: the current monthly trading quota is more than 90%.",
     },
     "risk": {
         "fingerprint": "Card ID",
@@ -568,6 +577,12 @@ module.exports = {
         "submit_apply": "Submit apply",
         "refund": "Refund",
         "delivery_reject_submit_help_info": "The system is generating a settlement table，those orders that have been changed the tracking number will not be settled.",
+        "deposit_apply": "Deposit settle apply",
+        "deposit_apply_history": "Apply history",
+        "has_apply_or_nothing_deposit": "Whether the deposit has been submitted or there is no clearing deposit",
+        "deposit_apply_cancel": "Deposit apply canceled",
+        "settle_table_item_list_total": "list total",
+        "predict_net_amount": "Predict amount",
     },
     "label": {
         "last24Hours": "Last 24 Hour",

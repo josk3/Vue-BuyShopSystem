@@ -3,8 +3,8 @@ import {get, post, postArray, upload} from '@/utils/request'
 /**
  * 商户
  */
-export function getMerInfo() {
-    return get('/merchant/info', ''); //当前登录状态下的mer
+export function getMerInfo(params) {
+    return get('/merchant/info', params); //当前登录状态下的mer
 }
 
 export function getMerIdentity() {
