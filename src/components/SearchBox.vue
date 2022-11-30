@@ -113,13 +113,14 @@
             <el-date-picker
                 v-model="searchForm.search_date"
                 :class="formItemClass('search_date')"
+                :clearable="searchDateCanClear"
                 type="daterange"
                 size="mini"
                 value-format="yyyy-MM-dd"
                 unlink-panels
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
+                :range-separator="$t('comm.to')"
+                :start-placeholder="$t('comm.start_date')"
+                :end-placeholder="$t('comm.end_date')"
                 :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
@@ -180,9 +181,11 @@ import {isArray, isEmpty} from "@/utils/validate";
 
 export default {
   name: "SearchBox",
-  props: ['params', 'red_item_class'],
+  props: ['params', 'red_item_class', 'date_clearable'],
   data() {
     return {
+      ///clearable默认为true
+      searchDateCanClear: isEmpty(this.date_clearable) ? true : this.date_clearable,
       searchForm: this.params,
       blacklistTypeList: [
         {value: 'fingerprint'},
@@ -215,7 +218,7 @@ export default {
       ],
       pickerOptions: {
         shortcuts: [{
-          text: '最近一周',
+          text: this.$i18n.t("comm.latest_week"),
           onClick(picker) {
             const end = new Date();
             const start = new Date();
@@ -223,7 +226,7 @@ export default {
             picker.$emit('pick', [start, end]);
           }
         }, {
-          text: '最近一个月',
+          text: this.$i18n.t("comm.latest_month"),
           onClick(picker) {
             const end = new Date();
             const start = new Date();
@@ -231,7 +234,7 @@ export default {
             picker.$emit('pick', [start, end]);
           }
         }, {
-          text: '最近三个月',
+          text: this.$i18n.t("comm.latest_three_months"),
           onClick(picker) {
             const end = new Date();
             const start = new Date();
