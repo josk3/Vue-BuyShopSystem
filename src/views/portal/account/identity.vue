@@ -81,7 +81,7 @@
                                 <hr />
 
                                 <el-form-item :label="$t('user.company_scope')" prop="company_scope">
-                                    <el-input type="textarea" :rows="2" v-model="detail.company_scope"></el-input>
+                                    <el-input type="textarea" :rows="2" v-model="detail.company_scope" maxlength="385" show-word-limit></el-input>
                                 </el-form-item>
                                 <el-form-item v-show="detail.identity_account_type === 'company' && detail.identity_country_type === 'inland'" :label="$t('user.company_register_address')" prop="company_register_address">
                                     <el-input v-model="detail.company_register_address"></el-input>
