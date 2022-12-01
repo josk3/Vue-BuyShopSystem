@@ -345,7 +345,7 @@ export default {
         const portRule = /^(80|443)(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/g;
         const portStr = this.add_shop.return_url.substring(ind+1)
         if (!portRule.test(portStr)) {
-          callback(new Error(this.validMsg('shop.port_number_limit')));
+          callback(new Error(this.$i18n.t('shop.port_number_limit').toString()));
         }
       }
       callback();
