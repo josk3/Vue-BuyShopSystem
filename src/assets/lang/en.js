@@ -1,4 +1,3 @@
-
 module.exports = {
     "portal": {
         "title": "Merchant Portal",
@@ -67,6 +66,12 @@ module.exports = {
         "site_url": "Website Url",
         "search_site_url": "Website Url (Fuzzy queries are not supported)",
         "ip": "IP",
+        "start_date": "Start Date",
+        "to": "to",
+        "end_date": "End Date",
+        "latest_week": "The latest week",
+        "latest_month": "The lastest month",
+        "latest_three_months": "The lastest three months",
         "order_amount": "Order Amount",
         "payment_time": "Pay Time",
         "currency": "Currency",
