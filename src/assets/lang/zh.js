@@ -341,6 +341,7 @@ module.exports = {
             "min_length_7": "长度不能少于7位",
             "length_4_20": "长度在 4 到 20 个字符",
             "input_valid_email_or_phone": "请填写正确的手机号或邮箱",
+            "length_out_of_limit": "长度超出限制",
         },
         "fail": {
             "password_more_miss": "密码错误次数过多,请找回密码或联系管理员"
