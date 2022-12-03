@@ -613,7 +613,7 @@ module.exports = {
         "sure": "确定",
         "success": "成功",
         "site_url_www_help_info": "网址根据实际情况填写有无www.",
-        "site_url_review_help_info": "网站审核会在<strong>工作日</strong>1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
+        "site_url_review_help_info": "<strong>审核工作时间</strong>：周一至周五9：00-18：00（法定节假日顺延），审核时长一般3小时内完成，审核结果会以邮件的形式发送通知。",
         "remindClose": "知道了",
         "site_success": "提交成功，网站审核会在工作日1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
         "mer_remark": "备注",
