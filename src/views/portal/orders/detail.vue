@@ -128,22 +128,22 @@
                                 </div>
                                 <div class="item"><span class="label">{{$t('risk.card_no')}}</span><span class="value">•••• {{ order.card.last4 }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('risk.bill_address')}}</span>
-                                    <span class="value">{{ order.bill_address }}</span>
+                                <div class="item"><span class="label">{{$t('risk.bill_address')}}&nbsp;</span>
+                                    <span class="value emailValue">{{ order.bill_address }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_time')}}</span><span
+                                <div class="item"><span class="label">{{$t('order.order_time')}}&nbsp;</span><span
                                         class="value">{{ order.created_time | toFullTime }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.payment_time')}}</span><span
+                                <div class="item"><span class="label">{{$t('order.payment_time')}}&nbsp;</span><span
                                         class="value">{{ order.payment_time | toFullTime }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.payment_id')}}</span><span
+                                <div class="item"><span class="label">{{$t('order.payment_id')}}&nbsp;</span><span
                                         class="value">{{ order.payment_id }}</span>
                                 </div>
                                 <div class="item"><span class="label">{{$t('order.trade_site_url')}}</span><span
                                         class="value">{{ order.site_url }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.trade_ip')}}</span><span
+                                <div class="item"><span class="label">{{$t('order.trade_ip')}}&nbsp;</span><span
                                         class="value">{{ order.ip }}</span></div>
                                 <div class="item"><span class="label">{{$t('order.track')}}</span>
                                     <span class="value">{{ order.track_brand }} {{ order.track_number }}</span>
@@ -160,56 +160,56 @@
                         <div class="row list-info-box">
                             <div class="col-6">
                                 <div><strong class="title">{{$t('order.shipping_info')}}</strong></div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_email')}}</span>
-                                    <span class="value">{{ order.customer.shipping_email }}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_email')}}&nbsp;</span>
+                                    <span class="value emailValue">{{ order.customer.shipping_email }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_name')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_name')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.shipping_first_name }}</span> <span>{{ order.customer.shipping_last_name }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_phone')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_phone')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.shipping_phone }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_address')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_address')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.shipping_address }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_city')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_city')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.shipping_city }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_state')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_state')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.shipping_state }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_country')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_country')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.shipping_country }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_zip_code')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_zip_code')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.shipping_zip_code }}</span>
 
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div><strong class="title">{{$t('order.billing_info')}}</strong></div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_email')}}</span>
-                                    <span class="value">{{ order.customer.email }}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_email')}}&nbsp;</span>
+                                    <span class="value emailValue">{{ order.customer.email }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_name')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_name')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.first_name }}</span> <span>{{ order.customer.last_name }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_phone')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_phone')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.phone }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_address')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_address')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.address }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_city')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_city')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.city }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_state')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_state')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.state }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_country')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_country')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.country }}</span>
                                 </div>
-                                <div class="item"><span class="label">{{$t('order.order_customer_zip_code')}}</span>
+                                <div class="item"><span class="label">{{$t('order.order_customer_zip_code')}}&nbsp;</span>
                                     <span class="value">{{ order.customer.zip_code }}</span>
                                 </div>
                             </div>
@@ -352,5 +352,9 @@
 <style scoped>
     .order-detail-en .list-info-box span.label {
         width: 130px;
+		
     }
+	.emailValue{
+	  user-select: all !important;
+	}
 </style>

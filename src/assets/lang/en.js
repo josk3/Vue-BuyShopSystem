@@ -340,6 +340,7 @@ module.exports = {
             "only_en_number_email": "A-z,Number,Email",
             "min_length_7": "Min length 7",
             "length_4_20": "Length 4-20",
+            "length_out_of_limit": "Length out of limit",
             "input_valid_email_or_phone": "Invalid email",
         },
         "fail": {
@@ -618,6 +619,7 @@ module.exports = {
         "mer_remark": "Please note",
         "input_account": "For example: username and password",
         "virtual_notes": "If you need permission to view the submitted website, please provide access information  (such as user name and password) to help our audit staff to review; If not, please ignore.",
+        "port_number_limit": "The URL with the special port number won't be identified.   The 80 /443 port number will only be supported in the URL currently."
     },
     "bank": {
         "settle_bank": "Settlement Bank",

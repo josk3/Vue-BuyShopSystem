@@ -341,6 +341,7 @@ module.exports = {
             "min_length_7": "长度不能少于7位",
             "length_4_20": "长度在 4 到 20 个字符",
             "input_valid_email_or_phone": "请填写正确的手机号或邮箱",
+            "length_out_of_limit": "长度超出限制",
         },
         "fail": {
             "password_more_miss": "密码错误次数过多,请找回密码或联系管理员"
@@ -612,12 +613,13 @@ module.exports = {
         "sure": "确定",
         "success": "成功",
         "site_url_www_help_info": "网址根据实际情况填写有无www.",
-        "site_url_review_help_info": "网站审核会在<strong>工作日</strong>1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
+        "site_url_review_help_info": "<strong>审核工作时间</strong>：周一至周五9：00-18：00（法定节假日顺延），审核时长一般3小时内完成，审核结果会以邮件的形式发送通知。",
         "remindClose": "知道了",
         "site_success": "提交成功，网站审核会在工作日1～3个小时内审核是否通过，审核结果会以邮件的形式发送通知。",
         "mer_remark": "备注",
         "input_account": "如: 用户名和密码",
         "virtual_notes": "若您提交的网站访问时需要权限才能查看，需您提供访问网站产品的权限设置（如：用户名、密码），便于我司审核网站人员对网站产品的审核。如若不需要则不需要提供。",
+        "port_number_limit": "返回网址不支持提交带有特殊端口的格式,目前只支持80,443端口",
     },
     "bank": {
         "settle_bank": "结算银行账户",
