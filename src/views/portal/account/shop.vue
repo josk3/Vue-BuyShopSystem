@@ -337,15 +337,19 @@ export default {
   },
   data() {
     var checkReturnUrl = (rule, value, callback) => {
-      if (this.$data.customer_return_url.includes(this.$data.add_shop.site_system) && isEmpty(value)) {
-        callback(new Error(this.$i18n.t('shop.return_url').toString()));
-      }
-      const ind = this.add_shop.return_url.indexOf(":")
-      if (ind !== -1) {
-        const portRule = /^(80|443)(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/g;
-        const portStr = this.add_shop.return_url.substring(ind+1)
-        if (!portRule.test(portStr)) {
-          callback(new Error(this.$i18n.t('shop.port_number_limit').toString()));
+      if (this.$data.customer_return_url.includes(this.$data.add_shop.site_system)) {
+        if (isEmpty(value)) {
+          callback(new Error(this.$i18n.t('shop.return_url').toString()));
+        }
+        let portUrl = this.add_shop.return_url.replace("http://", "")
+        portUrl = portUrl.replace("https://", "")
+        const ind = portUrl.indexOf(":")
+        if (ind !== -1) {
+          const portRule = /^(80|443)(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/g;
+          const portStr = portUrl.substring(ind+1)
+          if (!portRule.test(portStr)) {
+            callback(new Error(this.$i18n.t('shop.port_number_limit').toString()));
+          }
         }
       }
       callback();
