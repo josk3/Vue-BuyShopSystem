@@ -5,7 +5,7 @@
             <el-button v-show="!is_show" size="mini" @click="show" plain>{{$t('comm.click_show')}}</el-button>
         </div>
 		<code v-else class="Md5code">
-			{{ txt }})
+			{{ txt }}
 		</code>
     </div>
 </template>
