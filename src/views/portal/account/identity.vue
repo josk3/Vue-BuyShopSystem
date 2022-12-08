@@ -71,7 +71,7 @@
                                     <UploadImgOnce
                                         :txt="$t('user.upload_company_identity_photo')"
                                         size="sm"
-                                        :disable="hold_edit"
+										:disable="hold_edit"
                                         :img_url="fullImgUrl(detail.company_identity_photo_url)"
                                         :img_url_demo="company_identity_photo_demo_url"
                                         :img_url_tip="$t('user.upload_company_identity_photo_tip')"
@@ -331,6 +331,7 @@
     import { isEmpty } from "@/utils/validate";
     import { i18n } from "element-ui/lib/locale";
     import { getAreaJsonData } from "@/service/riskAreaSer";
+	import {Message, MessageBox} from 'element-ui'
 	
 	import { setIdentityMessageboxID,getIdentityMessageboxID } from '@/service/auth/token'
     export default {
@@ -887,6 +888,7 @@
         },
         watch: {},
         mounted() {
+			
             this.rules = this.rulesA;
             this.loadMerData();
 			// 仅在整个视图都被渲染之后才会运行的代码
@@ -1124,6 +1126,7 @@
                     });
             },
             loadIdentityData() {
+				
                 this.loading = true;
                 getMerIdentity()
                     .then(res => {
@@ -1142,7 +1145,7 @@
                         if (!isEmpty(this.$data.info.identity_account_type)) {
                             //type数据在info
                             if (this.$data.info.identity_account_type === "company") {
-                                this.$data.detail.identity_account_type = "company";
+                               this.$data.detail.identity_account_type = "company";
                                 this.typeList = this.typeCompanyList;
                             } else {
                                 this.$data.detail.identity_account_type = "personal";
@@ -1180,28 +1183,76 @@
             outCompanyExpireForever() {
                 this.detail.out_company_expire_date = "9999-12-31";
             },
+			VerifyingLocalFiles() {
+				//验证本地图片是否正常
+				let fileArray = Array()
+				//是否能加载
+				let canLoading = Array()
+				let params = this.detail;
+				Object.keys(params).forEach(key => {
+				//找到file文件
+		 	    if (params[key] instanceof File) {
+					fileArray.push(key)
+					canLoading.push(false)
+						}
+						 });
+				 for (let index in fileArray) {
+					//判断图片是否读取
+					
+					const file = this.detail[fileArray[index]]
+					let reader = new FileReader()
+					reader.readAsDataURL(file)
+					//可加载
+					reader.onload = e => {
+					canLoading[index] = true
+					
+					if (canLoading.findIndex(target=>target===false)==-1){
+						  //全部通过验证
+						  this.Verifiedsubmit()  
+					  }else{
+						 
+					  }
+					}
+					//加载错误
+				    reader.onerror = e => {
+					console.log('error',fileArray[index])
+							Message({
+							 	message: 'ImageError: ' + e.target.error.name,
+							 	type: 'error',
+							 	duration: 5 * 1000
+							})
+					canLoading[index] = false
+					}
+	            
+				 }
+			
+			},
+			Verifiedsubmit(){
+				this.loading = true;
+				let formData = new FormData();
+				let params = this.detail;
+				Object.keys(params).forEach(key => {
+				    //把json转成FormData
+				    formData.append(key, params[key]);
+				    // console.log(key + ": " + params[key] + "; ");
+				});
+				updateIdentity(formData)
+				    .then(() => {
+				        this.$store.dispatch("user/loadUserInfo").then(() => {
+				            this.loadMerData();
+				        });
+				    })
+				    .finally(() => {
+				        this.loading = false;
+				    });
+			},
             submitDetail() {
                 this.$refs["detail"].validate(valid => {
                     if (!valid) {
                         return false;
                     } else {
-                        this.loading = true;
-                        let formData = new FormData();
-                        let params = this.detail;
-                        Object.keys(params).forEach(key => {
-                            //把json转成FormData
-                            formData.append(key, params[key]);
-                            // console.log(key + ": " + params[key] + "; ");
-                        });
-                        updateIdentity(formData)
-                            .then(() => {
-                                this.$store.dispatch("user/loadUserInfo").then(() => {
-                                    this.loadMerData();
-                                });
-                            })
-                            .finally(() => {
-                                this.loading = false;
-                            });
+						//验证本地图片
+                       this.VerifyingLocalFiles()
                     }
                 });
             },
@@ -1213,7 +1264,7 @@
                     }
                 });
             },
-        },
+			}
     };
 </script>
 <style scoped>
