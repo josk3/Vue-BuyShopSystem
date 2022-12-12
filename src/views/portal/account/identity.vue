@@ -1184,6 +1184,7 @@
                 this.detail.out_company_expire_date = "9999-12-31";
             },
 			VerifyingLocalFiles() {
+				
 				//验证本地图片是否正常
 				let fileArray = Array()
 				//是否能加载
@@ -1202,22 +1203,49 @@
 					const file = this.detail[fileArray[index]]
 					let reader = new FileReader()
 					reader.readAsDataURL(file)
+					
 					//可加载
 					reader.onload = e => {
-					canLoading[index] = true
-					
-					if (canLoading.findIndex(target=>target===false)==-1){
+					  canLoading[index] = true
+					  if (canLoading.findIndex(target=>target===false)==-1){
 						  //全部通过验证
 						  this.Verifiedsubmit()  
-					  }else{
-						 
-					  }
+					   }
 					}
+					
 					//加载错误
 				    reader.onerror = e => {
-					console.log('error',fileArray[index])
-							Message({
-							 	message: 'ImageError: ' + e.target.error.name,
+					  var errMessage
+					  switch (fileArray[index]){
+						  case 'identity_photo_a':
+						  errMessage = this.$t('user.identity_photo_a')
+							  break;
+						  case 'company_business_identity_photo':
+						  errMessage = this.$t('user.company_business_identity_photo')
+						      break;
+						  case 'company_register_identity_photo':
+						  errMessage = this.$t('user.company_register_identity_photo')
+						      break;
+						  case 'company_annual_report_photo':
+						 errMessage = this.$t('user.company_annual_report_photo')
+						      break;
+						  case 'identity_photo_a':
+						  errMessage = this.$t('user.identity_photo_a')
+						      break;
+						  case 'identity_photo_b':
+						  errMessage = this.$t('user.identity_photo_b')
+						      break;
+						  case 'identity_photo_c':
+						  errMessage = this.$t('user.identity_photo_c')
+						      break;
+						  case 'company_identity_photo':
+						  errMessage = this.$t('user.company_identity_photo')
+						      break;
+						  default:
+							   break;
+					}
+				            Message({
+							 	message: errMessage + ": " + e.target.error.name,
 							 	type: 'error',
 							 	duration: 5 * 1000
 							})
