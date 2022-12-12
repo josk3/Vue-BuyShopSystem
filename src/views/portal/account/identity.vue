@@ -1183,9 +1183,24 @@
             outCompanyExpireForever() {
                 this.detail.out_company_expire_date = "9999-12-31";
             },
-			VerifyingLocalFiles() {
-				
+			useFileReader(fileArray,index,datail1){
+				return new Promise(function	(resolve,reject){
+				 const file = datail1[fileArray[index]]
+				 let reader = new FileReader()
+				 reader.readAsDataURL(file)
+				 //可加载
+				 reader.onload = e => {	
+				 resolve({'index':index,'canLoading':true})
+				 }
+				 //加载错误
+				 reader.onerror = e => {
+				  reject(e)
+				 }
+			})
+			},
+			async VerifyingLocalFiles() {
 				//验证本地图片是否正常
+				
 				let fileArray = Array()
 				//是否能加载
 				let canLoading = Array()
@@ -1197,62 +1212,65 @@
 					canLoading.push(false)
 						}
 						 });
-				 for (let index in fileArray) {
-					//判断图片是否读取
-					
-					const file = this.detail[fileArray[index]]
-					let reader = new FileReader()
-					reader.readAsDataURL(file)
-					
-					//可加载
-					reader.onload = e => {
-					  canLoading[index] = true
-					  if (canLoading.findIndex(target=>target===false)==-1){
-						  //全部通过验证
-						  this.Verifiedsubmit()  
-					   }
+				for (let index in fileArray) {
+				 var day = new Date();
+				//判断图片是否读取 异步队列化
+				await this.useFileReader(fileArray,index,this.detail)
+				.then( (result) =>{
+				var day = new Date();	
+				 canLoading[result.index] = result.canLoading
+				 if (canLoading.findIndex(target=>target===false)==-1){
+				 	 //全部通过验证		   
+				 	 this.Verifiedsubmit()  
+				    }
+				})
+				.catch( (error) =>{
+					//普通错误
+					if (error.message != undefined){
+						Message({
+						 	message: error.message, 
+						 	type: 'error',
+						 	duration: 5 * 1000
+						})
+					}else{
+						//文件加载错误
+						var errMessage
+						  switch (fileArray[index]){
+							  case 'identity_photo_a':
+							  errMessage = this.$t('user.identity_photo_a')
+								  break;
+							  case 'company_business_identity_photo':
+							  errMessage = this.$t('user.company_business_identity_photo')
+							      break;
+							  case 'company_register_identity_photo':
+							  errMessage = this.$t('user.company_register_identity_photo')
+							      break;
+							  case 'company_annual_report_photo':
+							 errMessage = this.$t('user.company_annual_report_photo')
+							      break;
+							  case 'identity_photo_a':
+							  errMessage = this.$t('user.identity_photo_a')
+							      break;
+							  case 'identity_photo_b':
+							  errMessage = this.$t('user.identity_photo_b')
+							      break;
+							  case 'identity_photo_c':
+							  errMessage = this.$t('user.identity_photo_c')
+							      break;
+							  case 'company_identity_photo':
+							  errMessage = this.$t('user.company_identity_photo')
+							      break;
+							  default:
+								   break;
+						}
+						        Message({
+								 	message: errMessage + ": " + error.target.error.name,
+								 	type: 'error',
+								 	duration: 5 * 1000
+								})
 					}
-					
-					//加载错误
-				    reader.onerror = e => {
-					  var errMessage
-					  switch (fileArray[index]){
-						  case 'identity_photo_a':
-						  errMessage = this.$t('user.identity_photo_a')
-							  break;
-						  case 'company_business_identity_photo':
-						  errMessage = this.$t('user.company_business_identity_photo')
-						      break;
-						  case 'company_register_identity_photo':
-						  errMessage = this.$t('user.company_register_identity_photo')
-						      break;
-						  case 'company_annual_report_photo':
-						 errMessage = this.$t('user.company_annual_report_photo')
-						      break;
-						  case 'identity_photo_a':
-						  errMessage = this.$t('user.identity_photo_a')
-						      break;
-						  case 'identity_photo_b':
-						  errMessage = this.$t('user.identity_photo_b')
-						      break;
-						  case 'identity_photo_c':
-						  errMessage = this.$t('user.identity_photo_c')
-						      break;
-						  case 'company_identity_photo':
-						  errMessage = this.$t('user.company_identity_photo')
-						      break;
-						  default:
-							   break;
-					}
-				            Message({
-							 	message: errMessage + ": " + e.target.error.name,
-							 	type: 'error',
-							 	duration: 5 * 1000
-							})
-					canLoading[index] = false
-					}
-	            
-				 }
+				})
+				}
 			
 			},
 			Verifiedsubmit(){
