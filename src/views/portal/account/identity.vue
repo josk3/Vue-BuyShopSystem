@@ -1226,7 +1226,7 @@
 					let reader = new FileReader()
 					reader.readAsDataURL(file)
 					//可加载
-					reader.onload = e => {
+					reader.onload = () => {
 						resolve({
 							'index': index,
 							'canLoading': true
