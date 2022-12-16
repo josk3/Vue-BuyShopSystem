@@ -1236,9 +1236,6 @@
 						//文件加载错误
 						var errMessage
 						  switch (fileArray[index]){
-							  case 'identity_photo_a':
-							  errMessage = this.$t('user.identity_photo_a')
-								  break;
 							  case 'company_business_identity_photo':
 							  errMessage = this.$t('user.company_business_identity_photo')
 							      break;
