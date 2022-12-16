@@ -387,14 +387,10 @@
 		isEmpty
 	} from "@/utils/validate";
 	import {
-		i18n
-	} from "element-ui/lib/locale";
-	import {
 		getAreaJsonData
 	} from "@/service/riskAreaSer";
 	import {
 		Message,
-		MessageBox
 	} from 'element-ui'
 
 	import {
@@ -947,7 +943,7 @@
 							confirmButtonText: this.$t('comm.sure'),
 							confirmButtonClass: 'messageBox_bt',
 							center: true,
-							callback: action => {
+							callback: () => {
 								setIdentityMessageboxID(false)
 							}
 						})
