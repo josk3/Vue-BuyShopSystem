@@ -399,7 +399,7 @@ module.exports = {
         "review_reject": "Review reject",
         "invalid": "Invalid",
         "valid": "Valid",
-        "3DPay": "3DPay",
+        "3DPay": "3DS pay",
         "declined_cancel": "chargeback cancel",
     },
     "kind": {
@@ -479,6 +479,8 @@ module.exports = {
         "order_canceled": "Order cancel",
         "created_order": "Create order",
         "start_payment": "Begin process payment",
+        "start_payment_3ds": "Begin process payment 3DS",
+        "start_pay_3ds_challenge": "3DS authentication challenge wait verification",
         "payment_failed": "Order payment failed",
         "payment_pending": "Order payment pending",
         "payment_paid": "Order payment successful",

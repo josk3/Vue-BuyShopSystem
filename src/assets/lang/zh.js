@@ -479,6 +479,8 @@ module.exports = {
         "order_canceled": "订单取消",
         "created_order": "生成订单流水",
         "start_payment": "开始进入支付",
+        "start_payment_3ds": "开始进入3DS支付",
+        "start_pay_3ds_challenge": "等待持卡人3DS授权验证",
         "payment_failed": "支付失败",
         "payment_pending": "支付等待处理",
         "payment_paid": "支付成功",
