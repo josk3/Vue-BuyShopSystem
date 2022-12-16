@@ -1213,11 +1213,10 @@
 						}
 						 });
 				for (let index in fileArray) {
-				 var day = new Date();
+				 
 				//判断图片是否读取 异步队列化
 				await this.useFileReader(fileArray,index,this.detail)
 				.then( (result) =>{
-				var day = new Date();	
 				 canLoading[result.index] = result.canLoading
 				 if (canLoading.findIndex(target=>target===false)==-1){
 				 	 //全部通过验证		   
