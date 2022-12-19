@@ -532,6 +532,7 @@ module.exports = {
         "settle_tips2": "请先绑定您的结算银行卡",
         "settle_dateTip_start": "可提交: 支付时间在",
         "settle_dateTip_last": "之前的订单。",
+
     },
     "order": {
         "trade_id_and_order_no": "流水号/订单号",
@@ -590,7 +591,7 @@ module.exports = {
         "has_apply_or_nothing_deposit": "是否已经提交申请或无可结算保证金",
         "deposit_apply_cancel": "保证金申请已撤消",
         "settle_table_item_list_total": "划款表各明目汇总",
-        "predict_net_amount": "预计金额",
+        "predict_net_amount": "预估金额",
     },
     "label": {
         "last24Hours": "最近24小时",
