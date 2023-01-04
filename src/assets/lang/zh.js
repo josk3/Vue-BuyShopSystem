@@ -143,6 +143,7 @@ module.exports = {
     "api_key": {
         "create_api_key": "创建新密钥",
         "key_name": "名称",
+        "key_name_info": "例如:标识使用场景或用途",
         "key": "令牌密钥",
         "last_used": "上次使用日期",
         "create_time": "创建时间",

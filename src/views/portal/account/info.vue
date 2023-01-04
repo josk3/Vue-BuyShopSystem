@@ -278,6 +278,8 @@
                  label-width="80px">
           <el-form-item :label="$t('api_key.key_name')">
             <el-input v-model="createApiKeyForm.name" style="width: 210px"></el-input>
+            <br/>
+            <small style="color: gray">{{$t("api_key.key_name_info")}}</small>
           </el-form-item>
         </el-form>
       </div>

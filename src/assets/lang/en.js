@@ -143,6 +143,7 @@ module.exports = {
     "api_key": {
         "create_api_key": "Create new Api Key",
         "key_name": "Name",
+        "key_name_info": "For example: make tag",
         "key": "Api Key",
         "last_used": "Last used",
         "create_time": "Create time",
