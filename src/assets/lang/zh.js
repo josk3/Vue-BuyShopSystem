@@ -140,6 +140,15 @@ module.exports = {
         "reject": "不通过",
         "has_apply_wait_review": "申请已提交待审核",
     },
+    "api_key": {
+        "create_api_key": "创建新密钥",
+        "key_name": "名称",
+        "key": "令牌密钥",
+        "last_used": "上次使用日期",
+        "create_time": "创建时间",
+        "delete_key_confirm": "确认删除Api Key密钥?",
+        "view_log": "查看日志",
+    },
     "nav": {
         "home": "主页",
         "dashboard": "主页",

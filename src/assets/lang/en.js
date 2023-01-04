@@ -140,6 +140,15 @@ module.exports = {
         "reject": "Reject",
         "has_apply_wait_review": "Wait review",
     },
+    "api_key": {
+        "create_api_key": "Create new Api Key",
+        "key_name": "Name",
+        "key": "Api Key",
+        "last_used": "Last used",
+        "create_time": "Create time",
+        "delete_key_confirm": "Confirm delete api key",
+        "view_log": "View Log",
+    },
     "nav": {
         "home": "Home",
         "dashboard": "Dashboard",

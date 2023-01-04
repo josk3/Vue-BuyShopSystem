@@ -8,7 +8,7 @@ const proxyUrlSetting = {
     // '/api/v1/(.*)': 'http://192.168.3.182:8013',
     // '/api/v1/(.*)': 'http://127.0.0.1/',
     // '/images/(.*)': 'http://localhost:8013/',
-    //'/api/v1/(.*)': 'http://localhost:8013/',
+    '/api/v1/(.*)': 'http://localhost:8013/',
 }
 
 function demoUserInfo() {
@@ -1924,6 +1924,35 @@ const proxy = {
             status: 1,
             message: '系统自动填单完成 33 笔虚拟交易订单',
             data: {}
+        });
+    },
+    'POST /api/v1/api_key/list': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                list: [
+                    {
+                        api_key: 'f2fwef',
+                        key_name: '用于某xx平台',
+                    },
+                    {
+                        api_key: 'f2fwef',
+                        key_name: '用于某xx平台',
+                    }
+                ],
+            }
+        });
+    },
+    'POST /api/v1/api_key/create': (req, res) => {
+        return res.json({
+            status: 1,
+            message: 'success'
+        });
+    },
+    'POST /api/v1/api_key/delete': (req, res) => {
+        return res.json({
+            status: 1,
+            message: 'success'
         });
     },
     'POST /api/v1/risk_area/search': (req, res) => {

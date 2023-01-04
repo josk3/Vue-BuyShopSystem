@@ -204,46 +204,92 @@
         </div>
       </el-card>
       <!--            -->
-      <el-card class="box-card wpy-card mb-2" shadow="never" :body-style="{ padding: '0px' }">
+      <el-card v-if="this.user.is_master" class="box-card wpy-card mb-2" shadow="never"
+               :body-style="{ padding: '0px' }">
         <div slot="header" class="clearfix">
-          <span>Api KEY</span>
+          <span>Api Keys {{$t("api_key.key")}}</span>
+          <el-button size="mini" style="float:right;" @click="showCreateApiKey" type="primary" plain>
+            {{ $t("api_key.create_api_key") }}
+          </el-button>
         </div>
-        <div class="row">
-          <div class="col-12 api-feature-soon">
-            <div class="feature-soon-lay">Api 功能很快将开放使用。</div>
-            <table class="table table-borderless">
-              <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Api Key</th>
-                <th scope="col">Api Secret</th>
-                <th scope="col">创建时间</th>
-                <th scope="col">最近使用</th>
-                <th scope="col">操作</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>pok_xi3nf8sj1108yy</td>
-                <td>
-                  <ShowMoreBtn txt="sti1ei31108yy"></ShowMoreBtn>
-                </td>
-                <td>--</td>
-                <td>--</td>
-                <td>
-                  <el-button size="mini">删除</el-button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="p-3">
+          <el-table
+              :data="apiKeyData.list"
+              :header-row-style="{background:'#2C2E2F'}"
+              :loading="apikeyLoading"
+              style="width: 100%">
+            <el-table-column
+                prop="key_name"
+                :label="$t('api_key.key_name')">
+            </el-table-column>
+            <el-table-column
+                prop="api_key"
+                :label="$t('api_key.key')">
+              <template v-slot="scope">
+                <ShowMoreBtn :txt="scope.row.api_key"></ShowMoreBtn>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="last_used"
+                width="150"
+                :label="$t('api_key.last_used')">
+              <template v-slot="scope">
+                {{scope.row.last_used | toMinuteTime }}
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="created"
+                width="100"
+                :label="$t('api_key.create_time')">
+              <template v-slot="scope">
+                {{scope.row.created | toDay }}
+              </template>
+            </el-table-column>
+            <el-table-column
+                width="130"
+                label="">
+              <template v-slot="scope">
+                <el-popconfirm
+                    :confirmButtonText="$t('comm.sure')"
+                    :cancelButtonText="$t('comm.cancel')"
+                    :title="$t('api_key.delete_key_confirm')" @confirm="delApiKey(scope.row)" :hideIcon="true">
+                  <el-button slot="reference" size="mini" type="text" class="ml-3" >
+                    {{$t("comm.del")}}
+                  </el-button>
+                </el-popconfirm>
+              </template>
+            </el-table-column>
+
+          </el-table>
+
         </div>
       </el-card>
       <!--    e   -->
     </div>
 
     <!--    d    -->
+    <el-dialog custom-class="wpy-dialog sm-dialog"
+               :show-close="false" :close-on-click-modal="false"
+               :title="$t('api_key.create_api_key')"
+               :visible.sync="createApiKeyDialogVisible">
+      <div>
+        <el-form ref="create_api_key"
+                 :model="createApiKeyForm"
+                 label-width="80px">
+          <el-form-item :label="$t('api_key.key_name')">
+            <el-input v-model="createApiKeyForm.name" style="width: 210px"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div slot="footer" class="dialog-footer" v-loading="apikeyLoading">
+        <el-button size="mini" @click="createApiKeyDialogVisible = false">{{$t('comm.cancel')}}</el-button>
+        <el-button size="mini" type="primary"
+                   :loading="apikeyLoading"
+                   @click="createNewApiKey" class="ml-3">
+          {{$t('comm.sure')}}
+        </el-button>
+      </div>
+    </el-dialog>
     <el-dialog custom-class="wpy-dialog md-dialog bg-body" v-loading="loading" top="20px" @close="closeBankDialog"
                :show-close="false" :close-on-click-modal="false" :title="$t('bank.add_bank_account')"
                :visible.sync="addBankDialogVisible">
@@ -526,6 +572,7 @@ import {addBank, getMerIdentity, getMerInfo} from "@/service/merchantSer";
 import {isEmpty} from "@/utils/validate";
 import {math} from "@/utils/math";
 import {getAreaJsonData, getInlandAreaJsonData} from "@/service/riskAreaSer";
+import {createApiKey, deleteApiKey, getApiKeyList} from "@/service/merApiKeySer";
 
 export default {
   name: "merchant_info",
@@ -751,12 +798,52 @@ export default {
       accountTypeList: [{value: "company", text: "user.company", disabled: false}],
       accountPersonalTypeList: [{value: "personal", text: "user.personal", disabled: false}],
       accountCompanyTypeList: [{value: "company", text: "user.company", disabled: false}],
+      ///api key
+      apikeyLoading: false,
+      apikeySearch: {'key': ''},
+      apiKeyData: [],
+      createApiKeyForm: {'name': ''},
+      createApiKeyDialogVisible: false,
     };
   },
   mounted() {
     this.loadMerInfo();
+    if (this.user.is_master) {
+      this.loadApiKeyList();
+    }
   },
   methods: {
+    delApiKey(row){
+      this.apikeyLoading = true
+      deleteApiKey({'key': row.api_key}).then(res => {
+        this.$message.success(res.message)
+        this.loadApiKeyList()
+      }).finally(() => {
+        this.apikeyLoading = false
+      })
+    },
+    showCreateApiKey() {
+      this.createApiKeyDialogVisible = true
+    },
+    createNewApiKey() {
+      this.apikeyLoading = true
+      createApiKey(this.createApiKeyForm).then(res => {
+        this.$message.success(res.message)
+        this.loadApiKeyList()
+        this.$data.createApiKeyDialogVisible = false
+      }).finally(() => {
+        this.apikeyLoading = false
+      })
+    },
+    loadApiKeyList() {
+      this.apikeyLoading = true
+      getApiKeyList(this.apikeySearch).then(res => {
+        const {data} = res
+        this.$data.apiKeyData = data
+      }).finally(() => {
+        this.apikeyLoading = false
+      })
+    },
     ecmMatchClass(row) {
       if (!isEmpty(row) && !isEmpty(row.row.amount) && row.row.amount === this.info.chargeback_fees) {
         return "ecm-current-row";
@@ -1229,19 +1316,6 @@ export default {
 .api-feature-soon table {
   opacity: 0.3;
   color: #666;
-}
-
-.feature-soon-lay {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  background: rgba(105, 105, 105, 0.5);
-  height: 100%;
-  text-align: center;
-  padding-top: 40px;
-  color: #fff;
-  font-size: 19px;
-  z-index: 2;
 }
 
 ::v-deep .el-upload-dragger {
