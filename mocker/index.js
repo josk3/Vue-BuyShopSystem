@@ -1955,6 +1955,19 @@ const proxy = {
             message: 'success'
         });
     },
+    'POST /api/v1/api_key/logs': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {
+                list: [
+                    {
+                        status: 'f2fwef',
+                        key_name: '用于某xx平台',
+                    }
+                ],
+            }
+        });
+    },
     'POST /api/v1/risk_area/search': (req, res) => {
         return res.json({
             status: 1,

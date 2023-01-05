@@ -14,3 +14,7 @@ export function createApiKey(params) {
 export function deleteApiKey(params) {
     return post('/api_key/delete', params);
 }
+
+export function keyLogs(params) {
+    return post('/api_key/logs', params);
+}
