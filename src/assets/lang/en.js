@@ -472,6 +472,7 @@ module.exports = {
         "full_name": "Full Name",
         "phone": "Phone",
         "card_no": "Card Number",
+        "card_bin": "Card BIN",
         "add_blacklist": "Add blacklist (Billing)",
         "add_black_by_trade_id": "Blacklist for trade id",
         "add_black_by_data": "Blacklist for customer data",

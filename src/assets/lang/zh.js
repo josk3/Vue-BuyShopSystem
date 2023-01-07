@@ -472,6 +472,7 @@ module.exports = {
         "full_name": "姓名全名",
         "phone": "电话",
         "card_no": "卡号",
+        "card_bin": "卡BIN",
         "add_blacklist": "增加黑名单 (Billing)",
         "add_black_by_trade_id": "根据某个流水号",
         "add_black_by_data": "自定义增加",

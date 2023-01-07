@@ -194,6 +194,7 @@ export default {
         {value: 'address'},
         {value: 'full_name'},
         {value: 'phone'},
+        {value: 'card_bin'},
       ],
       payStatusList: [
         {value: 'all'},
