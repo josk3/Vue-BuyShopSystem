@@ -66,7 +66,7 @@
                       <li>
                         <hr class="pt-1 pb-1">
                         <span>
-                          <strong>{{ $t('payout.predict_net_amount') }}:</strong>
+                          <strong style="font-size:16px">{{ $t('payout.predict_net_amount') }}:</strong>
                         </span>
                         <span class="bill-amount" style="font-size: 21px; color: rgb(0, 0, 0);">
                           {{ summaryData.payout.net_amount|numberToLocalStr }} {{ summaryData.currency|currencySymbol }}
@@ -146,7 +146,7 @@
             </el-table-column>
             <el-table-column
                 prop="net_amount"
-                :label="$t('settle.net_amount')">
+                :label="$t('payout.predict_net_amount')">
               <template v-slot="scope">
                 <span v-if="scope.row.batch_id">
                   {{ $t('comm.batch_id') }} : <br/><b>{{ scope.row.batch_id }}</b>
