@@ -156,6 +156,10 @@
           <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">
             {{ $t('settle.batch_id_detail') }}
           </el-button>
+          <el-button size="small" @click="settleSign(summaryBatchId)" class="float-left">
+            <i class="el-icon-edit"></i>
+            {{ $t('settle.settle_sign') }}
+          </el-button>
           <el-button type="primary" @click="payoutSummaryDialog = false">{{ $t('settle.sure') }}</el-button>
         </div>
       </el-dialog>
@@ -198,7 +202,8 @@ import {
   settleDownload,
   settleSearch,
   settleSummary,
-  settleViewDetail
+  settleViewDetail,
+  settleSignIdentity
 } from "@/service/financeSer";
 import newClipboard from "@/utils/clipboard";
 import {isEmpty} from "@/utils/validate";
@@ -229,8 +234,9 @@ export default {
       //
       isPayoutList: true,
       viewDetailData: '',
-      searchViewDetail: {page: 1, batch_id: ''}
-
+      searchViewDetail: {page: 1, batch_id: ''},
+      isShowSignDialog: '',
+      signIdentityUrl: ''
     }
   },
   mounted() {
@@ -296,9 +302,29 @@ export default {
       if (!isEmpty(batchId)) this.searchViewDetail.batch_id = batchId
       settleViewDetail(this.searchViewDetail).then((res) => {
         const {data} = res
-        this.$data.viewDetailData = data
+        this.$data.settleSignIdentity = data
         this.$data.isPayoutList = false
         this.$data.payoutSummaryDialog = false
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+    settleSign(batchId) {
+      this.loading = true
+      if (!isEmpty(batchId)) this.searchViewDetail.batch_id = batchId
+      settleSignIdentity(this.searchViewDetail).then((res) => {
+        const {data} = res;
+          // this.$data.isShowSignDialog = data.authLink;
+          if(data.identity == false){
+              //跳转验证页面
+            window.location.replace(data.authLink);
+          }else{
+            //进电子签页面
+            this.$router.push({name: 'e_signature', params: {id:data.sId}})
+          }
+        //   this.$data.viewDetailData = data;
+        // this.$data.isPayoutList = false;
+        // this.$data.payoutSummaryDialog = false;
       }).finally(() => {
         this.loading = false
       })

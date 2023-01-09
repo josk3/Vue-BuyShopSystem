@@ -530,6 +530,7 @@ module.exports = {
 		"settle_tips2":"Please add your bank card for settlement",
 		"settle_dateTip_start":"Orders with payment date before",
 		"settle_dateTip_last":", can be submitted for settlement.",
+        "settle_sign":"Signature of settlement",
     },
     "order": {
         "trade_id_and_order_no": "TradeId/OrderNo",

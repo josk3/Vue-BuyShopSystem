@@ -1649,6 +1649,13 @@ const proxy = {
             }
         });
     },
+    'POST /api/v1/settle/sign_identity': (req, res) => {
+        return res.json({
+            status: 1,
+            message: 'xf23',
+            data: null
+        });
+    },
     'POST /api/v1/fast_pay/search': (req, res) => {
         return res.json({
             status: 1,
@@ -4199,7 +4206,14 @@ const proxy = {
             status: 1,
             data: {}
         })
-    }
+    },
+    'GET /api/v1/signature/getLink/:id': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {}
+        });
+    },
 }
 let sleep = false;
 // let sleep = true;// true 测试延迟响应

@@ -234,6 +234,18 @@ export function convertRouters(userMenu) {
             name: 'dispute_detail',
             hidden: true,
         },
+        {
+            path: '/order/detail/:id',
+            name: 'order_detail',
+            component: () => import('@/views/portal/orders/detail'),
+            hidden: true,
+        },
+        {
+            path: '/e_signature/getLink/:id',
+            name: 'e_signature',
+            component: () => import('@/views/public/eSignature'),
+            hidden: true,
+        }
     )
     return [
         {

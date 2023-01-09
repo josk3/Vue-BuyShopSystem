@@ -530,6 +530,7 @@ module.exports = {
         "settle_tips2": "请先绑定您的结算银行卡",
         "settle_dateTip_start": "可提交: 支付时间在",
         "settle_dateTip_last": "之前的订单。",
+        "settle_sign": "结算签署",
     },
     "order": {
         "trade_id_and_order_no": "流水号/订单号",
