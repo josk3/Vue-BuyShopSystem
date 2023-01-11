@@ -156,7 +156,7 @@
           <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">
             {{ $t('settle.batch_id_detail') }}
           </el-button>
-          <el-button size="small" @click="settleSign(summaryBatchId)" class="float-left">
+          <el-button v-show="!summaryData.isSignOk" size="small" @click="settleSign(summaryBatchId)" class="float-left">
             <i class="el-icon-edit"></i>
             {{ $t('settle.settle_sign') }}
           </el-button>
