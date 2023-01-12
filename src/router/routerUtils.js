@@ -241,7 +241,13 @@ export function convertRouters(userMenu) {
             hidden: true,
         },
         {
-            path: '/e_signature/getLink/:id',
+            path: '/e_signature/detail/:id',
+            name: 'e_signature',
+            component: () => import('@/views/public/eSignature'),
+            hidden: true,
+        },
+        {
+            path: '/e_signature/sign_success',
             name: 'e_signature',
             component: () => import('@/views/public/eSignature'),
             hidden: true,

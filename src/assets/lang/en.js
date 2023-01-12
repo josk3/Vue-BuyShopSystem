@@ -544,6 +544,7 @@ module.exports = {
 		"settle_dateTip_start":"Orders with payment date before",
 		"settle_dateTip_last":", can be submitted for settlement.",
         "settle_sign":"Signature of settlement",
+        "settle_sign_ok": "Completion of settlement signing",
     },
     "order": {
         "trade_id_and_order_no": "TradeId/OrderNo",

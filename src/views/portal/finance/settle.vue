@@ -106,6 +106,9 @@
                                               :data-clipboard-text="summaryBatchId"
                                               @click="copy">{{ summaryBatchId }} <font-awesome-icon
               :icon="['far', 'clipboard']"/></span>
+            <span v-show="summaryData.isSignOk" class="signature-style" :class="['ps-sign-success']">
+               {{ $t('settle.settle_sign_ok') }} <i class="el-icon-check"></i>
+            </span>
           </h6>
           <p v-if="summaryBatchReason">
             {{ $t('comm.remark') }}:{{ summaryBatchReason }}

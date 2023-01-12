@@ -4249,7 +4249,14 @@ const proxy = {
             data: {}
         })
     },
-    'GET /api/v1/signature/getLink/:id': (req, res) => {
+    'GET /api/v1/signature/detail/:id': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {}
+        });
+    },
+    'GET /api/v1/e_signature/sign_success': (req, res) => {
         return res.json({
             status: 1,
             message: '测试test',
