@@ -317,17 +317,13 @@ export default {
       if (!isEmpty(batchId)) this.searchViewDetail.batch_id = batchId
       settleSignIdentity(this.searchViewDetail).then((res) => {
         const {data} = res;
-          // this.$data.isShowSignDialog = data.authLink;
           if(data.identity == false){
               //跳转验证页面
-            window.location.replace(data.authLink);
+            window.location.replace(data.link);
           }else{
             //进电子签页面
             this.$router.push({name: 'e_signature', params: {id:data.sId}})
           }
-        //   this.$data.viewDetailData = data;
-        // this.$data.isPayoutList = false;
-        // this.$data.payoutSummaryDialog = false;
       }).finally(() => {
         this.loading = false
       })
