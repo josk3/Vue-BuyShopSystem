@@ -247,7 +247,7 @@ export function convertRouters(userMenu) {
             hidden: true,
         },
         {
-            path: '/e_signature/sign_success',
+            path: '/e_signature/sign_success/:sId',
             name: 'e_signature',
             component: () => import('@/views/public/eSignature'),
             hidden: true,

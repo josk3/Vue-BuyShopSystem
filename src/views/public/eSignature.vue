@@ -18,15 +18,16 @@
             return {
                 loading: false,
                 sid: '',
+                esId: '',
                 detail: {},
             }
         },
         mounted() {
-            if(this.$route.path === '/e_signature/sign_success'){
-                this.sid = this.$route.params.id
+            if(!isEmpty(this.$route.params) && !isEmpty(this.$route.params.sId)){
+                this.sid = this.$route.params.sId
                 //查询签署情况
                 this.findSignatureInfo();
-            }else if (!isEmpty(this.$route.params)) {
+            }else if (!isEmpty(this.$route.params) && !isEmpty(this.$route.params.id)) {
                 this.sid = this.$route.params.id
                 this.loadSignature();
             }  else {
@@ -44,14 +45,15 @@
                 })
             },
             findSignatureInfo(){
+                this.loading = true
                 getSignatureInfo(this.sid).then(res => {
                     const {data} = res
                     this.$data.detail = data
                     //完成签署,提示后跳回主界面
                     this.$message.success(res.message)
-                    this.$router.push({name: 'dashboard'})
                 }).finally(() => {
                     this.loading = false
+                    this.$router.push({name: 'dashboard'})
                 })
             }
         },
