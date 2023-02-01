@@ -534,16 +534,6 @@
 					//         trigger: "change",
 					//     },
 					// ],
-					zip_code: [{
-							required: true,
-							message: this.validMsg("user.zip_code"),
-							trigger: "blur",
-						},
-						{
-							validator: checkOutlandPhone,
-							trigger: "blur",
-						},
-					],
 					shop_site: [{
 							required: true,
 							message: this.validMsg("user.shop_site"),
@@ -571,6 +561,12 @@
 						{
 							validator: checkOutlandPhone,
 							trigger: "blur"
+						},
+					],
+					zip_code: [{
+							required: true,
+							message: this.validMsg("user.zip_code"),
+							trigger: "blur",
 						},
 					],
 					identity_start_date: [{
@@ -616,6 +612,16 @@
 						{
 							validator: checkInlandPhone,
 							trigger: "blur"
+						},
+					],
+					zip_code: [{
+							required: true,
+							message: this.validMsg("user.zip_code"),
+							trigger: "blur",
+						},
+						{
+							validator: checkOutlandPhone,
+							trigger: "blur",
 						},
 					],
 					identity_start_date: [{
