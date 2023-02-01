@@ -221,6 +221,7 @@ module.exports = {
         "createdFmt": "登录时间",
         "merchant_user_loginHistory": "用户登录记录",
         "deposit_apply": "保证金结算申请",
+        "settle_identity": "结算确认签署",
     },
     "user": { //跟用户相关
         "name": "姓名或公司名",

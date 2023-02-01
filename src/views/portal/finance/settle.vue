@@ -159,7 +159,7 @@
           <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">
             {{ $t('settle.batch_id_detail') }}
           </el-button>
-          <el-button v-show="!summaryData.isSignOk" size="small" @click="settleSign(summaryBatchId)" class="float-left">
+          <el-button v-show="!summaryData.isSignOk && (isShowSettleSignButton || this.user.master) && (user.mer_no == '70139' || user.mer_no == '70063' || user.mer_no == '70183')"  size="small" @click="settleSign(summaryBatchId)" class="float-left">
             <i class="el-icon-edit"></i>
             {{ $t('settle.settle_sign') }}
           </el-button>
@@ -211,12 +211,19 @@ import {
 import newClipboard from "@/utils/clipboard";
 import {isEmpty} from "@/utils/validate";
 import FinanceTable from "@/components/FinanceTable";
+import {hasPermission} from "@/service/userSer";
+import {mapState} from "vuex";
 
 /** 当前vue 要实现结算列表和结算详情明细 */
 export default {
   name: "settle",
   components: {FinanceTable, SearchBox, Pagination},
   computed: { //watch跟踪数据变化, 重点user, configs
+    ...mapState({
+      lang: state => state.app.lang, //多语言
+      menus: state => state.user.menus,
+      permissions: state => state.user.permissions,
+    }),
     configs() {
       return configs;
     },
@@ -239,12 +246,22 @@ export default {
       viewDetailData: '',
       searchViewDetail: {page: 1, batch_id: ''},
       isShowSignDialog: '',
-      signIdentityUrl: ''
+      signIdentityUrl: '',
+      user: [],
+      isShowSettleSignButton: false,
     }
   },
   mounted() {
     this.searchParams.settle_status = this.paneName
     this.search();
+    this.$store.dispatch('user/loadUserInfo').then((res) => {
+      if (!isEmpty(res) && !isEmpty(res.user) && !isEmpty(res.user.online)) {
+        this.user = res.user;
+      }
+    })
+    //结算确认签署权限控制
+    console.log(this.permissions)
+    this.isShowSettleSignButton = hasPermission(configs.perm.settle_identity, this.permissions);
   },
   methods: {
     copy() {

@@ -58,6 +58,7 @@ module.exports = {
         can_view_balance: 'can_view_balance',
         delivery_download: 'delivery_download',
         can_add_service_email: 'can_add_service_email',
+        settle_identity: 'settle_identity',
     },
     template: {
         //企业授权书模板

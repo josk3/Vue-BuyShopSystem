@@ -221,6 +221,7 @@ module.exports = {
         "createdFmt": "Time",
         "merchant_user_loginHistory": "UserLoginHistory",
         "deposit_apply": "Deposit apply",
+        "settle_identity": "Signature of settlement",
     },
     "user": { //跟用户相关
         "name": "Name or Company",
