@@ -260,7 +260,6 @@ export default {
       }
     })
     //结算确认签署权限控制
-    console.log(this.permissions)
     this.isShowSettleSignButton = hasPermission(configs.perm.settle_identity, this.permissions);
   },
   methods: {
@@ -350,7 +349,6 @@ export default {
       this.viewDetail()
     },
     toPayoutList() {
-      console.log("toList")
       this.isPayoutList = true
     },
     downSettleDetail(batchId) {
