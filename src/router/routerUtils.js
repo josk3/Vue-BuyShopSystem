@@ -235,12 +235,6 @@ export function convertRouters(userMenu) {
             hidden: true,
         },
         {
-            path: '/order/detail/:id',
-            name: 'order_detail',
-            component: () => import('@/views/portal/orders/detail'),
-            hidden: true,
-        },
-        {
             path: '/e_signature/detail/:id',
             name: 'e_signature',
             component: () => import('@/views/public/eSignature'),

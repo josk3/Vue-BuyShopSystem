@@ -107,7 +107,7 @@
             },
             goNoticeDetail(row){
                 if (this.paneName === 'announce') {
-                    this.$router.push({name: 'announce_detail',params:{id:row.row}})
+                    this.$router.push({name: 'announce_detail',params:{id:row.nid}})
                 }else {
                     this.$router.push({name: 'notify_detail',params:{id:row.nid}})
                 }
