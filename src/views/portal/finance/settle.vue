@@ -106,6 +106,9 @@
                                               :data-clipboard-text="summaryBatchId"
                                               @click="copy">{{ summaryBatchId }} <font-awesome-icon
               :icon="['far', 'clipboard']"/></span>
+            <span v-show="summaryData.isSignOk" class="signature-style" :class="['ps-sign-success']">
+               {{ $t('settle.settle_sign_ok') }} <i class="el-icon-check"></i>
+            </span>
           </h6>
           <p v-if="summaryBatchReason">
             {{ $t('comm.remark') }}:{{ summaryBatchReason }}
@@ -156,6 +159,10 @@
           <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">
             {{ $t('settle.batch_id_detail') }}
           </el-button>
+          <el-button v-show="!summaryData.isSignOk && (isShowSettleSignButton || this.user.master) && (user.mer_no == '70139' || user.mer_no == '70063' || user.mer_no == '70183')"  size="small" @click="settleSign(summaryBatchId)" class="float-left">
+            <i class="el-icon-edit"></i>
+            {{ $t('settle.settle_sign') }}
+          </el-button>
           <el-button type="primary" @click="payoutSummaryDialog = false">{{ $t('settle.sure') }}</el-button>
         </div>
       </el-dialog>
@@ -198,17 +205,25 @@ import {
   settleDownload,
   settleSearch,
   settleSummary,
-  settleViewDetail
+  settleViewDetail,
+  settleSignIdentity
 } from "@/service/financeSer";
 import newClipboard from "@/utils/clipboard";
 import {isEmpty} from "@/utils/validate";
 import FinanceTable from "@/components/FinanceTable";
+import {hasPermission} from "@/service/userSer";
+import {mapState} from "vuex";
 
 /** 当前vue 要实现结算列表和结算详情明细 */
 export default {
   name: "settle",
   components: {FinanceTable, SearchBox, Pagination},
   computed: { //watch跟踪数据变化, 重点user, configs
+    ...mapState({
+      lang: state => state.app.lang, //多语言
+      menus: state => state.user.menus,
+      permissions: state => state.user.permissions,
+    }),
     configs() {
       return configs;
     },
@@ -229,13 +244,23 @@ export default {
       //
       isPayoutList: true,
       viewDetailData: '',
-      searchViewDetail: {page: 1, batch_id: ''}
-
+      searchViewDetail: {page: 1, batch_id: ''},
+      isShowSignDialog: '',
+      signIdentityUrl: '',
+      user: [],
+      isShowSettleSignButton: false,
     }
   },
   mounted() {
     this.searchParams.settle_status = this.paneName
     this.search();
+    this.$store.dispatch('user/loadUserInfo').then((res) => {
+      if (!isEmpty(res) && !isEmpty(res.user) && !isEmpty(res.user.online)) {
+        this.user = res.user;
+      }
+    })
+    //结算确认签署权限控制
+    this.isShowSettleSignButton = hasPermission(configs.perm.settle_identity, this.permissions);
   },
   methods: {
     copy() {
@@ -303,12 +328,27 @@ export default {
         this.loading = false
       })
     },
+    settleSign(batchId) {
+      this.loading = true
+      if (!isEmpty(batchId)) this.searchViewDetail.batch_id = batchId
+      settleSignIdentity(this.searchViewDetail).then((res) => {
+        const {data} = res;
+          if(data.identity == false){
+              //跳转验证页面
+            window.location.replace(data.link);
+          }else{
+            //进电子签页面
+            this.$router.push({name: 'e_signature', params: {id:data.sId}})
+          }
+      }).finally(() => {
+        this.loading = false
+      })
+    },
     viewPageChange(page) {
       this.searchViewDetail.page = page.page_num
       this.viewDetail()
     },
     toPayoutList() {
-      console.log("toList")
       this.isPayoutList = true
     },
     downSettleDetail(batchId) {

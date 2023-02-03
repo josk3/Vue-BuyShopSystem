@@ -30,3 +30,7 @@ export function settleDownload(params) {
 export function settleDetailDownload(params) {
     return download('/settle/detail/download', params);
 }
+
+export function settleSignIdentity(params) {
+    return post('/settle/sign_identity', params);
+}

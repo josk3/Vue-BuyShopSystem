@@ -234,6 +234,18 @@ export function convertRouters(userMenu) {
             name: 'dispute_detail',
             hidden: true,
         },
+        {
+            path: '/e_signature/detail/:id',
+            name: 'e_signature',
+            component: () => import('@/views/public/eSignature'),
+            hidden: true,
+        },
+        {
+            path: '/e_signature/sign_success/:sId',
+            name: 'e_signature_success',
+            component: () => import('@/views/public/eSignature'),
+            hidden: true,
+        }
     )
     return [
         {

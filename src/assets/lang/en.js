@@ -221,6 +221,7 @@ module.exports = {
         "createdFmt": "Time",
         "merchant_user_loginHistory": "UserLoginHistory",
         "deposit_apply": "Deposit apply",
+        "settle_identity": "Signature of settlement",
     },
     "user": { //跟用户相关
         "name": "Name or Company",
@@ -543,6 +544,8 @@ module.exports = {
 		"settle_tips2":"Please add your bank card for settlement",
 		"settle_dateTip_start":"Orders with payment date before",
 		"settle_dateTip_last":", can be submitted for settlement.",
+        "settle_sign":"Signature of settlement",
+        "settle_sign_ok": "Completion of settlement signing",
     },
     "order": {
         "trade_id_and_order_no": "TradeId/OrderNo",
