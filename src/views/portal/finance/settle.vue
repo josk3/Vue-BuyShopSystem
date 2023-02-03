@@ -321,7 +321,7 @@ export default {
       if (!isEmpty(batchId)) this.searchViewDetail.batch_id = batchId
       settleViewDetail(this.searchViewDetail).then((res) => {
         const {data} = res
-        this.$data.settleSignIdentity = data
+        this.$data.viewDetailData = data
         this.$data.isPayoutList = false
         this.$data.payoutSummaryDialog = false
       }).finally(() => {
