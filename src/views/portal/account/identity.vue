@@ -1254,6 +1254,13 @@
 						canLoading.push(false)
 					}
 				});
+				//无本地图片文件 不需要验证本地图片
+				if (fileArray.length == 0) {
+					//验证后提交
+					this.Verifiedsubmit()
+					return ;
+				}
+				//需要验证
 				for (let index in fileArray) {
 
 					//判断图片是否读取 异步队列化
