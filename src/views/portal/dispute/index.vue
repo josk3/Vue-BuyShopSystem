@@ -66,10 +66,11 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        width="120"
-                        :label="$t('comm.created')">
+                        width="140"
+                        :label="$t('comm.created_or_payTime')">
                     <template v-slot="scope">
-                        {{scope.row.created | toDay}}
+                        {{scope.row.created | toDay}}<br/>
+                        {{scope.row.payment_time | toDay}}
                     </template>
                 </el-table-column>
             </el-table>
