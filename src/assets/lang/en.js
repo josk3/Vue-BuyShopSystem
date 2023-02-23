@@ -139,6 +139,7 @@ module.exports = {
         "settle_day": "Settle day",
         "reject": "Reject",
         "has_apply_wait_review": "Wait review",
+        "created_or_payTime": "created/paymentTime",
     },
     "api_key": {
         "create_api_key": "Create new Api Key",

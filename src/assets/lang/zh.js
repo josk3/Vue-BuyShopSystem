@@ -139,6 +139,7 @@ module.exports = {
         "settle_day": "结算日",
         "reject": "不通过",
         "has_apply_wait_review": "申请已提交待审核",
+        "created_or_payTime": "创建时间/付款时间",
     },
     "api_key": {
         "create_api_key": "创建新密钥",
