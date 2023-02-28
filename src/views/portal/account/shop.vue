@@ -80,7 +80,7 @@
                   prop="created"
                   :label="$t('comm.apply_time')">
                 <template v-slot="scope">
-                  {{ scope.row.created | toDay }}
+                  {{ scope.row.created | toDayTime }}
                 </template>
               </el-table-column>
               <el-table-column
