@@ -159,7 +159,7 @@
           <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">
             {{ $t('settle.batch_id_detail') }}
           </el-button>
-          <el-button v-show="!summaryData.isSignOk && !summaryData.isNegative && (isShowSettleSignButton || this.user.master) && (user.mer_no == '70139' || user.mer_no == '70063' || user.mer_no == '70183')"  size="small" @click="settleSign(summaryBatchId)" class="float-left">
+          <el-button v-show="!summaryData.isSignOk && !summaryData.isNegative && (isShowSettleSignButton || this.user.master)"  size="small" @click="settleSign(summaryBatchId)" class="float-left">
             <i class="el-icon-edit"></i>
             {{ $t('settle.settle_sign') }}
           </el-button>
