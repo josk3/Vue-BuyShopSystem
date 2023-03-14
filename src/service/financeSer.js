@@ -34,3 +34,7 @@ export function settleDetailDownload(params) {
 export function settleSignIdentity(params) {
     return post('/settle/sign_identity', params);
 }
+
+export function settleSignDownload(params) {
+    return post('/signature/download/signatureFile', params);
+}
