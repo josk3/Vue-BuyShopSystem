@@ -4270,6 +4270,13 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/signature/download/signatureFile': (req, res) => {
+        return res.json({
+            status: 1,
+            message: 'xf23',
+            data: null
+        });
+    },
 }
 let sleep = false;
 // let sleep = true;// true 测试延迟响应

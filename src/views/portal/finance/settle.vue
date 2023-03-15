@@ -163,6 +163,10 @@
             <i class="el-icon-edit"></i>
             {{ $t('settle.settle_sign') }}
           </el-button>
+          <el-button v-show="summaryData.isSignOk" icon="el-icon-download" size="small" @click="downSignaturePdf(summaryData.sId)" >
+            {{ $t('comm.download') }}
+            <span>{{ $t('settle.settle_sign_file') }}</span>
+          </el-button>
           <el-button type="primary" @click="payoutSummaryDialog = false">{{ $t('settle.sure') }}</el-button>
         </div>
       </el-dialog>
@@ -206,13 +210,15 @@ import {
   settleSearch,
   settleSummary,
   settleViewDetail,
-  settleSignIdentity
+  settleSignIdentity,
+  settleSignDownload
 } from "@/service/financeSer";
 import newClipboard from "@/utils/clipboard";
 import {isEmpty} from "@/utils/validate";
 import FinanceTable from "@/components/FinanceTable";
 import {hasPermission} from "@/service/userSer";
 import {mapState} from "vuex";
+import {deliveryDownload} from "@/service/deliverySer";
 
 /** 当前vue 要实现结算列表和结算详情明细 */
 export default {
@@ -363,7 +369,15 @@ export default {
         this.loading = false
       })
     },
-
+    downSignaturePdf(signId) {
+      this.loading = true
+      settleSignDownload({'sId': signId}).then((res) => {
+          const {data} = res;
+          window.location.replace(data);
+      }).finally(() => {
+        this.loading = false
+      })
+    }
   },
 }
 </script>
