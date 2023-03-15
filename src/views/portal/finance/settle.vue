@@ -372,7 +372,8 @@ export default {
     downSignaturePdf(signId) {
       this.loading = true
       settleSignDownload({'sId': signId}).then((res) => {
-         console.log(res);
+          const {data} = res;
+          window.location.replace(data);
       }).finally(() => {
         this.loading = false
       })
