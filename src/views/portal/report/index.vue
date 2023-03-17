@@ -291,6 +291,9 @@ export default {
           },
           yAxis: {
             type: 'value',
+            axisLabel: {
+              formatter: '{value}%'
+            }
           },
           series: [
             {
