@@ -636,6 +636,9 @@ module.exports = {
       "country": "国家",
       "country_remark": "此国家指最近30天网站成功交易笔数的国家排名（备注：每个网站的交易笔数是由多个国家交易笔数相加进行排名）",
       "ranking": "排名",
+      "total_declined": "拒付笔数",
+      "total_paid": "成功交易笔数",
+      "total_refund": "退款笔数",
     },
     "shop": {
         "site_url": "网址",

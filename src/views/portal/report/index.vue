@@ -5,23 +5,17 @@
       <!-- 搜索栏 -->
       <el-card>
         <div> {{ $t('report.report_overview') }} </div>
-<!--        <el-select v-model="range" :placeholder="$t('comm.please_select')" @change="getLoadEcharts" size="mini">-->
-<!--          <el-option v-for="item in reportRange" :key="item.value" :label="item.label" :value="item.value">-->
-<!--          </el-option>-->
-<!--        </el-select>-->
-        <el-row>
-          <el-button round autofocus @click="getLoadEcharts('d_seven')">7{{ $t('label.day') }}</el-button>
-          <el-button round @click="getLoadEcharts('d_thirty')">30{{ $t('label.day') }}</el-button>
-          <el-button round @click="getLoadEcharts('d_ninety')">90{{ $t('label.day') }}</el-button>
-        </el-row>
       </el-card>
 
       <div class="row">
         <!-- 成功交易统计 -->
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-3" v-if="perm_can_view_paid_report">
           <el-card class="box-card">
+            <div class="header">
+              <SearchBox ref="searchForm" :params="paidParams" @search="getPaidReport" ></SearchBox>
+            </div>
             <div class="chart-item">
-              <div id="paidAmountReport" :style="paidStyle"></div>
+              <div id="paidAmountReport" ref="paidAmountReport" :style="paidStyle"></div>
             </div>
           </el-card>
         </div>
@@ -29,7 +23,7 @@
         <div class="col-12 mb-3">
           <el-card class="box-card">
             <div class="chart-item">
-              <div id="declineReport"
+              <div id="declineReport" ref="declineReport"
                    style="width: 100%;height:400px"></div>
             </div>
           </el-card>
@@ -37,8 +31,11 @@
         <!-- 退款统计 -->
         <div class="col-12 mb-3">
           <el-card class="box-card">
+            <div class="header">
+              <SearchBox :params="refundParams" @search="getRefundReport"></SearchBox>
+            </div>
             <div class="chart-item">
-              <div id="refundReport"
+              <div id="refundReport" ref="refundReport"
                    style="width: 100%;height:400px;"></div>
             </div>
           </el-card>
@@ -109,7 +106,10 @@ import {paidReport, declineReport, refundReport, top10SiteReport, viewTheCountri
 import {mapState} from "vuex";
 import configs from "@/configs";
 import {hasPermission} from "@/service/userSer";
+import SearchBox from "@/components/SearchBox";
+import {parseTime} from "@/utils";
 export default {
+  components: {SearchBox},
   props: ['start_load_data'],
   computed: { //watch跟踪数据变化, 重点user, configs
     ...mapState({
@@ -130,23 +130,18 @@ export default {
   data() {
     return {
       loading: false,
-      reportRange: [
-        {
-          value: 'd_seven',
-          label: '7',
-        },
-        {
-          value: 'd_thirty',
-          label: '30',
-        },
-        {
-          value: 'd_ninety',
-          label: '90',
-        },
-      ],
-      range: 'd_seven', //默认改为30d
+      colors:  ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de','#3ba272', '#fc8452', '#9a60b4','#ea7ccc'],
       reportParams: {
         days: ""
+      },
+      paidParams: {
+        search_date: '', reset_show: false, title: false,
+      },
+      declineParams: {
+        search_date: '', reset_show: false, title: false,
+      },
+      refundParams: {
+        search_date: '', reset_show: false, title: false,
       },
       webSiteList: [],
       countryBarDialog: false,
@@ -164,13 +159,10 @@ export default {
           left: '3%',
           right: '4%',
           bottom: '3%',
-          containLabel: true
+          containLabel: true,
         },
         yAxis: {
           type: 'value',
-          axisLabel: {
-            formatter: '${value}'
-          },
         },
         dataZoom: [
           {
@@ -187,14 +179,38 @@ export default {
       declineOption: {},
       refundChart: null,
       refundOption: {},
+      perm_can_view_paid_report: false,
+      perm_can_view_decline_report: false,
+      perm_can_view_refund_report: false,
+      perm_can_view_top10_site_report: false,
       // top10SiteOption: {},
     }
   },
   //start_load_data不定义可正常使用
 
+  created() {
+    // 检测有无权限
+    if (hasPermission(configs.perm.can_view_paid_report, this.permissions)) {
+      this.perm_can_view_paid_report = true;
+    }
+    if (hasPermission(configs.perm.can_view_decline_report, this.permissions)) {
+      this.perm_can_view_decline_report = true;
+    }
+    if (hasPermission(configs.perm.can_view_refund_report, this.permissions)) {
+      this.perm_can_view_refund_report = true;
+    }
+    if (hasPermission(configs.perm.can_view_top10_site_report, this.permissions)) {
+      this.perm_can_view_top10_site_report = true;
+    }
+  },
   // 页面初始化挂载dom
   mounted() {
-    this.getLoadEcharts(this.range)
+    const currentTime = new Date().getTime()
+    this.paidParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 30,
+        '{y}-{m}-{d}'), parseTime(currentTime, '{y}-{m}-{d}')]
+    this.refundParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 30,
+        '{y}-{m}-{d}'), parseTime(currentTime, '{y}-{m}-{d}')]
+    this.getLoadEcharts();
   },
   watch: {
     '$i18n.locale' () {
@@ -203,23 +219,18 @@ export default {
     },
   },
   methods: {
-    getLoadEcharts(data) {
-      if (undefined === data) {
-        data = 'd_seven';
-      }
-      this.range = data;
-      this.reportParams.days = data;
-      // 检测有无权限
-      if (hasPermission(configs.perm.can_view_paid_report, this.permissions)) {
+    getLoadEcharts() {
+      // 根据权限调用接口
+      if (this.perm_can_view_paid_report) {
         this.getPaidReport();
       }
-      if (hasPermission(configs.perm.can_view_decline_report, this.permissions)) {
+      if (this.perm_can_view_decline_report) {
         this.getDeclineReport();
       }
-      if (hasPermission(configs.perm.can_view_refund_report, this.permissions)) {
+      if (this.perm_can_view_refund_report) {
         this.getRefundReport();
       }
-      if (hasPermission(configs.perm.can_view_top10_site_report, this.permissions)) {
+      if (this.perm_can_view_top10_site_report) {
         this.getTop10SiteReport();
       }
     },
@@ -227,38 +238,79 @@ export default {
     getPaidReport() {
       // 销毁已渲染图表
       if (this.payChart != null && this.payChart !== "" && this.payChart !== undefined) {
-        this.payChart.dispose()
+        this.payChart.dispose();
       }
       // 初始化
-      this.payChart = this.$echarts.init(
-          document.getElementById("paidAmountReport"),
-      );
+      this.payChart = this.$echarts.init(this.$refs.paidAmountReport);
       this.loading = true
-      paidReport(this.reportParams).then(res => {
+      paidReport(this.paidParams).then(res => {
         const {data} = res;
+        // 整理数据
+        let arr = [];
+        data.list.forEach(item => {
+          let sere = {};
+          let da = [];
+          item.dataList.forEach(d => {
+            da.push(d);
+          })
+          sere.name = item.name,
+          sere.data = da,
+          sere.areaStyle = {
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: this.colors[data.list.indexOf(item)]
+              },
+              {
+                offset: 1,
+                color: 'rgb(255, 255, 255)'
+              }
+            ])
+          },
+          sere.type = 'line',
+          sere.showSymbol = false,
+          // sere.formatter = fmStr,
+          arr.push(sere);
+        });
         this.payOption = {
           ...this.lineOption,
           title: {
             text: this.$i18n.t('report.successful_payment'),
             subtext: this.$i18n.t('report.successful_payment_remark'),
           },
+          tooltip: {
+            trigger: 'axis',
+            formatter: (params) => {
+              let str = '';
+              params.forEach((item) => {
+                str = item.name + '<br>'
+                for (let i = 0; i < params.length; i++) {
+                  str += params[i].marker + this.$i18n.t('report.trading_total') + ': ' + params[i].value + ' ' + params[i].seriesName + '<br>'
+                      + params[i].marker + this.$i18n.t('report.total_paid') + ': ' + data.list[i].totalList[item.dataIndex] + '<br>'
+                }
+              })
+              return str;
+            },
+            axisPointer: {
+              animation: false
+            },
+          },
+          axisPointer: {
+            link: [
+              {
+                xAxisIndex: 'all'
+              }
+            ]
+          },
           xAxis: {
             type: 'category',
             boundaryGap: false,
             data: data.labels,
           },
-          series: [
-            {
-              name: this.$i18n.t('report.trading_total'),
-              data: data.list,
-              color: '#91cc75',
-              type: 'line',
-              areaStyle: {},
-              emphasis: {
-                focus: 'series'
-              },
-            }
-          ],
+          legend: {
+            data: data.tags,
+          },
+          series: arr,
         };
         this.payChart.setOption(this.payOption);
       }).finally(() => {
@@ -272,11 +324,9 @@ export default {
         this.declineChart.dispose();
       }
       // 初始化
-      this.declineChart = this.$echarts.init(
-          document.getElementById("declineReport")
-      );
+      this.declineChart = this.$echarts.init(this.$refs.declineReport);
       this.loading = true
-      declineReport(this.reportParams).then(res => {
+      declineReport(this.declineParams).then(res => {
         const {data} = res;
         this.declineOption = {
           ...this.lineOption,
@@ -284,6 +334,31 @@ export default {
             text: this.$i18n.t('report.dishonor_rate'),
             subtext: this.$i18n.t('report.dishonor_rate_remark'),
           },
+          tooltip: {
+            trigger: 'axis',
+            formatter: (params) => {
+              let str = '';
+              params.forEach((item) => {
+                str = item.name + '<br>'
+                    + item.marker + this.$i18n.t('report.dishonor_rate') + ': ' + item.value + '%'  + '<br>'
+                    + item.marker + this.$i18n.t('report.total_declined') + ': ' + data.reserve[item.dataIndex] + '<br>'
+                    + item.marker + this.$i18n.t('report.total_paid') + ': ' + data.totals[item.dataIndex];
+
+              })
+              return str;
+            },
+            axisPointer: {
+              animation: false
+            },
+          },
+          dataZoom: [
+            {
+              show: true,
+              realtime: true,
+              start: 50,
+              end: 100
+            },
+          ],
           xAxis: {
             type: 'category',
             boundaryGap: false,
@@ -301,7 +376,19 @@ export default {
               data: data.list,
               color: '#ee6666',
               type: 'line',
-              areaStyle: {},
+              showSymbol: false,
+              areaStyle: {
+                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: 'rgb(238, 102, 102)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(255, 255, 255)'
+                  }
+                ])
+              },
               emphasis: {
                 focus: 'series'
               },
@@ -320,35 +407,68 @@ export default {
         this.refundChart.dispose();
       }
       // 初始化
-      this.refundChart = this.$echarts.init(
-          document.getElementById("refundReport")
-      );
+      this.refundChart = this.$echarts.init(this.$refs.refundReport);
       this.loading = true
-      refundReport(this.reportParams).then(res => {
+      // 获取数据
+      refundReport(this.refundParams).then(res => {
         const {data} = res;
-
+        let arr = [];
+        data.list.forEach(item => {
+          let sere = {};
+          let da = []
+          item.dataList.forEach(
+              d => da.push(d)
+          )
+          sere.name = item.name,
+              sere.data = da,
+              sere.areaStyle = {
+                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: this.colors[data.list.indexOf(item)]
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(255, 225, 255)'
+                  }
+                ])
+              },
+              sere.type= 'line',
+              sere.showSymbol = false,
+              arr.push(sere);
+        });
         this.refundOption = {
           ...this.lineOption,
           title: {
             text: this.$i18n.t('report.refund'),
             subtext: this.$i18n.t('report.refund_remark'),
           },
+          tooltip: {
+            trigger: 'axis',
+            formatter: (params) => {
+              let str = '';
+              params.forEach((item) => {
+                str = item.name + '<br>'
+                for (let i = 0; i < params.length; i++) {
+                  str += params[i].marker + this.$i18n.t('report.refund_amount') + ': ' + params[i].value + ' ' + params[i].seriesName + '<br>'
+                      + params[i].marker + this.$i18n.t('report.total_refund') + ': ' + data.list[i].totalList[item.dataIndex] + '<br>'
+                }
+              })
+              return str;
+            },
+            axisPointer: {
+              animation: false
+            },
+          },
           xAxis: {
             type: 'category',
             boundaryGap: false,
             data: data.labels,
           },
-          series: [
-            {
-              name: this.$i18n.t('report.refund_amount'),
-              data: data.list,
-              type: 'line',
-              areaStyle: {},
-              emphasis: {
-                focus: 'series'
-              },
-            }
-          ]
+          legend: {
+            data: data.tags,
+          },
+          series: arr,
         };
         this.refundChart.setOption(this.refundOption);
       }).finally(() => {
@@ -369,6 +489,7 @@ export default {
     viewTheCountryBar(index, row) {
       this.loading = true
       this.countryBarDialog = true;
+      this.reportParams.days = "d_thirty";
       this.reportParams.website = row.value;
       viewTheCountries(this.reportParams).then(res => {
         const {data} = res;
@@ -417,17 +538,14 @@ export default {
     refreshEcharts() {
       this.payOption.title.text = this.$i18n.t('report.successful_payment');
       this.payOption.title.subtext = this.$i18n.t('report.successful_payment_remark');
-      this.payOption.series[0].name = this.$i18n.t('report.trading_total');
       this.payChart.setOption(this.payOption);
 
       this.declineOption.title.text = this.$i18n.t('report.dishonor_rate');
       this.declineOption.title.subtext = this.$i18n.t('report.dishonor_rate_remark');
-      this.declineOption.series[0].name = this.$i18n.t('report.dishonor_rate');
       this.declineChart.setOption(this.declineOption);
 
       this.refundOption.title.text = this.$i18n.t('report.refund');
       this.refundOption.title.subtext = this.$i18n.t('report.refund_remark');
-      this.refundOption.series[0].name = this.$i18n.t('report.refund_amount');
       this.refundChart.setOption(this.refundOption);
 
     },

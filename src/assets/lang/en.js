@@ -636,6 +636,9 @@ module.exports = {
         "country": "Country",
         "country_remark": "The proportion of countries refers that the ranking of country with the highest numbers of successful transaction in the latest 30 days (note: the transaction number of each website is ranked by adding the number of transaction from the multiple countries.) ",
         "ranking": "Ranking",
+        "total_declined": "Number of declined",
+        "total_paid": "Number of paid",
+        "total_refund": "Number of refund",
     },
     "shop": {
         "site_url": "Shop url",
