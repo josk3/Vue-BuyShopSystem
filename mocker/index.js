@@ -2230,7 +2230,7 @@ const proxy = {
                             "fail_message": null,
                             "pay_date": null,
                             "created": 1596802281000,
-                            "reason": "申请部份退款金额 34 USD",
+                            "reason": "申请全额退款",
                             "mer_uid": null,
                             "updated": null
                         }
