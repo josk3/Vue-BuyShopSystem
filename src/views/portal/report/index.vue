@@ -205,11 +205,13 @@ export default {
   },
   // 页面初始化挂载dom
   mounted() {
+    // 设置默认搜索时间
     const currentTime = new Date().getTime()
-    this.paidParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 30,
+    let defaultSearchDate = [parseTime(currentTime - 3600 * 1000 * 24 * 31,
         '{y}-{m}-{d}'), parseTime(currentTime, '{y}-{m}-{d}')]
-    this.refundParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 30,
-        '{y}-{m}-{d}'), parseTime(currentTime, '{y}-{m}-{d}')]
+    this.paidParams.search_date = defaultSearchDate
+    this.refundParams.search_date = defaultSearchDate
+    // 获取数据并渲染
     this.getLoadEcharts();
   },
   watch: {
@@ -246,32 +248,8 @@ export default {
       paidReport(this.paidParams).then(res => {
         const {data} = res;
         // 整理数据
-        let arr = [];
-        data.list.forEach(item => {
-          let sere = {};
-          let da = [];
-          item.dataList.forEach(d => {
-            da.push(d);
-          })
-          sere.name = item.name,
-          sere.data = da,
-          sere.areaStyle = {
-              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              {
-                offset: 0,
-                color: this.colors[data.list.indexOf(item)]
-              },
-              {
-                offset: 1,
-                color: 'rgb(255, 255, 255)'
-              }
-            ])
-          },
-          sere.type = 'line',
-          sere.showSymbol = false,
-          // sere.formatter = fmStr,
-          arr.push(sere);
-        });
+        let arr = this.dataCleansing(data);
+        // 设置option
         this.payOption = {
           ...this.lineOption,
           title: {
@@ -328,6 +306,7 @@ export default {
       this.loading = true
       declineReport(this.declineParams).then(res => {
         const {data} = res;
+        // 设置option
         this.declineOption = {
           ...this.lineOption,
           title: {
@@ -351,14 +330,15 @@ export default {
               animation: false
             },
           },
-          dataZoom: [
-            {
-              show: true,
-              realtime: true,
-              start: 50,
-              end: 100
-            },
-          ],
+          dataZoom: false,
+          visualMap: {
+            show: false,
+            type: 'continuous',
+            seriesIndex: 0,
+            min: 0,
+            max: 1.5,
+            color: ['#d94e5d', '#eac736', '#1cad18']
+          },
           xAxis: {
             type: 'category',
             boundaryGap: false,
@@ -374,21 +354,8 @@ export default {
             {
               name: this.$i18n.t('report.dishonor_rate'),
               data: data.list,
-              color: '#ee6666',
               type: 'line',
               showSymbol: false,
-              areaStyle: {
-                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: 'rgb(238, 102, 102)'
-                  },
-                  {
-                    offset: 1,
-                    color: 'rgb(255, 255, 255)'
-                  }
-                ])
-              },
               emphasis: {
                 focus: 'series'
               },
@@ -412,31 +379,8 @@ export default {
       // 获取数据
       refundReport(this.refundParams).then(res => {
         const {data} = res;
-        let arr = [];
-        data.list.forEach(item => {
-          let sere = {};
-          let da = []
-          item.dataList.forEach(
-              d => da.push(d)
-          )
-          sere.name = item.name,
-              sere.data = da,
-              sere.areaStyle = {
-                color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: this.colors[data.list.indexOf(item)]
-                  },
-                  {
-                    offset: 1,
-                    color: 'rgb(255, 225, 255)'
-                  }
-                ])
-              },
-              sere.type= 'line',
-              sere.showSymbol = false,
-              arr.push(sere);
-        });
+        let arr = this.dataCleansing(data);
+        // 设置option
         this.refundOption = {
           ...this.lineOption,
           title: {
@@ -535,6 +479,7 @@ export default {
         this.loading = false
       })
     },
+    // 切换语言时再次渲染
     refreshEcharts() {
       this.payOption.title.text = this.$i18n.t('report.successful_payment');
       this.payOption.title.subtext = this.$i18n.t('report.successful_payment_remark');
@@ -549,6 +494,35 @@ export default {
       this.refundChart.setOption(this.refundOption);
 
     },
+    // 整理数据
+    dataCleansing(data) {
+      let arr = [];
+      data.list.forEach(item => {
+        let sere = {};
+        let da = [];
+        item.dataList.forEach(d => {
+          da.push(d);
+        })
+        sere.name = item.name,
+            sere.data = da,
+            sere.areaStyle = {
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: this.colors[data.list.indexOf(item)]
+                },
+                {
+                  offset: 1,
+                  color: 'rgb(255, 255, 255)'
+                }
+              ])
+            },
+            sere.type = 'line',
+            sere.showSymbol = false,
+            arr.push(sere);
+      });
+      return arr;
+    }
 
   }
 };
