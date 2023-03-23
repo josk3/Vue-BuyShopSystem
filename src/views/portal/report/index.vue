@@ -108,6 +108,7 @@ import configs from "@/configs";
 import {hasPermission} from "@/service/userSer";
 import SearchBox from "@/components/SearchBox";
 import {parseTime} from "@/utils";
+import echarts from "@/echarts.min";
 export default {
   components: {SearchBox},
   props: ['start_load_data'],
@@ -243,7 +244,7 @@ export default {
         this.payChart.dispose();
       }
       // 初始化
-      this.payChart = this.$echarts.init(this.$refs.paidAmountReport);
+      this.payChart = echarts.init(this.$refs.paidAmountReport);
       this.loading = true
       paidReport(this.paidParams).then(res => {
         const {data} = res;
@@ -302,7 +303,7 @@ export default {
         this.declineChart.dispose();
       }
       // 初始化
-      this.declineChart = this.$echarts.init(this.$refs.declineReport);
+      this.declineChart = echarts.init(this.$refs.declineReport);
       this.loading = true
       declineReport(this.declineParams).then(res => {
         const {data} = res;
@@ -374,7 +375,7 @@ export default {
         this.refundChart.dispose();
       }
       // 初始化
-      this.refundChart = this.$echarts.init(this.$refs.refundReport);
+      this.refundChart = echarts.init(this.$refs.refundReport);
       this.loading = true
       // 获取数据
       refundReport(this.refundParams).then(res => {
@@ -442,7 +443,7 @@ export default {
         array.forEach(item => {
           bodyData.push({name: item.name, value: item.value});
         })
-        let myChart = this.$echarts.init(
+        let myChart = echarts.init(
             document.getElementById("countryBar")
         );
         let option = {
@@ -506,7 +507,7 @@ export default {
         sere.name = item.name,
             sere.data = da,
             sere.areaStyle = {
-              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                 {
                   offset: 0,
                   color: this.colors[data.list.indexOf(item)]

@@ -18,8 +18,8 @@ import * as filters from './filters' // global filters
 import 'bootstrap'
 import '@/configs'
 
-import * as echarts from 'echarts'
-Vue.prototype.$echarts = echarts //挂载到Vue实例上面
+// import * as echarts from 'echarts'
+// Vue.prototype.$echarts = echarts //挂载到Vue实例上面
 
 import i18n from "@/service/i18n";
 //-
