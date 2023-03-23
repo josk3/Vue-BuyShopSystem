@@ -60,6 +60,9 @@ module.exports = {
         can_add_service_email: 'can_add_service_email',
         settle_identity: 'settle_identity',
     },
+    paths_info: {
+        merchant_info_path: '/merchant/info',
+    },
     template: {
         //企业授权书模板
         companyAuthorizationPath: 'https://wintopay-pub.oss-cn-shanghai.aliyuncs.com/static/docs/merchant/%E7%BB%93%E7%AE%97%E8%B4%A6%E6%88%B7%E5%A7%94%E6%89%98%E6%8E%88%E6%9D%83%E4%B9%A6-%E4%B8%AA%E4%BA%BAv2.pdf',
