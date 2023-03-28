@@ -1,4 +1,4 @@
-import {get, post} from '@/utils/request'
+import {get, post, postArray} from '@/utils/request'
 
 /**
  * 报告统计
@@ -33,4 +33,12 @@ export function top10SiteReport() {
 
 export function viewTheCountries(params) {
     return post('/report/top10Site/countryBar', params);
+}
+
+export function searchMyCards() {
+    return post('/report/searchMyCards', '');
+}
+
+export function makeMyReportCards(params) {
+    return postArray('/report/makeMyReportCards', params);
 }

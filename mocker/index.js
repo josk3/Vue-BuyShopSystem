@@ -3389,6 +3389,23 @@ const proxy = {
             ]
         })
     },
+    'POST /api/v1/report/searchMyCards': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: [
+                    {label: "2020-09-07", value: "1", count: "1", cbRate: ""},
+                    {label: "2020-09-06", value: "2", count: "2", cbRate: ""},
+            ]
+        })
+    },
+    'POST /api/v1/report/makeMyReportCards': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: []
+        })
+    },
     'GET /api/v1/announce/last': (req, res) => {
         return res.json({
             status: 1,
