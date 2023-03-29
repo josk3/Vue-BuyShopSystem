@@ -248,9 +248,9 @@ export default {
     }
   },
   //start_load_data不定义可正常使用
-
+  // 页面初始化挂载dom
   created() {
-    // 检测有无权限
+    // 根据权限挂载
     if (hasPermission(configs.perm.can_view_paid_report, this.permissions)) {
       this.perm_can_view_paid_report = true;
     }
@@ -264,7 +264,6 @@ export default {
       this.perm_can_view_top10_site_report = true;
     }
   },
-  // 页面初始化挂载dom
   mounted() {
     // 设置默认搜索时间
     const currentTime = new Date().getTime()
