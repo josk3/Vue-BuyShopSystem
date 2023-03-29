@@ -27,8 +27,7 @@
               <SearchBox class="search-box" :params="refundParams" @search="getRefundReport"></SearchBox>
             </div>
             <div class="chart-item">
-              <div id="refundReport" ref="refundReport"
-                   :style="paidStyle"></div>
+              <div id="refundReport" ref="refundReport" :style="paidStyle"></div>
             </div>
           </el-card>
         </div>
@@ -108,7 +107,7 @@
                 </div>
                 <el-form-item  prop="role_perm">
                   <el-checkbox-group v-model="reportCards" size="mini">
-                    <div class="el-col-10" v-for="card in allCards" :key="card.value" >
+                    <div class="el-col-10" v-for="card in allCards" :key="card.index" >
                       <el-checkbox :label="card.name" :value="card.value" name="card">
                         <div shadow="always">
                           {{ $t('nav.' + card.name) }}
@@ -148,7 +147,6 @@ import {
 // import {isEmpty} from "@/utils/validate";
 import {mapState} from "vuex";
 import configs from "@/configs";
-import {hasPermission} from "@/service/userSer";
 import SearchBox from "@/components/SearchBox";
 import {parseTime} from "@/utils";
 import echarts from "@/echarts.min";
@@ -249,21 +247,6 @@ export default {
   },
   //start_load_data不定义可正常使用
   // 页面初始化挂载dom
-  created() {
-    // 根据权限挂载
-    if (hasPermission(configs.perm.can_view_paid_report, this.permissions)) {
-      this.perm_can_view_paid_report = true;
-    }
-    if (hasPermission(configs.perm.can_view_decline_report, this.permissions)) {
-      this.perm_can_view_decline_report = true;
-    }
-    if (hasPermission(configs.perm.can_view_refund_report, this.permissions)) {
-      this.perm_can_view_refund_report = true;
-    }
-    if (hasPermission(configs.perm.can_view_top10_site_report, this.permissions)) {
-      this.perm_can_view_top10_site_report = true;
-    }
-  },
   mounted() {
     // 设置默认搜索时间
     const currentTime = new Date().getTime()
