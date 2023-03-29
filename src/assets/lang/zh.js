@@ -617,7 +617,6 @@ module.exports = {
         "last24Hours": "最近24小时",
         "last30Days": "最近30天",
         "last90Days": "最近90天",
-        "day": "天",
     },
     "report": {
       "report_overview": "报告概览",

@@ -617,7 +617,6 @@ module.exports = {
         "last24Hours": "Last 24 Hour",
         "last30Days": "Last 30 Day",
         "last90Days": "Last 90 Day",
-        "day": "Days",
     },
     "report": {
         "report_overview": "Report overview",
