@@ -278,6 +278,12 @@ function findItem(type, val, routerList) {
         } else if (type === 'name') {
             if (item.name === val) return item;
         }
+        if (!isEmpty(item.children) && item.children.length > 0) {
+            let checkChildren = findItem(type,val,item.children);
+            if (!isEmpty(checkChildren)) {
+                return checkChildren;
+            }
+        }
     }
     return null
 }

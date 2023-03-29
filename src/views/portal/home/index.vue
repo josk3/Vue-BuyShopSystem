@@ -160,6 +160,7 @@ import {mapState} from "vuex";
 import {hasPermission} from "@/service/userSer";
 import {isEmpty} from "@/utils/validate";
 import {alertUnOnlineStatus} from "@/service/CommSer";
+import {findPath} from "@/router/routerUtils";
 
 export default {
   name: "home",
@@ -169,6 +170,7 @@ export default {
       sidebar: state => state.app.sidebar,
       permissions: state => state.user.permissions,
       lang: state => state.app.lang,
+      menus: state => state.user.menus,
     }),
     configs() {
       return configs;
@@ -260,6 +262,9 @@ export default {
       this.$router.push({name: 'announce_detail', params: {id: row.nid}})
     },
     getTradeLimitAlertAndRemainingDay(isMaster) {
+      if (isEmpty(findPath(configs.paths_info.merchant_info_path, this.menus))) {
+        return
+      }
       this.willExpire = false
       this.monthTradeLimitAlert = false
       getMerInfo({'page': 'home'}).then(res => {
