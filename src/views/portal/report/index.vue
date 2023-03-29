@@ -297,6 +297,7 @@ export default {
     },
     // 根据卡组判定卡片是否展示
     getLoadEcharts() {
+      this.loading = true;
       if (this.myCards.includes(configs.perm.can_view_paid_report)) {
         this.perm_can_view_paid_report = true;
         this.getPaidReport();
@@ -321,6 +322,7 @@ export default {
       } else {
         this.perm_can_view_top10_site_report = false;
       }
+      this.loading = false;
     },
     // 成功支付
     getPaidReport() {
