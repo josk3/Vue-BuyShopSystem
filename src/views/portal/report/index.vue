@@ -407,7 +407,7 @@ export default {
               let str = '';
               params.forEach((item) => {
                 str = item.name + '<br>'
-                    + item.marker + this.$i18n.t('report.dishonor_rate') + ': ' + item.value + '%'  + '<br>'
+                    + item.marker + this.$i18n.t('report.dishonor_rate') + ': ' + this.rateText(item.value) + '<br>'
                     + item.marker + this.$i18n.t('report.total_declined') + ': ' + data.reserve[item.dataIndex] + '<br>'
                     + item.marker + this.$i18n.t('report.total_paid') + ': ' + data.totals[item.dataIndex];
 
@@ -621,8 +621,13 @@ export default {
     closeMyCards() {
       this.myCardsDialog = false;
     },
-
-  }
+    rateText(value) {
+      if (value === "0") {
+        return value + '%';
+      }
+      return (value * 1).toFixed(4) + '%';
+    },
+  },
 };
 </script>
 <style scoped>
