@@ -438,7 +438,7 @@
 			var checkInlandIdNum = (rule, value, callback) => {
 				//身份证号码校验：15位、18位数字 或 17位数字+Xx(包含港澳台在大陆身份证)
 				const reg =
-            /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+            /^([1-9][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9X]$/;
 				this.validReg(reg, value, rule.field, callback);
 			};
 			var checkInlandPhone = (rule, value, callback) => {
