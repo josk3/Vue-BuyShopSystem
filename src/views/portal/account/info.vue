@@ -713,7 +713,7 @@ export default {
   data() {
     var checkIdNum = (rule, value, callback) => {
       //18位身份证规范检查
-      const reg = /^([1-6][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+      const reg = /^([1-9][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
       this.validReg(reg, value, rule.field, callback);
     };
     var checkInlandName = (rule, value, callback) => {
