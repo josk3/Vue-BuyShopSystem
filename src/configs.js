@@ -66,7 +66,7 @@ module.exports = {
     template: {
         //企业授权书模板
         //companyAuthorizationPath: 'https://wintopay-pub.oss-cn-shanghai.aliyuncs.com/static/docs/merchant/%E7%BB%93%E7%AE%97%E8%B4%A6%E6%88%B7%E5%A7%94%E6%89%98%E6%8E%88%E6%9D%83%E4%B9%A6-%E4%B8%AA%E4%BA%BAv2.pdf',
-        companyAuthorizationPath: 'https://wintopay-pub.oss-cn-shanghai.aliyuncs.com/static/docs/merchant/%E4%B8%9A%E5%8A%A1%E6%AC%BE%E6%8C%87%E7%A4%BA%E4%BA%A4%E4%BB%98%E9%80%9A%E7%9F%A5%E4%B9%A6V1.1.pdf',
+        //移至info.vue companyAuthorizationPath: 'https://wintopay-pub.oss-cn-shanghai.aliyuncs.com/static/docs/merchant/%E4%B8%9A%E5%8A%A1%E6%AC%BE%E6%8C%87%E7%A4%BA%E4%BA%A4%E4%BB%98%E9%80%9A%E7%9F%A5%E4%B9%A6V1.1.pdf',
         settleBasePath: "https://wintopay-pub.oss-cn-shanghai.aliyuncs.com/static/docs/merchant/settle/",
     }
 }
