@@ -172,6 +172,7 @@ module.exports = {
         "finance_search": "Balance History",
         "settle_search": "Settle History",
         "fast_pay": "Fast Pay",
+        "cancel_orders": "Cancel orders",
         "delivery_manage": "Delivery",
         "risk_manage": "Risk Manage",
         "risk_area": "Risk Area",
@@ -591,6 +592,7 @@ module.exports = {
         "submit_refund": "Submit refund",
         "cancel_pending": "Cancel pending",
         "cancel_order": "Cancel order",
+        "reason_code": "Reason code",
     },
     "payout": {
         "delivery_reject": "Delivery aberrant",

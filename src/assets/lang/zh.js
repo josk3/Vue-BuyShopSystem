@@ -172,6 +172,7 @@ module.exports = {
         "finance_search": "所有明细",
         "settle_search": "结算明细",
         "fast_pay": "快捷收款",
+        "cancel_orders": "取消类订单",
         "delivery_manage": "物流管理",
         "risk_manage": "风控管理",
         "risk_area": "风险地区",
@@ -591,6 +592,7 @@ module.exports = {
         "submit_refund": "提交退款",
         "cancel_pending": "取消待处理",
         "cancel_order": "取消订单",
+        "reason_code": "原因码",
     },
     "payout": {
         "delivery_reject": "问题单",
