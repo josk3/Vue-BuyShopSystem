@@ -44,7 +44,12 @@
                             :label="$t('comm.merchant_order_no')">
                     </el-table-column>
                     <el-table-column
+                        prop="site_url"
+                        :label="$t('comm.site_url')">
+                    </el-table-column>
+                    <el-table-column
                             prop="payment_time"
+                            width="100"
                             :label="$t('comm.payment_time')">
                         <template v-slot="scope">
                             {{scope.row.payment_time | toDay }}
@@ -84,6 +89,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="chargeback.reason"
+                            :show-overflow-tooltip="true"
                             :label="$t('comm.reason')">
                         <template v-slot="scope">
                             {{scope.row.chargeback.reason}}
