@@ -91,7 +91,6 @@
                     </el-table-column>
                     <el-table-column
                             prop="chargeback.chargeback_time"
-                            :show-overflow-tooltip="true"
                             :label="$t('comm.declineTime')">
                         <template v-slot="scope">
                             {{scope.row.chargeback.chargeback_time | toDay }}
