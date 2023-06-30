@@ -387,7 +387,7 @@ module.exports = {
         "register_right_now": "Register Now",
         "reg_terms": ["I read agree", "Service Terms"],
         "remember_you_merchant_no": "Remember you merchant ID",
-        "has_send_active_email": "Send a active email,pleas check",
+        "has_send_active_email": "Send a active email,please check",
         "sms_valid_code": "Sms Valid Code",
         "you_password_is_simple": "Your current password is relatively simple, please change it for security.",
         "you_password_is_expire": "Your current password has not been changed for a period of time, please change it for security.",

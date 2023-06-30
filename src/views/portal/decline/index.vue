@@ -72,7 +72,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="pay_status"
-                            width="150px"
+                            width="140px"
                             :label="$t('kind.chargeback')">
                         <template v-slot="scope">
                             <span :class="'declined-' + scope.row.declined">{{ scope.row.declined | declinedStatus }}</span>
@@ -97,7 +97,7 @@
                     </el-table-column>
                     <el-table-column
                             prop="chargeback.chargeback_time"
-                            :show-overflow-tooltip="true"
+                            width="100"
                             :label="$t('comm.declineTime')">
                         <template v-slot="scope">
                             {{scope.row.chargeback.chargeback_time | toDay }}
