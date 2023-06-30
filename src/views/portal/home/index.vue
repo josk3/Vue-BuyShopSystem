@@ -21,6 +21,13 @@
           :description="$t('account.monthTradeLimitAlertTxt')"
           class="mb-2">
       </el-alert>
+      <el-alert
+          v-if="dailyTradeLimitAlert"
+          type="warning"
+          show-icon
+          :description="$t('account.dailyTradeLimitAlertTxt')"
+          class="mb-2">
+      </el-alert>
       <div class="col-12 mb-3 home-top-info-box">
         <el-card shadow="hover" class="box-card p-2 pl-3"
                  :body-style="{ padding: '0px' }">
@@ -205,6 +212,7 @@ export default {
       remainingDays: '',
       ////月交易限额提醒(目前仅主账号显示)
       monthTradeLimitAlert: false,
+      dailyTradeLimitAlert: false,
       //-
     }
   },
@@ -267,9 +275,11 @@ export default {
       }
       this.willExpire = false
       this.monthTradeLimitAlert = false
+      this.dailyTradeLimitAlert = false
       getMerInfo({'page': 'home'}).then(res => {
         const {data} = res
         this.$data.monthTradeLimitAlert = data.month_trade_limit_alert
+        this.$data.dailyTradeLimitAlert = data.daily_trade_limit_alert
 
         if (isMaster) {
           this.$data.info = data.info

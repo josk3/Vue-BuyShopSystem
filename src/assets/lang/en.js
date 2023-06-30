@@ -465,6 +465,7 @@ module.exports = {
         "remindClose": "Got it",
         "remainingDays": " days later",
         "monthTradeLimitAlertTxt": "Reminder of monthly trading quota: the current monthly trading quota is more than 90%.",
+        "dailyTradeLimitAlertTxt": "Reminder of daily trading quota: the current daily trading quota is more than 80%.",
     },
     "risk": {
         "fingerprint": "Card ID",
