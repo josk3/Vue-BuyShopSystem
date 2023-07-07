@@ -46,6 +46,11 @@
                   :label="$t('comm.email')">
               </el-table-column>
               <el-table-column
+                  prop="site_url"
+                  :show-overflow-tooltip="true"
+                  :label="$t('comm.site_url')">
+              </el-table-column>
+              <el-table-column
                   prop="payment_time"
                   :label="$t('comm.payment_time')">
                 <template v-slot="scope">
@@ -131,7 +136,7 @@ export default {
       loading: false,
       searchParams: {
         title: 'nav.refund_select', page: 1,
-        trade_id: '', merchant_order_no: '', email: '', refund_status: '', search_date: '',
+        trade_id: '', merchant_order_no: '', email: '', site_url: '', refund_status: '', search_date: '',
       },
       tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
       paneName: 'all', //默认
