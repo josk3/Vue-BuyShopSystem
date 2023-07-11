@@ -13,6 +13,9 @@
                 <el-button icon="el-icon-upload2" size="small"
                            @click="showUploadDialog" plain>{{ $t('comm.batch_upload') }}
                 </el-button>
+                <el-button icon="el-icon-download" size="mini"
+                           @click="downBlacklist" plain>{{ $t('comm.download') }}
+                </el-button>
               </div>
             </div>
           </div>
@@ -244,7 +247,7 @@ import Pagination from "@/components/Pagination";
 import {
   blacklistAdd,
   blacklistDel,
-  blacklistDisable,
+  blacklistDisable, blacklistDownload,
   blacklistEnable,
   blacklistSearch,
   downloadTemplate,
@@ -252,6 +255,7 @@ import {
 } from "@/service/blacklistSer";
 import {isEmpty} from "@/utils/validate";
 import {getOrder} from "@/service/orderSer";
+import qs from "qs";
 
 export default {
   name: "blacklist",
@@ -484,7 +488,17 @@ export default {
       }).finally(() => {
         this.$data.loading = false
       })
-    }
+    },
+
+    //黑名单导出下载
+    downBlacklist() {
+      this.loading = true
+      blacklistDownload(qs.stringify(this.searchParams)).then(() => {
+        this.$message.success(this.$i18n.t('comm.success').toString())
+      }).finally(() => {
+        this.loading = false
+      })
+    },
   },
 }
 </script>
