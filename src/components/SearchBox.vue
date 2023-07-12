@@ -77,6 +77,28 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item v-if="searchForm.decline_warn_type !== undefined" prop="decline_warn_type">
+            <el-select size="mini" v-model="searchForm.decline_warn_type" :placeholder="$t('comm.warn_type')"
+                       clearable>
+              <el-option
+                      v-for="item in declineWarnType"
+                      :key="item.value"
+                      :label="$t('decline_warn_type.' + item.value)"
+                      :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+<!--          <el-form-item v-if="searchForm.decline_warn_source !== undefined" prop="decline_warn_source">-->
+<!--            <el-select size="mini" v-model="searchForm.decline_warn_source" :placeholder="$t('comm.service_provider')"-->
+<!--                       clearable>-->
+<!--              <el-option-->
+<!--                      v-for="item in declineWarnSource"-->
+<!--                      :key="item.value"-->
+<!--                      :label="$t('decline_warn_source.' + item.value)"-->
+<!--                      :value="item.value">-->
+<!--              </el-option>-->
+<!--            </el-select>-->
+<!--          </el-form-item>-->
           <el-form-item v-if="searchForm.ip !== undefined" prop="ip">
             <el-input size="mini" v-model="searchForm.ip"
                       @keyup.native.enter="submitSearch"
@@ -206,6 +228,15 @@ export default {
       declineTypes: [
         {value: 'customer_service'},
         {value: 'fraud'},
+      ],
+      declineWarnType: [
+        {value: 'consumptionDispute'},
+        {value: 'fraudCard'},
+      ],
+      declineWarnSource: [
+        {value: 'collaboration'},
+        {value: 'ethoca'},
+        {value: 'rdr'},
       ],
       deliveryStatus: [
         {value: 'all'},
