@@ -470,6 +470,8 @@ module.exports = {
         "remainingDays": "天后",
         "monthTradeLimitAlertTxt": "月交易额度提醒: 当前月份交易额度使用超过90%，望知晓。",
         "dailyTradeLimitAlertTxt": "单日交易额度提醒: 当前单日交易额度使用超过80%，望知晓。",
+        "chargeback_warn_fees": "拒付预警处理费",
+        "chargeback_warn_fees_info": "21美元",
     },
     "risk": {
         "fingerprint": "卡ID",

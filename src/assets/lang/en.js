@@ -470,6 +470,8 @@ module.exports = {
         "remainingDays": " days later",
         "monthTradeLimitAlertTxt": "Reminder of monthly trading quota: the current monthly trading quota is more than 90%.",
         "dailyTradeLimitAlertTxt": "Reminder of daily trading quota: the current daily trading quota is more than 80%.",
+        "chargeback_warn_fees": "chargeback warn fees",
+        "chargeback_warn_fees_info": "21USD",
     },
     "risk": {
         "fingerprint": "Card ID",
