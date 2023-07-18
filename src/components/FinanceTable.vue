@@ -63,14 +63,15 @@
                     {{scope.row.charge_time | toFullTime }}
                 </template>
             </el-table-column>
-<!--            <el-table-column-->
-<!--                    prop="currency"-->
-<!--                    width="50px"-->
-<!--                    :label="$t('comm.currency')">-->
-<!--                <template v-slot="scope">-->
-<!--                    {{scope.row.currency}}-->
-<!--                </template>-->
-<!--            </el-table-column>-->
+            <el-table-column
+                    v-if="page_kind == 'finance'"
+                    prop="currency"
+                    width="50px"
+                    :label="$t('comm.currency')">
+                <template v-slot="scope">
+                    {{scope.row.currency}}
+                </template>
+            </el-table-column>
             <el-table-column
                     v-if="page_kind == 'finance'"
                     prop="fees"
@@ -89,19 +90,19 @@
                     {{scope.row.fixed_fees | nullToLine}}
                 </template>
             </el-table-column>
-<!--            <el-table-column-->
-<!--                    v-if="tab_data.kind != 'deposit'"-->
-<!--                    min-width="80px"-->
-<!--                    prop="charge">-->
-<!--                <template slot="header">-->
-<!--                    <span slot="reference">{{$t('finance.balance_charge')}}</span>-->
-<!--                </template>-->
-<!--                <template v-slot="scope">-->
-<!--                            <span :class="scope.row.charge === 0 ? '' : (scope.row.charge > 0 ? 'c-income' : 'c-outlay')">-->
-<!--                                {{scope.row.charge | chargeAmount}}-->
-<!--                            </span>-->
-<!--                </template>-->
-<!--            </el-table-column>-->
+            <el-table-column
+                    v-if="tab_data.kind != 'deposit' && page_kind == 'finance'"
+                    min-width="80px"
+                    prop="charge">
+                <template slot="header">
+                    <span slot="reference">{{$t('finance.balance_charge')}}</span>
+                </template>
+                <template v-slot="scope">
+                            <span :class="scope.row.charge === 0 ? '' : (scope.row.charge > 0 ? 'c-income' : 'c-outlay')">
+                                {{scope.row.charge | chargeAmount}}
+                            </span>
+                </template>
+            </el-table-column>
 <!--            <el-table-column-->
 <!--                    v-if="tab_data.kind == 'deposit' && page_kind == 'settle'"-->
 <!--                    min-width="80px"-->
