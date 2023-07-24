@@ -14,3 +14,7 @@ export function declineDownload(params) {
 export function declineSupply(params) {
     return post('/decline/supply', params);
 }
+
+export function declineWarnSearch(params) {
+    return post('/declineWarn/search', params);
+}

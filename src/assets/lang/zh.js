@@ -140,6 +140,8 @@ module.exports = {
         "reject": "不通过",
         "has_apply_wait_review": "申请已提交待审核",
         "created_or_payTime": "创建时间/付款时间",
+        "warn_type": "预警类型",
+        "service_provider": "服务商",
     },
     "api_key": {
         "create_api_key": "创建新密钥",
@@ -224,6 +226,7 @@ module.exports = {
         "merchant_user_loginHistory": "用户登录记录",
         "deposit_apply": "保证金结算申请",
         "settle_identity": "结算确认签署",
+        "declind_warn" : "拒付预警",
     },
     "user": { //跟用户相关
         "name": "姓名或公司名",
@@ -429,6 +432,7 @@ module.exports = {
         "manual": "人工",
         "reverseDeposit": "冲正保证金",
         "reverseTrade": "冲正交易款",
+        "declineEarlyWarning": "拒付预警",
     },
     "account": {
         "need_valid_identity_before": "请先完成账户激活认证",
@@ -466,6 +470,8 @@ module.exports = {
         "remainingDays": "天后",
         "monthTradeLimitAlertTxt": "月交易额度提醒: 当前月份交易额度使用超过90%，望知晓。",
         "dailyTradeLimitAlertTxt": "单日交易额度提醒: 当前单日交易额度使用超过80%，望知晓。",
+        "chargeback_warn_fees": "拒付预警处理费",
+        "chargeback_warn_fees_info": "21美元",
     },
     "risk": {
         "fingerprint": "卡ID",
@@ -509,6 +515,7 @@ module.exports = {
         "wipe_out_order": "订单抹账",
         "chargeback_cancel": "拒付返回",
         "finance_ticket": "人工建单",
+        "chargeback_warn": "拒付预警",
     },
     "shipment": {
         "add_ship": "添加物流",
@@ -707,6 +714,15 @@ module.exports = {
     "decline": {
         "customer_service": "售后服务",
         "fraud": "欺诈",
+    },
+    "decline_warn_type": {
+        "consumptionDispute": "消费者纠纷",
+        "fraudCard": "持卡人未授权的假卡交易",
+    },
+    "decline_warn_source": {
+        "collaboration": "Collaboration",
+        "ethoca": "Ethoca",
+        "rdr": "RDR",
     },
     "profile": {},
     "ticket": {

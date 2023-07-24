@@ -140,6 +140,8 @@ module.exports = {
         "reject": "Reject",
         "has_apply_wait_review": "Wait review",
         "created_or_payTime": "created/paymentTime",
+        "warn_type": "Early warning type",
+        "service_provider": "service provider",
     },
     "api_key": {
         "create_api_key": "Create new Api Key",
@@ -224,6 +226,7 @@ module.exports = {
         "merchant_user_loginHistory": "UserLoginHistory",
         "deposit_apply": "Deposit apply",
         "settle_identity": "Signature of settlement",
+        "declind_warn" : "Refusal warning",
     },
     "user": { //跟用户相关
         "name": "Name or Company",
@@ -429,6 +432,7 @@ module.exports = {
         "manual": "Manual",
         "reverseDeposit": "Reverse deposit",
         "reverseTrade": "Reverse trade",
+        "declineEarlyWarning": "chargeback early warning",
     },
     "account": {
         "need_valid_identity_before": "Please complete the account activation verification first",
@@ -466,6 +470,8 @@ module.exports = {
         "remainingDays": " days later",
         "monthTradeLimitAlertTxt": "Reminder of monthly trading quota: the current monthly trading quota is more than 90%.",
         "dailyTradeLimitAlertTxt": "Reminder of daily trading quota: the current daily trading quota is more than 80%.",
+        "chargeback_warn_fees": "chargeback warn fees",
+        "chargeback_warn_fees_info": "21USD",
     },
     "risk": {
         "fingerprint": "Card ID",
@@ -510,6 +516,7 @@ module.exports = {
         "wipe_out_order": "Wipe out",
         "chargeback_cancel": "Chargeback cancel",
         "finance_ticket": "Finance ticket",
+        "chargeback_warn": "Refusal warning",
     },
     "shipment": {
         "add_ship": "Add track",
@@ -707,6 +714,15 @@ module.exports = {
     "decline": {
         "customer_service": "Customer Service",
         "fraud": "Fraud",
+    },
+    "decline_warn_type": {
+        "consumptionDispute": "Consumer disputes",
+        "fraudCard": "Unauthorized counterfeit card transactions",
+    },
+    "decline_warn_source": {
+        "collaboration": "Collaboration",
+        "ethoca": "Ethoca",
+        "rdr": "RDR",
     },
     "profile": {},
     "ticket": {
