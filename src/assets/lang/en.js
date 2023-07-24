@@ -140,6 +140,8 @@ module.exports = {
         "reject": "Reject",
         "has_apply_wait_review": "Wait review",
         "created_or_payTime": "created/paymentTime",
+        "warn_type": "Early warning type",
+        "service_provider": "service provider",
     },
     "api_key": {
         "create_api_key": "Create new Api Key",
@@ -172,6 +174,7 @@ module.exports = {
         "finance_search": "Balance History",
         "settle_search": "Settle History",
         "fast_pay": "Fast Pay",
+        "cancel_orders": "Cancel orders",
         "delivery_manage": "Delivery",
         "risk_manage": "Risk Manage",
         "risk_area": "Risk Area",
@@ -228,6 +231,7 @@ module.exports = {
         "can_view_refund_report": "Refund Card",
         "can_view_decline_report": "Declined Card",
         "can_view_top10_site_report": "Merchant Top10 WebSite Card",
+        "declind_warn" : "Refusal warning",
     },
     "user": { //跟用户相关
         "name": "Name or Company",
@@ -391,7 +395,7 @@ module.exports = {
         "register_right_now": "Register Now",
         "reg_terms": ["I read agree", "Service Terms"],
         "remember_you_merchant_no": "Remember you merchant ID",
-        "has_send_active_email": "Send a active email,pleas check",
+        "has_send_active_email": "Send a active email,please check",
         "sms_valid_code": "Sms Valid Code",
         "you_password_is_simple": "Your current password is relatively simple, please change it for security.",
         "you_password_is_expire": "Your current password has not been changed for a period of time, please change it for security.",
@@ -433,6 +437,7 @@ module.exports = {
         "manual": "Manual",
         "reverseDeposit": "Reverse deposit",
         "reverseTrade": "Reverse trade",
+        "declineEarlyWarning": "chargeback early warning",
     },
     "account": {
         "need_valid_identity_before": "Please complete the account activation verification first",
@@ -469,6 +474,9 @@ module.exports = {
         "remindClose": "Got it",
         "remainingDays": " days later",
         "monthTradeLimitAlertTxt": "Reminder of monthly trading quota: the current monthly trading quota is more than 90%.",
+        "dailyTradeLimitAlertTxt": "Reminder of daily trading quota: the current daily trading quota is more than 80%.",
+        "chargeback_warn_fees": "chargeback warn fees",
+        "chargeback_warn_fees_info": "21USD",
     },
     "risk": {
         "fingerprint": "Card ID",
@@ -513,6 +521,7 @@ module.exports = {
         "wipe_out_order": "Wipe out",
         "chargeback_cancel": "Chargeback cancel",
         "finance_ticket": "Finance ticket",
+        "chargeback_warn": "Refusal warning",
     },
     "shipment": {
         "add_ship": "Add track",
@@ -596,6 +605,7 @@ module.exports = {
         "submit_refund": "Submit refund",
         "cancel_pending": "Cancel pending",
         "cancel_order": "Cancel order",
+        "reason_code": "Reason code",
     },
     "payout": {
         "delivery_reject": "Delivery aberrant",
@@ -733,6 +743,15 @@ module.exports = {
     "decline": {
         "customer_service": "Customer Service",
         "fraud": "Fraud",
+    },
+    "decline_warn_type": {
+        "consumptionDispute": "Consumer disputes",
+        "fraudCard": "Unauthorized counterfeit card transactions",
+    },
+    "decline_warn_source": {
+        "collaboration": "Collaboration",
+        "ethoca": "Ethoca",
+        "rdr": "RDR",
     },
     "profile": {},
     "ticket": {

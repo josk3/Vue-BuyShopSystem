@@ -113,6 +113,12 @@
                   <span>{{ info.chargeback_fees | nullToLine }}{{ $t("account.chargeback_fees_info") }}</span>
                 </div>
               </div>
+              <div class="row mb-0">
+                <label class="col-4">{{ $t("account.chargeback_warn_fees") }}</label>
+                <div class="col-8">
+                  <span>{{ $t("account.chargeback_warn_fees_info") }}</span>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-10 pl-1 pr-2 pb-2" v-if="ecmRuleData">
                   <el-table class="ecm-list-table" :data="ecmRuleData" :show-header="false"
@@ -713,7 +719,7 @@ export default {
   data() {
     var checkIdNum = (rule, value, callback) => {
       //18位身份证规范检查
-      const reg = /^([1-6][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+      const reg = /^([1-9][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9X]$/;
       this.validReg(reg, value, rule.field, callback);
     };
     var checkInlandName = (rule, value, callback) => {
@@ -885,7 +891,7 @@ export default {
 
       //
       ecmRuleData: [],
-      companyAuthorizationTemplate: configs.template.settleBasePath + "%E4%B8%9A%E5%8A%A1%E6%AC%BE%E6%8C%87%E7%A4%BA%E4%BA%A4%E4%BB%98%E9%80%9A%E7%9F%A5%E4%B9%A6-%E5%A2%83%E5%86%85%E4%BC%81%E4%B8%9A%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8.pdf",
+      companyAuthorizationTemplate: configs.template.settleBasePath + "%E4%B8%9A%E5%8A%A1%E6%AC%BE%E6%8C%87%E7%A4%BA%E4%BA%A4%E4%BB%98%E9%80%9A%E7%9F%A5%E4%B9%A6V1.1.pdf",
       outCompanyAuthorizationTemplate: configs.template.settleBasePath + "Settlement%20Authorization%20Letter.pdf",
       upload_flag: false,
       update_box_show: true,

@@ -14,7 +14,10 @@
                             <span v-if="scope.row.kind === 'settle' || scope.row.kind === 'depositSettle'">
                                 {{scope.row.batch_id | nullToLine}}
                             </span>
-                    <span v-else>{{scope.row.trade_id | nullToLine}}</span>
+                    <span v-else><router-link :to="{name: 'order_detail',params:{id:scope.row.trade_id}}"
+                                              class="btn-link">
+                    {{ scope.row.trade_id | nullToLine }}
+                  </router-link></span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -61,6 +64,7 @@
                 </template>
             </el-table-column>
             <el-table-column
+                    v-if="page_kind == 'finance'"
                     prop="currency"
                     width="50px"
                     :label="$t('comm.currency')">
@@ -87,7 +91,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    v-if="tab_data.kind != 'deposit'"
+                    v-if="tab_data.kind != 'deposit' && page_kind == 'finance'"
                     min-width="80px"
                     prop="charge">
                 <template slot="header">
@@ -99,21 +103,21 @@
                             </span>
                 </template>
             </el-table-column>
-            <el-table-column
-                    v-if="tab_data.kind == 'deposit' && page_kind == 'settle'"
-                    min-width="80px"
-                    prop="deposit_charge">
-                <template slot="header">
-                    <span slot="reference">
-                        {{$t('finance.deposit_charge')}}
-                    </span>
-                </template>
-                <template v-slot="scope">
-                            <span :class="scope.row.deposit_charge === 0 ? '' : (scope.row.deposit_charge > 0 ? 'c-income' : 'c-outlay')">
-                                {{scope.row.deposit_charge | chargeAmount}}
-                            </span>
-                </template>
-            </el-table-column>
+<!--            <el-table-column-->
+<!--                    v-if="tab_data.kind == 'deposit' && page_kind == 'settle'"-->
+<!--                    min-width="80px"-->
+<!--                    prop="deposit_charge">-->
+<!--                <template slot="header">-->
+<!--                    <span slot="reference">-->
+<!--                        {{$t('finance.deposit_charge')}}-->
+<!--                    </span>-->
+<!--                </template>-->
+<!--                <template v-slot="scope">-->
+<!--                            <span :class="scope.row.deposit_charge === 0 ? '' : (scope.row.deposit_charge > 0 ? 'c-income' : 'c-outlay')">-->
+<!--                                {{scope.row.deposit_charge | chargeAmount}}-->
+<!--                            </span>-->
+<!--                </template>-->
+<!--            </el-table-column>-->
             <el-table-column
                     v-if="page_kind == 'finance'"
                     prop="deposit_charge"

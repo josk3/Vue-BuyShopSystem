@@ -55,6 +55,10 @@ export const routerUtils = {
         component: () => import('@/views/portal/fast_pay'),
         meta: {noCache: true}
     },
+    'cancel_orders': {
+        component: () => import('@/views/portal/cancel_orders'),
+        meta: {noCache: true}
+    },
     'delivery_manage': {
         component: () => import('@/views/portal/delivery'),
         meta: {noCache: true}

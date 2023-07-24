@@ -566,7 +566,10 @@ export function numberToLocalStr(value) {
     // 获取整数部分
     const intPart = Math.trunc(value)
     // 整数部分处理，增加,
-    const intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
+    let intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
+    if (value.toString().startsWith('-') && !intPartFormat.toString().startsWith('-')) {
+        intPartFormat = '-' + intPartFormat;
+    }
     // 预定义小数部分
     let floatPart = ''
     // 将数值截取为小数部分和整数部分
