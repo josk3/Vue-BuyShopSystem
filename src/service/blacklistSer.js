@@ -35,3 +35,10 @@ export function uploadBlackList(params, blackListFile) {
 export function downloadTemplate(){
     return download('/blacklist/templates/download');
 }
+
+/**
+ * 黑名单下载
+ */
+export function blacklistDownload(params){
+    return download('/blacklist/download',params);
+}

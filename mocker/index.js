@@ -10,7 +10,6 @@ const proxyUrlSetting = {
     // '/images/(.*)': 'http://localhost:8013/',
     '/api/v1/(.*)': 'http://localhost:8013/',
 }
-
 function demoUserInfo() {
     return {
         status: 1,
@@ -2423,6 +2422,12 @@ const proxy = {
             message: null,
             data: {}
         });
+    },
+    'POST /api/v1/blacklist/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
     },
     'POST /api/v1/delivery/download_ship_brand_code': (req, res) => {
         return res.json({
