@@ -271,38 +271,7 @@ function demoUserInfo() {
                     "path": "/report/data_statistics",
                     "meta": null,
                     "hidden": false,
-                    "children": [
-                        {
-                            "name": "can_view_paid_report",
-                            "path": "/report/paidReport",
-                            "meta": null,
-                            "hidden": true
-                        },
-                        {
-                            "name": "can_view_refund_report",
-                            "path": "/report/refundReport",
-                            "meta": null,
-                            "hidden": true
-                        },
-                        {
-                            "name": "can_view_decline_report",
-                            "path": "/report/declineReport",
-                            "meta": null,
-                            "hidden": true
-                        },
-                        {
-                            "name": "can_view_top10_site_report",
-                            "path": "/report/top10SiteReport",
-                            "meta": null,
-                            "hidden": true
-                        },
-                        {
-                            "name": "can_view_top10_site_country_bar",
-                            "path": "/top10Site/countryBar",
-                            "meta": null,
-                            "hidden": true
-                        },
-                    ],
+                    "children": [],
                     "have_show_child": false
                 }
             ],
@@ -311,10 +280,6 @@ function demoUserInfo() {
                 "can_view_balance",
                 "delivery_download",
                 "can_add_service_email",
-                "can_view_paid_report",
-                "can_view_refund_report",
-                "can_view_decline_report",
-                "can_view_top10_site_report",
             ],
         }
     };

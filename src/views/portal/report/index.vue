@@ -298,25 +298,25 @@ export default {
     // 根据卡组判定卡片是否展示
     getLoadEcharts() {
       this.loading = true;
-      if (this.myCards.includes(configs.perm.can_view_paid_report)) {
+      if (this.myCards.includes(configs.reportCards.paid_report)) {
         this.perm_can_view_paid_report = true;
         this.getPaidReport();
       } else {
         this.perm_can_view_paid_report = false;
       }
-      if (this.myCards.includes(configs.perm.can_view_refund_report)) {
+      if (this.myCards.includes(configs.reportCards.refund_report)) {
         this.perm_can_view_refund_report = true;
         this.getRefundReport();
       } else {
         this.perm_can_view_refund_report = false;
       }
-      if (this.myCards.includes(configs.perm.can_view_decline_report)) {
+      if (this.myCards.includes(configs.reportCards.decline_report)) {
         this.perm_can_view_decline_report = true;
         this.getDeclineReport();
       } else {
         this.perm_can_view_decline_report = false;
       }
-      if (this.myCards.includes(configs.perm.can_view_top10_site_report)) {
+      if (this.myCards.includes(configs.reportCards.top10_site_report)) {
         this.perm_can_view_top10_site_report = true;
         this.getTop10SiteReport();
       } else {

@@ -59,10 +59,12 @@ module.exports = {
         delivery_download: 'delivery_download',
         can_add_service_email: 'can_add_service_email',
         settle_identity: 'settle_identity',
-        can_view_paid_report: 'can_view_paid_report',
-        can_view_refund_report: 'can_view_refund_report',
-        can_view_decline_report: 'can_view_decline_report',
-        can_view_top10_site_report: 'can_view_top10_site_report',
+    },
+    reportCards: {
+        paid_report: 'paid_report',
+        refund_report: 'refund_report',
+        decline_report: 'decline_report',
+        top10_site_report: 'top10_site_report',
     },
     paths_info: {
         merchant_info_path: '/merchant/info',
