@@ -16,29 +16,29 @@ export function last90Days() {
 }
 
 export function paidReport(params) {
-    return post('/report/paidReport', params);
+    return post('/report/stat/paidReport', params);
 }
 
 export function declineReport(params) {
-    return post('/report/declineReport', params);
+    return post('/report/stat/declineReport', params);
 }
 
 export function refundReport(params) {
-    return post('/report/refundReport', params);
+    return post('/report/stat/refundReport', params);
 }
 
 export function top10SiteReport() {
-    return post('/report/top10SiteReport', '');
+    return post('/report/stat/top10SiteReport', '');
 }
 
 export function viewTheCountries(params) {
-    return post('/report/top10Site/countryBar', params);
+    return post('/report/stat/top10Site/countryBar', params);
 }
 
 export function searchMyCards() {
-    return post('/report/searchMyCards', '');
+    return post('/report/stat/searchMyCards', '');
 }
 
 export function makeMyReportCards(params) {
-    return postArray('/report/makeMyReportCards', params);
+    return postArray('/report/stat/makeMyReportCards', params);
 }
