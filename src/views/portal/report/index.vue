@@ -101,7 +101,7 @@
         <div>
           <el-form ref="reportParams" :model="reportParams">
             <template>
-              <el-card class="el-col-24 mb-3">
+              <el-card class="el-col-24 mb-3" shadow="never">
                 <div slot="header" class="clearfix">
                   <span>{{ $t('report.select_cards_to_display') }}</span>
                 </div>
