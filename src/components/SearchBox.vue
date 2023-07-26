@@ -1,7 +1,7 @@
 <template>
   <div class="clearfix">
     <el-card class="search-box wpy-card box-card mb-2" :body-style="{ padding: '0px' }" shadow="hover">
-      <div slot="header" class="clearfix">
+      <div slot="header" class="clearfix" v-if="searchForm.title !== false">
         <span>{{ $t(searchForm.title) }}</span>
       </div>
       <el-form :model="searchForm" :inline="true" class="form form-inline" ref="searchForm"
@@ -187,7 +187,7 @@
             <el-button size="mini" type="primary"
                        @click="submitSearch">{{ $t('comm.search') }}
             </el-button>
-            <el-button size="mini"
+            <el-button size="mini" v-if="searchForm.reset_show !== false" prop="reset_show"
                        @click="resetForm('searchForm')">{{ $t('comm.reset') }}
             </el-button>
           </el-form-item>

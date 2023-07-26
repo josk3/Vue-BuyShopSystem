@@ -122,6 +122,10 @@ export const routerUtils = {
     'dispute_detail': {
         component: () => import('@/views/portal/dispute/disputeDetail'),
         meta: {noCache: true}
+    },
+    'data_statistics': {
+        component: () => import('@/views/portal/report/index'),
+        meta: {noCache: true}
     }
 }
 
