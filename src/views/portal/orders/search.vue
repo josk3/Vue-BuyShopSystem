@@ -224,9 +224,9 @@ export default {
   },
   mounted() {
     this.searchParams.pay_status = this.paneName
-    //默认页面搜索近1个月数据
+    //默认页面搜索近1周(7天)数据
     const currentTime = new Date().getTime()
-    this.searchParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 31, '{y}-{m}-{d}')
+    this.searchParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 7, '{y}-{m}-{d}')
       , parseTime(currentTime, '{y}-{m}-{d}')]
     this.search();
   },
