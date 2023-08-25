@@ -9,6 +9,7 @@ import 'element-theme-chalk'
 import App from './App.vue'
 import store from './store'
 import router from './router'
+import bus from './bus.js'
 
 import '@/icons'
 import '@/permission' // permission control
@@ -43,6 +44,7 @@ Object.keys(filters).forEach(key => {
 })
 
 Vue.config.productionTip = false
+Vue.prototype.$bus = bus
 
 new Vue({
     el: '#portal',
