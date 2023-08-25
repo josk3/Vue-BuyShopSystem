@@ -63,7 +63,7 @@ export default {
   },
   beforeRouteLeave: function (to, from, next) {
     // 离开当前路由 或 详细界面时候 清空bus值
-    if (to.name !== 'order_detail' || to.name !== 'finance_search') {
+    if (to.name !== 'order_detail' && to.name !== 'finance_search') {
       const currentTime = new Date().getTime()
       this.$bus.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 31, '{y}-{m}-{d}')
         , parseTime(currentTime, '{y}-{m}-{d}')]
