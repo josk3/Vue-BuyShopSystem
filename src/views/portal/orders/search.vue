@@ -170,7 +170,7 @@ export default {
     // 离开当前路由 或 详细界面时候 清空bus值
     if (to.name !== 'order_detail' && to.name !== 'trade_manage') {
       const currentTime = new Date().getTime()
-      this.$bus.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 31, '{y}-{m}-{d}')
+      this.$bus.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 7, '{y}-{m}-{d}')
         , parseTime(currentTime, '{y}-{m}-{d}')]
     }
     next() 
@@ -199,10 +199,10 @@ export default {
   mounted() {
     this.searchParams.pay_status = this.paneName
 
-    // 默认页面搜索近1个月数据, 如果存在bus事件则优先取bus
+    // 默认页面搜索近1周(7天)数据, 如果存在bus事件则优先取bus
 
     const currentTime = new Date().getTime()
-    this.searchParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 31, '{y}-{m}-{d}')
+    this.searchParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 7, '{y}-{m}-{d}')
       , parseTime(currentTime, '{y}-{m}-{d}')]
 
 
