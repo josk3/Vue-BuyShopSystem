@@ -15,6 +15,7 @@
                   <el-tab-pane :label="$t('kind.refund')" name="refund"></el-tab-pane>
                   <el-tab-pane :label="$t('kind.chargeback')" name="chargeback"></el-tab-pane>
                   <el-tab-pane :label="$t('kind.deposit')" name="depositSettle"></el-tab-pane>
+                  <el-tab-pane :label="$t('kind.declineEarlyWarning')" name="declineEarlyWarning"></el-tab-pane>
                 </el-tabs>
               </div>
               <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
