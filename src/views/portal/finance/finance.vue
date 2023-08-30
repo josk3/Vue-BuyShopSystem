@@ -26,7 +26,7 @@
                 </div>
               </div>
             </div>
-            <FinanceTable :tab_data="tabData" @page_change="pageChange($event)" page_kind="finance"></FinanceTable>
+            <FinanceTable :tab_data="tabData" :search_date="searchParams.search_date" @page_change="pageChange($event)" page_kind="finance"></FinanceTable>
           </el-card>
         </template>
       </el-skeleton>
@@ -62,6 +62,15 @@ export default {
       paneName: 'all', //默认
     }
   },
+  beforeRouteLeave: function (to, from, next) {
+    // 离开当前路由 或 详细界面时候 清空bus值
+    if (to.name !== 'order_detail' && to.name !== 'finance_search') {
+      const currentTime = new Date().getTime()
+      this.$bus.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 31, '{y}-{m}-{d}')
+        , parseTime(currentTime, '{y}-{m}-{d}')]
+    }
+    next() 
+  },
   mounted() {
     if (!isEmpty(this.$route.params)) {
       if (!isEmpty(this.$route.params.batch_id)) {
@@ -69,11 +78,18 @@ export default {
       }
     }
     this.searchParams.finance_status = this.paneName
-    //默认页面搜索近1个月数据
+
+    // 默认页面搜索近1个月数据, 如果存在bus事件则优先取bus
     const currentTime = new Date().getTime()
     this.searchParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 31, '{y}-{m}-{d}')
       , parseTime(currentTime, '{y}-{m}-{d}')]
-    this.search();
+    if (this.$bus.search_date) this.searchParams.search_date = this.$bus.search_date
+    this.search()
+  },
+  beforeCreate() {
+    this.$bus.$on('search_date', function (date) {
+      this.$bus.search_date = date
+    })
   },
   methods: {
     paneClick(tab) {
