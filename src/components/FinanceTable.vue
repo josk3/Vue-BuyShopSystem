@@ -1,147 +1,107 @@
 <template>
     <div v-if="tab_data">
-        <el-table
-                :class="tab_data.list.length ? '' : 'wpy-z-table'"
-                :data="tab_data.list"
-                :header-row-style="{background:'#2C2E2F'}"
-                style="width: 100%">
-            <el-table-column
-                    prop="trade_id"
-                    :show-overflow-tooltip="true"
-                    min-width="150px"
-                    :label="$t('comm.trade_or_batch_id')">
+        <el-table :class="tab_data.list.length ? '' : 'wpy-z-table'" :data="tab_data.list"
+            :header-row-style="{ background: '#2C2E2F' }" style="width: 100%">
+            <el-table-column prop="trade_id" :show-overflow-tooltip="true" min-width="150px"
+                :label="$t('comm.trade_or_batch_id')">
                 <template v-slot="scope">
-                            <span v-if="scope.row.kind === 'settle' || scope.row.kind === 'depositSettle'">
-                                {{scope.row.batch_id | nullToLine}}
-                            </span>
-                    <span v-else><router-link :to="{name: 'order_detail',params:{id:scope.row.trade_id}}"
-                                              class="btn-link">
-                    {{ scope.row.trade_id | nullToLine }}
-                  </router-link></span>
+                    <span v-if="scope.row.kind === 'settle' || scope.row.kind === 'depositSettle'">
+                        {{ scope.row.batch_id | nullToLine }}
+                    </span>
+                    <span v-else>
+                        <router-link :to="{
+                            name: 'order_detail',
+                            params: { id: scope.row.trade_id },
+                            query: { search_date: search_date }
+                        }" class="btn-link">
+                            {{ scope.row.trade_id | nullToLine }}
+                        </router-link>
+                    </span>
                 </template>
             </el-table-column>
-            <el-table-column
-                    prop="merchant_order_no"
-                    :show-overflow-tooltip="true"
-                    :label="$t('comm.merchant_order_no')">
+            <el-table-column prop="merchant_order_no" :show-overflow-tooltip="true" :label="$t('comm.merchant_order_no')">
                 <template v-slot="scope">
-                    {{scope.row.merchant_order_no | nullToLine}}
+                    {{ scope.row.merchant_order_no | nullToLine }}
                 </template>
             </el-table-column>
-            <el-table-column
-                prop="site_url"
-                :show-overflow-tooltip="true"
-                :label="$t('comm.site_url')">
-              <template v-slot="scope">
-                {{scope.row.site_url | nullToLine}}
-              </template>
-            </el-table-column>
-            <el-table-column
-                    prop="order_amount"
-                    :show-overflow-tooltip="true"
-                    :label="$t('comm.order_amount')">
+            <el-table-column prop="site_url" :show-overflow-tooltip="true" :label="$t('comm.site_url')">
                 <template v-slot="scope">
-                    {{scope.row.order_amount }}  {{scope.row.order_currency }}
+                    {{ scope.row.site_url | nullToLine }}
                 </template>
             </el-table-column>
-            <el-table-column
-                    prop="kind"
-                    width="50px"
-                    :show-overflow-tooltip="true"
-                    :label="$t('comm.type')">
+            <el-table-column prop="order_amount" :show-overflow-tooltip="true" :label="$t('comm.order_amount')">
                 <template v-slot="scope">
-                    {{scope.row.kind | chargeKind }}
+                    {{ scope.row.order_amount }} {{ scope.row.order_currency }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="kind" width="50px" :show-overflow-tooltip="true" :label="$t('comm.type')">
+                <template v-slot="scope">
+                    {{ scope.row.kind | chargeKind }}
                     <span v-if="scope.row.manual_kind_name">{{ scope.row.manual_kind_name }}</span>
-                    <span v-if="scope.row.reason"><br/>说明: {{ scope.row.reason }}</span>
+                    <span v-if="scope.row.reason"><br />说明: {{ scope.row.reason }}</span>
                 </template>
             </el-table-column>
-            <el-table-column
-                    prop="charge_time"
-                    :show-overflow-tooltip="true"
-                    :label="$t('comm.created')">
+            <el-table-column prop="charge_time" :show-overflow-tooltip="true" :label="$t('comm.created')">
                 <template v-slot="scope">
-                    {{scope.row.charge_time | toFullTime }}
+                    {{ scope.row.charge_time | toFullTime }}
                 </template>
             </el-table-column>
-            <el-table-column
-                    v-if="page_kind == 'finance'"
-                    prop="currency"
-                    width="50px"
-                    :label="$t('comm.currency')">
+            <el-table-column v-if="page_kind == 'finance'" prop="currency" width="50px" :label="$t('comm.currency')">
                 <template v-slot="scope">
-                    {{scope.row.currency}}
+                    {{ scope.row.currency }}
                 </template>
             </el-table-column>
-            <el-table-column
-                    v-if="page_kind == 'finance'"
-                    prop="fees"
-                    width="70px"
-                    :label="$t('finance.fees')">
+            <el-table-column v-if="page_kind == 'finance'" prop="fees" width="70px" :label="$t('finance.fees')">
                 <template v-slot="scope">
-                    {{scope.row.fees | nullToLine}}
+                    {{ scope.row.fees | nullToLine }}
                 </template>
             </el-table-column>
-            <el-table-column
-                    v-if="page_kind == 'finance'"
-                    prop="fixed_fees"
-                    width="70px"
-                    :label="$t('finance.fixed_fees')">
+            <el-table-column v-if="page_kind == 'finance'" prop="fixed_fees" width="70px" :label="$t('finance.fixed_fees')">
                 <template v-slot="scope">
-                    {{scope.row.fixed_fees | nullToLine}}
+                    {{ scope.row.fixed_fees | nullToLine }}
                 </template>
             </el-table-column>
-            <el-table-column
-                    v-if="tab_data.kind != 'deposit' && page_kind == 'finance'"
-                    min-width="80px"
-                    prop="charge">
+            <el-table-column v-if="tab_data.kind != 'deposit' && page_kind == 'finance'" min-width="80px" prop="charge">
                 <template slot="header">
-                    <span slot="reference">{{$t('finance.balance_charge')}}</span>
+                    <span slot="reference">{{ $t('finance.balance_charge') }}</span>
                 </template>
                 <template v-slot="scope">
-                            <span :class="scope.row.charge === 0 ? '' : (scope.row.charge > 0 ? 'c-income' : 'c-outlay')">
-                                {{scope.row.charge | chargeAmount}}
-                            </span>
-                </template>
-            </el-table-column>
-<!--            <el-table-column-->
-<!--                    v-if="tab_data.kind == 'deposit' && page_kind == 'settle'"-->
-<!--                    min-width="80px"-->
-<!--                    prop="deposit_charge">-->
-<!--                <template slot="header">-->
-<!--                    <span slot="reference">-->
-<!--                        {{$t('finance.deposit_charge')}}-->
-<!--                    </span>-->
-<!--                </template>-->
-<!--                <template v-slot="scope">-->
-<!--                            <span :class="scope.row.deposit_charge === 0 ? '' : (scope.row.deposit_charge > 0 ? 'c-income' : 'c-outlay')">-->
-<!--                                {{scope.row.deposit_charge | chargeAmount}}-->
-<!--                            </span>-->
-<!--                </template>-->
-<!--            </el-table-column>-->
-            <el-table-column
-                    v-if="page_kind == 'finance'"
-                    prop="deposit_charge"
-                    :label="$t('finance.deposit_charge')">
-                <template v-slot="scope">
-                            <span :class="scope.row.deposit_charge === 0 ? '' : (scope.row.deposit_charge > 0 ? 'c-income' : 'c-outlay')">
-                                {{scope.row.deposit_charge | chargeAmount}}
-                            </span>
+                    <span :class="scope.row.charge === 0 ? '' : (scope.row.charge > 0 ? 'c-income' : 'c-outlay')">
+                        {{ scope.row.charge | chargeAmount }}
+                    </span>
                 </template>
             </el-table-column>
-            <el-table-column
-                    v-if="page_kind == 'finance'"
-                    prop="surplus"
-                    :label="$t('comm.balance')">
+            <!--            <el-table-column-->
+            <!--                    v-if="tab_data.kind == 'deposit' && page_kind == 'settle'"-->
+            <!--                    min-width="80px"-->
+            <!--                    prop="deposit_charge">-->
+            <!--                <template slot="header">-->
+            <!--                    <span slot="reference">-->
+            <!--                        {{$t('finance.deposit_charge')}}-->
+            <!--                    </span>-->
+            <!--                </template>-->
+            <!--                <template v-slot="scope">-->
+            <!--                            <span :class="scope.row.deposit_charge === 0 ? '' : (scope.row.deposit_charge > 0 ? 'c-income' : 'c-outlay')">-->
+            <!--                                {{scope.row.deposit_charge | chargeAmount}}-->
+            <!--                            </span>-->
+            <!--                </template>-->
+            <!--            </el-table-column>-->
+            <el-table-column v-if="page_kind == 'finance'" prop="deposit_charge" :label="$t('finance.deposit_charge')">
                 <template v-slot="scope">
-                    {{scope.row.surplus}}
+                    <span
+                        :class="scope.row.deposit_charge === 0 ? '' : (scope.row.deposit_charge > 0 ? 'c-income' : 'c-outlay')">
+                        {{ scope.row.deposit_charge | chargeAmount }}
+                    </span>
                 </template>
             </el-table-column>
-            <el-table-column
-                    v-if="page_kind == 'finance'"
-                    prop="deposit_surplus"
-                    :label="$t('finance.deposit_balance')">
+            <el-table-column v-if="page_kind == 'finance'" prop="surplus" :label="$t('comm.balance')">
                 <template v-slot="scope">
-                    {{scope.row.deposit_surplus}}
+                    {{ scope.row.surplus }}
+                </template>
+            </el-table-column>
+            <el-table-column v-if="page_kind == 'finance'" prop="deposit_surplus" :label="$t('finance.deposit_balance')">
+                <template v-slot="scope">
+                    {{ scope.row.deposit_surplus }}
                 </template>
             </el-table-column>
         </el-table>
@@ -151,27 +111,26 @@
 </template>
 
 <script>
-    import Pagination from "@/components/Pagination";
+import Pagination from "@/components/Pagination";
 
-    export default {
-        name: "FinanceTable",
-        components: {Pagination},
-        props: ['tab_data', 'page_change', 'page_kind'],
-        data() {
-            return {
-                loading: false,
-            }
+export default {
+    name: "FinanceTable",
+    components: { Pagination },
+    props: ['tab_data', 'page_change', 'page_kind', 'search_date'],
+    data() {
+        return {
+            loading: false,
+        }
+    },
+    watch: {},
+    mounted() {
+    },
+    methods: {
+        pageClick(page) {
+            this.$emit('page_change', page)
         },
-        watch: {},
-        mounted() {
-        },
-        methods: {
-            pageClick(page) {
-                this.$emit('page_change', page)
-            },
-        },
+    },
 
-    }
+}
 </script>
-<style>
-</style>
+<style></style>
