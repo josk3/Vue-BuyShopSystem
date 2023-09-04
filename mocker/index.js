@@ -4425,6 +4425,12 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/declineWarn/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        });
+    },
 }
 let sleep = false;
 // let sleep = true;// true 测试延迟响应
