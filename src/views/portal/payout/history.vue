@@ -29,6 +29,12 @@
             </div>
           </div>
         </div>
+        <div class="row text-left" v-if="searchTimeTip">
+          <div class="col-12">
+            <small class="ml-2">{{ searchTimeTip }} : {{ searchParams.search_date[0] }} ~ {{
+                searchParams.search_date[1] }}</small>
+          </div>
+        </div>
         <el-table
             :class="tabData.list.length ? '' : 'wpy-z-table'"
             :data="tabData.list"
@@ -203,6 +209,7 @@ import {payoutSearch, applicantHistoryDownload} from "@/service/payoutSer";
 import {deliveryAdd, deliveryUpload, getTrackBrands, getIsSettleDay} from "@/service/deliverySer";
 import {isEmpty} from "@/utils/validate";
 import {mapState} from "vuex";
+import {parseTime} from "@/utils";
 
 export default {
   name: "payout_history",
@@ -220,7 +227,7 @@ export default {
       loading: false,
       searchParams: {
         title: 'nav.payout_history', page: 1,
-        trade_id: '', merchant_order_no: '', email: '', site_url: ''
+        trade_id: '', merchant_order_no: '', email: '', site_url: '', search_date: '',
       },
       tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
       paneName: 'submitted', //默认
@@ -244,6 +251,10 @@ export default {
   },
   mounted() {
     this.searchParams.payout_status = this.paneName
+    //默认页面搜索近1个月数据
+    const currentTime = new Date().getTime()
+    this.searchParams.search_date = [parseTime(currentTime - 3600 * 1000 * 24 * 31, '{y}-{m}-{d}')
+      , parseTime(currentTime, '{y}-{m}-{d}')]
     this.search();
     getIsSettleDay().then(res => {
       const {data} = res
@@ -272,6 +283,11 @@ export default {
       }
       this.searchParams.page = pageNum
       this.loading = true
+      if (!isEmpty(this.searchParams.search_date)) {
+        this.searchTimeTip = this.$i18n.t('comm.payment_time') + ''
+      } else {
+        this.searchTimeTip = ''
+      }
       payoutSearch(this.searchParams).then(res => {
         const {data} = res
         this.$data.tabData = data
