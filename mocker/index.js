@@ -9,8 +9,8 @@ const proxyUrlSetting = {
     // '/api/v1/(.*)': 'http://127.0.0.1/',
     // '/images/(.*)': 'http://localhost:8013/',
     '/api/v1/(.*)': 'http://localhost:8013/',
+    // '/api/v1/(.*)': 'https://stage-portal.wintopay.com/',
 }
-
 function demoUserInfo() {
     return {
         status: 1,
@@ -265,13 +265,21 @@ function demoUserInfo() {
                     "hidden": false,
                     "children": null,
                     "have_show_child": false
+                },
+                {
+                    "name": "data_statistics",
+                    "path": "/report/data_statistics",
+                    "meta": null,
+                    "hidden": false,
+                    "children": [],
+                    "have_show_child": false
                 }
             ],
             permissions: [
                 "home_trade_report",
                 "can_view_balance",
                 "delivery_download",
-                "can_add_service_email"
+                "can_add_service_email",
             ],
         }
     };
@@ -2416,6 +2424,12 @@ const proxy = {
             data: {}
         });
     },
+    'POST /api/v1/blacklist/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        })
+    },
     'POST /api/v1/delivery/download_ship_brand_code': (req, res) => {
         return res.json({
             status: 1,
@@ -3343,6 +3357,79 @@ const proxy = {
                     "2020-08-09"
                 ]
             }
+        })
+    },
+    'POST /api/v1/report/paidReport': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                list: [
+                    {label: "2020-09-07", value: "1", count: "1", cbRate: ""},
+                    {label: "2020-09-06", value: "2", count: "2", cbRate: ""},
+                ]
+            }
+        })
+    },
+    'POST /api/v1/report/declineReport': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                list: [
+                    {label: "2020-09-07", value: "1", count: "1", cbRate: ""},
+                    {label: "2020-09-06", value: "2", count: "2", cbRate: ""},
+                ]
+            }
+        })
+    },
+    'POST /api/v1/report/refundReport': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: {
+                list: [
+                    {label: "2020-09-07", value: "1", count: "1", cbRate: ""},
+                    {label: "2020-09-06", value: "2", count: "2", cbRate: ""},
+                ]
+            }
+        })
+    },
+    'POST /api/v1/report/top10SiteReport': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: [
+                    {label: "2020-09-07", value: "1", count: "1", cbRate: ""},
+                    {label: "2020-09-06", value: "2", count: "2", cbRate: ""},
+            ]
+        })
+    },
+    'POST /api/v1/report/top10Site/countryBar': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: [
+                    {label: "2020-09-07", value: "1", count: "1", cbRate: ""},
+                    {label: "2020-09-06", value: "2", count: "2", cbRate: ""},
+            ]
+        })
+    },
+    'POST /api/v1/report/searchMyCards': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: [
+                    {label: "2020-09-07", value: "1", count: "1", cbRate: ""},
+                    {label: "2020-09-06", value: "2", count: "2", cbRate: ""},
+            ]
+        })
+    },
+    'POST /api/v1/report/makeMyReportCards': (req, res) => {
+        return res.json({
+            status: 1,
+            message: '测试test',
+            data: []
         })
     },
     'GET /api/v1/announce/last': (req, res) => {
@@ -4330,6 +4417,18 @@ const proxy = {
             status: 1,
             message: 'xf23',
             data: null
+        });
+    },
+    'POST /api/v1/declineWarn/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        });
+    },
+    'POST /api/v1/declineWarn/download': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
         });
     },
 }

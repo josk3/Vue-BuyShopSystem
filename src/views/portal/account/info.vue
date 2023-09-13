@@ -113,6 +113,12 @@
                   <span>{{ info.chargeback_fees | nullToLine }}{{ $t("account.chargeback_fees_info") }}</span>
                 </div>
               </div>
+              <div class="row mb-0">
+                <label class="col-4">{{ $t("account.chargeback_warn_fees") }}</label>
+                <div class="col-8">
+                  <span>{{ $t("account.chargeback_warn_fees_info") }}</span>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-10 pl-1 pr-2 pb-2" v-if="ecmRuleData">
                   <el-table class="ecm-list-table" :data="ecmRuleData" :show-header="false"
