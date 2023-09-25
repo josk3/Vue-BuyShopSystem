@@ -56,7 +56,7 @@ export default {
       searchParams: {
         title: 'nav.finance_search', page: 1,
         trade_id: '', merchant_order_no: '', search_date: '',
-        trade_batch_id: '', deposit_batch_id: '', trade_settled: '', deposit_settled: ''
+        trade_batch_id: '', deposit_batch_id: '', trade_settled: '', deposit_settled: '', site_url: '',
       },
       tabData: {list: [], page: {count: 0, page_num: 0, total: 0}},
       paneName: 'all', //默认
