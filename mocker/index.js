@@ -3359,7 +3359,7 @@ const proxy = {
             }
         })
     },
-    'POST /api/v1/report/paidReport': (req, res) => {
+    'POST /api/v1/report/stat/paidReport': (req, res) => {
         return res.json({
             status: 1,
             message: '测试test',
@@ -3371,7 +3371,7 @@ const proxy = {
             }
         })
     },
-    'POST /api/v1/report/declineReport': (req, res) => {
+    'POST /api/v1/report/stat/declineReport': (req, res) => {
         return res.json({
             status: 1,
             message: '测试test',
@@ -3383,7 +3383,7 @@ const proxy = {
             }
         })
     },
-    'POST /api/v1/report/refundReport': (req, res) => {
+    'POST /api/v1/report/stat/refundReport': (req, res) => {
         return res.json({
             status: 1,
             message: '测试test',
@@ -3395,7 +3395,7 @@ const proxy = {
             }
         })
     },
-    'POST /api/v1/report/top10SiteReport': (req, res) => {
+    'POST /api/v1/report/stat/top10SiteReport': (req, res) => {
         return res.json({
             status: 1,
             message: '测试test',
@@ -3405,7 +3405,7 @@ const proxy = {
             ]
         })
     },
-    'POST /api/v1/report/top10Site/countryBar': (req, res) => {
+    'POST /api/v1/report/stat/top10Site/countryBar': (req, res) => {
         return res.json({
             status: 1,
             message: '测试test',
@@ -3415,7 +3415,7 @@ const proxy = {
             ]
         })
     },
-    'POST /api/v1/report/searchMyCards': (req, res) => {
+    'POST /api/v1/report/stat/searchMyCards': (req, res) => {
         return res.json({
             status: 1,
             message: '测试test',
@@ -3425,7 +3425,7 @@ const proxy = {
             ]
         })
     },
-    'POST /api/v1/report/makeMyReportCards': (req, res) => {
+    'POST /api/v1/report/stat/makeMyReportCards': (req, res) => {
         return res.json({
             status: 1,
             message: '测试test',
