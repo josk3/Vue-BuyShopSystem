@@ -123,11 +123,11 @@
                                 </el-tabs>
                             </div>
                             <div class="col-4 text-right p-0" style="background-color: #F5F7FA">
-<!--                                <div class="mr-5 mt-1">-->
-<!--                                    <el-button icon="el-icon-download" size="mini"-->
-<!--                                               @click="downDecline" plain>{{ $t('comm.download') }}-->
-<!--                                    </el-button>-->
-<!--                                </div>-->
+                                <div class="mr-5 mt-1">
+                                    <el-button icon="el-icon-download" size="mini"
+                                               @click="downDeclineWarn" plain>{{ $t('comm.download') }}
+                                    </el-button>
+                                </div>
                             </div>
                         </div>
                         <div class="row text-left" v-if="searchDeclineTimeTip">
@@ -219,7 +219,7 @@
     import configs from '@/configs'
     import SearchBox from "@/components/SearchBox";
     import Pagination from "@/components/Pagination";
-    import {declineDownload, declineSearch, declineWarnSearch} from "@/service/declineSer";
+    import {declineDownload, declineSearch, declineWarnSearch, declineDownloadWarn} from "@/service/declineSer";
     import {isEmpty} from "@/utils/validate";
 
     export default {
@@ -323,6 +323,14 @@
             downDecline() {
                 this.loading = true
                 declineDownload(this.searchParams).then(() => {
+                    this.$message.success(this.$i18n.t('comm.success').toString())
+                }).finally(() => {
+                    this.loading = false
+                })
+            },
+            downDeclineWarn() {
+                this.loading = true
+                declineDownloadWarn(this.declinedWarnSearchParams).then(() => {
                     this.$message.success(this.$i18n.t('comm.success').toString())
                 }).finally(() => {
                     this.loading = false

@@ -516,6 +516,9 @@
               </template>
               <el-input v-model="add_bank.bank_swift_no"></el-input>
             </el-form-item>
+            <el-form-item :label="$t('bank.bank_card_mobile')" prop="bank_card_mobile">
+              <el-input v-model="add_bank.bank_card_mobile"></el-input>
+            </el-form-item>
             <el-form-item prop="card_no">
               <template slot="label">
                 <el-popover placement="top-start" width="240" trigger="hover" :content="$t('bank.card_no2')">
@@ -837,6 +840,7 @@ export default {
         }],
         route_mode: [{required: true, message: this.validMsg("bank.route_mode"), trigger: "blur"}],
         bank_swift_no: [{required: true, message: this.validMsg("bank.bank_swift_no"), trigger: "blur"}],
+        bank_card_mobile: [{required: true, message: this.validMsg("bank.bank_card_mobile"), trigger: "blur"}],
       },
       //境内
       rulesF: {

@@ -9,6 +9,7 @@ const proxyUrlSetting = {
     // '/api/v1/(.*)': 'http://127.0.0.1/',
     // '/images/(.*)': 'http://localhost:8013/',
     '/api/v1/(.*)': 'http://localhost:8013/',
+    // '/api/v1/(.*)': 'https://stage-portal.wintopay.com/',
 }
 function demoUserInfo() {
     return {
@@ -4419,6 +4420,12 @@ const proxy = {
         });
     },
     'POST /api/v1/declineWarn/search': (req, res) => {
+        return res.json({
+            status: 1,
+            data: {}
+        });
+    },
+    'POST /api/v1/declineWarn/download': (req, res) => {
         return res.json({
             status: 1,
             data: {}
