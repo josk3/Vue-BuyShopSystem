@@ -159,7 +159,7 @@
           <el-button size="small" @click="viewDetail(summaryBatchId)" class="float-left">
             {{ $t('settle.batch_id_detail') }}
           </el-button>
-          <el-button v-show="!summaryData.isSignOk && !summaryData.isNegative && (isShowSettleSignButton || this.user.master) && (summaryData.bank != null && summaryData.bank.card_account_type !== null)"  size="small" @click="settleSign(summaryBatchId)" class="float-left">
+          <el-button v-show="!summaryData.isSignOk && !summaryData.isNegative && (isShowSettleSignButton || this.user.master) && (summaryData.bank != null && summaryData.bank.card_account_type !== null) && !(summaryData.bank.card_country_type == 'outland' && summaryData.bank.card_account_type == 'company' && summaryData.bank.payee_type == 'own_company')"  size="small" @click="settleSign(summaryBatchId)" class="float-left">
             <i class="el-icon-edit"></i>
             {{ $t('settle.settle_sign') }}
           </el-button>
