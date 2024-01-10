@@ -22,6 +22,17 @@
                                     {{ $t('nav.decline_manage') }}
                                 </router-link>
                             </div>
+                            <div v-if="detail.kind == 'declineWarn'" class="mb-3">
+                                <strong v-if="detail.target_id">
+                                    {{ $t('comm.trade_id') }}:
+                                    <router-link :to="configs.orderDetailPath + detail.target_id" class="btn-link">
+                                        {{ detail.target_id }}
+                                    </router-link>
+                                </strong>
+                                <router-link :to="configs.chargebackPath" class="btn-link d-block mt-2">
+                                    {{ $t('nav.decline_manage') }}
+                                </router-link>
+                            </div>
                             <div v-else-if="detail.kind == 'dispute'" class="mb-3">
                                 <strong v-if="detail.target_id">
                                     {{ $t('dispute.dispute_no') }}:
