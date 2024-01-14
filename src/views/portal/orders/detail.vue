@@ -142,6 +142,12 @@
                 <div class="item"><span class="label">{{ $t('order.track') }}</span>
                   <span class="value">{{ order.track_brand }} {{ order.track_number }}</span>
                 </div>
+                <div class="item" v-if="order.sale_settle_batch_id"><span class="label">BatchID</span>
+                  <span class="value">{{ order.sale_settle_batch_id }}</span>
+                </div>
+                <div class="item" v-if="order.deposit_batch_id"><span class="label">Deposit BatchID</span>
+                  <span class="value">{{ order.deposit_batch_id }}</span>
+                </div>
               </div>
             </div>
           </el-card>
