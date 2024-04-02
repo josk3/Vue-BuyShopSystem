@@ -19,6 +19,8 @@
             </div>
             <div class="text-left">
               <strong>{{ order.order_currency }} {{ order.order_amount }}</strong>
+              <span v-if="order.payment_method != 'card'" class="payment-method"
+                    :class="['pm-' + order.payment_method]" style="width: 100px;height: 18px;"></span>
               <span v-if="order.declined" class="pay-status declined-1 ml-1">
                 {{ $t('status.has_declined') }}
                 <small v-if="order.chargeback_cancel" class="pay-status text-green ml-1">
@@ -29,7 +31,10 @@
                 {{ $t('kind.refund') }} {{ order.refund_total }} {{ order.order_currency }}
               </span>
               <span v-else class="pay-status ml-1" :class="['ps-' + order.pay_status]">
-                {{ order.pay_status | payStatus }}
+                <span v-if="order.payment_method != 'card' && order.pay_status == 'pending'">
+                  {{$i18n.t('status.localPayPending')}}
+                </span>
+                <span v-else>{{ order.pay_status | payStatus }}</span>
               </span>
               <span class="ml-1 tr-id btn clipboard-btn" :data-clipboard-text="order.trade_id" @click="copy">
                 {{ order.trade_id }}
@@ -116,13 +121,23 @@
 
               </div>
               <div class="col-6">
-                <div class="item"><span class="label">{{ $t('order.card_brand') }}</span>
+                <div v-if="order.card" class="item">
+                  <span class="label">{{ $t('order.card_brand') }}</span>
                   <span class="value"><span class="card-brand" :class="['cb-' + order.card.brand]"></span></span>
                 </div>
-                <div class="item"><span class="label">{{ $t('risk.card_no') }}</span><span class="value">•••• {{
-                  order.card.last4 }}</span>
+                <div v-else class="item">
+                  <span class="label">{{ $t('order.payment_method') }}</span>
+                  <span class="value">
+                    {{order.payment_method}}<br/>
+                    <span class="payment-method" :class="['pm-' + order.payment_method]" style="width: 100px;height: 30px;"></span>
+                  </span>
                 </div>
-                <div class="item"><span class="label">{{ $t('risk.bill_address') }}&nbsp;</span>
+                <div class="item" v-if="order.card">
+                  <span class="label">{{ $t('risk.card_no') }}</span><span class="value">••••
+                  {{order.card.last4 }}</span>
+                </div>
+                <div v-if="order.bill_address && order.bill_address != 'x'" class="item">
+                  <span class="label">{{ $t('risk.bill_address') }}&nbsp;</span>
                   <span class="value emailValue">{{ order.bill_address }}</span>
                 </div>
                 <div class="item"><span class="label">{{ $t('order.order_time') }}&nbsp;</span><span class="value">{{

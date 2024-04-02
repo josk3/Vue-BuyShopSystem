@@ -398,12 +398,13 @@ span.ps-canceled{
   color: #172474;
   background-color: #f5f8fe;
 }
-span.card-brand{
+span.card-brand,span.payment-method{
   width: 30px;
   height: 20px;
   display: inline-block;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: contain;
 }
 span.cb-visa{
   background-image: url("img/icon/visa.svg");
@@ -423,6 +424,31 @@ span.cb-ae{
 span.cb-dc{
   background-image: url("img/icon/discover.svg");
 }
+span.pm-alfamart{
+  background-image: url("img/icon/alfamart.svg");
+}
+span.pm-bancomat_pay{
+  background-image: url("img/icon/bancomat_pay.svg");
+}
+span.pm-bancontact{
+  background-image: url("img/icon/bancontact.svg");
+}
+span.pm-card{
+  background-image: url("img/icon/card.svg");
+}
+span.pm-giropay{
+  background-image: url("img/icon/giropay.svg");
+}
+span.pm-grabpay{
+  background-image: url("img/icon/grabpay.svg");
+}
+span.pm-konbini{
+  background-image: url("img/icon/konbini.svg");
+}
+span.pm-safety_pay{
+  background-image: url("img/icon/safety_pay.svg");
+}
+
 .wpy-dialog{
   border-radius: 6px;
 }

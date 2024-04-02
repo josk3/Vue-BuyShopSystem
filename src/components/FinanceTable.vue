@@ -61,6 +61,11 @@
                     {{ scope.row.fixed_fees | nullToLine }}
                 </template>
             </el-table-column>
+          <el-table-column v-if="page_kind == 'finance'" prop="per_fee" width="70px" :label="$t('finance.per_fee')">
+                <template v-slot="scope">
+                    {{ scope.row.per_fee | nullToLine }}
+                </template>
+            </el-table-column>
             <el-table-column v-if="tab_data.kind != 'deposit' && page_kind == 'finance'" min-width="80px" prop="charge">
                 <template slot="header">
                     <span slot="reference">{{ $t('finance.balance_charge') }}</span>

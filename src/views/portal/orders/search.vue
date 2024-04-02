@@ -59,10 +59,11 @@
               <el-table-column :label="$t('order.card_brand')" width="60px">
                 <template v-slot="scope">
                   <span v-if="scope.row.card_brand" class="card-brand" :class="['cb-' + scope.row.card_brand]"></span>
+                  <span v-else-if="scope.row.payment_method" class="payment-method" :class="['pm-' + scope.row.payment_method]"></span>
                   <span v-else> -- </span>
                 </template>
               </el-table-column>
-              <el-table-column prop="pay_status" width="90px" :label="$t('comm.status')">
+              <el-table-column prop="pay_status" width="100px" :label="$t('comm.status')">
                 <template v-slot="scope">
                   <span v-if="scope.row.pay_status === 'failed'" class="pay-status pay-status-help"
                     :class="['ps-' + scope.row.pay_status]">
@@ -76,6 +77,10 @@
                   <span v-else-if="scope.row.pay_status === 'unpaid' && scope.row.wtp3d == 1" class="pay-status"
                     :class="['ps-' + scope.row.pay_status]">
                     {{ $t('status.3DPay') }}
+                  </span>
+                  <span v-else-if="scope.row.pay_status === 'pending' && scope.row.payment_method != 'card'" class="pay-status"
+                        :class="['ps-' + scope.row.pay_status]">
+                    {{ $t('status.localPayPending') }}
                   </span>
                   <span v-else-if="scope.row.pay_status === 'canceled'" class="pay-status pay-status-help"
                     :class="['ps-' + scope.row.pay_status]">

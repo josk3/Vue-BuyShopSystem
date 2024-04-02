@@ -421,6 +421,7 @@ module.exports = {
         "invalid": "Invalid",
         "valid": "Valid",
         "3DPay": "3DS pay",
+        "localPayPending": "Processing",
         "declined_cancel": "chargeback cancel",
     },
     "kind": {
@@ -539,6 +540,7 @@ module.exports = {
     "finance": {
         "fees": "Fee",
         "fixed_fees": "Processing fees",
+        "per_fee": "Per fee",
         "balance_charge": "Charge",
         "include_fees": "Include fees",
         "deposit_charge": "Deposit charge",
@@ -568,6 +570,7 @@ module.exports = {
         "card_and_email": "Card/Email",
         "order_amount_settle_amount": "Amount",//Order/Settle Amount
         "card_brand": "Card",
+        "payment_method": "Payment method",
         "url_and_ip": "Url/IP",
         "create_time_payment_time": "Create/Payment",
         "order_trade_amount": "Order amount",

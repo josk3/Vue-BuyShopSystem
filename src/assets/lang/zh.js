@@ -421,6 +421,7 @@ module.exports = {
         "invalid": "未认证",
         "valid": "已认证",
         "3DPay": "3D支付中",
+        "localPayPending": "本地支付中",
         "declined_cancel": "拒付已撤销",
     },
     "kind": {
@@ -538,6 +539,7 @@ module.exports = {
     "finance": {
         "fees": "手续费",
         "fixed_fees": "处理费",
+        "per_fee": "单笔处理费",
         "balance_charge": "余额变动",
         "include_fees": "包含了手续费",
         "deposit_charge": "保证金变动",
@@ -568,6 +570,7 @@ module.exports = {
         "card_and_email": "卡号/邮箱",
         "order_amount_settle_amount": "订单/结算金额",
         "card_brand": "卡种",
+        "payment_method": "支付方式",
         "url_and_ip": "网址/IP",
         "create_time_payment_time": "创建/更新",
         "order_trade_amount": "订单交易金额",
