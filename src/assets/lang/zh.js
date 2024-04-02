@@ -478,6 +478,7 @@ module.exports = {
         "dailyTradeLimitAlertTxt": "单日交易额度提醒: 当前单日交易额度使用超过80%，望知晓。",
         "chargeback_warn_fees": "拒付预警处理费",
         "chargeback_warn_fees_info": "21美元",
+        "refund_fees": "退款处理费"
     },
     "risk": {
         "fingerprint": "卡ID",

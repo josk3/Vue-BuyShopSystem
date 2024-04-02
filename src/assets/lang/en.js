@@ -478,6 +478,7 @@ module.exports = {
         "dailyTradeLimitAlertTxt": "Reminder of daily trading quota: the current daily trading quota is more than 80%.",
         "chargeback_warn_fees": "chargeback warn fees",
         "chargeback_warn_fees_info": "21USD",
+        "refund_fees": "Refund processing fee",
     },
     "risk": {
         "fingerprint": "Card ID",
