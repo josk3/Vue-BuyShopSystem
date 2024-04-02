@@ -122,7 +122,7 @@
               <div class="row mb-0">
                 <label class="col-4">{{ $t("account.refund_fees") }}</label>
                 <div class="col-8">
-                  <span>{{ info.refund_fees }}美元</span>
+                  <span>${{ info.refund_fees|nullToLine}}</span>
                 </div>
               </div>
               <div class="row">
