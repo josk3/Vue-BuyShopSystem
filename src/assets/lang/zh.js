@@ -544,6 +544,7 @@ module.exports = {
         "include_fees": "包含了手续费",
         "deposit_charge": "保证金变动",
         "deposit_balance": "保证金余额",
+        "refund_fee": "退款处理费",
     },
     "settle": {
         "create_time": "生成时间",

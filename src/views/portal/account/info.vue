@@ -120,6 +120,33 @@
                 </div>
               </div>
               <div class="row">
+                <div class="col-10 pl-1 pr-2 pb-2" v-if="paymentMethodFees && paymentMethodFees.length > 0">
+                  <el-table size="mini" :data="paymentMethodFees">
+                    <el-table-column prop="payment_method" :label="$t('order.payment_method')" width="120">
+                      <template v-slot="scope">
+                        <span class="payment-method" :class="['pm-' + scope.row.payment_method]" style="width: 100px;height: 30px;"></span>
+                      </template>
+                    </el-table-column>
+                    <el-table-column prop="fee_rate" :label="$t('finance.fees')" width="80">
+                      <template v-slot="scope">
+                        {{scope.row.fee_rate|feeRateToPercent}}
+                      </template>
+                    </el-table-column>
+                    <el-table-column prop="fee_rate" :label="$t('finance.per_fee')" width="80">
+                      <template v-slot="scope">
+                        <span v-if="scope.row.per_fee">$</span>
+                        {{scope.row.per_fee|nullToLine}}
+                      </template>
+                    </el-table-column>
+                    <el-table-column prop="fee_rate" :label="$t('finance.refund_fee')" width="80">
+                      <template v-slot="scope">
+                        <span v-if="scope.row.refund_fee">$</span>
+                        {{scope.row.refund_fee|nullToLine}}
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </div>
+
                 <div class="col-10 pl-1 pr-2 pb-2" v-if="ecmRuleData && ecmRuleData.length > 0">
                   <el-table class="ecm-list-table" :data="ecmRuleData" :show-header="false"
                             :row-class-name="ecmMatchClass">
@@ -694,6 +721,7 @@ import {isEmpty} from "@/utils/validate";
 import {math} from "@/utils/math";
 import {getAreaJsonData, getInlandAreaJsonData} from "@/service/riskAreaSer";
 import {createApiKey, deleteApiKey, getApiKeyList, keyLogs} from "@/service/merApiKeySer";
+import {feeRateToPercent} from "@/filters";
 
 export default {
   name: "merchant_info",
@@ -895,6 +923,7 @@ export default {
 
       //
       ecmRuleData: [],
+      paymentMethodFees: [],
       companyAuthorizationTemplate: configs.template.settleBasePath + "%E4%B8%9A%E5%8A%A1%E6%AC%BE%E6%8C%87%E7%A4%BA%E4%BA%A4%E4%BB%98%E9%80%9A%E7%9F%A5%E4%B9%A6V1.1.pdf",
       outCompanyAuthorizationTemplate: configs.template.settleBasePath + "Settlement%20Authorization%20Letter.pdf",
       upload_flag: false,
@@ -1017,6 +1046,7 @@ export default {
               this.$data.add_bank = data.bank;
             }
             this.$data.ecmRuleData = data.ecm_rule;
+            this.$data.paymentMethodFees = data.payment_method_fees;
 
             if (this.add_bank.status !== 1) {
               this.loadIdentity();

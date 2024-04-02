@@ -378,7 +378,7 @@ export default {
             this.formByTradeId.address = data.customer.shipping_address
             this.formByTradeId.full_name = data.customer.shipping_first_name + ' ' + data.customer.shipping_last_name
             this.formByTradeId.phone = data.customer.shipping_phone
-            this.formByTradeId.card_no = '•••• ' + data.card.last4
+            this.formByTradeId.card_no = isEmpty(data.card) ? '' : '•••• ' + data.card.last4
           }).finally(() => {
             this.$data.loading = false
           })

@@ -2,6 +2,7 @@
 import {isEmpty, isNumber} from "@/utils/validate";
 import i18n from "@/service/i18n";
 import {parseTime} from "@/utils";
+import {math} from "@/utils/math";
 
 export {parseTime, formatTime} from '@/utils'
 
@@ -214,6 +215,16 @@ export function tradeFeeStr(val) {
         }
     });
     return str;
+}
+
+/**
+ * 小数点形式转百分比
+ * @param val
+ * @returns {string}
+ */
+export function feeRateToPercent(val) {
+    if (isEmpty(val)) return '--'
+    return math.multiply(val, 100) + '%';
 }
 
 /**

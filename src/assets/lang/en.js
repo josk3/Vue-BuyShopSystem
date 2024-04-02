@@ -545,6 +545,7 @@ module.exports = {
         "include_fees": "Include fees",
         "deposit_charge": "Deposit charge",
         "deposit_balance": "Deposit balance",
+        "refund_fee": "Refund fee",
     },
     "settle": {
         "create_time": "Create time",
