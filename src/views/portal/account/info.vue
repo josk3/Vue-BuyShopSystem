@@ -120,7 +120,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-10 pl-1 pr-2 pb-2" v-if="ecmRuleData">
+                <div class="col-10 pl-1 pr-2 pb-2" v-if="ecmRuleData && ecmRuleData.length > 0">
                   <el-table class="ecm-list-table" :data="ecmRuleData" :show-header="false"
                             :row-class-name="ecmMatchClass">
                     <el-table-column prop="amount" width="90">
