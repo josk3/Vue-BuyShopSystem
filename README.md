@@ -1,4 +1,9 @@
-# mer-portal
+<div align="center">
+
+    
+# ✨Payment-中控管理 ✨
+    
+</div>
 
 ## 环境版本号推荐
 ```
@@ -6,25 +11,13 @@ node -v , 14.20.0
 npm -v , 6.14.17	
 ```
 
-## Project setup
+## 下载依赖包
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 启动项目
 ```
 npm run serve
+npm run mockerRunApi 
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
