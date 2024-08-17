@@ -6,7 +6,7 @@
                 <form class="form-signin bg-white pb-3 pt-3 shadow-sm rounded-sm" action="" method="post"
                       @submit.prevent="submitLogin">
                     <h1 class="h3 mb-3 font-weight-normal">
-                        <svg-icon icon-class="wintopay_icon_color" style="width: 45px;height: 29px;"/>
+                        <!-- <svg-icon icon-class="wintopay_icon_color" style="width: 45px;height: 29px;"/> -->
                         {{ $t('comm.merchant_login') }}
                     </h1>
                     <el-alert v-if="errorMsg" :title="errorMsg"

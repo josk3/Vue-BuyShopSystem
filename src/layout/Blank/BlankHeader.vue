@@ -9,7 +9,7 @@
                 <ul class="navbar-nav mr-auto pl-lg-5 ml-md-5 ml-sm-3">
                     <li class="nav-item active">
                         <router-link :to="configs.homePath">
-                            <svg-icon icon-class="wintopay_word_black" class-name="home-logo mt-1"/>
+                            <!-- <svg-icon icon-class="wintopay_word_black" class-name="home-logo mt-1"/> -->
                             <span v-if="!configs.isProEnv" class="test-env-info mr-2">{{$t('comm.test')}}</span>
                         </router-link>
                     </li>

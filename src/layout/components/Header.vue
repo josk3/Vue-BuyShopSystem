@@ -5,7 +5,7 @@
                 <div class="col-2">
                     <h5 class="my-0 mr-md-auto font-weight-normal">
                         <router-link :to="configs.homePath">
-                            <svg-icon icon-class="wintopay_logo_white" class-name="home-logo"/>
+                            <!-- <svg-icon icon-class="wintopay_logo_white" class-name="home-logo"/> -->
                         </router-link>
                     </h5>
                 </div>
